@@ -1,0 +1,23 @@
+{
+	"isSuccess": true,
+	"errorCode": "",
+	"errorMessage": "",
+	"returnObject": [{
+		"id": 1001,
+		"code": "huodong",
+		"title": "[大目标]2周年运行情况和当前市场分析",
+		"startDate": "2019/11/08",
+		"endDate": "2019/11/20",
+		"icon": "https://image.talicai.com/MGZjODAyMzU3Zjc4MjA4Y2RkZDQ0MWYzYTU3ZGQ3Mzc-sq200",
+		"viewer": 301
+	},
+	{
+		"id": 1002,
+		"code": "huodong",
+		"title": "新的一年,[大目标]新的变化",
+		"startDate": "2020/02/08",
+		"endDate": "2020/02/20",
+		"icon": "https://image.talicai.com/Y2M1OTk2YTEzNzIzZGFkODhkZWJkOTYwZWE4NmU3NWM-sq200",
+		"viewer": 101
+	}]
+}

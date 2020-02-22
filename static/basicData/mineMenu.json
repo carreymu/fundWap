@@ -1,0 +1,36 @@
+{
+	"isSuccess": true,
+	"errorCode": "",
+	"errorMessage": "",
+	"returnObject":[
+	{
+		"id": 1,
+		"title": "■ 消息中心",
+		"startTime": "9:00",
+		"endTime": "10:00", 
+		"reservation": 40,
+		"newsCnt": 0,
+		"url":"http://m.baidu.com",
+		"comment":"消息,请列出最近10条"
+	},
+	{
+		"id": 2,
+		"title": "✿ 新人指南",
+		"startTime": "9:00",
+		"endTime": "10:00",
+		"reservation": 40,
+		"newsCnt": 8,
+		"url":"http://m.baidu.com",
+		"comment":""
+	},
+	{
+		"id": 3,
+		"title": "◕ 推荐好友",
+		"startTime": "9:00",
+		"endTime": "10:00",
+		"reservation": 10,
+		"newsCnt": 10,
+		"url":"http://m.baidu.com",
+		"comment":""
+	}]
+}
