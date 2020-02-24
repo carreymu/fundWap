@@ -38,14 +38,16 @@
         <flexbox-item><span class="ico">☑</span> &nbsp;千里挑一</flexbox-item>
       </flexbox>
     </div>
+
     <div>
-      
       <tab :line-width=2 active-color='#DA5162' v-model="index">
-        <tab-item style="font-size:12px;" :selected="demo2 === item" v-for="(item, index) in list2" @click="demo2 = item" :key="index">{{item}}</tab-item>
+        <tab-item style="font-size:12px;" v-for="(item, index) in chartData" :key="index">{{item.name}}</tab-item>
       </tab>
-      <swiper v-model="index" height="100px" :show-dots="false">
-        <swiper-item v-for="(item, index) in list2" :key="index">
-          <div >{{item}} Container</div>
+      <swiper v-model="index" height="260px" :show-dots="false">
+        <swiper-item v-for="(item, index) in chartData" :key="index">
+          <v-chart :data="item.data">
+            <v-line series-field="type" />
+          </v-chart>
         </swiper-item>
       </swiper>
       <flexbox>
@@ -57,24 +59,27 @@
           <x-button @click.native="index=1" mini v-if="index===1" plain type="warn"  class="timeBtn">近3月</x-button>
           <x-button @click.native="index=1" mini v-else  class="timeBtn">近3月</x-button>
         </flexbox-item>
+        <!-- to do, add event -->
         <flexbox-item><x-button @click.native="next" mini class="timeBtn">近6月</x-button></flexbox-item>
         <flexbox-item><x-button @click.native="next" mini class="timeBtn">近1年</x-button></flexbox-item>
         <flexbox-item><x-button @click.native="prev" mini class="timeBtn">近3年</x-button></flexbox-item>
       </flexbox>
+
     </div>
 
-    
+    <div>
     <group >
-      <cell title="组合基金配置" is-link style="text-align:left;font-size: 12px;color:dimgray;">
+      <cell title="组合基金配置" is-link class="group">
         <span>查看消息 </span>
       </cell>
     </group>
+    </div>
     
     <div v-for="(item,index) in fTypeList" :key="index">
         <div class="funds"><span style="color:orange">■</span> {{item.name}}</div>
         <div class="fundsDetail">
         <flexbox orient="vertical">
-          <flexbox-item  v-for="(it,idx) in item.fundsList" :key="idx">
+          <flexbox-item v-for="(it,idx) in item.fundsList" :key="idx" class="fundsDetails">
             <div style="float: left;">{{it.fundName}}({{it.fundCode}})</div>
             <div style="float: right;">{{it.percent}}%</div>
           </flexbox-item>
@@ -103,7 +108,7 @@
     height: 180px;
     position:relative;
   }
-	.bestChoiceDetail .txt .topTxt{
+	.bestChoiceDetail .topImg .topTxt{
 		position:absolute;
     /* top:160px; */
     right:10px;
@@ -152,6 +157,11 @@
     color:brown;
   }
 
+  .bestChoiceDetail .group{
+    text-align:left;
+    font-size: 12px;
+    color:dimgray;
+  }
   .bestChoiceDetail .funds{
     text-align: left;
     margin: 10px 10px 0 10px;
@@ -159,15 +169,18 @@
    }
   .bestChoiceDetail .fundsDetail{
     color:#999;
- 	  padding: 10px 20px;
+ 	  padding: 5px 10px 5px 20px ;
     background-color:rgb(240, 240, 240);
     line-height: 22px;
    }
-
+  // .bestChoiceDetail .fundsDetails{
+  //   border-bottom:1px solid rgb(230, 230, 230);
+  //  }
+   
   .bestChoiceDetail .timeBtn {
-    margin: 0 15px 0 5px;
+    margin: 0 5px 0 5px;
     padding:0 5px;
-    height: 30px;
+    height: 25px;
     border-radius: 4px;
     background-clip: padding-box;
     &:active {
@@ -176,150 +189,4 @@
       background-color: transparent;
     }
   }
-
-
-   /* .bestChoiceDetailTxt  .item-box {
-   		border-bottom:1px solid #eee;
-   		background: #fff;
-   }
-
-   .bestChoiceDetailTxt  .top-name{
-   	   border-bottom:1px solid #eee;
-   	   padding: 10px 0 5px 0;
-   	   margin-right: 10px;
-   }
-
-
-
-   .bestChoiceDetailTxt .bottom-cer{
-   		padding:10px 0;
-   		font-size:12px;
-   	    color: #666;
-   	    position :relative;
-   }
-
-    .bestChoiceDetailTxt .bottom-cer p{
-    	padding-left: 15px;
-    	line-height: 20px;
-    }
-	
-	.bestChoiceDetailTxt .bottom-cer p span{
-		padding-left: 10px
-	}
-
-   .bestChoiceDetailTxt .icon-clock{
-   		position:absolute;
-   		fill: #666;
-   }
-
-
-   .bestChoiceDetailTxt .remark{
-   	 height: 40px;
-   	 font-size: 14px;
-   	 line-height: 40px;
-     color: #666;
-   	 padding-left: 20px
-   }
-
-    .bestChoiceDetailTxt .time-box{
-   	 background: #fff;
-     padding-bottom:10px
-     ;
-   }
-
-   .bestChoiceDetailTxt .checker-box{
-      margin:15px;
-   }
-
-    .bestChoiceDetailTxt  .time-item{
-		   border-bottom: 1px solid #eee
-   }
-    .bestChoiceDetailTxt  .arrow-icon{
-   	  text-align: right;
-   	  padding-right: 15px;
-
-   }
-
-   .bestChoiceDetailTxt .checkTime-item {
-	  width: 20%;
-	  height: 32px;
-	  line-height: 32px;
-	  text-align: center;
-    border: 1px solid #ccc;
-	  background-color: #fff;
-    color: #000;
-    box-sizing: border-box;
-	}
-	.bestChoiceDetailTxt .checkTime-item-selected {
-	  background: #333333 url(../../../assets/images/bgIcon/select-icon.png) no-repeat right bottom;
-    background-size:12px 10px;
-	  color: #fff;
-    border: 1px solid #333333;
-    border-right:1px solid #ccc;
-
-	}
-  .bestChoiceDetailTxt .checkTime-item-disabled{
-      background: #DEDCDC;
-  }
-
-  .bestChoiceDetailTxt .bottom-btn{
-      padding:20px;
-  }
-
-  .bestChoiceDetailTxt .labels{
-      margin:5px 30px;
-      height: 30px;
-      line-height: 30px
-  }
-
-    .bestChoiceDetailTxt .labels >div{
-        float:left;
-        margin-right: 20px;
-        font-size: 12px;
-        padding-left: 20px;
-
-    }
-
-    .bestChoiceDetailTxt .labels .is-allow{
-        background: url(../../../assets/images/bgIcon/is-allow.png) no-repeat left center ;
-        background-size:12px;
-    }
-
-    .bestChoiceDetailTxt .labels .no-allow{
-        background: url(../../../assets/images/bgIcon/no-allow.png) no-repeat left center ;
-        background-size:12px;
-    }
-
-    .bestChoiceDetailTxt .labels .is-select{
-      background: url(../../../assets/images/bgIcon/is-select.png) no-repeat left center ;
-      background-size:12px;
-    }
-
-    .bestChoiceDetailTxt .s-name span{
-        height:30px;
-        line-height: 30px;
-        display:block;
-        float: left;
-    }
-
-  .bestChoiceDetailTxt .s-name .name-label{
-      background: #6B106A;
-      color: #fff;
-      font-size: 12px;
-      height:20px;
-      line-height: 20px;
-      margin: 5px 10px;
-      padding:0 10px;
-    }
-
-    .bestChoiceDetailTxt  .showSuccess .weui-toast__content{
-      background: url(../../../assets/images/bgIcon/success.png) no-repeat left center;
-      background-size:20px;
-    }
-
-    .bestChoiceDetailTxt  .showSuccess .weui-toast{
-      padding-left: 10px;
-    } */
-
-
 </style>
