@@ -1,12 +1,6 @@
 # fundWap-app
 
 
-# fundWap
-
-## Ð§¹ûÍ¼
-
-![](https://github.com/carreymu/fundWap/tree/master/static/3.jpg)
-
 ## Build Setup
 
 ``` bash
@@ -22,3 +16,12 @@ npm run build
 # build for prod and view the bundle analyzer report
 npm run build --report
 ```
+
+## preview
+
+![](https://github.com/carreymu/fundWap/tree/master/static/p1.png)
+![](https://github.com/carreymu/fundWap/tree/master/static/p2.png)
+![](https://github.com/carreymu/fundWap/tree/master/static/p3.png)
+![](https://github.com/carreymu/fundWap/tree/master/static/p3.1.png)
+![](https://github.com/carreymu/fundWap/tree/master/static/p4.png)
+
