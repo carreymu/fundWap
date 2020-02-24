@@ -23,5 +23,5 @@ npm run build --report
 ![](https://github.com/carreymu/fundWap/tree/master/static/p2.png)
 ![](https://github.com/carreymu/fundWap/tree/master/static/p3.png)
 ![](https://github.com/carreymu/fundWap/tree/master/static/p3.1.png)
-![](https://github.com/carreymu/fundWap/tree/master/static/p4.png)
+![](https://github.com/carreymu/fundWap/tree/master/static/p4.jpg)
 
