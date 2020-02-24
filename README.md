@@ -20,8 +20,8 @@ npm run build --report
 ## Preview
 
 ![](https://github.com/carreymu/fundWap/raw/master/static/p1.png)
+![](https://github.com/carreymu/fundWap/raw/master/static/p3.1.png)
 ![](https://github.com/carreymu/fundWap/raw/master/static/p2.png)
 ![](https://github.com/carreymu/fundWap/raw/master/static/p3.png)
-![](https://github.com/carreymu/fundWap/raw/master/static/p3.1.png)
 ![](https://github.com/carreymu/fundWap/raw/master/static/p4.png)
 
