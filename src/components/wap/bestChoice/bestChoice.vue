@@ -10,20 +10,20 @@
     <div class="fundItems">
     	<div class="itemBox" v-for="(item,index) in fundList" :key="index">
     		 <flexbox orient="vertical">
-           <flexbox-item class ="waitInvokeTxtPre">|| <span class="waitInvokeTxtTail">{{item.catetory}}</span></flexbox-item> 
+           <flexbox-item class ="waitInvokeTxtPre">|| <span class="waitInvokeTxtTail">{{item.categoryName}}</span></flexbox-item> 
           <flexbox-item>
             <div class="itemContent">
                 <flexbox orient="vertical">
                   <flexbox-item class="cont">
                     <div class="name">{{item.name}}</div>
-                    <p class="itemDesc">{{item.description}}</p>
-                    <div class="rate">+{{item.rate}}%</div>
+                    <p class="itemDesc">{{item.shortDesc}}</p>
+                    <div class="rate">+{{item.rateProfit}}%</div>
                     <p class="itemDesc">{{item.annEarnLong}}</p>
                   </flexbox-item>
                   <flexbox-item class="cont">
-                    <!-- <router-link :to="'/fundWap/bestChoiceDetail/'+item.id" v-show="item.status==1" > -->
+                    <router-link :to="'/fundWap/bestChoiceDetail/'+item.id" v-show="item.status==1" >
                         <x-button style="width:70%;" type="warn"  action-type='button' >{{item.minInvest}}起投</x-button>
-                    <!-- </router-link> -->
+                    </router-link>
                     <x-button style="width:70%;" type="default" v-show="item.status==2"  action-type='button' >已售完</x-button>
                   </flexbox-item>
                 </flexbox>
@@ -75,7 +75,7 @@
     text-align: center;
   }
   .bestChoice  .itemBox {
-    border-bottom:1px solid #eee;
+    /* border-bottom:1px solid #eee; */
     padding-top: 15px;
    }
   .bestChoice .itemContent{

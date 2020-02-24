@@ -1,33 +1,5 @@
 <template>
-  <!-- <div class="mine">
-    <div class="topDate">
-      <div class="top">鸡腿计划</div>
-      <br/>
-
-      <flexbox>
-        <flexbox-item class="aimRmkSub">      
-        <group>
-          <cell is-link title="Simple" link="/component/tabbar-simple"></cell>
-          <cell is-link title="Switch icons" link="/component/tabbar-icon"></cell>
-        </group>
-      </flexbox-item>
-        </flexbox>
-        <br/>
-        <div class="footer">
-          <div>更多内容 ></div>
-          <divider>-</divider>
-          <div class="bot">基金历史收益部代表其未来表现.<br/>【市场有风险,投资需谨慎。】</div>
-        </div>
-    </div>
-  </div> -->
   <div class="mine">
-    <!-- <div >鸡腿计划</div> -->
-      <!-- <flexbox>
-          <flexbox-item ><img src="../../../assets/images/biz/avastar.jpg" style="height:40px;width:40px;-webkit-border-radius: 50%;border-radius: 50%;overflow: hidden;"/></flexbox-item>
-          <flexbox-item ></flexbox-item> 
-          <flexbox-item ></flexbox-item>
-          <flexbox-item ></flexbox-item> 
-      </flexbox> -->
     <flexbox class="rectAgl">
       <flexbox-item :span="0.2"><img src="../../../assets/images/biz/avastar.jpg" style="height:40px;width:40px;-webkit-border-radius: 50%;border-radius: 50%;overflow: hidden;"/></flexbox-item>
       <flexbox-item >鉄の卵</flexbox-item> 
@@ -37,15 +9,6 @@
           <flexbox-item class="aimRmk">最新收益: <span class="aimRmkMoney">+8,000.01</span></flexbox-item>
         </flexbox>
       </flexbox-item>
-      <!-- <flexbox-item>
-        //////////
-      </flexbox-item> -->
-      <!-- <flexbox-item>
-        <flexbox orient="vertical">
-          <flexbox-item class="aimRmk">最新收益</flexbox-item>
-          <flexbox-item class="aimRmkSub">+8,0000.01</flexbox-item>
-        </flexbox>
-      </flexbox-item> -->
     </flexbox>
     <group>
       <div v-for="(item, index) in menuList" :key="index" class="msg">

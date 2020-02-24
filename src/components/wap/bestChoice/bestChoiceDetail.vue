@@ -1,72 +1,86 @@
 <template>
   <div class="bestChoiceDetail">
-		<div class="top-box">
-			<flexbox>
-               <flexbox-item :span="3">
-               		<div class="item-icon">22
-               			<!-- <img src="../../../assets/images/timg.png"/> -->
-               		</div>
-               </flexbox-item>
-               <flexbox-item>
-               		<div class="top-name">
-						<div class="s-name"><span>{{mainData.name}}</span><span class="name-label">私教</span></div>
-						<p class="item-desc">{{mainData.description}}</p>
-               		</div>
-               		<div class="bottom-cer">
-               			<x-icon type="ios-clock-outline" size="20" class="icon-clock"></x-icon>
-               			<p><span>{{currentDate}}</span><span>({{currentDay}})</span></p>
-	                </div>
-                </flexbox-item>
-	          </flexbox>
-		</div>
-		<div>
-			<p class="remark">上课时间（时长：1小时）</p>
-		</div>
-		<div class="time-box">
-			<div v-for="(item,index) in timeList" class="time-item" :key="index">
-				<div class="group-head" @click="item.showList=!item.showList">
-	                <flexbox>
-	                   <flexbox-item :span="2">
-	                  		 <div  v-show="index==0" class="s-icon"><x-icon type="ios-partlysunny-outline" size="30"></x-icon></div>
-	                  		 <div  v-show="index==1" class="s-icon"><x-icon type="ios-sunny-outline" size="30"></x-icon></div>
-	                  		 <div  v-show="index==2" class="s-icon"><x-icon type="ios-moon-outline" size="30"></x-icon></div>
-	                   </flexbox-item>
-	                   <flexbox-item ><div>{{item.name}}</div></flexbox-item>
-	                   <flexbox-item :span="2"><div class="arrow-icon"><x-icon type="ios-arrow-down" size="20"></x-icon></div></flexbox-item>
-	                </flexbox>
-         </div>
-          <div class="list-box" v-show="item.showList">
-                <div class="checker-box">
-                  <checker
-                      v-model="checkTime"
-                      type="checkbox"
-                      default-item-class="checkTime-item"
-                      selected-item-class="checkTime-item-selected"
-                      disabled-item-class="checkTime-item-disabled"
-                      >
-                        <checker-item 
-                          v-for="(sitem,sindex) in item.list" 
-                          :key="sindex" 
-                          :value="sitem.time" 
-                          :disabled="!sitem.isEnable"
-                          @on-item-click="checkMyTime(index,sitem.time,sitem.isEnable)">{{sitem.time}}
-                        </checker-item>
-                  </checker>
-                </div>
+    <div class="topImg">
+      <div class="topTxt"><span style="color:brown">{{mainData.joinNums}}</span>人已购买</div>
+    </div>
+    <div class="txt">
+      <flexbox class="aim">
+        <flexbox-item>
+          <flexbox orient="vertical">
+            <flexbox-item class="rmk">{{mainData.annEarnLong}}</flexbox-item>
+            <flexbox-item class="rateIn">+{{mainData.rateProfit}}%</flexbox-item>          
+          </flexbox>
+        </flexbox-item>
+        <!-- <flexbox-item>
+          //////////
+        </flexbox-item> -->
+        <flexbox-item>
+          <flexbox orient="vertical">
+            <flexbox-item class="rmk">历史最大亏损</flexbox-item>
+            <flexbox-item class="rateOut">{{mainData.rateLoss}}%</flexbox-item>         
+          </flexbox>
+        </flexbox-item>
+      </flexbox>
+      <div class="midBox">
+        <flexbox>
+          <flexbox-item>
+          <div  class="itemDesc">
+            {{mainData.description}}
           </div>
-			</div>
-      <div class="labels">
-          <div class="is-allow">可选</div>
-          <div class="no-allow">不可选</div>
-          <div class="is-select">已选择</div>
+          </flexbox-item>
+        </flexbox>
       </div>
-      <div class="bottom-btn" v-show="showReserveBtn">
-          <x-button type="warn" @click.native="makeReserve">确定预约</x-button>
-      </div>
-		</div>
-    <toast v-model="showSuccess" type="text" class="showSuccess" :time="2000">预约成功</toast>
-    <toast v-model="showError" type="text" class="showError" :time="2000">预约失败</toast>
-    <toast v-model="showMsg" type="text" class="showMsg" :time="2000">请选择1h相邻的时间段</toast>
+    </div>
+    <div class="midChk">
+      <flexbox class="midTxt">
+        <flexbox-item><span class="ico">☑</span> &nbsp;明星经理</flexbox-item>
+        <flexbox-item><span class="ico">☑</span> &nbsp;领跑同类</flexbox-item>
+        <flexbox-item><span class="ico">☑</span> &nbsp;千里挑一</flexbox-item>
+      </flexbox>
+    </div>
+    <div>
+      
+      <tab :line-width=2 active-color='#DA5162' v-model="index">
+        <tab-item style="font-size:12px;" :selected="demo2 === item" v-for="(item, index) in list2" @click="demo2 = item" :key="index">{{item}}</tab-item>
+      </tab>
+      <swiper v-model="index" height="100px" :show-dots="false">
+        <swiper-item v-for="(item, index) in list2" :key="index">
+          <div >{{item}} Container</div>
+        </swiper-item>
+      </swiper>
+      <flexbox>
+        <flexbox-item>
+          <x-button @click.native="index=0" mini v-if="index===0" plain type="warn" class="timeBtn">近1月</x-button>
+          <x-button @click.native="index=0" mini v-else  class="timeBtn">近1月</x-button>
+        </flexbox-item>
+        <flexbox-item>
+          <x-button @click.native="index=1" mini v-if="index===1" plain type="warn"  class="timeBtn">近3月</x-button>
+          <x-button @click.native="index=1" mini v-else  class="timeBtn">近3月</x-button>
+        </flexbox-item>
+        <flexbox-item><x-button @click.native="next" mini class="timeBtn">近6月</x-button></flexbox-item>
+        <flexbox-item><x-button @click.native="next" mini class="timeBtn">近1年</x-button></flexbox-item>
+        <flexbox-item><x-button @click.native="prev" mini class="timeBtn">近3年</x-button></flexbox-item>
+      </flexbox>
+    </div>
+
+    
+    <group >
+      <cell title="组合基金配置" is-link style="text-align:left;font-size: 12px;color:dimgray;">
+        <span>查看消息 </span>
+      </cell>
+    </group>
+    
+    <div v-for="(item,index) in fTypeList" :key="index">
+        <div class="funds"><span style="color:orange">■</span> {{item.name}}</div>
+        <div class="fundsDetail">
+        <flexbox orient="vertical">
+          <flexbox-item  v-for="(it,idx) in item.fundsList" :key="idx">
+            <div style="float: left;">{{it.fundName}}({{it.fundCode}})</div>
+            <div style="float: right;">{{it.percent}}%</div>
+          </flexbox-item>
+        </flexbox>
+        </div>
+    </div>
   </div>
 </template>
 <script>
@@ -74,73 +88,132 @@
   export default bestChoiceDetail
 </script>
 
-<style>
-
-	.bestChoiceDetail .top-box{
-		background: #fff
+<style lang="less">
+  .bestChoiceDetail{
+    text-align: center;
+    font-size:12px;
+  }
+  .bestChoiceDetail .txt{
+    margin:0 10px 0 10px;
+  }
+  .bestChoiceDetail .topImg{
+    background: url(../../../assets/images/biz/fundCat1.png) no-repeat center;
+    background-size:100% 100%;
+    -moz-background-size:100% 100%;
+    height: 180px;
+    position:relative;
+  }
+	.bestChoiceDetail .txt .topTxt{
+		position:absolute;
+    /* top:160px; */
+    right:10px;
+    padding-top:160px;
+    color:#666;
 	}
 
-	.bestChoiceDetail .item-icon{
-		height: 60px;
-		text-align: center;
-		overflow: hidden;
-  }
-
-   .bestChoiceDetail .item-icon img{
-		height: 100%;
-		border-radius: 50%
+  .bestChoiceDetail .txt .aim{
+    font-size: large;
+    padding:10px 0 10px 0;
+   }
+  .bestChoiceDetail .txt .aim .rmk{
+    font-size: 12px;
+    text-align: center; 
+   }
+  .bestChoiceDetail .txt .aim .rateIn{
+    text-align: center;
+    color: brown;
+   }
+  .bestChoiceDetail .txt .aim .rateOut{
+    text-align: center;
+    color:darkgreen;
    }
 
-   .bestChoiceDetail  .item-box {
+	.bestChoiceDetail .txt .midBox{
+		padding: 10px 10px 10px 10px;
+  }
+  .bestChoiceDetail .txt .itemDesc{
+    line-height: 22px;
+    color: #999;
+    clear:both;
+   }
+
+  .bestChoiceDetail .midChk{
+    border-bottom:1px solid rgb(230, 230, 230);
+    border-top:1px solid rgb(230, 230, 230);
+    background-color:rgb(240, 240, 240);
+  }
+  .bestChoiceDetail .midChk .midTxt{
+    text-align:center;
+    line-height:35px;
+    color:#999;
+  }
+  .bestChoiceDetail .midChk .midTxt .ico{
+    font-size:16px;
+    color:brown;
+  }
+
+  .bestChoiceDetail .funds{
+    text-align: left;
+    margin: 10px 10px 0 10px;
+    color:#666;
+   }
+  .bestChoiceDetail .fundsDetail{
+    color:#999;
+ 	  padding: 10px 20px;
+    background-color:rgb(240, 240, 240);
+    line-height: 22px;
+   }
+
+  .bestChoiceDetail .timeBtn {
+    margin: 0 15px 0 5px;
+    padding:0 5px;
+    height: 30px;
+    border-radius: 4px;
+    background-clip: padding-box;
+    &:active {
+      border-color: rgba(206, 60, 57, 0.6)!important;
+      color: rgba(206, 60, 57, 0.6)!important;
+      background-color: transparent;
+    }
+  }
+
+
+   /* .bestChoiceDetailTxt  .item-box {
    		border-bottom:1px solid #eee;
    		background: #fff;
    }
 
-   .bestChoiceDetail  .top-name{
+   .bestChoiceDetailTxt  .top-name{
    	   border-bottom:1px solid #eee;
    	   padding: 10px 0 5px 0;
    	   margin-right: 10px;
    }
 
-   .bestChoiceDetail  .item-desc{
-   	    font-size:12px;
-   	    line-height: 20px;
-   	    color: #666;
-        clear:both;
-   }
 
-   .bestChoiceDetail .bottom-cer{
+
+   .bestChoiceDetailTxt .bottom-cer{
    		padding:10px 0;
    		font-size:12px;
    	    color: #666;
    	    position :relative;
    }
 
-    .bestChoiceDetail .bottom-cer p{
+    .bestChoiceDetailTxt .bottom-cer p{
     	padding-left: 15px;
     	line-height: 20px;
     }
 	
-	.bestChoiceDetail .bottom-cer p span{
+	.bestChoiceDetailTxt .bottom-cer p span{
 		padding-left: 10px
 	}
 
-   .bestChoiceDetail .icon-clock{
+   .bestChoiceDetailTxt .icon-clock{
    		position:absolute;
    		fill: #666;
    }
 
-   .bestChoiceDetail .s-icon{
- 	   padding-left: 20px
-   }
 
-	 .bestChoiceDetail .group-head{
-		 font-size: 14px;
-		 padding-top: 5px;
-     border-bottom: 1px solid #eee
-	  }
-
-   .bestChoiceDetail .remark{
+   .bestChoiceDetailTxt .remark{
    	 height: 40px;
    	 font-size: 14px;
    	 line-height: 40px;
@@ -148,26 +221,26 @@
    	 padding-left: 20px
    }
 
-    .bestChoiceDetail .time-box{
+    .bestChoiceDetailTxt .time-box{
    	 background: #fff;
      padding-bottom:10px
      ;
    }
 
-   .bestChoiceDetail .checker-box{
+   .bestChoiceDetailTxt .checker-box{
       margin:15px;
    }
 
-    .bestChoiceDetail  .time-item{
+    .bestChoiceDetailTxt  .time-item{
 		   border-bottom: 1px solid #eee
    }
-    .bestChoiceDetail  .arrow-icon{
+    .bestChoiceDetailTxt  .arrow-icon{
    	  text-align: right;
    	  padding-right: 15px;
 
    }
 
-   .bestChoiceDetail .checkTime-item {
+   .bestChoiceDetailTxt .checkTime-item {
 	  width: 20%;
 	  height: 32px;
 	  line-height: 32px;
@@ -177,7 +250,7 @@
     color: #000;
     box-sizing: border-box;
 	}
-	.bestChoiceDetail .checkTime-item-selected {
+	.bestChoiceDetailTxt .checkTime-item-selected {
 	  background: #333333 url(../../../assets/images/bgIcon/select-icon.png) no-repeat right bottom;
     background-size:12px 10px;
 	  color: #fff;
@@ -185,21 +258,21 @@
     border-right:1px solid #ccc;
 
 	}
-  .bestChoiceDetail .checkTime-item-disabled{
+  .bestChoiceDetailTxt .checkTime-item-disabled{
       background: #DEDCDC;
   }
 
-  .bestChoiceDetail .bottom-btn{
+  .bestChoiceDetailTxt .bottom-btn{
       padding:20px;
   }
 
-  .bestChoiceDetail .labels{
+  .bestChoiceDetailTxt .labels{
       margin:5px 30px;
       height: 30px;
       line-height: 30px
   }
 
-    .bestChoiceDetail .labels >div{
+    .bestChoiceDetailTxt .labels >div{
         float:left;
         margin-right: 20px;
         font-size: 12px;
@@ -207,29 +280,29 @@
 
     }
 
-    .bestChoiceDetail .labels .is-allow{
+    .bestChoiceDetailTxt .labels .is-allow{
         background: url(../../../assets/images/bgIcon/is-allow.png) no-repeat left center ;
         background-size:12px;
     }
 
-    .bestChoiceDetail .labels .no-allow{
+    .bestChoiceDetailTxt .labels .no-allow{
         background: url(../../../assets/images/bgIcon/no-allow.png) no-repeat left center ;
         background-size:12px;
     }
 
-    .bestChoiceDetail .labels .is-select{
+    .bestChoiceDetailTxt .labels .is-select{
       background: url(../../../assets/images/bgIcon/is-select.png) no-repeat left center ;
       background-size:12px;
     }
 
-    .bestChoiceDetail .s-name span{
+    .bestChoiceDetailTxt .s-name span{
         height:30px;
         line-height: 30px;
         display:block;
         float: left;
     }
 
-  .bestChoiceDetail .s-name .name-label{
+  .bestChoiceDetailTxt .s-name .name-label{
       background: #6B106A;
       color: #fff;
       font-size: 12px;
@@ -239,14 +312,14 @@
       padding:0 10px;
     }
 
-    .bestChoiceDetail  .showSuccess .weui-toast__content{
-         background: url(../../../assets/images/bgIcon/success.png) no-repeat left center ;
+    .bestChoiceDetailTxt  .showSuccess .weui-toast__content{
+      background: url(../../../assets/images/bgIcon/success.png) no-repeat left center;
       background-size:20px;
     }
 
-    .bestChoiceDetail  .showSuccess .weui-toast{
+    .bestChoiceDetailTxt  .showSuccess .weui-toast{
       padding-left: 10px;
-    }
+    } */
 
 
 </style>

@@ -4,25 +4,23 @@
       <div class="top">鸡腿计划</div>
       <div class="topRmk">长期资产配置服务</div>
       <br/>
-        <flexbox>
-          <flexbox-item :span="1/20"></flexbox-item> 
-          <flexbox-item>
-            <flexbox orient="vertical">
-              <flexbox-item class="aimRate">14.8<span style="font-size:large;">%</span></flexbox-item>
-              <flexbox-item  class="aimRmk">策略回测年化收益率</flexbox-item>
-            </flexbox>
-          </flexbox-item>
-          <!-- <flexbox-item>
-            //////////
-          </flexbox-item> -->
-          <flexbox-item>
-            <flexbox orient="vertical">
-              <flexbox-item class="aimLast">3~5<span style="font-size:large;font-weight:700">年</span></flexbox-item>
-              <flexbox-item class="aimRmk">建议投资期限</flexbox-item>
-            </flexbox>
-          </flexbox-item>
-          <flexbox-item :span="1/20"></flexbox-item> 
+      <flexbox>
+        <flexbox-item>
+          <flexbox orient="vertical">
+            <flexbox-item class="aimRate">14.8<span style="font-size:large;">%</span></flexbox-item>
+            <flexbox-item class="aimRmk">策略回测年化收益率</flexbox-item>
           </flexbox>
+        </flexbox-item>
+        <!-- <flexbox-item>
+          //////////
+        </flexbox-item> -->
+        <flexbox-item>
+          <flexbox orient="vertical">
+            <flexbox-item class="aimLast">3~5<span style="font-size:large;font-weight:700">年</span></flexbox-item>
+            <flexbox-item class="aimRmk">建议投资期限</flexbox-item>
+          </flexbox>
+        </flexbox-item>
+      </flexbox>
         <br/>
         <flexbox>
           <flexbox-item class="aimRmkSub">-- 根据策略信号不定期开车,平均每月1～2次 --</flexbox-item>
