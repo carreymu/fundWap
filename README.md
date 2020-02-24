@@ -19,9 +19,9 @@ npm run build --report
 
 ## preview
 
-![](https://github.com/carreymu/fundWap/tree/master/static/p1.png)
-![](https://github.com/carreymu/fundWap/tree/master/static/p2.png)
-![](https://github.com/carreymu/fundWap/tree/master/static/p3.png)
-![](https://github.com/carreymu/fundWap/tree/master/static/p3.1.png)
-![](https://github.com/carreymu/fundWap/tree/master/static/p4.jpg)
+![](https://github.com/carreymu/fundWap/raw/master/static/p1.png)
+![](https://github.com/carreymu/fundWap/raw/master/static/p2.png)
+![](https://github.com/carreymu/fundWap/raw/master/static/p3.png)
+![](https://github.com/carreymu/fundWap/raw/master/static/p3.1.png)
+![](https://github.com/carreymu/fundWap/raw/master/static/p4.png)
 
