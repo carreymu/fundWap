@@ -17,7 +17,7 @@ npm run build
 npm run build --report
 ```
 
-## preview
+## Preview
 
 ![](https://github.com/carreymu/fundWap/raw/master/static/p1.png)
 ![](https://github.com/carreymu/fundWap/raw/master/static/p2.png)
