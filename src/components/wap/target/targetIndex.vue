@@ -63,8 +63,7 @@
       <flexbox>
           <flexbox-item class="past">已达标41期查,看往期 >>></flexbox-item> 
       </flexbox>
-      <divider>-</divider>
-      
+      <div style="border-bottom:1px solid rgb(230, 230, 230); padding:10px 0 5px 0;"></div>      
       <flexbox class="newsTitle">        
         <!-- <flexbox-item :span="1/100"></flexbox-item>  -->
         <flexbox-item class="lf">[大目标]投资面对面</flexbox-item> 
@@ -88,7 +87,7 @@
         <flexbox-item class="postListImg"><img :src="item.icon"></flexbox-item>      
       </flexbox>      
       </router-link>
-      <divider>-</divider>
+      <div style="border-bottom:1px solid rgb(230, 230, 230); padding:10px 0 5px 0;"></div>    
     </div>
     <div class="footer">
       <flexbox class="invIntro">
@@ -106,7 +105,7 @@
   </div>
 </template>
 <script>
-  import {Tabbar, TabbarItem ,XHeader,XButton,XImg, Swiper, SwiperItem, Flexbox, FlexboxItem, Divider } from 'vux'
+  import {Tabbar, TabbarItem ,XHeader,XButton,XImg, Swiper, SwiperItem, Flexbox, FlexboxItem } from 'vux'
   export default {
     mounted() {
       this.bannerList();
@@ -166,8 +165,7 @@
       Swiper,
       SwiperItem,
       Flexbox, 
-      FlexboxItem,
-      Divider
+      FlexboxItem
     }
   }
 
@@ -216,7 +214,7 @@ a:hover {
 }
 
 .targetIndex .topTxt .newsTitle{
-  font-size: 14px;font-weight:700;
+  font-size: 14px;font-weight:700;padding-top: 10px;
 }
 .targetIndex .topTxt .newsTitle .lf{
   text-align:left;

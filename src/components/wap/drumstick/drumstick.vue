@@ -53,7 +53,7 @@
           <flexbox-item></flexbox-item>
           <flexbox-item><router-link :to="'/fundWap/targetDetail/1'"><img src="../../../assets/images/safe.png"/><div style="padding-left:15px;">团队介绍</div></router-link></flexbox-item>
         </flexbox>
-        <divider>-</divider>
+        <div style="border-bottom:1px solid rgb(230, 230, 230); padding:10px 0 10px 0;"></div> 
         <div class="newsTop">鸡腿计划动态</div>        
         <div class="newsItem" v-for="(item, index) in itemList" :key="index">
           <router-link :to="'/fundWap/targetDetail/'+item.id">
@@ -62,7 +62,7 @@
               <flexbox orient="vertical">
                 <flexbox-item>
                     <flexbox orient="vertical">
-                      <flexbox-item class="title">{{item.title}}</flexbox-item>                  
+                      <flexbox-item >{{item.title}}</flexbox-item>                  
                       <flexbox-item>02-10 18:10</flexbox-item>
                     </flexbox>
                 </flexbox-item>          
@@ -71,11 +71,11 @@
             <flexbox-item class="postListImg"><img :src="item.icon"></flexbox-item>      
           </flexbox>      
           </router-link>
-          <divider>-</divider>          
+          <div style="border-bottom:1px solid rgb(230, 230, 230); padding-top:5px;"></div>           
         </div>
         <div class="footer">
           <div>更多内容 ></div>
-          <divider>-</divider>
+          <div style="border-bottom:1px solid rgb(230, 230, 230); padding:0 0 5px 0;"></div>   
           <div class="bot">基金历史收益部代表其未来表现.<br/>【市场有风险,投资需谨慎。】</div>
         </div>
     </div>
@@ -180,10 +180,10 @@
   }
 
   .drumstick .newsTop{
-    font-size:14px;text-align:left;font-weight:700;
+    font-size:14px;text-align:left;font-weight:700;padding-top:10px;
   }
   .drumstick .newsItem{
-    margin:5px 0px 0px 10px;
+    margin:5px 0px 0px 5px;
     position: relative;
     height: 126px;
     overflow: hidden;
@@ -201,7 +201,7 @@
   }
 
   .drumstick .footer .bot{
-    font-size:11px;padding-bottom:20px;
+    font-size:11px;padding:10px 0 20px 0;
   }
 
 </style>
