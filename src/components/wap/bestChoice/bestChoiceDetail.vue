@@ -76,7 +76,7 @@
     </div>
     
     <div v-for="(item,index) in fTypeList" :key="index">
-        <div class="funds"><span style="color:orange">■</span> {{item.name}}</div>
+        <div class="funds"><span :style="'color:'+item.color">■</span> {{item.name}}</div>
         <div class="fundsDetail">
         <flexbox orient="vertical">
           <flexbox-item v-for="(it,idx) in item.fundsList" :key="idx" class="fundsDetails">
@@ -85,6 +85,17 @@
           </flexbox-item>
         </flexbox>
         </div>
+    </div>
+    <div>
+      <v-chart
+        :data="data"
+        :padding="[20, 'auto']">
+        <v-tooltip disabled />
+        <v-scale y :options="yOptions" />
+        <v-pie :radius="0.85" :inner-radius="0.7" series-field="name" :colors="['#FE5D4D','#3BA4FF','#737DDE']" />
+        <v-legend :options="legendOptions" />
+        <v-guide type="html" :options="htmlOptions" />
+      </v-chart>
     </div>
   </div>
 </template>

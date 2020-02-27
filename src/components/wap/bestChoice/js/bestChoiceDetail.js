@@ -1,6 +1,14 @@
 
-import { Tab,TabItem,XImg,XButton,Swiper,SwiperItem,Flexbox,FlexboxItem,XDialog,Group,Cell,VChart, VLine, VAxis, VTooltip} from 'vux';
-
+import { Tab,TabItem,XImg,XButton,Swiper,SwiperItem,Flexbox,FlexboxItem,XDialog,Group,Cell,VChart, VLine, VAxis, VTooltip,VArea,VLegend, VBar, VPie, VGuide, VScale} from 'vux';
+const data = [
+	{name: "量化派", percent: 56.59, a: '1' },
+	{ name: "成长型", percent: 20.17, a: '1' },
+	{ name: "价值型", percent: 23.24, a: '1' }
+]
+const map = {}
+data.map(obj => {
+  map[obj.name] = obj.percent + '%'
+})
 export default {
 	mounted(){
 		this.loadDetail();
@@ -10,8 +18,9 @@ export default {
 	computed:{
 		/*init vchart data*/
 	},
-	data(){
-		let data={
+	data(){		
+		return {
+			map,
 			mainData:{},
 			fTypeList:[],
 			/*init vchart first or data???*/
@@ -191,6 +200,27 @@ export default {
 				}
 			],
 			index: 0,
+			htmlOptions: {
+				position: [ '50%', '45%' ],
+				html: `
+				  <div style="width: 250px;height: 40px;text-align: center;">
+					<div style="font-size: 16px">总资产</div>
+					<div style="font-size: 24px">133.08 亿</div>
+				  </div>`
+			},
+			legendOptions: {
+				position: 'right',
+				itemFormatter (val) {
+				  return val + '  ' + map[val]
+				}
+			},
+			yOptions: {
+				formatter (val) {
+					return val * 100 + '%'
+				}
+			},
+			
+			data,
 			vchartData:[
 				{"date":"2010/01/10","type":"全明星计划: +17.27%","value":69.9},
 				{"date":"2010/01/11","type":"全明星计划: +17.27%","value":69.10},
@@ -274,8 +304,7 @@ export default {
 				{"date":"2010/02/15","type":"沪深300: +8.71%","value":89.45},
 				{"date":"2010/02/16","type":"沪深300: +8.71%","value":89.46}
 			]			
-		}
-		return data;
+		};
 	},
 	methods:{		
 		loadDetail(){
@@ -326,6 +355,6 @@ export default {
 		/*.........to do .........*/
 	},
 	components:{
-		Tab, TabItem,XImg,XButton,Swiper, SwiperItem,Flexbox, FlexboxItem,XDialog,Group,Cell,VChart, VLine, VAxis, VTooltip
+		Tab, TabItem,XImg,XButton,Swiper, SwiperItem,Flexbox, FlexboxItem,XDialog,Group,Cell,VChart, VLine, VAxis, VTooltip,VArea,VLegend, VBar, VPie, VGuide, VScale
 	}
 }
