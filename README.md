@@ -70,7 +70,7 @@ npm run build --report
 |-- README.md                        // README
 |-- index.html                       // 入口html文件
 |-- __package_____.json              // 备份配置文件
-`-- package.json                     // 项目及工具的依赖配置文件
+|-- package.json                     // 项目及工具的依赖配置文件
 
 ```
 
