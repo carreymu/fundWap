@@ -18,30 +18,62 @@ npm run build
 npm run build --report
 ```
 ## Pages
-- [ ] ��Ŀ�� -- Doing
-- [ ] ��Ŀ�� - Banner -- todo(python)
-- [ ] ��Ŀ�� - �깺 -- todo
-- [ ] ��Ŀ�� - �鿴���� -- todo
-- [ ] ��Ŀ�� - Ͷ������� - List -- todo
-- [ ] ��Ŀ�� - Ͷ������� - News -- todo(python)
-- [ ] ��Ŀ�� - ��˾���� -- todo(python)
+- [ ] 大目标 -- Doing
+- [ ] 大目标 - Banner -- todo(python)
+- [ ] 大目标 - 申购 -- todo
+- [ ] 大目标 - 查看往期 -- todo
+- [ ] 大目标 - 投资面对面 - List -- todo
+- [ ] 大目标 - 投资面对面 - News -- todo(python)
+- [ ] 大目标 - 公司介绍 -- todo(python)
 
-- [ ] ���ȼƻ� -- Doing
-- [ ] ���ȼƻ� - �������� -- todo
-- [ ] ���ȼƻ� - List -- todo
-- [ ] ���ȼƻ� - Ͷ������� - �������� -- todo(python)
+- [ ] 鸡腿计划 -- Doing
+- [ ] 鸡腿计划 - 设置提醒 -- todo
+- [ ] 鸡腿计划 - List -- todo
+- [ ] 鸡腿计划 - 投资面对面 - 更多内容 -- todo(python)
 
-- [ ] ��ѡ -- Doing
-- [ ] ��ѡ - ����s -- todo
-- [ ] ��ѡ - �������� -- todo(python)
+- [ ] 优选 -- Doing
+- [ ] 优选 - 测评s -- todo
+- [ ] 优选 - 活期理财 -- todo(python)
 
-- [ ] �ҵ� -- todo(python)
-- [ ] �ҵ� - Tabs -- todo
+- [ ] 我的 -- todo(python)
+- [ ] 我的 - Tabs -- todo
+
+- [ ] 国际化 - todo
 
 ## Document Structure ##
 ```
 
+|-- build                            // webpack
+|-- config                           // 项目打包路径
+|-- src                              // 源码目录
+|   |-- assets                       // 资源文件
+|   |-- components                   // 组件
+|       |-- wap                      // 主要代码
+|           |-- bestChoice           // 优选
+|           |-- bestChoice           // 优选
+|           |-- drumstick            // 鸡腿计划
+|           |-- mine                 // 我的
+|           |-- target               // 大目标
+|   |-- router                       // 路由
+|       |-- wapRouter.js
+|   |-- store                       // Vue 路由
+|       |-- actions.js
+|       |-- data.js
+|       |-- mutations.js
+|       |-- store.js
+|   |-- App.vue                      // App入口文件
+|   |-- main.js                      // 程序入口文件，加载Vuex,Vue-router等插件
+|   |-- static                       // 临时静态文件
+|-- .babelrc                         // ES6语法编译配置
+|-- .editorconfig                    // 代码编写规格
+|-- .postcssrc.js                    // post css 配置文件
+|-- README.md                        // README
+|-- index.html                       // 入口html文件
+|-- __package_____.json              // 备份配置文件
+`-- package.json                     // 项目及工具的依赖配置文件
+
 ```
+
 ## Preview
 
 ![](https://github.com/carreymu/fundWap/raw/master/static/p1.png)
