@@ -1,65 +1,72 @@
 --system info like banners/company introduction/about target/introduction of selecting funds etc.
 CREATE TABLE system_info(id primary key autoincrement ,title varchar(50), content varchar(1000), status int, inserttime timestamp not null default (datetime('now','localtime')))
-INSERT INTO system_info(title, content, status) values('¹«Ë¾½éÉÜ','ÎÒ¾ÍÊÇÎÒ²»Ò»ÑùµÄÑÌ»ğ',1)
+INSERT INTO system_info(title, content, status) values('å…¬å¸ä»‹ç»','æˆ‘å°±æ˜¯æˆ‘ä¸ä¸€æ ·çš„çƒŸç«',1)
 
 --news type  like 
-CREATE TABLE news_category(nc_id int primary key autoincrement,category_name varchar(50),status int,inserttime datetime)
-INSERT INTO news_category(category_name, status) values('Í¶×ÊÃæ¶ÔÃæ',1)
+CREATE TABLE news_category(nc_id Integer primary key autoincrement,category_name varchar(50),status int,inserttime datetime)
+INSERT INTO news_category(category_name, status) values('æŠ•èµ„é¢å¯¹é¢',1)
 
 --news details invester face to face/drumstick news/
-CREATE TABLE news_info(nid int primary key autoincrement,nc_id int, title varchar(50), img_url varchar(200), content varchar(1000), status int, inserttime timestamp not null default (datetime('now','localtime')))
-INSERT INTO news_info(title, img_url, content, status) values('[´óÄ¿±ê]2ÖÜÄêÔËĞĞÇé¿öºÍµ±Ç°ÊĞ³¡·ÖÎö','/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png','ÎÒÊÇ·ÖÎö¾ı...¹ş¹ş¹ş',1)
+CREATE TABLE news_info(nid Integer primary key autoincrement,nc_id int, title varchar(50), img_url varchar(200), content varchar(1000), status int, inserttime timestamp not null default (datetime('now','localtime')))
+INSERT INTO news_info(title, img_url, content, status) values('[å¤§ç›®æ ‡]2å‘¨å¹´è¿è¡Œæƒ…å†µå’Œå½“å‰å¸‚åœºåˆ†æ','/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png','æˆ‘æ˜¯åˆ†æå›...å“ˆå“ˆå“ˆ',1)
 
 --fund category  like ETF/LOF/QDFII etc.
-CREATE TABLE fund_category(fc_id int primary key autoincrement, name varchar(50), status int)
-INSERT INTO fund_category(name,status) values('¹ÉÆ±ĞÍ»ù½ğ',1) --fc_id=1
-INSERT INTO fund_category(name,status) values('Ö¸ÊıĞÍ»ù½ğ',1)
-INSERT INTO fund_category(name,status) values('Æ«¹ÉĞÍ»ù½ğ',1)
-INSERT INTO fund_category(name,status) values('¹ÉÕ®Æ½ºâĞÍ»ù½ğ',1)
-INSERT INTO fund_category(name,status) values('Æ«Õ®ĞÍ»ù½ğ',1)
-INSERT INTO fund_category(name,status) values('Õ®È¯ĞÍ»ù½ğ',1)
-INSERT INTO fund_category(name,status) values('±£±¾ĞÍ»ù½ğ',1)
-INSERT INTO fund_category(name,status) values('»õ±ÒĞÍ»ù½ğ',1)
+CREATE TABLE fund_category(fc_id Integer primary key autoincrement, name varchar(50), risk_level varchar(2),status int)
+INSERT INTO fund_category(name,status) values('è‚¡ç¥¨å‹','R3',1) --fc_id=1
+INSERT INTO fund_category(name,status) values('æŒ‡æ•°å‹','R4',1)
+INSERT INTO fund_category(name,status) values('åè‚¡å‹','R4',1)
+INSERT INTO fund_category(name,status) values('è‚¡å€ºå¹³è¡¡å‹','R3',1)
+INSERT INTO fund_category(name,status) values('åå€ºå‹','R2',1)
+INSERT INTO fund_category(name,status) values('å€ºåˆ¸å‹','R1',1)
+INSERT INTO fund_category(name,status) values('ä¿æœ¬å‹','R1',1)
+INSERT INTO fund_category(name,status) values('è´§å¸å‹','R1',1)
 
 --fund manager
-CREATE TABLE fund_manager(fm_id int primary key autoincrement, name varchar(30), status int, remark varchar(1000), inserttime timestamp not null default (datetime('now','localtime')))
-INSERT INTO fund_manager(name,status,remark) values('ÕÅÈı·è',1,'¾­¼ÃÑ§²©Ê¿,CFA.ÎÒÊÇÈı·á...²»ÊÇÈı·è...') --fm_id=1
-INSERT INTO fund_manager(name,status,remark) values('°¢ÍßÂòÌá',1,'¾­¼ÃÑ§**,CFA.ÎÒÊÇÂòÂòÌá.') --fm_id=2
+CREATE TABLE fund_manager(fm_id Integer primary key autoincrement, name varchar(30), status int, remark varchar(1000), inserttime timestamp not null default (datetime('now','localtime')))
+INSERT INTO fund_manager(name,status,remark) values('å¼ ä¸‰ç–¯',1,'ç»æµå­¦åšå£«,CFA.æˆ‘æ˜¯ä¸‰ä¸°...ä¸æ˜¯ä¸‰ç–¯...') --fm_id=1
+INSERT INTO fund_manager(name,status,remark) values('é˜¿ç“¦ä¹°æ',1,'ç»æµå­¦**,CFA.æˆ‘æ˜¯ä¹°ä¹°æ.') --fm_id=2
 
 --fund industry like manufacturing/finance/real estate/construction etc
 CREATE TABLE fund_industry(fi_id int primary autoincrement, name varchar(50))
-INSERT INTO fund_industry(name) values('ÖÆÔìÒµ')
-INSERT INTO fund_industry(name) values('½ğÈÚÒµ')
-INSERT INTO fund_industry(name) values('·¿µØ²úÒµ')
-INSERT INTO fund_industry(name) values('Å©¡¢ÁÖ¡¢ÄÁ¡¢ÓæÒµ')
-INSERT INTO fund_industry(name) values('½¨ÖşÒµ')
-INSERT INTO fund_industry(name) values('ÆäËû')
+INSERT INTO fund_industry(name) values('åˆ¶é€ ä¸š')
+INSERT INTO fund_industry(name) values('é‡‘èä¸š')
+INSERT INTO fund_industry(name) values('æˆ¿åœ°äº§ä¸š')
+INSERT INTO fund_industry(name) values('å†œã€æ—ã€ç‰§ã€æ¸”ä¸š')
+INSERT INTO fund_industry(name) values('å»ºç­‘ä¸š')
+INSERT INTO fund_industry(name) values('å…¶ä»–')
 
 --fund position like CMB/GREE etc
-CREATE TABLE fund_stock(fs_id int primary key autoincrement, name varchar(50), status int, code varchar(20),remark varchar(100),inserttime timestamp not null default (datetime('now','localtime')))
-INSERT INTO fund_stock(name,status,code,remark) values('ÖĞ¹úÆ½°²','601318.SH',1,'ÉñÃØ´úÂë') --fs_id=1
-INSERT INTO fund_stock(name,status,code,remark) values('ÕĞÉÌÒøĞĞ','600036.SH',1,'ÉñÃØ´úÂë') --fs_id=2
+CREATE TABLE fund_stock(fs_id Integer primary key autoincrement, name varchar(50), status int, code varchar(20),remark varchar(100),inserttime timestamp not null default (datetime('now','localtime')))
+INSERT INTO fund_stock(name,status,code,remark) values('ä¸­å›½å¹³å®‰','601318.SH',1,'ç¥ç§˜ä»£ç ') --fs_id=1
+INSERT INTO fund_stock(name,status,code,remark) values('æ‹›å•†é“¶è¡Œ','600036.SH',1,'ç¥ç§˜ä»£ç ') --fs_id=2
 
-CREATE TABLE fund_customized_category(fcc_id int primary key autoincrement, name varchar(50))
-INSERT INTO fund_customized_category(name) values('Á¿»¯ÅÉ')
-INSERT INTO fund_customized_category(name) values('ÎÈ½¡ÅÉ')
-INSERT INTO fund_customized_category(name) values('¼ÛÖµĞÍ')
-INSERT INTO fund_customized_category(name) values('Ö÷ÌâĞÍ')
-INSERT INTO fund_customized_category(name) values('³É³¤ĞÍ')
+--fund customized category
+CREATE TABLE fund_customized_category(fcc_id Integer primary key autoincrement, name varchar(50))
+INSERT INTO fund_customized_category(name) values('é‡åŒ–æ´¾')
+INSERT INTO fund_customized_category(name) values('ç¨³å¥æ´¾')
+INSERT INTO fund_customized_category(name) values('ä»·å€¼å‹')
+INSERT INTO fund_customized_category(name) values('ä¸»é¢˜å‹')
+INSERT INTO fund_customized_category(name) values('æˆé•¿å‹')
 
 --fund details
-CREATE TABLE fund_info(fid int primary key autoincrement, fc_id int, fcc_id int,fund_name varchar(50), fund_code varchar(20), fund_assets varchar(30), start_date datetime,remark varchar(500), inserttime timestamp not null default (datetime('now','localtime')))
-INSERT INTO fund_info(fc_id,fcc_id,fund_name,fund_code,fund_assets,start_date,remark) values(1,1,'¾°Ë³³¤³Ç»¦Éî300ÔöÇ¿','000311','100ÒÚ','2016-10-01','Ï¹±à') -- fid=1
-INSERT INTO fund_info(fc_id,fcc_id,fund_name,fund_code,fund_assets,start_date,remark) values(1,2,'¸»¹úĞÂ¶¯Á¦A','001508','100ÒÚ','2016-10-01','Ï¹±à') -- fid=2
+CREATE TABLE fund_info(fid Integer primary key autoincrement, fc_id int, fcc_id int,fund_name varchar(50), fund_code varchar(20), fund_assets varchar(30), start_date datetime,remark varchar(500), inserttime timestamp not null default (datetime('now','localtime')))
+INSERT INTO fund_info(fc_id,fcc_id,fund_name,fund_code,fund_assets,start_date,remark) values(1,1,'æ™¯é¡ºé•¿åŸæ²ªæ·±300å¢å¼º','000311','100äº¿','2016-10-01','æ™¯é¡ºé•¿åŸæ²ªæ·±300å¢å¼ºå¤‡æ³¨') -- fid=1
+INSERT INTO fund_info(fc_id,fcc_id,fund_name,fund_code,fund_assets,start_date,remark) values(1,2,'å¯Œå›½æ–°åŠ¨åŠ›A','001508','100äº¿','2016-10-01','å¯Œå›½æ–°åŠ¨åŠ›Aå¤‡æ³¨') -- fid=2
 
---fund manager matchs fund
-CREATE TABLE fund_managers(fms_id int primary autoincrement,fid int, fm_id int,inserttime timestamp not null default (datetime('now','localtime')))
-INSERT INTO fund_managers(1,1)
-INSERT INTO fund_managers(1,2)
+--fund manager matchs funds
+CREATE TABLE fund_managers(fms_id Integer primary key autoincrement,fid int, fm_id int,inserttime timestamp not null default (datetime('now','localtime')))
+INSERT INTO fund_managers(1,1) --æ™¯é¡ºé•¿åŸæ²ªæ·±300å¢å¼º--å¼ ä¸‰ç–¯
+INSERT INTO fund_managers(1,2) --æ™¯é¡ºé•¿åŸæ²ªæ·±300å¢å¼º--é˜¿ç“¦ä¹°æ
+
+--fund managers and their fund history
+CREATE TABLE fund_managers_history(fmh_id Integer primary key autoincrement,fm_id int,fid int,review_num float,hu_shen_300 float)
+INSERT INTO fund_managers_history(fm_id,fid,review_num,hu_shen_300) values(1,1,10.52,-10.1)
 
 --fund position 
-CREATE TABLE fund_position(fp_id int primary key autoincrement,fid int, fs_id int,hold_num int)
-INSERT INTO fund_position(fid,fs_id,hold_num) values(1,1,752)--¾°Ë³³¤³Ç»¦Éî300ÔöÇ¿-ÖĞ¹úÆ½°²-752/100
-INSERT INTO fund_position(fid,fs_id,hold_num) values(1,2,513)--¾°Ë³³¤³Ç»¦Éî300ÔöÇ¿-ÕĞÉÌÒøĞĞ-513/100
+CREATE TABLE fund_position(fp_id Integer primary key autoincrement,fid int, fs_id int,hold_num float)
+INSERT INTO fund_position(fid,fs_id,hold_num) values(1,1,752)--æ™¯é¡ºé•¿åŸæ²ªæ·±300å¢å¼º-ä¸­å›½å¹³å®‰-752/100
+INSERT INTO fund_position(fid,fs_id,hold_num) values(1,2,513)--æ™¯é¡ºé•¿åŸæ²ªæ·±300å¢å¼º-æ‹›å•†é“¶è¡Œ-513/100
+
+
 
 
