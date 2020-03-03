@@ -49,9 +49,26 @@ INSERT INTO fund_customized_category(name) values('主题型')
 INSERT INTO fund_customized_category(name) values('成长型')
 
 --fund details
-CREATE TABLE fund_info(fid Integer primary key autoincrement, fc_id int, fcc_id int,fund_name varchar(50), fund_code varchar(20), fund_assets varchar(30), start_date datetime,remark varchar(500), inserttime timestamp not null default (datetime('now','localtime')))
-INSERT INTO fund_info(fc_id,fcc_id,fund_name,fund_code,fund_assets,start_date,remark) values(1,1,'景顺长城沪深300增强','000311','100亿','2016-10-01','景顺长城沪深300增强备注') -- fid=1
-INSERT INTO fund_info(fc_id,fcc_id,fund_name,fund_code,fund_assets,start_date,remark) values(1,2,'富国新动力A','001508','100亿','2016-10-01','富国新动力A备注') -- fid=2
+CREATE TABLE fund_info(fid Integer primary key autoincrement, fc_id int, fcc_id int,fund_name varchar(50), fund_code varchar(20),fund_company varchar(50),fund_assets varchar(30), 
+start_date datetime,management_fee float,custody_fee float,purchase_rate_old float,purchase_rate_new float,purchase_rate_discount float,sched_invest_remark varchar(500),
+purchase_process varchar(500),redemption_fee_remark varchar(500),redemption_process varchar(500),redemption_position varchar(100),agreement varachar(800),remark varchar(500),inserttime timestamp not null default (datetime('now','localtime')))
+INSERT INTO fund_info(fc_id,fcc_id,fund_name,fund_code,fund_company,fund_assets,start_date,management_fee,custody_fee,purchase_rate_old,purchase_rate_new,purchase_rate_discount,sched_invest_remark,
+purchase_process,redemption_fee_remark,redemption_process,redemption_position,agreement,remark) values(1,1,'景顺长城沪深300增强','000311','景顺长城基金','100亿','2016-10-01',0.3,0.08,0.012,0.0012,1,'定投规则:遇到节假日自动延迟到下一个交易日扣款',
+'T日/T+1日/T+1当日净值更新后','赎回费率如下:','赎回流程','赎回份额','景顺长城的协议','景顺长城沪深300增强备注') -- fid=1
+INSERT INTO fund_info(fc_id,fcc_id,fund_name,fund_code,fund_company,fund_assets,start_date,management_fee,custody_fee,purchase_rate_old,purchase_rate_new,purchase_rate_discount,sched_invest_remark,
+purchase_process,redemption_fee_remark,redemption_process,redemption_position,agreement,remark) values(1,2,'富国新动力A','001508','富国','130亿','2016-10-01',0.26,0.07,0.01,0.001,1,'定投规则:遇到节假日自动延迟到下一个交易日扣款',
+'T日/T+1日/T+1当日净值更新后','赎回费率如下:','赎回流程','赎回份额','景顺长城的协议','富国新动力A备注') -- fid=2
+
+--fund bonus and split (bonus.type=0,split.type=1)
+CREATE TABLE fund_bonus_split(fbs_id Integer primary key autoincrement,fid int,type int,remark varchar(30),amount float,currency varchar(5),inserttime timestamp not null default (datetime('now','localtime')))
+INSERT INTO fund_bonus_split(fid,type,remark,amount,currency) values(1,1,'单位分红',0.15,'元')
+INSERT INTO fund_bonus_split(fid,type,remark,amount,currency) values(1,1,'单位分红',0.19,'元')
+
+--fund redemption rate
+CREATE TABLE fund_redemption_rate(frr_id Integer primary key autoincrement,fid int,hold_days int,rate float)
+INSERT INTO fund_redemption_rate(fid,hold_days,rate) values(1,7,1.5) --[0,7)
+INSERT INTO fund_redemption_rate(fid,hold_days,rate) values(1,365,0.5) --[7,365)
+INSERT INTO fund_redemption_rate(fid,hold_days,rate) values(1,730,0.0) --[365,730)
 
 --fund manager matchs funds
 CREATE TABLE fund_managers(fms_id Integer primary key autoincrement,fid int, fm_id int,inserttime timestamp not null default (datetime('now','localtime')))
@@ -62,11 +79,25 @@ INSERT INTO fund_managers(1,2) --景顺长城沪深300增强--阿瓦买提
 CREATE TABLE fund_managers_history(fmh_id Integer primary key autoincrement,fm_id int,fid int,review_num float,hu_shen_300 float)
 INSERT INTO fund_managers_history(fm_id,fid,review_num,hu_shen_300) values(1,1,10.52,-10.1)
 
---fund position 
+--fund position, stock position
 CREATE TABLE fund_position(fp_id Integer primary key autoincrement,fid int, fs_id int,hold_num float)
-INSERT INTO fund_position(fid,fs_id,hold_num) values(1,1,752)--景顺长城沪深300增强-中国平安-752/100
-INSERT INTO fund_position(fid,fs_id,hold_num) values(1,2,513)--景顺长城沪深300增强-招商银行-513/100
+INSERT INTO fund_position(fid,fs_id,hold_num) values(1,1,752)--景顺长城沪深300增强-中国平安-7.52
+INSERT INTO fund_position(fid,fs_id,hold_num) values(1,2,513)--景顺长城沪深300增强-招商银行-5.13
 
+--fund postion, other position category
+CREATE TABLE fund_position_other_category(fpoc_id Integer primary key autoincrement,name varchar(30))
+INSERT INTO fund_position_other_category('债券')
+INSERT INTO fund_position_other_category('银行存款')
+INSERT INTO fund_position_other_category('其他')
 
+--fund position, other position
+CREATE TABLE fund_position_other(fpo_id Integer primary key autoincrement,fid int, fpoc_id int,hold_num float)
+INSERT INTO fund_position_other(fid,fpoc_id,hold_num) values(1,1,3.16)
+INSERT INTO fund_position_other(fid,fpoc_id,hold_num) values(1,2,2.6)
+INSERT INTO fund_position_other(fid,fpoc_id,hold_num) values(1,3,0.66)
+
+--fund worth history
+CREATE TABLE fund_worth_history(fwh_id Integer primary key autoincrement,fid int,worth float,daily_change float,inserttime timestamp not null default (datetime('now','localtime')))
+INSERT INTO fund_worth_history(fid,worth,daily_change) values(1,2.195,-3.37)
 
 
