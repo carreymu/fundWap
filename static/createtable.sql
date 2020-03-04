@@ -2,7 +2,7 @@
 CREATE TABLE system_info(id primary key autoincrement ,title varchar(50), content varchar(1000), status int, inserttime timestamp not null default (datetime('now','localtime')))
 INSERT INTO system_info(title, content, status) values('公司介绍','我就是我不一样的烟火',1)
 
---news type  like 
+--news type 
 CREATE TABLE news_category(nc_id Integer primary key autoincrement,category_name varchar(50),status int,inserttime datetime)
 INSERT INTO news_category(category_name, status) values('投资面对面',1)
 
@@ -10,6 +10,7 @@ INSERT INTO news_category(category_name, status) values('投资面对面',1)
 CREATE TABLE news_info(nid Integer primary key autoincrement,nc_id int, title varchar(50), img_url varchar(200), content varchar(1000), status int, inserttime timestamp not null default (datetime('now','localtime')))
 INSERT INTO news_info(title, img_url, content, status) values('[大目标]2周年运行情况和当前市场分析','/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png','我是分析君...哈哈哈',1)
 
+------------------------------------------------------------------------------------
 --fund category  like ETF/LOF/QDFII etc.
 CREATE TABLE fund_category(fc_id Integer primary key autoincrement, name varchar(50), risk_level varchar(2),status int)
 INSERT INTO fund_category(name,status) values('股票型','R3',1) --fc_id=1
@@ -41,17 +42,17 @@ INSERT INTO fund_stock(name,status,code,remark) values('中国平安','601318.SH
 INSERT INTO fund_stock(name,status,code,remark) values('招商银行','600036.SH',1,'神秘代码') --fs_id=2
 
 --fund customized category
-CREATE TABLE fund_customized_category(fcc_id Integer primary key autoincrement, name varchar(50))
-INSERT INTO fund_customized_category(name) values('量化派')
-INSERT INTO fund_customized_category(name) values('稳健派')
-INSERT INTO fund_customized_category(name) values('价值型')
-INSERT INTO fund_customized_category(name) values('主题型')
-INSERT INTO fund_customized_category(name) values('成长型')
+CREATE TABLE fund_customized_category(fcc_id Integer primary key autoincrement,name varchar(50),ico_color varchar(7))
+INSERT INTO fund_customized_category(name,ico_color) values('量化派','#FE5D4D')
+INSERT INTO fund_customized_category(name,ico_color) values('稳健派','')
+INSERT INTO fund_customized_category(name,ico_color) values('价值型','#737DDE')
+INSERT INTO fund_customized_category(name,ico_color) values('主题型','')
+INSERT INTO fund_customized_category(name,ico_color) values('成长型','#3BA4FF')
 
 --fund details
 CREATE TABLE fund_info(fid Integer primary key autoincrement, fc_id int, fcc_id int,fund_name varchar(50), fund_code varchar(20),fund_company varchar(50),fund_assets varchar(30), 
 start_date datetime,management_fee float,custody_fee float,purchase_rate_old float,purchase_rate_new float,purchase_rate_discount float,sched_invest_remark varchar(500),
-purchase_process varchar(500),redemption_fee_remark varchar(500),redemption_process varchar(500),redemption_position varchar(100),agreement varachar(800),remark varchar(500),inserttime timestamp not null default (datetime('now','localtime')))
+purchase_process varchar(500),redemption_fee_remark varchar(500),redemption_process varchar(500),redemption_position varchar(100),agreement varchar(800),remark varchar(500),inserttime timestamp not null default (datetime('now','localtime')))
 INSERT INTO fund_info(fc_id,fcc_id,fund_name,fund_code,fund_company,fund_assets,start_date,management_fee,custody_fee,purchase_rate_old,purchase_rate_new,purchase_rate_discount,sched_invest_remark,
 purchase_process,redemption_fee_remark,redemption_process,redemption_position,agreement,remark) values(1,1,'景顺长城沪深300增强','000311','景顺长城基金','100亿','2016-10-01',0.3,0.08,0.012,0.0012,1,'定投规则:遇到节假日自动延迟到下一个交易日扣款',
 'T日/T+1日/T+1当日净值更新后','赎回费率如下:','赎回流程','赎回份额','景顺长城的协议','景顺长城沪深300增强备注') -- fid=1
@@ -100,4 +101,26 @@ INSERT INTO fund_position_other(fid,fpoc_id,hold_num) values(1,3,0.66)
 CREATE TABLE fund_worth_history(fwh_id Integer primary key autoincrement,fid int,worth float,daily_change float,inserttime timestamp not null default (datetime('now','localtime')))
 INSERT INTO fund_worth_history(fid,worth,daily_change) values(1,2.195,-3.37)
 
+------------------------------------------------------------------------------------
+--fund plan (returns_type:1-七日年化收益,2-近六月历史收益,3-近三年历史收益|page_type:1-only text or image,2-including FOFs etc.)
+CREATE TABLE fund_plan(fpl_id Integer primary key autoincrement,name varchar(20),returns float,loss float,returns_type int,threshold float,sched_threshold float,img_url varchar(200),
+page_type int,details varchar(500),short_intro varchar(30),remark varchar(200),inserttime timestamp not null default (datetime('now','localtime')))
+INSERT INTO fund_plan(name,returns,loss,returns_type,threshold,sched_threshold,img_url,page_type,details,short_intro,remark) values('超级现金宝',2.8,0,1,100,0,'//images_url',1,'','','仅一张图片的页面')
+INSERT INTO fund_plan(name,returns,loss,returns_type,threshold,sched_threshold,img_url,page_type,details,short_intro,remark) values('全明星计划',35.57,43.11,3,1000,500,'//images_url',2,'组合详情:','跟对人买对基,实力派经理一网打尽','有基列表')
+INSERT INTO fund_plan(name,returns,loss,returns_type,threshold,sched_threshold,img_url,page_type,details,short_intro,remark) values('海投计划',30.63,18.24,3,1000,100,'//images_url',2,'组合详情:','全球资产配置,把握更多投资机会','高尔基')
 
+--fund plan details
+CREATE TABLE fund_plan_details(fpd_id Integer primary key autoincrement,fpl_id int,fid int,inserttime timestamp not null default (datetime('now','localtime')))
+INSERT INTO fund_plan_details(fpl_id,fid) values(2,1) --全明星计划-景顺长城沪深300增强,fpid_id=1
+INSERT INTO fund_plan_details(fpl_id,fid) values(2,2) --全明星计划-富国新动力A,fpid_id=2
+INSERT INTO fund_plan_details(fpl_id,fid) values(3,2) --海投计划-富国新动力A,fpid_id=3
+
+--combining plan
+CREATE TABLE plan_combin(pc_id Integer primary key autoincrement,name varchar(20),remark varchar(50))
+INSERT INTO plan_combin(name,remark) values('活期理财','选哪个火鸡呢?天鸿?')
+INSERT INTO plan_combin(name,remark) values('高成长股基组合','高高尔基')
+
+--fund plans match combining plans  N:N, status:0-useless,1-using
+CREATE TABLE fund_plan_combin(fpc_id Integer primary key autoincrement,pc_id int,fpd_id int,status int,inserttime timestamp not null default (datetime('now','localtime')))
+INSERT INTO fund_plan_combin(pc_id,fpd_id,status) values(2,1,1) --高成长股基组合-全明星计划
+INSERT INTO fund_plan_combin(pc_id,fpd_id,status) values(2,3,1) --高成长股基组合-海投计划
