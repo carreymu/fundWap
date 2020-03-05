@@ -1,3 +1,4 @@
+----------------------------------news and system info.--biz:news and AD and system info.--------------------------------------------------
 --system info like banners/company introduction/about target/introduction of selecting funds etc.
 CREATE TABLE system_info(id primary key autoincrement ,title varchar(50), content varchar(1000), status int, inserttime timestamp not null default (datetime('now','localtime')))
 INSERT INTO system_info(title, content, status) values('公司介绍','我就是我不一样的烟火',1)
@@ -10,7 +11,7 @@ INSERT INTO news_category(category_name, status) values('投资面对面',1)
 CREATE TABLE news_info(nid Integer primary key autoincrement,nc_id int, title varchar(50), img_url varchar(200), content varchar(1000), status int, inserttime timestamp not null default (datetime('now','localtime')))
 INSERT INTO news_info(title, img_url, content, status) values('[大目标]2周年运行情况和当前市场分析','/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png','我是分析君...哈哈哈',1)
 
-------------------------------------------------------------------------------------
+----------------------------------fund details--biz:target,drumstick and best choice--------------------------------------------------
 --fund category  like ETF/LOF/QDFII etc.
 CREATE TABLE fund_category(fc_id Integer primary key autoincrement, name varchar(50), risk_level varchar(2),status int)
 INSERT INTO fund_category(name,status) values('股票型','R3',1) --fc_id=1
@@ -101,7 +102,7 @@ INSERT INTO fund_position_other(fid,fpoc_id,hold_num) values(1,3,0.66)
 CREATE TABLE fund_worth_history(fwh_id Integer primary key autoincrement,fid int,worth float,daily_change float,inserttime timestamp not null default (datetime('now','localtime')))
 INSERT INTO fund_worth_history(fid,worth,daily_change) values(1,2.195,-3.37)
 
-------------------------------------------------------------------------------------
+------------------------------------fund plans--biz:target,drumstick and best choice------------------------------------------------
 --fund plan (returns_type:1-七日年化收益,2-近六月历史收益,3-近三年历史收益|page_type:1-only text or image,2-including FOFs etc.)
 CREATE TABLE fund_plan(fpl_id Integer primary key autoincrement,name varchar(20),returns float,loss float,returns_type int,threshold float,sched_threshold float,img_url varchar(200),
 page_type int,details varchar(500),short_intro varchar(30),remark varchar(200),inserttime timestamp not null default (datetime('now','localtime')))
@@ -124,3 +125,17 @@ INSERT INTO plan_combin(name,remark) values('高成长股基组合','高高尔�
 CREATE TABLE fund_plan_combin(fpc_id Integer primary key autoincrement,pc_id int,fpd_id int,status int,inserttime timestamp not null default (datetime('now','localtime')))
 INSERT INTO fund_plan_combin(pc_id,fpd_id,status) values(2,1,1) --高成长股基组合-全明星计划
 INSERT INTO fund_plan_combin(pc_id,fpd_id,status) values(2,3,1) --高成长股基组合-海投计划
+
+------------------------------------mine--biz:target and best choice------------------------------------------------
+--user details
+CREATE TABLE userdetail(uid Integer primary key autoincrement,username varchar(30),nickname varchar(30),phonenumber varchar(30),password varchar(100),is_fingerprint boolean,is_posture boolean,is_fund_account boolean,inserttime timestamp not null default (datetime('now','localtime')))
+INSERT INTO userdetail(username,nickname,phonenumber,password,is_fingerprint,is_posture,is_fund_account) values('Lady Gaga','GAGA','18808988989','YadnSEWOdwO09uwFepOe====',true,false,false)
+
+--fund account (risk_level:1-稳健,2-保守...;tax_id:1-仅为中国税收居民,2-仅为非中国税收居民,3-既是中国税收居民也是其他国家(地区)税收居民)
+CREATE TABLE user_fund_account(ufa_id Integer primary key autoincrement,real_name varchar(30),risk_level int,tax_id int,trade_password varchar(50),idcard_num varchar(20),inserttime timestamp not null default (datetime('now','localtime')))
+INSERT INTO user_fund_account(real_name,risk_level,tax_id,trade_password,idcard_num) values('张翠花',1,1,'YadnSEWOdwO09uwFepOe====','110221199202235460')
+
+--service card (source:1-购买,2-赠送,3-免费领取,4-友情援助;status:1-未使用,0-已使用)
+CREATE TABLE user_card(uc_id Integer primary key autoincrement,name varchar(20),source int,status int,exp_date_start datetime,exp_date_end datetime,inserttime timestamp not null default (datetime('now','localtime')))
+INSERT INTO user_card(name,source,status,exp_date_start,exp_date_end) values('大目标服务卡',1,1,'2020-01-22','2022-01-22')
+INSERT INTO user_card(name,source,status,exp_date_start,exp_date_end) values('加鸡腿服务卡',1,1,'2020-01-22','2022-01-22')
