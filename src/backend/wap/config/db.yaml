@@ -1,0 +1,44 @@
+# 请严格按照以下顺序编写配置, 并且所有环境必须配置
+# key:
+#   # 注释: 如 host 等
+#   owner:
+#   description:
+#   db_type: [mssql|mysql]
+#   dev:
+#     user:
+#     passwd:
+#     host:
+#     port:
+#     db:  # mysql 必填
+#   uat:
+#   pre:
+#   prod:
+
+database_mysql_cps:
+  owner: ~
+  description: ~
+  db_type: mysql
+  dev:
+    user: jshkaywoe
+    passwd: jshkaywoe@6892489
+    host: 127.0.0.1
+    port: 3403
+    db: jshkaywoe
+  uat:
+    user: jshkaywoe
+    passwd: jshkaywoe@6892489
+    host: uat-2.mysql.jshkaywoe.com
+    port: 3402
+    db: jshkaywoe
+  pre:
+    user: jshkaywoe
+    passwd: jshkaywoe@6892489
+    host: cbd.bi.mysql.jshkaywoe.com
+    port: 3406
+    db: jshkaywoe
+  prod:
+    user: jshkaywoe
+    passwd: jshkaywoe@6892489
+    host: cbd.bi.mysql.jshkaywoe.com
+    port: 3406
+    db: jshkaywoe
