@@ -1,71 +1,71 @@
 ----------------------------------news and system info.--biz:news and AD and system info.--------------------------------------------------
 --1.system info like banners/company introduction/about target/introduction of selecting funds etc.
 CREATE TABLE system_info(id Integer primary key autoincrement ,title varchar(50), content varchar(1000), status int, inserttime timestamp not null default (datetime('now','localtime')));
-INSERT INTO system_info(title, content, status) values('å…¬å¸ä»‹ç»','æˆ‘å°±æ˜¯æˆ‘ä¸ä¸€æ ·çš„çƒŸç«',1);
+INSERT INTO system_info(title, content, status) values('¹«Ë¾½éÉÜ','ÎÒ¾ÍÊÇÎÒ²»Ò»ÑùµÄÑÌ»ğ',1);
 
 --2.news type 
 CREATE TABLE news_category(nc_id Integer primary key autoincrement,category_name varchar(50),status int,inserttime datetime);
-INSERT INTO news_category(category_name, status) values('æŠ•èµ„é¢å¯¹é¢',1);
+INSERT INTO news_category(category_name, status) values('Í¶×ÊÃæ¶ÔÃæ',1);
 
 --3.news details invester face to face/drumstick news/
 CREATE TABLE news_info(nid Integer primary key autoincrement,nc_id int, title varchar(50), img_url varchar(200), content varchar(1000), status int, inserttime timestamp not null default (datetime('now','localtime')));
-INSERT INTO news_info(title,nc_id,img_url, content, status) values('[å¤§ç›®æ ‡]2å‘¨å¹´è¿è¡Œæƒ…å†µå’Œå½“å‰å¸‚åœºåˆ†æ',1,'/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png','æˆ‘æ˜¯åˆ†æå›...å“ˆå“ˆå“ˆ',1);
+INSERT INTO news_info(title,nc_id,img_url, content, status) values('[´óÄ¿±ê]2ÖÜÄêÔËĞĞÇé¿öºÍµ±Ç°ÊĞ³¡·ÖÎö',1,'/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png','ÎÒÊÇ·ÖÎö¾ı...¹ş¹ş¹ş',1);
 
 ----------------------------------fund details--biz:target,drumstick and best choice--------------------------------------------------
 --4.fund category  like ETF/LOF/QDFII etc.
 CREATE TABLE fund_category(fc_id Integer primary key autoincrement, name varchar(50), risk_level varchar(2),status int)
-INSERT INTO fund_category(name,risk_level,status) values('è‚¡ç¥¨å‹','R3',1); --fc_id=1
-INSERT INTO fund_category(name,risk_level,status) values('æŒ‡æ•°å‹','R4',1);
-INSERT INTO fund_category(name,risk_level,status) values('åè‚¡å‹','R4',1);
-INSERT INTO fund_category(name,risk_level,status) values('è‚¡å€ºå¹³è¡¡å‹','R3',1);
-INSERT INTO fund_category(name,risk_level,status) values('åå€ºå‹','R2',1);
-INSERT INTO fund_category(name,risk_level,status) values('å€ºåˆ¸å‹','R1',1);
-INSERT INTO fund_category(name,risk_level,status) values('ä¿æœ¬å‹','R1',1);
-INSERT INTO fund_category(name,risk_level,status) values('è´§å¸å‹','R1',1);
+INSERT INTO fund_category(name,risk_level,status) values('¹ÉÆ±ĞÍ','R3',1); --fc_id=1
+INSERT INTO fund_category(name,risk_level,status) values('Ö¸ÊıĞÍ','R4',1);
+INSERT INTO fund_category(name,risk_level,status) values('Æ«¹ÉĞÍ','R4',1);
+INSERT INTO fund_category(name,risk_level,status) values('¹ÉÕ®Æ½ºâĞÍ','R3',1);
+INSERT INTO fund_category(name,risk_level,status) values('Æ«Õ®ĞÍ','R2',1);
+INSERT INTO fund_category(name,risk_level,status) values('Õ®È¯ĞÍ','R1',1);
+INSERT INTO fund_category(name,risk_level,status) values('±£±¾ĞÍ','R1',1);
+INSERT INTO fund_category(name,risk_level,status) values('»õ±ÒĞÍ','R1',1);
 
 --5.fund manager
 CREATE TABLE fund_manager(fm_id Integer primary key autoincrement, name varchar(30), status int, remark varchar(1000), inserttime timestamp not null default (datetime('now','localtime')));
-INSERT INTO fund_manager(name,status,remark) values('å¼ ä¸‰ç–¯',1,'ç»æµå­¦åšå£«,CFA.æˆ‘æ˜¯ä¸‰ä¸°...ä¸æ˜¯ä¸‰ç–¯...'); --fm_id=1
-INSERT INTO fund_manager(name,status,remark) values('é˜¿ç“¦ä¹°æ',1,'ç»æµå­¦**,CFA.æˆ‘æ˜¯ä¹°ä¹°æ.'); --fm_id=2
+INSERT INTO fund_manager(name,status,remark) values('ÕÅÈı·è',1,'¾­¼ÃÑ§²©Ê¿,CFA.ÎÒÊÇÈı·á...²»ÊÇÈı·è...'); --fm_id=1
+INSERT INTO fund_manager(name,status,remark) values('°¢ÍßÂòÌá',1,'¾­¼ÃÑ§**,CFA.ÎÒÊÇÂòÂòÌá.'); --fm_id=2
 
 --6.fund industry like manufacturing/finance/real estate/construction etc
 CREATE TABLE fund_industry(fi_id Integer primary key autoincrement, name varchar(50));
-INSERT INTO fund_industry(name) values('åˆ¶é€ ä¸š');
-INSERT INTO fund_industry(name) values('é‡‘èä¸š');
-INSERT INTO fund_industry(name) values('æˆ¿åœ°äº§ä¸š');
-INSERT INTO fund_industry(name) values('å†œã€æ—ã€ç‰§ã€æ¸”ä¸š');
-INSERT INTO fund_industry(name) values('å»ºç­‘ä¸š');
-INSERT INTO fund_industry(name) values('å…¶ä»–');
+INSERT INTO fund_industry(name) values('ÖÆÔìÒµ');
+INSERT INTO fund_industry(name) values('½ğÈÚÒµ');
+INSERT INTO fund_industry(name) values('·¿µØ²úÒµ');
+INSERT INTO fund_industry(name) values('Å©¡¢ÁÖ¡¢ÄÁ¡¢ÓæÒµ');
+INSERT INTO fund_industry(name) values('½¨ÖşÒµ');
+INSERT INTO fund_industry(name) values('ÆäËû');
 
 --7.fund position like CMB/GREE etc
 CREATE TABLE fund_stock(fs_id Integer primary key autoincrement, name varchar(50), status int, code varchar(20),remark varchar(100),inserttime timestamp not null default (datetime('now','localtime')));
-INSERT INTO fund_stock(name,status,code,remark) values('ä¸­å›½å¹³å®‰','601318.SH',1,'ç¥ç§˜ä»£ç '); --fs_id=1
-INSERT INTO fund_stock(name,status,code,remark) values('æ‹›å•†é“¶è¡Œ','600036.SH',1,'ç¥ç§˜ä»£ç '); --fs_id=2
+INSERT INTO fund_stock(name,status,code,remark) values('ÖĞ¹úÆ½°²','601318.SH',1,'ÉñÃØ´úÂë'); --fs_id=1
+INSERT INTO fund_stock(name,status,code,remark) values('ÕĞÉÌÒøĞĞ','600036.SH',1,'ÉñÃØ´úÂë'); --fs_id=2
 
 --8.fund customized category
 CREATE TABLE fund_customized_category(fcc_id Integer primary key autoincrement,name varchar(50),ico_color varchar(7));
-INSERT INTO fund_customized_category(name,ico_color) values('é‡åŒ–æ´¾','#FE5D4D');
-INSERT INTO fund_customized_category(name,ico_color) values('ç¨³å¥æ´¾','#FE554D');
-INSERT INTO fund_customized_category(name,ico_color) values('ä»·å€¼å‹','#737DDE');
-INSERT INTO fund_customized_category(name,ico_color) values('ä¸»é¢˜å‹','#707DDE');
-INSERT INTO fund_customized_category(name,ico_color) values('æˆé•¿å‹','#3BA4FF');
+INSERT INTO fund_customized_category(name,ico_color) values('Á¿»¯ÅÉ','#FE5D4D');
+INSERT INTO fund_customized_category(name,ico_color) values('ÎÈ½¡ÅÉ','#FE554D');
+INSERT INTO fund_customized_category(name,ico_color) values('¼ÛÖµĞÍ','#737DDE');
+INSERT INTO fund_customized_category(name,ico_color) values('Ö÷ÌâĞÍ','#707DDE');
+INSERT INTO fund_customized_category(name,ico_color) values('³É³¤ĞÍ','#3BA4FF');
 
---9.fund details share_bonus_type:0-ç°é‡‘åˆ†çº¢,1-çº¢åˆ©å†æŠ•
+--9.fund details share_bonus_type:0-ÏÖ½ğ·Öºì,1-ºìÀûÔÙÍ¶
 CREATE TABLE fund_info(fid Integer primary key autoincrement, fc_id int, fcc_id int,fund_name varchar(50), fund_code varchar(20),fund_company varchar(50),fund_assets varchar(30), 
 start_date datetime,management_fee float,custody_fee float,purchase_rate_old float,purchase_rate_new float,purchase_rate_discount float,sched_invest_remark varchar(500),
 purchase_process varchar(500),redemption_fee_remark varchar(500),redemption_process varchar(500),redemption_position varchar(100),agreement varchar(800),share_bonus_type int,
 remark varchar(500),inserttime timestamp not null default (datetime('now','localtime')));
 INSERT INTO fund_info(fc_id,fcc_id,fund_name,fund_code,fund_company,fund_assets,start_date,management_fee,custody_fee,purchase_rate_old,purchase_rate_new,purchase_rate_discount,sched_invest_remark,
-purchase_process,redemption_fee_remark,redemption_process,redemption_position,agreement,share_bonus_type,remark) values(1,1,'æ™¯é¡ºé•¿åŸæ²ªæ·±300å¢å¼º','000311','æ™¯é¡ºé•¿åŸåŸºé‡‘','100äº¿','2016-10-01',0.3,0.08,0.012,0.0012,1,'å®šæŠ•è§„åˆ™:é‡åˆ°èŠ‚å‡æ—¥è‡ªåŠ¨å»¶è¿Ÿåˆ°ä¸‹ä¸€ä¸ªäº¤æ˜“æ—¥æ‰£æ¬¾',
-'Tæ—¥/T+1æ—¥/T+1å½“æ—¥å‡€å€¼æ›´æ–°å','èµå›è´¹ç‡å¦‚ä¸‹:','èµå›æµç¨‹','èµå›ä»½é¢','æ™¯é¡ºé•¿åŸçš„åè®®',0,'æ™¯é¡ºé•¿åŸæ²ªæ·±300å¢å¼ºå¤‡æ³¨'); -- fid=1
+purchase_process,redemption_fee_remark,redemption_process,redemption_position,agreement,share_bonus_type,remark) values(1,1,'¾°Ë³³¤³Ç»¦Éî300ÔöÇ¿','000311','¾°Ë³³¤³Ç»ù½ğ','100ÒÚ','2016-10-01',0.3,0.08,0.012,0.0012,1,'¶¨Í¶¹æÔò:Óöµ½½Ú¼ÙÈÕ×Ô¶¯ÑÓ³Ùµ½ÏÂÒ»¸ö½»Ò×ÈÕ¿Û¿î',
+'TÈÕ/T+1ÈÕ/T+1µ±ÈÕ¾»Öµ¸üĞÂºó','Êê»Ø·ÑÂÊÈçÏÂ:','Êê»ØÁ÷³Ì','Êê»Ø·İ¶î','¾°Ë³³¤³ÇµÄĞ­Òé',0,'¾°Ë³³¤³Ç»¦Éî300ÔöÇ¿±¸×¢'); -- fid=1
 INSERT INTO fund_info(fc_id,fcc_id,fund_name,fund_code,fund_company,fund_assets,start_date,management_fee,custody_fee,purchase_rate_old,purchase_rate_new,purchase_rate_discount,sched_invest_remark,
-purchase_process,redemption_fee_remark,redemption_process,redemption_position,agreement,share_bonus_type,remark) values(1,2,'å¯Œå›½æ–°åŠ¨åŠ›A','001508','å¯Œå›½','130äº¿','2016-10-01',0.26,0.07,0.01,0.001,1,'å®šæŠ•è§„åˆ™:é‡åˆ°èŠ‚å‡æ—¥è‡ªåŠ¨å»¶è¿Ÿåˆ°ä¸‹ä¸€ä¸ªäº¤æ˜“æ—¥æ‰£æ¬¾',
-'Tæ—¥/T+1æ—¥/T+1å½“æ—¥å‡€å€¼æ›´æ–°å','èµå›è´¹ç‡å¦‚ä¸‹:','èµå›æµç¨‹','èµå›ä»½é¢','æ™¯é¡ºé•¿åŸçš„åè®®',0,'å¯Œå›½æ–°åŠ¨åŠ›Aå¤‡æ³¨'); -- fid=2
+purchase_process,redemption_fee_remark,redemption_process,redemption_position,agreement,share_bonus_type,remark) values(1,2,'¸»¹úĞÂ¶¯Á¦A','001508','¸»¹ú','130ÒÚ','2016-10-01',0.26,0.07,0.01,0.001,1,'¶¨Í¶¹æÔò:Óöµ½½Ú¼ÙÈÕ×Ô¶¯ÑÓ³Ùµ½ÏÂÒ»¸ö½»Ò×ÈÕ¿Û¿î',
+'TÈÕ/T+1ÈÕ/T+1µ±ÈÕ¾»Öµ¸üĞÂºó','Êê»Ø·ÑÂÊÈçÏÂ:','Êê»ØÁ÷³Ì','Êê»Ø·İ¶î','¾°Ë³³¤³ÇµÄĞ­Òé',0,'¸»¹úĞÂ¶¯Á¦A±¸×¢'); -- fid=2
 
 --10.fund bonus and split (bonus.type=0,split.type=1)
 CREATE TABLE fund_bonus_split(fbs_id Integer primary key autoincrement,fid int,type int,remark varchar(30),amt float,currency varchar(5),inserttime timestamp not null default (datetime('now','localtime')));
-INSERT INTO fund_bonus_split(fid,type,remark,amt,currency) values(1,1,'å•ä½åˆ†çº¢',0.15,'å…ƒ');
-INSERT INTO fund_bonus_split(fid,type,remark,amt,currency) values(1,1,'å•ä½åˆ†çº¢',0.19,'å…ƒ');
+INSERT INTO fund_bonus_split(fid,type,remark,amt,currency) values(1,1,'µ¥Î»·Öºì',0.15,'Ôª');
+INSERT INTO fund_bonus_split(fid,type,remark,amt,currency) values(1,1,'µ¥Î»·Öºì',0.19,'Ôª');
 
 --11.fund redemption rate
 CREATE TABLE fund_redemption_rate(frr_id Integer primary key autoincrement,fid int,hold_days int,rate float);
@@ -75,8 +75,8 @@ INSERT INTO fund_redemption_rate(fid,hold_days,rate) values(1,730,0.0); --[365,7
 
 --12.fund manager matchs funds
 CREATE TABLE fund_managers(fms_id Integer primary key autoincrement,fid int, fm_id int,inserttime timestamp not null default (datetime('now','localtime')));
-INSERT INTO fund_managers(fid,fm_id) values(1,1); --æ™¯é¡ºé•¿åŸæ²ªæ·±300å¢å¼º--å¼ ä¸‰ç–¯
-INSERT INTO fund_managers(fid,fm_id) values(1,2); --æ™¯é¡ºé•¿åŸæ²ªæ·±300å¢å¼º--é˜¿ç“¦ä¹°æ
+INSERT INTO fund_managers(fid,fm_id) values(1,1); --¾°Ë³³¤³Ç»¦Éî300ÔöÇ¿--ÕÅÈı·è
+INSERT INTO fund_managers(fid,fm_id) values(1,2); --¾°Ë³³¤³Ç»¦Éî300ÔöÇ¿--°¢ÍßÂòÌá
 
 --13.fund managers and their fund history
 CREATE TABLE fund_managers_history(fmh_id Integer primary key autoincrement,fm_id int,fid int,review_num float,hu_shen_300 float,inserttime timestamp not null default (datetime('now','localtime')));
@@ -84,14 +84,14 @@ INSERT INTO fund_managers_history(fm_id,fid,review_num,hu_shen_300) values(1,1,1
 
 --14.fund position, stock position
 CREATE TABLE fund_position(fp_id Integer primary key autoincrement,fid int, fs_id int,hold_num float,inserttime timestamp not null default (datetime('now','localtime')));
-INSERT INTO fund_position(fid,fs_id,hold_num) values(1,1,752);--æ™¯é¡ºé•¿åŸæ²ªæ·±300å¢å¼º-ä¸­å›½å¹³å®‰-7.52
-INSERT INTO fund_position(fid,fs_id,hold_num) values(1,2,513);--æ™¯é¡ºé•¿åŸæ²ªæ·±300å¢å¼º-æ‹›å•†é“¶è¡Œ-5.13
+INSERT INTO fund_position(fid,fs_id,hold_num) values(1,1,752);--¾°Ë³³¤³Ç»¦Éî300ÔöÇ¿-ÖĞ¹úÆ½°²-7.52
+INSERT INTO fund_position(fid,fs_id,hold_num) values(1,2,513);--¾°Ë³³¤³Ç»¦Éî300ÔöÇ¿-ÕĞÉÌÒøĞĞ-5.13
 
 --15.fund postion, other position category
 CREATE TABLE fund_position_other_category(fpoc_id Integer primary key autoincrement,name varchar(30));
-INSERT INTO fund_position_other_category(name) values('å€ºåˆ¸');
-INSERT INTO fund_position_other_category(name) values('é“¶è¡Œå­˜æ¬¾');
-INSERT INTO fund_position_other_category(name) values('å…¶ä»–');
+INSERT INTO fund_position_other_category(name) values('Õ®È¯');
+INSERT INTO fund_position_other_category(name) values('ÒøĞĞ´æ¿î');
+INSERT INTO fund_position_other_category(name) values('ÆäËû');
 
 --16.fund position, other position
 CREATE TABLE fund_position_other(fpo_id Integer primary key autoincrement,fid int, fpoc_id int,hold_num float,inserttime timestamp not null default (datetime('now','localtime')));
@@ -104,28 +104,28 @@ CREATE TABLE fund_worth_history(fwh_id Integer primary key autoincrement,fid int
 INSERT INTO fund_worth_history(fid,worth,daily_change) values(1,2.195,-3.37);
 
 ------------------------------------fund plans--biz:target,drumstick and best choice------------------------------------------------
---18.fund plan (returns_type:1-ä¸ƒæ—¥å¹´åŒ–æ”¶ç›Š,2-è¿‘å…­æœˆå†å²æ”¶ç›Š,3-è¿‘ä¸‰å¹´å†å²æ”¶ç›Š|page_type:1-only text or image,2-including FOFs etc.)
+--18.fund plan (returns_type:1-ÆßÈÕÄê»¯ÊÕÒæ,2-½üÁùÔÂÀúÊ·ÊÕÒæ,3-½üÈıÄêÀúÊ·ÊÕÒæ|page_type:1-only text or image,2-including FOFs etc.)
 CREATE TABLE fund_plan(fpl_id Integer primary key autoincrement,name varchar(20),returns float,loss float,returns_type int,threshold float,sched_threshold float,img_url varchar(200),
 page_type int,details varchar(500),short_intro varchar(30),remark varchar(200),inserttime timestamp not null default (datetime('now','localtime')));
-INSERT INTO fund_plan(name,returns,loss,returns_type,threshold,sched_threshold,img_url,page_type,details,short_intro,remark) values('è¶…çº§ç°é‡‘å®',2.8,0,1,100,0,'//images_url',1,'','','ä»…ä¸€å¼ å›¾ç‰‡çš„é¡µé¢');
-INSERT INTO fund_plan(name,returns,loss,returns_type,threshold,sched_threshold,img_url,page_type,details,short_intro,remark) values('å…¨æ˜æ˜Ÿè®¡åˆ’',35.57,43.11,3,1000,500,'//images_url',2,'ç»„åˆè¯¦æƒ…:','è·Ÿå¯¹äººä¹°å¯¹åŸº,å®åŠ›æ´¾ç»ç†ä¸€ç½‘æ‰“å°½','æœ‰åŸºåˆ—è¡¨');
-INSERT INTO fund_plan(name,returns,loss,returns_type,threshold,sched_threshold,img_url,page_type,details,short_intro,remark) values('æµ·æŠ•è®¡åˆ’',30.63,18.24,3,1000,100,'//images_url',2,'ç»„åˆè¯¦æƒ…:','å…¨çƒèµ„äº§é…ç½®,æŠŠæ¡æ›´å¤šæŠ•èµ„æœºä¼š','é«˜å°”åŸº');
+INSERT INTO fund_plan(name,returns,loss,returns_type,threshold,sched_threshold,img_url,page_type,details,short_intro,remark) values('³¬¼¶ÏÖ½ğ±¦',2.8,0,1,100,0,'//images_url',1,'','','½öÒ»ÕÅÍ¼Æ¬µÄÒ³Ãæ');
+INSERT INTO fund_plan(name,returns,loss,returns_type,threshold,sched_threshold,img_url,page_type,details,short_intro,remark) values('È«Ã÷ĞÇ¼Æ»®',35.57,43.11,3,1000,500,'//images_url',2,'×éºÏÏêÇé:','¸ú¶ÔÈËÂò¶Ô»ù,ÊµÁ¦ÅÉ¾­ÀíÒ»Íø´ò¾¡','ÓĞ»ùÁĞ±í');
+INSERT INTO fund_plan(name,returns,loss,returns_type,threshold,sched_threshold,img_url,page_type,details,short_intro,remark) values('º£Í¶¼Æ»®',30.63,18.24,3,1000,100,'//images_url',2,'×éºÏÏêÇé:','È«Çò×Ê²úÅäÖÃ,°ÑÎÕ¸ü¶àÍ¶×Ê»ú»á','¸ß¶û»ù');
 
 --19.fund plan details
 CREATE TABLE fund_plan_details(fpd_id Integer primary key autoincrement,fpl_id int,fid int,inserttime timestamp not null default (datetime('now','localtime')));
-INSERT INTO fund_plan_details(fpl_id,fid) values(2,1); --å…¨æ˜æ˜Ÿè®¡åˆ’-æ™¯é¡ºé•¿åŸæ²ªæ·±300å¢å¼º,fpid_id=1
-INSERT INTO fund_plan_details(fpl_id,fid) values(2,2); --å…¨æ˜æ˜Ÿè®¡åˆ’-å¯Œå›½æ–°åŠ¨åŠ›A,fpid_id=2
-INSERT INTO fund_plan_details(fpl_id,fid) values(3,2); --æµ·æŠ•è®¡åˆ’-å¯Œå›½æ–°åŠ¨åŠ›A,fpid_id=3
+INSERT INTO fund_plan_details(fpl_id,fid) values(2,1); --È«Ã÷ĞÇ¼Æ»®-¾°Ë³³¤³Ç»¦Éî300ÔöÇ¿,fpid_id=1
+INSERT INTO fund_plan_details(fpl_id,fid) values(2,2); --È«Ã÷ĞÇ¼Æ»®-¸»¹úĞÂ¶¯Á¦A,fpid_id=2
+INSERT INTO fund_plan_details(fpl_id,fid) values(3,2); --º£Í¶¼Æ»®-¸»¹úĞÂ¶¯Á¦A,fpid_id=3
 
 --20.combining plan
 CREATE TABLE plan_combin(pc_id Integer primary key autoincrement,name varchar(20),remark varchar(50));
-INSERT INTO plan_combin(name,remark) values('æ´»æœŸç†è´¢','é€‰å“ªä¸ªç«é¸¡å‘¢?å¤©é¸¿?');
-INSERT INTO plan_combin(name,remark) values('é«˜æˆé•¿è‚¡åŸºç»„åˆ','é«˜é«˜å°”åŸº');
+INSERT INTO plan_combin(name,remark) values('»îÆÚÀí²Æ','Ñ¡ÄÄ¸ö»ğ¼¦ÄØ?Ììºè?');
+INSERT INTO plan_combin(name,remark) values('¸ß³É³¤¹É»ù×éºÏ','¸ß¸ß¶û»ù');
 
 --21.fund plans match combining plans  N:N, status:0-useless,1-using
 CREATE TABLE fund_plan_combin(fpc_id Integer primary key autoincrement,pc_id int,fpd_id int,status int,inserttime timestamp not null default (datetime('now','localtime')));
-INSERT INTO fund_plan_combin(pc_id,fpd_id,status) values(2,1,1); --é«˜æˆé•¿è‚¡åŸºç»„åˆ-å…¨æ˜æ˜Ÿè®¡åˆ’
-INSERT INTO fund_plan_combin(pc_id,fpd_id,status) values(2,3,1); --é«˜æˆé•¿è‚¡åŸºç»„åˆ-æµ·æŠ•è®¡åˆ’
+INSERT INTO fund_plan_combin(pc_id,fpd_id,status) values(2,1,1); --¸ß³É³¤¹É»ù×éºÏ-È«Ã÷ĞÇ¼Æ»®
+INSERT INTO fund_plan_combin(pc_id,fpd_id,status) values(2,3,1); --¸ß³É³¤¹É»ù×éºÏ-º£Í¶¼Æ»®
 
 ------------------------------------mine--biz:target and best choice------------------------------------------------
 --22.user details
@@ -133,15 +133,15 @@ CREATE TABLE userdetail(uid Integer primary key autoincrement,username varchar(3
 is_posture boolean,is_fund_account boolean,target_bouns_amt float,inserttime timestamp not null default (datetime('now','localtime')));
 INSERT INTO userdetail(username,nickname,phonenumber,password,is_fingerprint,is_posture,is_fund_account,target_bouns_amt) values('Lady Gaga','GAGA','18808988989','YadnSEWOdwO09uwFepOe====',true,false,false,385.95);
 
---23.fund account (risk_level:1-ç¨³å¥,2-ä¿å®ˆ...;tax_id:1-ä»…ä¸ºä¸­å›½ç¨æ”¶å±…æ°‘,2-ä»…ä¸ºéä¸­å›½ç¨æ”¶å±…æ°‘,3-æ—¢æ˜¯ä¸­å›½ç¨æ”¶å±…æ°‘ä¹Ÿæ˜¯å…¶ä»–å›½å®¶(åœ°åŒº)ç¨æ”¶å±…æ°‘);occupation:1-ç§‘ç ”äººå‘˜
+--23.fund account (risk_level:1-ÎÈ½¡,2-±£ÊØ...;tax_id:1-½öÎªÖĞ¹úË°ÊÕ¾ÓÃñ,2-½öÎª·ÇÖĞ¹úË°ÊÕ¾ÓÃñ,3-¼ÈÊÇÖĞ¹úË°ÊÕ¾ÓÃñÒ²ÊÇÆäËû¹ú¼Ò(µØÇø)Ë°ÊÕ¾ÓÃñ);occupation:1-¿ÆÑĞÈËÔ±
 CREATE TABLE user_fund_account(ufa_id Integer primary key autoincrement,real_name varchar(30),risk_level int,tax_id int,trade_password varchar(50),idcard_num varchar(20),
 idcard_expdate datetime,address varchar(100),occupation int,inserttime timestamp not null default (datetime('now','localtime')));
-INSERT INTO user_fund_account(real_name,risk_level,tax_id,trade_password,idcard_num,idcard_expdate,address,occupation) values('å¼ ç¿ èŠ±',1,1,'YadnSEWOdwO09uwFepOe====','110221199202235460','2033-12-02','ä¸Šæµ·å¸‚å—äº¬ä¸œè¥¿è·¯xxxå·',1);
+INSERT INTO user_fund_account(real_name,risk_level,tax_id,trade_password,idcard_num,idcard_expdate,address,occupation) values('ÕÅ´ä»¨',1,1,'YadnSEWOdwO09uwFepOe====','110221199202235460','2033-12-02','ÉÏº£ÊĞÄÏ¾©¶«Î÷Â·xxxºÅ',1);
 
---24.service card (source:1-è´­ä¹°,2-èµ é€,3-å…è´¹é¢†å–,4-å‹æƒ…æ´åŠ©;status:1-æœªä½¿ç”¨,0-å·²ä½¿ç”¨)
+--24.service card (source:1-¹ºÂò,2-ÔùËÍ,3-Ãâ·ÑÁìÈ¡,4-ÓÑÇéÔ®Öú;status:1-Î´Ê¹ÓÃ,0-ÒÑÊ¹ÓÃ)
 CREATE TABLE user_card(uc_id Integer primary key autoincrement,name varchar(20),source int,status int,exp_date_start datetime,exp_date_end datetime,inserttime timestamp not null default (datetime('now','localtime')));
-INSERT INTO user_card(name,source,status,exp_date_start,exp_date_end) values('å¤§ç›®æ ‡æœåŠ¡å¡',1,1,'2020-01-22','2022-01-22');
-INSERT INTO user_card(name,source,status,exp_date_start,exp_date_end) values('åŠ é¸¡è…¿æœåŠ¡å¡',1,1,'2020-01-22','2022-01-22');
+INSERT INTO user_card(name,source,status,exp_date_start,exp_date_end) values('´óÄ¿±ê·şÎñ¿¨',1,1,'2020-01-22','2022-01-22');
+INSERT INTO user_card(name,source,status,exp_date_start,exp_date_end) values('¼Ó¼¦ÍÈ·şÎñ¿¨',1,1,'2020-01-22','2022-01-22');
 
 --25.bank information
 CREATE TABLE bank(bid Integer primary key autoincrement,name varchar(50));
@@ -155,7 +155,7 @@ CREATE TABLE city(cid Integer primary key autoincrement,pid int,name varchar(30)
 CREATE TABLE user_bank(ub_id Integer primary key autoincrement,uid int,card_number varchar(20),bid int,bbid int,pid int,cid int,leave_phonenumber varchar(15));
 INSERT INTO user_bank(uid,card_number,bid,bbid,pid,cid,leave_phonenumber) values(1,'520145687956235',1,1,1,1,'18856898989');
 ------------------------------------target--biz:target------------------------------------------------
---29.target run_status:0-æµæ ‡,1-å»ºä»“ä¸­,2-ç›ˆåˆ©ä¸­,3-æµ®äºä¸­,4-å·²è¾¾æ ‡,5å·²æ¸…ä»“ ,0<N<4->è¿è¡Œä¸­
+--29.target run_status:0-Á÷±ê,1-½¨²ÖÖĞ,2-Ó¯ÀûÖĞ,3-¸¡¿÷ÖĞ,4-ÒÑ´ï±ê,5ÒÑÇå²Ö ,0<N<4->ÔËĞĞÖĞ
 CREATE TABLE targets(tid Integer primary key autoincrement,name varchar(10),target_ratio float,run_status int,inserttime timestamp not null default (datetime('now','localtime')));
 INSERT INTO targets(name,target_ratio,run_status) values('2006',0.08,1);
 
@@ -165,22 +165,22 @@ INSERT INTO target_funds(fid,amt,last_returns) values(1,2478.63,4.51);
 
 --31.history of daily target news,status:0-show,1-not show
 CREATE TABLE target_history(th_id Integer primary key autoincrement,tid int,title varchar(50), content varchar(1000),status int,inserttime timestamp not null default (datetime('now','localtime')));
-INSERT INTO target_history(tid,title,content,status) values(1,'2æœˆ23æ—¥[å¤§ç›®æ ‡]æŠ•èµ„æ’­æŠ¥','èŒæ–°ä»¬å“è¢«è‚¡å¸‚å“åäº†å§.',1);
+INSERT INTO target_history(tid,title,content,status) values(1,'2ÔÂ23ÈÕ[´óÄ¿±ê]Í¶×Ê²¥±¨','ÃÈĞÂÃÇÏÅ±»¹ÉÊĞÏÅ»µÁË°É.',1);
 
---32.fund trade summery status:0-æå‰èµå›,1-åˆ°æœŸèµå›
+--32.fund trade summery status:0-ÌáÇ°Êê»Ø,1-µ½ÆÚÊê»Ø
 CREATE TABLE target_trade_summery(tts_id Integer primary key autoincrement,uid int,tid int,bc_id int,invest_amt float,bonus_amt float,status int,inserttime timestamp not null default (datetime('now','localtime')));
-INSERT INTO target_trade_summery(uid,tid,bc_id,invest_amt,bonus_amt,status) values(1,1,1,3000,242.08,1);--Lady Gaga-2006æœŸå¤§ç›®æ ‡-ä½¿ç”¨é“¶è¡Œå¡0005å›æ¬¾è´¦å·-æŠ•èµ„3000-æ”¶ç›Š242.08-åˆ°æœŸèµå›
+INSERT INTO target_trade_summery(uid,tid,bc_id,invest_amt,bonus_amt,status) values(1,1,1,3000,242.08,1);--Lady Gaga-2006ÆÚ´óÄ¿±ê-Ê¹ÓÃÒøĞĞ¿¨0005»Ø¿îÕËºÅ-Í¶×Ê3000-ÊÕÒæ242.08-µ½ÆÚÊê»Ø
 
---33.fund trade body status:0-èµå›ä¸­,1-å·²åˆ°è´¦
+--33.fund trade body status:0-Êê»ØÖĞ,1-ÒÑµ½ÕË
 CREATE TABLE target_trade_process(ttp_id Integer primary key autoincrement,uid int,fid int,tt_id int,tid int,status int,confirm_fund_amt float,confirm_date datetime,pay_date datetime,inserttime timestamp not null default (datetime('now','localtime')));
-INSERT INTO target_trade_process(uid,fid,tt_id,tid,status,confirm_fund_amt,confirm_date,pay_date) values(1,2,1,1,2,340.85,'2020-02-21','2020-02-25');--Lady Gaga-æ™¯é¡ºé•¿åŸæ²ªæ·±300å¢å¼º-å¤©å¼˜å¼˜è¿å®A-1-[å¤§ç›®æ ‡]1902-è½¬æ¢-è½¬å…¥237.36-è½¬å‡º
+INSERT INTO target_trade_process(uid,fid,tt_id,tid,status,confirm_fund_amt,confirm_date,pay_date) values(1,2,1,1,2,340.85,'2020-02-21','2020-02-25');--Lady Gaga-¾°Ë³³¤³Ç»¦Éî300ÔöÇ¿-ÌìºëºëÔË±¦A-1-[´óÄ¿±ê]1902-×ª»»-×ªÈë237.36-×ª³ö
 
---34.fund trade history details  status:0-ç”³è´­,1-åˆ†çº¢,2-èµå›; trade_status:1-å·²ç¡®è®¤
+--34.fund trade history details  status:0-Éê¹º,1-·Öºì,2-Êê»Ø; trade_status:1-ÒÑÈ·ÈÏ
 CREATE TABLE target_trade_process_details1(ttpd1_id Integer primary key autoincrement,uid int,fid int,tid int,bc_id int,apply_amt float,confirm_worth float,confirm_portion float,charge float, trade_status int,
 order_date datetime,pay_date datetime,confirm_date datetime,inserttime timestamp not null default (datetime('now','localtime')));
 INSERT INTO target_trade_process_details1(uid,fid,tid,bc_id,apply_amt,confirm_worth,confirm_portion,charge,trade_status,order_date,pay_date,confirm_date) values(1,1,1,1,3000,1.0,3000,0.00,1,'2019-10-21 13:58:10','2019-10-21 13:58:10','2019-11-01 13:58:10');
 
---35.fund trade history details  status:0-ç”³è´­,1-åˆ†çº¢,2-èµå›; trade_status:1-å·²ç¡®è®¤
+--35.fund trade history details  status:0-Éê¹º,1-·Öºì,2-Êê»Ø; trade_status:1-ÒÑÈ·ÈÏ
 CREATE TABLE target_trade_process_details2(tthd2_id Integer primary key autoincrement,uid int,tid int,fid_in int,fid_out int,worth_out float,worth_in float,fund_portion_in float,fund_portion_out float,charge_in float,charge_out float,
 trade_status_in int,trade_status_out int,inserttime timestamp not null default (datetime('now','localtime')));
 INSERT INTO target_trade_process_details2(uid,tid,fid_in,fid_out,worth_out,worth_in,fund_portion_in,fund_portion_out,charge_in,charge_out,trade_status_in,trade_status_out) values(1,1,1,2,1,1.0,1.26,188.3,237.26,0.00,1,1);
