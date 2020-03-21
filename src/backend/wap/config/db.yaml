@@ -19,26 +19,26 @@ database_mysql_cps:
   description: ~
   db_type: mysql
   dev:
-    user: jshkaywoe
-    passwd: jshkaywoe@6892489
-    host: 127.0.0.1
-    port: 3403
-    db: jshkaywoe
+    user: root
+    passwd: root
+    host: 192.168.1.100
+    port: 3406
+    db: fund_wap
   uat:
-    user: jshkaywoe
-    passwd: jshkaywoe@6892489
-    host: uat-2.mysql.jshkaywoe.com
+    user: root
+    passwd: root
+    host: 192.168.1.100
     port: 3402
-    db: jshkaywoe
+    db: fund_wap
   pre:
-    user: jshkaywoe
-    passwd: jshkaywoe@6892489
-    host: cbd.bi.mysql.jshkaywoe.com
+    user: root
+    passwd: root
+    host: 192.168.1.100
     port: 3406
-    db: jshkaywoe
+    db: fund_wap
   prod:
-    user: jshkaywoe
-    passwd: jshkaywoe@6892489
-    host: cbd.bi.mysql.jshkaywoe.com
+    user: root
+    passwd: root
+    host: 192.168.1.100
     port: 3406
-    db: jshkaywoe
+    db: fund_wap

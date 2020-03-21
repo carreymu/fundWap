@@ -1,5 +1,14 @@
+import asyncio
+import logging
+import json
+from datetime import datetime
 from sanic import response
 from wap.settings import DEBUG
+from wap import ctx_var
+from wap.controller import Variable
+from wap import wap_app as app
+from wap.exceptions import GeneralException
+from wap.dependence import dependence_cleanup, dependence_init
 
 @app.get("/ha")
 async def heart_ack(request):
@@ -17,6 +26,7 @@ async def init_server(app, loop):
     2. 数据源依赖初始化
     """
     logging.info("wap init~~~~~~~~~~~~~")
+    await dependence_init(app, loop)
     logging.info("wap dependences start~~~~~~~~~~~~~")
 
 
@@ -26,6 +36,7 @@ async def clean_up(app, loop):
     Server停止后cleanup操作
     """
     logging.info("wap stop~~~~~~~~~~~~~")
+    await dependence_cleanup(app)
     logging.info("wap dependences stop~~~~~~~~~~~~~")
 
 
@@ -40,4 +51,3 @@ async def wap_error_handler(request, exception):
     """
     result = {"status_code": exception.status_code, "error_message": repr(exception)}
     return response.json(result, status=exception.status_code)
-

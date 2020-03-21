@@ -1,0 +1,19 @@
+# 配置除接口及db的第三方数据源
+
+redis_cluster:
+  # 请严格按照以下顺序编写配置, 并且所有环境必须配置
+  # key:
+  #   # 注释: 如 host 等
+  #   owner:
+  #   description:
+  #   confluence:
+  #   dev: 不知道就填appid=10136
+  #   pre:
+  #   prod:
+  antifraud:
+    owner: ~
+    description: 反欺诈使用的的reids集群配置接口
+    confluence: http://confluence.ppdai.com/pages/viewpage.action?pageId=10061588
+    dev: http://fat-cache.ppdaicorp.com/cache/client/redis/cluster/10036.json?clientVersion=2.1.1
+    pre: http://cache.ppdaicorp.com/cache/client/redis/cluster/10034.json?clientVersion=2.1.3
+    prod: http://cache.ppdaicorp.com/cache/client/redis/cluster/10034.json?clientVersion=2.1.3
