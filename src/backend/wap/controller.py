@@ -20,6 +20,7 @@ class Variable:
         self.event_names = event_names
         self.ctx = ctx
         self.event_info = app.var[self.event_names]
+        # import pdb;pdb.set_trace()
         # app.var[self.event_names]
         # {'name': 'system information', 'author': 'root', 'event_default': {},
         # 'sql': {'mysql': 'mysql', 'sqlite3': 'sqlite3', 'mssql': 'mssql'},

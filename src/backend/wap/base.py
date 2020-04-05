@@ -107,7 +107,6 @@ class DataSource(metaclass=_Meta):
             # 使用 lru_cache 计算key的方法, 比较快噢～
             key = _make_key(tuple(), kw, typed=False)
             return key
-
         except Exception:
             # 如果 value 不可 hash, 则选择比较慢的 hash
             key = ""

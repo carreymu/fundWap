@@ -1,5 +1,4 @@
 import asyncio
-
 import aiomysql
 from sqlalchemy import create_engine
 from sqlalchemy.engine.url import URL
@@ -9,7 +8,6 @@ class Pool:
     """
     创建数据库连接池
     """
-
     type_to_driver = {"mysql": "mysql+pymysql", "mssql": "mssql+pymssql"}
 
     def __init__(self, config):
@@ -32,7 +30,6 @@ class Pool:
         else:
             url = self._get_url()
             engine = create_engine(url, pool_size=2)
-
         return engine
 
 
