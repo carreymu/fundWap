@@ -1,21 +1,19 @@
-from . import _exec_base
+from wap.data_source import exec_base
 
-config = dict(
-    news_info={
-        "name": "news",
-        "author": "root",
-        "event_name": "news_info",
-        "event_default": {},
-        "sql_info": {
-            "engine_name": "db_fund_wap_mysql",
-            "columns": ["nid", "title", "nc_id", "img_url", "content"],
-            "sql": {
-                "mysql": "select nid,title,nc_id,img_url, content from news_category where status={status} and "
-                         "nc_id={nc_id} {limit_top}",
-                "sqlite3": "",
-                "mssql": ""
-            }
-        },
-        "dependence": _exec_base.DBInfo,
-    },
-)
+# config = dict(
+#     news_info_100_by_ncid={
+#         "name": "news",
+#         "author": "root",
+#         "event_default": {},
+#         "sql_info": {
+#             "engine_name": "db_fund_wap_mysql",
+#             "sql": {
+#                 "mysql": "select nid,title,nc_id,img_url, content from news_category where status=1 and "
+#                          "nc_id={nc_id} order by inserttime desc limit 100",
+#                 "sqlite3": "",
+#                 "mssql": ""
+#             }
+#         },
+#         "dependence": exec_base.DBInfo,
+#     },
+# )

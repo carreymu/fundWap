@@ -26,8 +26,6 @@ async def main(request):
     {
         "req": {  // opt
             "id": 1,
-            "top": 10,
-            "ord": null, // 0-asc,1-desc
             "pid": 1,  // parent id
             "createtime": "2020-01-02 10:04:01",
             "category":1,
