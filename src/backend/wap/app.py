@@ -1,10 +1,10 @@
 import asyncio
 import logging
 import json
-from datetime import datetime
 from sanic import response
-from wap.settings import DEBUG
-from wap import ctx_var
+# from datetime import datetime
+# from wap.settings import DEBUG
+from wap import ctx_event
 from wap.controller import Variable
 from wap import wap_app as app
 from wap.exceptions import GeneralException
@@ -16,6 +16,65 @@ async def heart_ack(request):
     heart ack
     """
     return response.text("OK")
+
+
+@app.post("/")
+async def main(request):
+    """
+    Wap主流程 不做入参校验
+    请求体
+    {
+        "req": {  // opt
+            "id": 1,
+            "top": 10,
+            "ord": null, // 0-asc,1-desc
+            "pid": 1,  // parent id
+            "createtime": "2020-01-02 10:04:01",
+            "category":1,
+        },
+        "event_names": [
+            "event_example1", //event handler
+            "event_example2"
+        ],
+        "wap_info": {
+            "hashid": "hashkey", // ELK ID
+            "appid": "10050001", // call right
+        }
+    }
+    """
+    req = request.json
+    events = set(req["event_names"])
+    # print(req)
+
+    # 存放data_source计算缓存
+    ctx = {"data_source": {}}
+
+    # 将 req 塞入 ctx 以便各个地方使用
+    ctx["req"] = req["req"]
+    ctx["wap_info"] = req["wap_info"]
+    ctx_event.set(ctx)
+
+    # 初始化返回结果
+    result = {"status_code": 200}
+
+    # data 计算主模块
+    data = {}  # {"id": req["req"]["id"]}
+    # 这里就已经在并行计算了
+    variables = [Variable(ctx, event_names).start() for event_names in events]
+
+    try:
+        # 将计算完的结果提取
+        for future in asyncio.as_completed(variables):
+            # CancelledError 不会触发异常
+            var = await future
+            # import pdb;pdb.set_trace()
+            data[var.event_names] = var.result
+    except Exception:
+        raise
+
+    # data 拼入 result
+    result["data"] = data
+    return response.json(result, dumps=json.dumps, allow_nan=False)
 
 
 @app.listener("before_server_start")

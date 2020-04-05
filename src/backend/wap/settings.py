@@ -29,6 +29,10 @@ DEPENDENCE_TIMEOUT = 20  # second
 # wap配置预读
 wap_config = yaml_load(f"config/{ENV}.yaml")
 
+# default time out
+DEFAULT_TIMEOUT = 2000
+
+
 # 数据源配置预读
 db_config = yaml_load("wap/config/db.yaml")
 for item in db_config.values():

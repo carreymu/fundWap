@@ -1,10 +1,11 @@
 import asyncio
 import logging
 import traceback
-
 from wap import wap_app as app
-from wap.exceptions import GeneralException, VariableException, VariableTypeError
-from wap.settings import DEBUG
+from wap import ctx_event_time
+from wap.exceptions import GeneralException, VariableException
+from wap.monitor import TimeCounter, event_statsd, event_value_monitor
+from wap.settings import DEBUG, DEFAULT_TIMEOUT
 
 
 class Variable:
@@ -12,78 +13,77 @@ class Variable:
     单个变量主流程
     # DEBUG模式下只进行正常计算
     1. 变量计算get_result
-    2. 检查result类型check_result
-    3. 如有异常触发降级检测
-    4. 用时监控打点var_statsd, 值监控var_value_monitor
+    2. 用时监控打点event_statsd, 值监控event_value_monitor
     """
 
-    downgrade = 0
-
-    def __init__(self, ctx, var_name):
-        self.var_name = var_name
+    def __init__(self, ctx, event_names):
+        self.event_names = event_names
         self.ctx = ctx
-        self.var_info = app.var[self.var_name]
-
-    def _check_result(self):
-        """
-        类型检查, 不检查 default 是 None
-        并强制使用 config 配置的 type 转化 result
-        """
-        if self.var_info["default"] is None and self.result is None:
-            return
-
-        expect_type = self.var_info["type"]
-        # 判断result是不是nan
-        if self.result == self.result:
-            # result类型检测, result为int, 而config为float也是兼容的
-            if isinstance(self.result, expect_type) or (expect_type is float and isinstance(self.result, int)):
-                return
-
-        ex = VariableTypeError(expect_type=expect_type, result=self.result)
-        try:
-            # 如果result是nan则给默认值
-            if self.result == self.result:
-                self.result = expect_type(self.result)
-            else:
-                self.result = self.var_info["default"]
-        finally:
-            raise ex
+        self.event_info = app.var[self.event_names]
+        # app.var[self.event_names]
+        # {'name': 'system information', 'author': 'root', 'event_default': {},
+        # 'sql': {'mysql': 'mysql', 'sqlite3': 'sqlite3', 'mssql': 'mssql'},
+        # 'dependence': <class 'wap.events.system_info.events.SystemInfo'>,
+        # 'event_name': 'sys_info', 'event_class': 'sys_info'}
 
     async def _get_result(self):
         """
-        变量计算, 降级
+        变量计算
         """
         try:
             # 从配置中获取变量计算入口data_source
-            var_name = self.var_name
-            dependence = self.var_info["dependence"]
+            event_names = self.event_names
+            dependence = self.event_info["dependence"]
 
-            # 是否依赖已存在字段
-            if isinstance(dependence, str):
-                var_name = dependence
-                dependence = app.var[dependence]["dependence"]
+            var_time = TimeCounter()
+            ctx_event_time.set(var_time)
+
             try:
                 self.result = await dependence(
-                    user_info=self.ctx["user_info"], var_name=var_name, var_default=self.var_info["default"]
+                  req=self.ctx["req"], event_names=event_names, event_default=self.event_info["event_default"]
                 )
-                # 结果类型检查
-                self._check_result()
-
             except asyncio.CancelledError:
                 raise
             # 依赖数据源报错
             except GeneralException as ex:
-                raise VariableException(
-                    user_info=self.ctx["user_info"], var_info=self.var_info, reason=str(ex), level=ex.level
-                )
+                raise VariableException(req=self.ctx["req"], event_info=self.event_info, reason=str(ex))
             # 代码报错或其他意外情况
             except Exception:
                 error = traceback.format_exc()
-                raise VariableException(user_info=self.ctx["user_info"], var_info=self.var_info, reason=error)
-
+                raise VariableException(req=self.ctx["req"], event_info=self.event_info, reason=error)
         except asyncio.CancelledError:
             raise
         except Exception as ex:
-            # 字段错误原因记录
-            logging.log(ex.level, ex)
+            # 错误原因记录
+            # logging.log(ex.level, ex)
             raise
+        finally:
+            self.real_time = var_time.total_ms
+            self.cpu_time = var_time.cpu_ms
+
+    async def start(self):
+        # 变量计算
+        await self._get_result()
+
+        # 监控
+        if DEBUG:
+            msg = f'req {self.ctx["req"]} event_names {self.event_names}, time span: {self.real_time}, ' \
+                  f'cpu time span: {self.cpu_time}'
+            if self.cpu_time >= DEFAULT_TIMEOUT:
+                msg += "【Request time more than 2s, please optimize.】"
+            print(msg)
+        else:
+            self._monitor()
+        return self
+
+    def _monitor(self):
+        """
+        用时监控, 值监控
+        """
+        # 向 statsd 记录 variable 计算用时和次数记录
+        # event_statsd(event_info=self.event_info, total_time=self.real_time)
+        event_statsd(event_info=self.event_info, total_time=self.real_time, cpu_time=self.cpu_time)
+
+        # 值监控
+        if self.result is not None:
+          event_value_monitor(req=self.ctx["req"],event_info=self.event_info, event_result=self.result)
