@@ -2,7 +2,7 @@
 
 > A Vue.js project
 
-## Build Setup
+## frontend Build Setup
 
 ``` bash
 # install dependencies
@@ -17,6 +17,21 @@ npm run build
 # build for prod and view the bundle analyzer report
 npm run build --report
 ```
+
+## backend Build Setup
+```bash
+# path
+./src/backend
+
+# install dependencies
+pip install requirements.txt
+
+# start project
+cd /src/backend
+python main.py
+
+```
+
 ## Pages
 - [ ] 大目标 -- Doing
 - [ ] 大目标 - Banner -- todo(python)
@@ -39,6 +54,8 @@ npm run build --report
 - [ ] 我的 - Tabs -- todo
 
 - [ ] 国际化 - todo
+
+- [ ] 监控 - todo
 
 ## Document Structure ##
 ```
