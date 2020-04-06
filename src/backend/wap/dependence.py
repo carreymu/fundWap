@@ -1,4 +1,6 @@
 import logging
+
+from wap.data_source import data_source_config
 from wap.settings import db_config, ext_config
 from wap.utils.db_manager import DatabaseManager
 from wap.utils.redis_manager import RedisManager
@@ -9,9 +11,9 @@ from wap.exceptions import VariableInitError
 async def dependence_init(app, loop):
     # events 初始化
     # import pdb;pdb.set_trace()
-    # app.var = init_evnets({**events_config, **data_source_config})
+    app.var = init_events({**events_config, **data_source_config})
     # db 连接池
-    app.var = init_events(events_config)
+    # app.var = init_events(events_config)
     app.db = await DatabaseManager(db_config).init()
     # redis 连接池
     #  app.redis = await RedisManager(ext_config["redis_cluster"]).init()

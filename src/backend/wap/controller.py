@@ -17,15 +17,10 @@ class Variable:
     """
 
     def __init__(self, ctx, event_names):
+        # import pdb;pdb.set_trace()
         self.event_names = event_names
         self.ctx = ctx
         self.event_info = app.var[self.event_names]
-        # import pdb;pdb.set_trace()
-        # app.var[self.event_names]
-        # {'name': 'system information', 'author': 'root', 'event_default': {},
-        # 'sql': {'mysql': 'mysql', 'sqlite3': 'sqlite3', 'mssql': 'mssql'},
-        # 'dependence': <class 'wap.events.system_info.events.SystemInfo'>,
-        # 'event_name': 'sys_info', 'event_class': 'sys_info'}
 
     async def _get_result(self):
         """
@@ -40,9 +35,16 @@ class Variable:
             ctx_event_time.set(var_time)
 
             try:
-                self.result = await dependence(
-                  req=self.ctx["req"], event_names=event_names, event_default=self.event_info["event_default"]
-                )
+                # import pdb;pdb.set_trace()
+                if 'sql_info' in self.event_info:
+                    self.result = await dependence(
+                      req=self.ctx["req"], event_names=event_names, event_default=self.event_info["event_default"],
+                      sql_info=self.event_info['sql_info']
+                    )
+                else:
+                    self.result = await dependence(
+                      req=self.ctx["req"], event_names=event_names, event_default=self.event_info["event_default"]
+                    )
             except asyncio.CancelledError:
                 raise
             # 依赖数据源报错

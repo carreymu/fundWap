@@ -26,15 +26,15 @@ class Database:
             "sql": {"mysql": "mysql","sqlite3": "sqlite3","mssql": "mssql"}
         }
     """
-    # def __init__(self, sql_info: dict):
-    #     self.key = sql_info["engine_name"]
-    def __init__(self, key: dict):
-        self.key = key
+    def __init__(self, sql_info: dict):
+        self.key = sql_info["engine_name"]
+    # def __init__(self, key: dict):
+    #     self.key = key
         self.db_info = self._get_info()
         self.db_type = self.db_info["db_type"]
         self.engine = self.db_info["engine"]
         # about sql
-        # self.sql = sql_info["sql"][self.db_type]
+        self.sql = sql_info["sql"][self.db_type]
 
     def _get_info(self):
         db_info = app.db.get_info(self.key)
@@ -85,12 +85,33 @@ class Database:
             return df.to_json(force_ascii=False)
         return None
 
-
     async def get_columns(self, sql_in):
         sql = sql_in.lower()
         sql_trim = sql[7: sql.find(' from ')].strip()
         # print(sql_trim)
         return [x.strip().split(' ')[-1] for x in sql_trim.split(',') if len(x) > 0 and 'top ' not in x]
+
+
+# exec sql
+async def exec_sql(sql_info: dict, fmt: str = "json", **sql_params):
+    db = Database(sql_info)
+    columns = await get_columns(db.sql)
+    df = await db.read_sql(db.sql.format(**sql_params), columns=columns)
+    # import pdb;pdb.set_trace()
+    if fmt == "json":
+        return json.loads(df.to_json(force_ascii=False))
+    elif fmt == "df":
+        return df
+    elif fmt == "str":
+        return df.to_json(force_ascii=False)
+    return None
+
+
+async def get_columns(sql_in):
+    sql = sql_in.lower()
+    sql_trim = sql[7: sql.find(' from ')].strip()
+    # print(sql_trim)
+    return [x.strip().split(' ')[-1] for x in sql_trim.split(',') if len(x) > 0 and 'top ' not in x]
 
 
 class _Meta(type):
