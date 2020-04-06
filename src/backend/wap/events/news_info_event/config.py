@@ -1,25 +1,11 @@
 from . import events
 
 config = dict(
-    # system_info={
-    #     "name": "datasource system information",
-    #     "event_name": "system information",
-    #     "author": "root",
-    #     "event_default": {},
-    #     "dependence": events.NewsInfoTopN,
-    # },
-    system_info1={
+    news_info_top_100={
       "name": "datasource system information",
       "author": "root",
       "event_default": {},
-      "sql_info": {
-        "engine_name": "db_fund_wap_mysql",
-        "sql": {
-          "mysql": "select title, content from system_info where category={category}",
-          "sqlite3": "",
-          "mssql": ""
-        }
-      },
-      "dependence": events.NewsInfoTopN,
+      "dependence_source": ["news_info_100_by_ncid", "news_category"],
+      "dependence": events.NewsInfoTop100,
     },
 )

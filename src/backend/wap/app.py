@@ -5,7 +5,7 @@ from sanic import response
 # from datetime import datetime
 # from wap.settings import DEBUG
 from wap import ctx_event
-from wap.controller import Variable
+from wap.controller import Variable, Variables
 from wap import wap_app as app
 from wap.exceptions import GeneralException
 from wap.dependence import dependence_cleanup, dependence_init
@@ -41,6 +41,7 @@ async def main(request):
     }
     """
     req = request.json
+    # event = set(req["event_name"])
     events = set(req["event_names"])
     # print(req)
 
@@ -56,10 +57,10 @@ async def main(request):
     result = {"status_code": 200}
 
     # data 计算主模块
-    data = {}  # {"id": req["req"]["id"]}
+    data = {}
     # 这里就已经在并行计算了
-    variables = [Variable(ctx, event_names).start() for event_names in events]
-
+    variables = [Variables(ctx, event_names).start() for event_names in events]
+    print(variables)
     try:
         # 将计算完的结果提取
         for future in asyncio.as_completed(variables):

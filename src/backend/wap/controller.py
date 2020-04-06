@@ -9,6 +9,27 @@ from wap.settings import DEBUG, DEFAULT_TIMEOUT
 
 
 class Variable:
+    def __init__(self, ctx, event_names):
+        # import pdb;pdb.set_trace()
+        self.event_names = event_names
+        self.ctx = ctx
+        # find data_source from config
+        self.event_info = app.var[self.event_names]
+        # find executor
+        self.dependence = self.event_info["dependence"]
+        self.default = self.event_info["event_default"]
+
+    async def get_result(self):
+        print(f'exec event:{self.event_names}>>>>>>>>>>')
+        return await self.dependence(
+          req=self.ctx["req"], event_default=self.default, sql_info=self.event_info['sql_info']
+          )
+
+    async def get_result_joined(self, dep_resource):
+        return await self.dependence(req=self.ctx["req"], event_default=self.default, dependence_source=dep_resource)
+
+
+class Variables:
     """
     单个变量主流程
     # DEBUG模式下只进行正常计算
@@ -21,30 +42,24 @@ class Variable:
         self.event_names = event_names
         self.ctx = ctx
         self.event_info = app.var[self.event_names]
+        # print(self.event_names)
+        # print(app.var)
 
     async def _get_result(self):
-        """
-        变量计算
-        """
         try:
-            # 从配置中获取变量计算入口data_source
-            event_names = self.event_names
-            dependence = self.event_info["dependence"]
-
             var_time = TimeCounter()
             ctx_event_time.set(var_time)
 
             try:
                 # import pdb;pdb.set_trace()
                 if 'sql_info' in self.event_info:
-                    self.result = await dependence(
-                      req=self.ctx["req"], event_names=event_names, event_default=self.event_info["event_default"],
-                      sql_info=self.event_info['sql_info']
-                    )
-                else:
-                    self.result = await dependence(
-                      req=self.ctx["req"], event_names=event_names, event_default=self.event_info["event_default"]
-                    )
+                    self.result = await Variable(self.ctx, self.event_names).get_result()
+                elif 'dependence_source' in self.event_info:
+                    print(f'exec joined event:{self.event_names}>>>>>>>>>>')
+                    dep_res = {event_names: await Variable(self.ctx, event_names).get_result() for event_names in
+                               self.event_info['dependence_source']}
+                    # print(dep_res)
+                    self.result = await Variable(self.ctx, self.event_names).get_result_joined(dep_res)
             except asyncio.CancelledError:
                 raise
             # 依赖数据源报错
@@ -65,9 +80,7 @@ class Variable:
             self.cpu_time = var_time.cpu_ms
 
     async def start(self):
-        # 变量计算
         await self._get_result()
-
         # 监控
         if DEBUG:
             msg = f'req {self.ctx["req"]} event_names {self.event_names}, time span: {self.real_time}, ' \
@@ -89,4 +102,4 @@ class Variable:
 
         # 值监控
         if self.result is not None:
-          event_value_monitor(req=self.ctx["req"],event_info=self.event_info, event_result=self.result)
+            event_value_monitor(req=self.ctx["req"],event_info=self.event_info, event_result=self.result)

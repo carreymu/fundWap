@@ -8,7 +8,7 @@ config = dict(
         "sql_info": {
             "engine_name": "db_fund_wap_mysql",
             "sql": {
-                "mysql": "select nid,title,nc_id,img_url, content from news_category where status=1 and "
+                "mysql": "select nid,title,nc_id,img_url, content from news_info where status=1 and "
                          "nc_id={nc_id} order by inserttime desc limit 100",
                 "sqlite3": "",
                 "mssql": ""

@@ -5,7 +5,6 @@ from wap.base import DataSource, exec_sql
 class DBInfo(DataSource):
     req: dict
     sql_info: dict
-    event_names: str
     event_default: Any
 
     async def compute(self):
