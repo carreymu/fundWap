@@ -17,16 +17,18 @@ def list_to_df(data, columns, list_axis = 1):
     return dframe
 
 
-# def df_to_required(df, fmt: str = "json"):
-#     # return {
-#     #   "df": df,
-#     #   "str": df.to_json(force_ascii=False),
-#     #   "json": json.loads(df.to_json(force_ascii=False))
-#     # }.get(fmt)
-#     if fmt == "json":
-#         return json.loads(df.to_json(force_ascii=False))
-#     elif fmt == "df":
-#         return df
-#     elif fmt == "str":
-#         return df.to_json(force_ascii=False)
-#     return None
+def df_to_fmt(df: pd.DataFrame, fmt: str = "json"):
+    if df.empty:
+        return None
+    # return {
+    #   "df": df,
+    #   "str": df.to_json(force_ascii=False),
+    #   "json": json.loads(df.to_json(force_ascii=False))
+    # }.get(fmt)
+    if fmt == "json":
+        return json.loads(df.to_json(force_ascii=False, orient="records"))
+    elif fmt == "df":
+        return df
+    elif fmt == "str":
+        return df.to_json(force_ascii=False, orient="records")
+    return None

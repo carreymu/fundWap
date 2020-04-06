@@ -18,6 +18,7 @@ from wap.exceptions import (
     RedisKeyNotExist
 )
 from wap.settings import DEPENDENCE_TIMEOUT, executor
+from wap.utils.result_trans import df_to_fmt
 
 
 class Database:
@@ -72,24 +73,18 @@ class Database:
             raise DBExecuteError(key=self.key, db_info=self.db_info, sql=sql, reason=error)
 
 
-    # exec sql
-    async def exec_sql(self, sql: str, fmt: str = "json", **sql_params):
-        columns = await self.get_columns(sql)
-        # import pdb;pdb.set_trace()
-        df = await self.read_sql(sql.format(**sql_params), columns=columns)
-        if fmt == "json":
-            return json.loads(df.to_json(force_ascii=False))
-        elif fmt == "df":
-            return df
-        elif fmt == "str":
-            return df.to_json(force_ascii=False)
-        return None
-
-    async def get_columns(self, sql_in):
-        sql = sql_in.lower()
-        sql_trim = sql[7: sql.find(' from ')].strip()
-        # print(sql_trim)
-        return [x.strip().split(' ')[-1] for x in sql_trim.split(',') if len(x) > 0 and 'top ' not in x]
+    # # exec sql
+    # async def exec_sql(self, sql: str, fmt: str = "json", **sql_params):
+    #     columns = await self.get_columns(sql)
+    #     # import pdb;pdb.set_trace()
+    #     df = await self.read_sql(sql.format(**sql_params), columns=columns)
+    #     return df_to_fmt(df, fmt)
+    #
+    # async def get_columns(self, sql_in):
+    #     sql = sql_in.lower()
+    #     sql_trim = sql[7: sql.find(' from ')].strip()
+    #     # print(sql_trim)
+    #     return [x.strip().split(' ')[-1] for x in sql_trim.split(',') if len(x) > 0 and 'top ' not in x]
 
 
 # exec sql
@@ -98,13 +93,7 @@ async def exec_sql(sql_info: dict, fmt: str = "json", **sql_params):
     columns = await get_columns(db.sql)
     df = await db.read_sql(db.sql.format(**sql_params), columns=columns)
     # import pdb;pdb.set_trace()
-    if fmt == "json":
-        return json.loads(df.to_json(force_ascii=False))
-    elif fmt == "df":
-        return df
-    elif fmt == "str":
-        return df.to_json(force_ascii=False)
-    return None
+    return df_to_fmt(df, fmt)
 
 
 async def get_columns(sql_in):
