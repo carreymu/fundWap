@@ -24,7 +24,7 @@ npm run build --report
 ./src/backend
 
 # install dependencies
-pip install requirements.txt
+pip install requirements.txt(https://github.com/carreymu/fundWap/tree/master/src/backend/requirements.txt)
 
 # start project
 cd /src/backend
