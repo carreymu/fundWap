@@ -4,16 +4,18 @@ import stores from '../../store/store'
 import { AjaxPlugin,AlertPlugin } from 'vux'
 Vue.use(AlertPlugin)
 Vue.use(AjaxPlugin)
-
+const base_urls = ""
+const cors_origin = "localhost:8000"
 // 用于全局的ajax请求
 const baseAjax=function(param){
     let defaultParam={
         data:param.data || {},
         params:param.params||{},
-        url:param.url,
+        url:base_urls + param.url,
         type:param.type || 'get',
         timeout: param.timeout || 5000,
-        showLoading:false
+        showLoading:false,
+        // headers: {"Access-Control-Allow-Origin":cors_origin,"Access-Control-Allow-Credentials":true}
     }
 
     if(param.showLoading){
@@ -27,8 +29,10 @@ const baseAjax=function(param){
       data:defaultParam.data,
       params:defaultParam.params,
       timeout:defaultParam.timeout,
-      headers: defaultParam.headers
+      headers: defaultParam.headers,
+      changeOrigin: true
     }).then(function(response) {
+        console.log(response)
         stores.commit('UPDATE_LOADING', false)
         
       param.success(response.data)

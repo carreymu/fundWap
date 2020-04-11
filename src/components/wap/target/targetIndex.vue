@@ -108,9 +108,10 @@
   import {Tabbar, TabbarItem ,XHeader,XButton,XImg, Swiper, SwiperItem, Flexbox, FlexboxItem } from 'vux'
   export default {
     mounted() {
-      this.bannerList();
-      this.loadLatest();
-      this.top3Fund();      
+      this.test();
+      // this.bannerList();
+      // this.loadLatest();
+      // this.top3Fund();      
       this.$store.commit('UPDATE_PAGE_TITLE', '大目标') 
     },
     data(){      
@@ -121,14 +122,49 @@
       }
     },
     methods:{
+      test(){
+        let dt = {
+          "req": {
+              "category":1,
+          },
+          "event_names": [
+              "system_info"
+          ],
+          "wap_info": {
+              "hashid": "hashkey", 
+              "appid": "10050001"
+          }
+        }
+        this.$api.fetchPost('/sanic-api', dt).then(r=>{
+          console.log(r)
+        }).catch(err=>{
+          console.log(err)
+        })
+      },
       bannerList(){
         let self=this;
+        let dt = {
+            "req": {
+                "category":1,
+            },
+            "event_names": [
+                "system_info"
+            ],
+            "wap_info": {
+                "hashid": "hashkey", 
+                "appid": "10050001"
+            }
+        }
+        
         this.baseAjax({
           url:'../../../static/basicData/activityBanner.json',
+          // url: 'http://localhost:8000/',
+          data: dt,
+          type: 'post',
           showLoading:true,
           success:function(data){
               console.log(data)
-              self.urlList=data.returnObject
+              self.urlList=data.data
               // console.log(self.urlList)
           }
         })

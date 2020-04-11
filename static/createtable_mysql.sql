@@ -1,7 +1,8 @@
 /*----------------------------------news and system info.--biz:news and AD and system info.--------------------------------------------------
 --1.system info like 1-banners/2-company introduction/3-about target/4-introduction of selecting funds etc.*/
-CREATE TABLE system_info(id int(11) primary key AUTO_INCREMENT,title varchar(50), content varchar(1000), category int, status int, inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO system_info(title, content, category, status) values('公司介绍','我就是我不一样的烟火',1,1);
+CREATE TABLE system_info(id int(11) primary key AUTO_INCREMENT,title varchar(50), content varchar(1000), url varchar(200), img_url varchar(200),category int, status int, inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO system_info(title, content, url, img_url, category, status) values('banner1','http://www.baidu.com/img/PCpad_bc531b595cf1e37c3907d14b69e3a2dd.png', 'http://www.baidu.com','http://www.baidu.com/img/PCpad_bc531b595cf1e37c3907d14b69e3a2dd.png',1,1);
+INSERT INTO system_info(title, content, url, img_url, category, status) values('banner2','https://img.zcool.cn/community/01678c574d4f4832f875a429c5c234.jpg@1280w_1l_2o_100sh.jpg', 'http://www.baidu.com','https://img.zcool.cn/community/01678c574d4f4832f875a429c5c234.jpg@1280w_1l_2o_100sh.jpg',1,1);
 
 /*--2.news type*/
 CREATE TABLE news_category(nc_id int(11) primary key AUTO_INCREMENT,category_name varchar(50),status int) ENGINE=InnoDB DEFAULT CHARSET=utf8;
