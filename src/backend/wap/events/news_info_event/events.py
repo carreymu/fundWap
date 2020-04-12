@@ -11,7 +11,7 @@ class NewsInfoTop100(DataSource):
         # return result if result else self.event_default
         result = self.dependence_source
         if result:
-            result = [self.get_res(x, result['news_category']) for x in result["news_info_100_by_ncid"]]
+            result = [self.get_res(x, result['news_category']) for x in result["news_info_topx_by_ncid"]]
             # result['joined_result'] = result
             return result
         return self.event_default

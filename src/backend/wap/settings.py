@@ -32,6 +32,11 @@ wap_config = yaml_load(f"config/{ENV}.yaml")
 # default time out
 DEFAULT_TIMEOUT = 2000
 
+# default sql record, {'topx': 10}
+DEFAULT_TOP_X = 10
+# default status,{'status': 1}
+DEFAULT_STATUS = 1
+
 
 # 数据源配置预读
 db_config = yaml_load("wap/config/db.yaml")

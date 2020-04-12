@@ -72,19 +72,19 @@
       </flexbox>
     </div>
     <div class="newsItem" v-for="(item, index) in news2List" :key="index">
-      <router-link :to="'/fundWap/targetDetail/'+item.id">
+      <router-link :to="'/fundWap/targetDetail/'+item.nid">
       <flexbox>
         <flexbox-item>
           <flexbox orient="vertical">
             <flexbox-item>
                 <flexbox orient="vertical">
                   <flexbox-item class="title">{{item.title}}</flexbox-item>                  
-                  <flexbox-item style="font-size:12px;"><!-- <img src="../../../assets/images/view.png"> -->02-10 18:10</flexbox-item>
+                  <flexbox-item style="font-size:12px;"><!-- <img src="../../../assets/images/view.png"> -->{{item.inserttime}}</flexbox-item>
                 </flexbox>
             </flexbox-item>          
           </flexbox>
         </flexbox-item>
-        <flexbox-item class="postListImg"><img :src="item.icon"></flexbox-item>      
+        <flexbox-item class="postListImg"><img :src="item.img_url"></flexbox-item>      
       </flexbox>      
       </router-link>
       <div style="border-bottom:1px solid rgb(230, 230, 230); padding:10px 0 5px 0;"></div>    
@@ -106,10 +106,11 @@
 </template>
 <script>
   import {Tabbar, TabbarItem ,XHeader,XButton,XImg, Swiper, SwiperItem, Flexbox, FlexboxItem } from 'vux'
+  import date_ops from '@/utils/utdate'
   export default {
     mounted() {
       this.bannerList();
-      this.loadLatest();
+      // this.loadLatest();
       this.top3Fund();
       this.$store.commit('UPDATE_PAGE_TITLE', '大目标') 
     },
@@ -164,10 +165,11 @@
         let dt = {
           "req": {
               "run_status":4,
-              "topx":3
+              "topx":3,
+              "nc_id":1
           },
           "event_names": [
-              "targets_status_topx"
+              "targets_status_topx","news_info_topx_by_ncid"
           ]
         }
         this.$api.fetchPost('/sanic-api', dt).then(r=>{
@@ -175,29 +177,19 @@
             let top3 = r.targets_status_topx.sort(function(a,b){a.run_days-b.run_days})
             this.top3FundList=top3
           }
-          // if(r.news2List.length > 0){
-          //   let tar_1 = r.targets_status_topx[0]
-          //   this.target_run1.name = tar_1.name
-          //   this.target_run1.target_ratio=(tar_1.target_ratio*100).toFixed(2)
-          //   this.target_run1.pre_run=tar_1.pre_run
-          // }
-          //console.log(this.news2List)
-          console.log(this.top3FundList)
+          if(r.news_info_topx_by_ncid.length > 0){
+            let news_list = r.news_info_topx_by_ncid
+            for(var i = 0 ;i<news_list.length -1; i++){
+              news_list[i].inserttime = date_ops.date_fmt(news_list[i].inserttime,"MM-dd hh:mm:ss")
+              this.news2List.push(news_list[i])
+            }
+          }
+          // console.log(this.news2List)
+          // console.log(this.top3FundList)
         }).catch(err=>{
           console.log(err)
         })
       },
-      loadLatest(){
-        let self=this;
-        this.baseAjax({
-          url:'../../../static/basicData/latestNews.json',
-          showLoading:true,
-          success:function(data){
-              console.log(data)
-              self.news2List=data.returnObject
-          }
-        })
-      }
     },
     components: {
       Tabbar,
