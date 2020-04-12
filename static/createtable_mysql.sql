@@ -157,9 +157,16 @@ CREATE TABLE user_bank(ub_id int(11) primary key AUTO_INCREMENT,uid int,card_num
 INSERT INTO user_bank(uid,card_number,bid,bbid,pid,cid,leave_phonenumber) values(1,'520145687956235',1,1,1,1,'18856898989');
 
 /*------------------------------------target--biz:target------------------------------------------------
---29.target run_status:0-流标,1-建仓中,2-盈利中,3-浮亏中,4-已达标,5已清仓 ,0<N<4->运行中*/
-CREATE TABLE targets(tid int(11) primary key AUTO_INCREMENT,name varchar(10),target_ratio float,run_status int,inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO targets(name,target_ratio,run_status) values('2006',0.08,1);
+--29.target run_status:-1-流标,0-申请中,1-建仓中,2-盈利中,3-浮亏中,4-已达标,5已清仓 ,0<N<4->运行中*/
+CREATE TABLE targets(tid int(11) primary key AUTO_INCREMENT,name varchar(10),target_ratio float,apply_starttime datetime,apply_endtime datetime,run_status int,run_days int,pre_run varchar(20),inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO targets(name,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime) values('2006',0.08,0,0,'6-12','2020-04-07 10:10:00','2020-04-13 10:10:00');
+INSERT INTO targets(name,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime) values('2005',0.08,1,0,'6-12','2020-04-01 10:10:00','2020-04-06 10:10:00');
+INSERT INTO targets(name,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime) values('2004',0.05,2,10,'5-12','2020-03-24 10:10:00','2020-03-31 10:10:00');
+INSERT INTO targets(name,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime) values('2003',0.08,3,17,'5-12','2020-03-16 10:10:00','2020-03-23 10:10:00');
+INSERT INTO targets(name,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime) values('2002',0.07,4,40,'5-12','2020-03-16 10:10:00','2020-03-23 10:10:00');
+INSERT INTO targets(name,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime) values('2001',0.06,4,25,'5-12','2020-03-16 10:10:00','2020-03-23 10:10:00');
+INSERT INTO targets(name,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime) values('2000',0.05,4,34,'5-12','2020-03-16 10:10:00','2020-03-23 10:10:00');
+INSERT INTO targets(name,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime) values('1999',0.08,5,50,'5-12','2020-03-16 10:10:00','2020-03-23 10:10:00');
 
 /*--30.target and its funds*/
 CREATE TABLE target_funds(tf_id int(11) primary key AUTO_INCREMENT,fid int,amt float,last_returns float,inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;

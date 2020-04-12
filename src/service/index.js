@@ -8,6 +8,7 @@ if (process.server) {
 }
 
 const service = axios.create(config)
+const trace_info = {"hashid": "hashkey","appid": "10050001"}
 
 // POST 传参序列化
 service.interceptors.request.use(
@@ -30,24 +31,26 @@ service.interceptors.response.use(
 )
 
 export function fetchPost(url, params) {
-	return new Promise((resolve, reject) => {
-		service.post(url, params)
-			.then(response => {
-				resolve(response.data);
-			}, err => {
-				reject(err);
-			})
-			.catch((error) => {
-				reject(error)
-			})
-	})
+  let param = hashkey(params, 'wap_info')
+  return new Promise((resolve, reject) => {
+    service.post(url, param)
+      .then(response => {
+        resolve(response.data);
+      }, err => {
+        reject(err);
+      })
+      .catch((error) => {
+        reject(error)
+      })
+  })
 }
 
-export function fetchGet(url, param) {  
+export function fetchGet(url, params) {
+  let param = hashkey(params, 'wap_info')
   return new Promise((resolve, reject) => {
     service.get(url, {
-        params: param
-      })
+      params: param
+    })
       .then(response => {
         resolve(response.data)
       }, err => {
@@ -59,4 +62,12 @@ export function fetchGet(url, param) {
   })
 }
 
-export default {service, fetchGet, fetchPost}
+function hashkey(param, key) {
+  if (!param.hasOwnProperty(key)) {
+    param[key] = trace_info
+  }
+  // console.log(param)
+  return param
+}
+
+export default { service, fetchGet, fetchPost }

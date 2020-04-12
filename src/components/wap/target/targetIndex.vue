@@ -5,7 +5,7 @@
       <div class="topRmk">自动止盈的基金投资服务</div>
       <swiper auto height="230px" dots-position="center">
         <swiper-item v-for="(item, index) in urlList" :key="index">
-          <a :href="item.url"><img :src="item.img"/></a>
+          <a :href="item.url"><img :alt="item.title" :src="item.img_url"/></a>
         </swiper-item>
       </swiper>
 
@@ -13,7 +13,7 @@
         <div style="height:15px;"></div>
         <flexbox>
           <flexbox-item :span="1/20"></flexbox-item>          
-          <flexbox-item class="title">大目标2005</flexbox-item>
+          <flexbox-item class="title">大目标{{target_run1.name}}</flexbox-item>
           <flexbox-item class="limTime">限时申购</flexbox-item>
           <flexbox-item :span="1/20"></flexbox-item>
         </flexbox>
@@ -22,7 +22,7 @@
           <flexbox-item :span="1/20"></flexbox-item> 
           <flexbox-item>
             <flexbox orient="vertical">
-              <flexbox-item class="aimRate">+8.00<span style="font-size:large;">%</span></flexbox-item>
+              <flexbox-item class="aimRate">+{{target_run1.target_ratio}}<span style="font-size:large;">%</span></flexbox-item>
               <flexbox-item style="text-align:center;">目标收益</flexbox-item>
             </flexbox>
           </flexbox-item>
@@ -31,7 +31,7 @@
           </flexbox-item> -->
           <flexbox-item>
             <flexbox orient="vertical">
-              <flexbox-item class="aimLast">6-12<span style="font-size:large;font-weight:700">个月</span></flexbox-item>
+              <flexbox-item class="aimLast">{{target_run1.pre_run}}<span style="font-size:large;font-weight:700">个月</span></flexbox-item>
               <flexbox-item style="text-align:center;">预计持有时长</flexbox-item>
             </flexbox>
           </flexbox-item>
@@ -53,8 +53,8 @@
             <div v-for="(item, index) in top3FundList" :key="index">
               <flexbox-item class="top3fd">
                 <flexbox orient="vertical">
-                  <flexbox-item>大目标{{item.title}}</flexbox-item>
-                  <flexbox-item class="days">{{item.days}}天达标</flexbox-item>
+                  <flexbox-item>大目标{{item.name}}</flexbox-item>
+                  <flexbox-item class="days">{{item.run_days}}天达标</flexbox-item>
                 </flexbox>
               </flexbox-item>
             </div>
@@ -71,7 +71,7 @@
         <!-- <flexbox-item :span="1/100"></flexbox-item>          -->
       </flexbox>
     </div>
-    <div class="newsItem" v-for="(item, index) in itemList" :key="index">
+    <div class="newsItem" v-for="(item, index) in news2List" :key="index">
       <router-link :to="'/fundWap/targetDetail/'+item.id">
       <flexbox>
         <flexbox-item>
@@ -108,76 +108,83 @@
   import {Tabbar, TabbarItem ,XHeader,XButton,XImg, Swiper, SwiperItem, Flexbox, FlexboxItem } from 'vux'
   export default {
     mounted() {
-      this.test();
-      // this.bannerList();
-      // this.loadLatest();
-      // this.top3Fund();      
+      this.bannerList();
+      this.loadLatest();
+      this.top3Fund();
       this.$store.commit('UPDATE_PAGE_TITLE', '大目标') 
     },
     data(){      
       return {
-        itemList:'',
-        top3FundList:'',
+        target_run1:{name:'2001',target_ratio:8.00,pre_run:'1-12'},
+        news2List:[],
+        top3FundList:[],
         urlList:[],
       }
     },
     methods:{
-      test(){
+      bannerList(){
         let dt = {
           "req": {
               "category":1,
+              "run_status":0,
+              "topx":1
           },
           "event_names": [
-              "system_info"
-          ],
-          "wap_info": {
-              "hashid": "hashkey", 
-              "appid": "10050001"
-          }
+              "system_info","targets_status_topx"
+          ]
         }
         this.$api.fetchPost('/sanic-api', dt).then(r=>{
-          console.log(r)
+          if(r.system_info.length > 0){
+            let si = r.system_info
+            for(var i =0 ;i<si.length; i++){
+              let url = si[i].url
+              if(url.length > 0 && !url.startsWith("http")){
+                url = `${url}?id=${si[i].id}&content=${si[i].content}`
+              }
+              this.urlList.push({
+                url: url,
+                img_url: si[i].img_url,
+                title: si[i].title
+              })
+            }
+          }
+          if(r.targets_status_topx.length > 0){
+            let tar_1 = r.targets_status_topx[0]
+            this.target_run1.name = tar_1.name
+            this.target_run1.target_ratio=(tar_1.target_ratio*100).toFixed(2)
+            this.target_run1.pre_run=tar_1.pre_run
+          }
+          //console.log(this.target_run1)
+          //console.log(this.urlList)
         }).catch(err=>{
           console.log(err)
         })
       },
-      bannerList(){
-        let self=this;
-        let dt = {
-            "req": {
-                "category":1,
-            },
-            "event_names": [
-                "system_info"
-            ],
-            "wap_info": {
-                "hashid": "hashkey", 
-                "appid": "10050001"
-            }
-        }
-        
-        this.baseAjax({
-          url:'../../../static/basicData/activityBanner.json',
-          // url: 'http://localhost:8000/',
-          data: dt,
-          type: 'post',
-          showLoading:true,
-          success:function(data){
-              console.log(data)
-              self.urlList=data.data
-              // console.log(self.urlList)
-          }
-        })
-      },
       top3Fund(){
-        let self=this;
-        this.baseAjax({
-          url:'../../../static/basicData/top3Fund.json',
-          showLoading:true,
-          success:function(data){
-              console.log(data)
-              self.top3FundList=data.returnObject
+        let dt = {
+          "req": {
+              "run_status":4,
+              "topx":3
+          },
+          "event_names": [
+              "targets_status_topx"
+          ]
+        }
+        this.$api.fetchPost('/sanic-api', dt).then(r=>{
+          if(r.targets_status_topx.length > 0){
+            let top3 = r.targets_status_topx.sort(function(a,b){a.run_days-b.run_days})
+            this.top3FundList=top3
           }
+          // if(r.news2List.length > 0){
+          //   let tar_1 = r.targets_status_topx[0]
+          //   this.target_run1.name = tar_1.name
+          //   this.target_run1.target_ratio=(tar_1.target_ratio*100).toFixed(2)
+          //   this.target_run1.pre_run=tar_1.pre_run
+          // }
+          //console.log(this.news2List)
+          console.log(this.top3FundList)
+        }).catch(err=>{
+          console.log(err)
         })
       },
       loadLatest(){
@@ -187,7 +194,7 @@
           showLoading:true,
           success:function(data){
               console.log(data)
-              self.itemList=data.returnObject
+              self.news2List=data.returnObject
           }
         })
       }
