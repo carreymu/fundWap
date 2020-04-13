@@ -6,6 +6,7 @@ import targetDetail from '@/components/wap/target/targetDetail'
 import drumstick from '@/components/wap/drumstick/drumstick'
 import bestChoice from '@/components/wap/bestChoice/bestChoice'
 import bestChoiceDetail from '@/components/wap/bestChoice/bestChoiceDetail'
+import systemInfoDetail from '@/components/wap/systemInfo/systemInfoDetail'
 import mine from '@/components/wap/mine/mine'
 
 Vue.use(VueRouter)
@@ -50,6 +51,11 @@ const router = new VueRouter({
 			      path: '/fundWap/bestChoiceDetail/:choiceId',
 			      name: 'bestChoiceDetail',
 			      component: bestChoiceDetail
+			    },
+			    {
+			      path: '/fundWap/systemInfoDetail/:sysId',
+			      name: 'systemInfoDetail',
+			      component: systemInfoDetail
 			    }
 	       ]
 	    },

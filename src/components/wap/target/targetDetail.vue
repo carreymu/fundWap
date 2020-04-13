@@ -5,8 +5,8 @@
 				<p class="title">{{mainData.title}}</p>
 				<div class="sDate">
 					<flexbox>
-				      <flexbox-item>发布时间：{{mainData.publishDate}}</flexbox-item>
-				      <flexbox-item>浏览量：{{mainData.viewer}}</flexbox-item>
+				      <flexbox-item>发布时间：{{date_ops.date_fmt(mainData.inserttime,"MM-dd hh:mm:ss")}}</flexbox-item>
+				      <!-- <flexbox-item>浏览量：{{mainData.viewer}}</flexbox-item> -->
 					</flexbox>
 				</div>
 			</div>
@@ -19,37 +19,8 @@
 	</div>
 </template>
 <script>
-	import {Flexbox, FlexboxItem,XImg} from 'vux'
-
-	export default{
-		 mounted() {
-			 this.$store.commit('UPDATE_PAGE_TITLE', '详情');
-			 this.loadDetail();	      
-	    },
-	    data(){
-	      return {
-	        mainData:''
-	      }
-	    },
-	    methods:{
-	    	loadDetail(){
-	    		 let self=this;
-	    		 let id=this.$route.params.activityId;
-		          this.baseAjax({
-		            url:'../../../static/basicData/targetDetail.json',
-		            showLoading:true,
-		            success:function(data){
-		                console.log(data.returnObject)
-						self.mainData=data.returnObject	 
-		            }
-		          })
-	    	}	
-	    },
-
-	    components:{
-	    	Flexbox, FlexboxItem,XImg
-	    }
-	}
+	import targetDetail  from  "./js/targetDetail.js"
+  	export default targetDetail
 </script>
 <style>
 .targetDetail .title{
