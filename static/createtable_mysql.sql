@@ -7,17 +7,17 @@ INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(
 INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(0,'company introduction','','','company introduction',1);
 INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(0,'about targets','','','about targets in target index',1);
 INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(4,'大目标指南','两分钟了解大目标<br/>我的钱投资大目标安全吗?','/fundwap/systemInfoDetail/','此货是循环链接,页面展示subtitle',1);
-INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(4,'问大目标团队','我有问题!问大目标团队','/fundwap/systemInfoDetail/','此货是循环链接,页面展示subtitle',1);
+INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(4,'问大目标团队','我有问题!问大目标团队','systemInfoDetail','此货是循环链接,页面展示subtitle',1);
 
 /*--1.system info like 1-banners/2-company introduction/3-about target/4-introduction of selecting funds etc.*/
 -- drop table system_info;
 CREATE TABLE system_info(sid int(5) primary key AUTO_INCREMENT,scid int,title varchar(50),subtitle varchar(100),content varchar(1000), url varchar(200), img_url varchar(200),status int, inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(1,'banner1','','', 'http://www.baidu.com','http://www.baidu.com/img/PCpad_bc531b595cf1e37c3907d14b69e3a2dd.png',1);
 INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(1,'banner2','','', 'http://www.baidu.com','https://img.zcool.cn/community/01678c574d4f4832f875a429c5c234.jpg@1280w_1l_2o_100sh.jpg',1);
-INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(2,'了解"大目标"','','了解了解了解', 'http://www.baidu.com','../../../assets/images/intro.png',1);
-INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(2,'投资理念','','投资理念投资理念', 'http://www.baidu.com','../../../assets/images/think.png',1);
-INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(2,'安全可靠','','安全可靠安全可靠', 'http://www.baidu.com','../../../assets/images/safe.png',1);
-INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(3,'公司介绍','','公司介绍公司介绍', 'http://www.baidu.com','',1);
+INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(2,'了解"大目标"','','了解了解了解', 'http://www.baidu.com','../../../static/img/intro.png',1);
+INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(2,'投资理念','','投资理念投资理念', 'http://www.baidu.com','../../../static/img/think.png',1);
+INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(2,'安全可靠','','安全可靠安全可靠', 'http://www.baidu.com','../../../static/img/safe.png',1);
+INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(3,'公司介绍','','公司介绍公司介绍', 'systemInfoDetail','',1);
 INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(5,'两分钟了解大目标','','[大目标]必读<br/>[大目标]实力<br/>[大目标]怎么投', '','',1);
 INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(5,'我对你们很失望,你们忘记了大目标的宗旨','','你们忘记了大目标的宗旨', '','',1);
 INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(5,'听说低于2800就送服务卡?','','送服务卡送服务卡送服务卡', '','',1);

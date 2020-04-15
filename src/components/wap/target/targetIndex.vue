@@ -91,18 +91,16 @@
     </div>
     <div class="footer">
       <flexbox class="invIntro">
-        <div  v-for="(item, index) in investList" :key="index">
-          <flexbox-item ><router-link :to="item.url+'?item='+item.sid"><img :src="item.img_url"/><br/>{{item.title}}</router-link></flexbox-item>
+        <div  v-for="(item, index) in investList" :key="index" style="padding-left:35px;">
+          <flexbox-item ><router-link :to="item.url+'/'+item.sid"><img :src="item.img_url"/><br/>&nbsp;{{item.title}}</router-link></flexbox-item>
         </div>
-        <!-- <flexbox-item><router-link :to="'/fundWap/systemInfoDetail/1'"><img src="../../../assets/images/intro.png"/><br/>了解[大目标]</router-link></flexbox-item>
-        <flexbox-item></flexbox-item>
-        <flexbox-item ><router-link :to="'/fundWap/systemInfoDetail/1'"><img src="../../../assets/images/think.png"/><div style="padding-left:10px;">投资理念</div></router-link></flexbox-item>
-        <flexbox-item></flexbox-item>
-        <flexbox-item><router-link :to="'/fundWap/systemInfoDetail/1'"><img src="../../../assets/images/safe.png"/><div style="padding-left:15px;">安全可靠</div></router-link></flexbox-item> -->
+        <!-- <flexbox-item><router-link :to="'/fundWap/systemInfoDetail/1'"><img src="../../../../static/img/intro.png"/><br/>了解[大目标]</router-link></flexbox-item>
+        <flexbox-item ><router-link :to="'/fundWap/systemInfoDetail/1'"><img src="../../../../static/img/think.png"/><div style="padding-left:10px;">投资理念</div></router-link></flexbox-item>
+        <flexbox-item><router-link :to="'/fundWap/systemInfoDetail/1'"><img src="../../../../static/img/safe.png"/><div style="padding-left:15px;">安全可靠</div></router-link></flexbox-item> -->
       </flexbox>
       <br>
       <flexbox>
-        <flexbox-item class="botTxt">快乐投资新体验 | <router-link :to="'/fundWap/targetDetail/1'"><span style="color:#DD5858;">公司介绍</span></router-link></flexbox-item>
+        <flexbox-item class="botTxt">快乐投资新体验 | <router-link :to="company_info.url+'?sid='+company_info.sid"><span style="color:#DD5858;">{{company_info.title}}</span></router-link></flexbox-item>
       </flexbox>
     </div>
   </div>
