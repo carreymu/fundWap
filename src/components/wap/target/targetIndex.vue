@@ -26,9 +26,6 @@
               <flexbox-item style="text-align:center;">目标收益</flexbox-item>
             </flexbox>
           </flexbox-item>
-          <!-- <flexbox-item>
-            -------------
-          </flexbox-item> -->
           <flexbox-item>
             <flexbox orient="vertical">
               <flexbox-item class="aimLast">6-12<span style="font-size:large;font-weight:700">个月</span></flexbox-item>
@@ -90,14 +87,27 @@
       <div style="border-bottom:1px solid rgb(230, 230, 230); padding:10px 0 5px 0;"></div>    
     </div>
     <div class="footer">
+      <div>
       <flexbox class="invIntro">
         <flexbox-item><router-link :to="'/fundWap/targetDetail/1'"><img src="../../../assets/images/intro.png"/><br/>了解[大目标]</router-link></flexbox-item>
-        <flexbox-item></flexbox-item>
+        <!-- <flexbox-item></flexbox-item> -->
         <flexbox-item ><router-link :to="'/fundWap/targetDetail/1'"><img src="../../../assets/images/think.png"/><div style="padding-left:10px;">投资理念</div></router-link></flexbox-item>
-        <flexbox-item></flexbox-item>
+        <!-- <flexbox-item></flexbox-item> -->
         <flexbox-item><router-link :to="'/fundWap/targetDetail/1'"><img src="../../../assets/images/safe.png"/><div style="padding-left:15px;">安全可靠</div></router-link></flexbox-item>
       </flexbox>
+      </div>
       <br>
+      <div class="foot">
+        <div class="rect">
+          <div style="font-size:large;">两分钟全面了解大目标</div>
+          <div>我的大目标投资安全吗?</div>
+        </div>
+        <div class="rect">
+          <div style="font-size:large;">小朋友你是不是有很多疑问?</div>
+        </div>
+      </div>
+
+
       <flexbox>
         <flexbox-item class="botTxt">快乐投资新体验 | <router-link :to="'/fundWap/targetDetail/1'"><span style="color:#DD5858;">公司介绍</span></router-link></flexbox-item>
       </flexbox>
@@ -254,6 +264,24 @@ a:hover {
   text-align: center;
 }
 
+
+
+.targetIndex .foot {
+  text-align: left;
+}
+
+.targetIndex .foot .rect{
+  margin-top: 5px;
+  padding: 10px 0px 10px 15px;
+  border-radius: 6px;
+  box-shadow: 5px 5px 5px #e2e1e1; 
+  background-color: white;
+  transition: 0.7s;
+  color: dimgray;
+}
+
+
+
 .targetIndex .newsItem{
   margin:5px 10px 0 10px;
   position: relative;
@@ -279,7 +307,7 @@ a:hover {
 }
 
 .targetIndex .footer{
-  margin:10px 30px 0 10px;  
+  margin:10px 10px 0 10px;  
   font-size: 12px;
 }
 
