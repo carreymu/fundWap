@@ -2,7 +2,7 @@ from wap.data_source import exec_base
 
 config = dict(
     targets_status_topx={
-        "name": "datasource system information",
+        "name": "top {x} targets which status is {run_status}",
         "author": "root",
         "event_default": {},
         "sql_info": {
@@ -15,5 +15,19 @@ config = dict(
             }
         },
         "dependence": exec_base.DBInfo,
+    },
+    targets_status_done={
+      "name": "total done targets,3-done,4-clearance",
+      "author": "root",
+      "event_default": {},
+      "sql_info": {
+        "engine_name": "db_fund_wap_mysql",
+        "sql": {
+          "mysql": "select count(1) as tot_target from targets where run_status>{run_status}",
+          "sqlite3": "",
+          "mssql": ""
+        }
+      },
+      "dependence": exec_base.DBInfo,
     },
 )

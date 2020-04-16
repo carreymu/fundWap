@@ -27,11 +27,16 @@ const router = new VueRouter({
 			      name: 'targetIndex',
 			      component: targetIndex
 			    },
-			     {
+			    {
 			      path: '/fundWap/targetDetail/:targetId',
 			      name: 'targetDetail',
 			      component: targetDetail
-			    },
+				},
+				{
+					path: '/fundWap/targetList',
+					name: 'targetList',
+					component: targetList
+				},
 			    {
 			      path: '/fundWap/drumstick',
 			      name: 'drumstick',

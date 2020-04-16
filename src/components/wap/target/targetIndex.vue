@@ -61,7 +61,7 @@
           <flexbox-item :span="1/200"></flexbox-item> 
       </flexbox>
       <flexbox>
-          <flexbox-item class="past">已达标41期查,看往期 >>></flexbox-item> 
+          <flexbox-item class="past">已<router-link :to="'/fundWap/targetList'">达标{{target_done}}期查,看往期 >>></router-link></flexbox-item> 
       </flexbox>
       <div style="border-bottom:1px solid rgb(230, 230, 230); padding:10px 0 5px 0;"></div>      
       <flexbox class="newsTitle">        
@@ -100,7 +100,7 @@
       </flexbox>
       <br>
       <flexbox>
-        <flexbox-item class="botTxt">快乐投资新体验 | <router-link :to="company_info.url+'?sid='+company_info.sid"><span style="color:#DD5858;">{{company_info.title}}</span></router-link></flexbox-item>
+        <flexbox-item class="botTxt">快乐投资新体验 | <router-link :to="company_info.url+'/'+company_info.sid"><span style="color:#DD5858;">{{company_info.title}}</span></router-link></flexbox-item>
       </flexbox>
     </div>
   </div>
