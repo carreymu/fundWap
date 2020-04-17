@@ -6,8 +6,8 @@ INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(
 INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(0,'invest introduction','','','invest introduction in target index',1);
 INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(0,'company introduction','','','company introduction',1);
 INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(0,'about targets','','','about targets in target index',1);
-INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(4,'大目标指南','两分钟了解大目标<br/>我的钱投资大目标安全吗?','/fundwap/systemInfoDetail/','此货是循环链接,页面展示subtitle',1);
-INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(4,'问大目标团队','我有问题!问大目标团队','systemInfoDetail','此货是循环链接,页面展示subtitle',1);
+INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(4,'大目标指南','<div style="font-size:large;">两分钟全面了解大目标</div><div>我的大目标投资安全吗?</div>','systemInfoDetail','此货是循环链接,页面展示subtitle',1);
+INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(4,'问大目标团队','<div style="font-size:15px;">小朋友你是不是有很多疑问?</div>','systemInfoDetail','此货是循环链接,页面展示subtitle',1);
 
 /*--1.system info like 1-banners/2-company introduction/3-about target/4-introduction of selecting funds etc.*/
 -- drop table system_info;

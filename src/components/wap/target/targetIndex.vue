@@ -91,7 +91,7 @@
     </div>
     <div class="footer">
       <flexbox class="invIntro">
-        <div  v-for="(item, index) in investList" :key="index" style="padding-left:35px;">
+        <div v-for="(item, index) in investList" :key="index" style="padding-left:35px;">
           <flexbox-item ><router-link :to="item.url+'/'+item.sid"><img :src="item.img_url"/><br/>&nbsp;{{item.title}}</router-link></flexbox-item>
         </div>
         <!-- <flexbox-item><router-link :to="'/fundWap/systemInfoDetail/1'"><img src="../../../../static/img/intro.png"/><br/>了解[大目标]</router-link></flexbox-item>
@@ -99,12 +99,8 @@
         <flexbox-item><router-link :to="'/fundWap/systemInfoDetail/1'"><img src="../../../../static/img/safe.png"/><div style="padding-left:15px;">安全可靠</div></router-link></flexbox-item> -->
       </flexbox>
       <div class="foot">
-        <div class="rect">
-          <div style="font-size:large;">两分钟全面了解大目标</div>
-          <div>我的大目标投资安全吗?</div>
-        </div>
-        <div class="rect">
-          <div style="font-size:15px;">小朋友你是不是有很多疑问?</div>
+        <div class="rect" v-for="(item, index) in sys_cat_list" :key="index">
+          <router-link :to="item.url"><div v-html="item.subtitle"></div></router-link>
         </div>
       </div>
       <br>
