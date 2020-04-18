@@ -5,7 +5,7 @@
 				<p class="title">{{mainData.title}}</p>
 				<div class="sDate">
 					<flexbox>
-				      <flexbox-item>发布时间：{{date_ops.date_fmt(mainData.inserttime,"MM-dd hh:mm:ss")}}</flexbox-item>
+				      <flexbox-item>发布时间：{{mainData.inserttime}}</flexbox-item>
 				      <!-- <flexbox-item>浏览量：{{mainData.viewer}}</flexbox-item> -->
 					</flexbox>
 				</div>

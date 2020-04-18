@@ -12,7 +12,7 @@ export default{
     methods:{
         loadDetail(){
             // let self=this;
-            let id=this.$route.params.activityId;
+            let id=this.$route.params.sysId;
             if(id == undefined){
                 //alter and back to pre page
             }

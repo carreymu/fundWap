@@ -8,7 +8,7 @@ config = dict(
         "sql_info": {
             "engine_name": "db_fund_wap_mysql",
             "sql": {
-                "mysql": "select pscid,title,subtitle,url from system_info_category where pscid={pscid} "
+                "mysql": "select scid,pscid,title,subtitle,url from system_info_category where pscid={pscid} "
                          "and status={status}",
                 "sqlite3": "",
                 "mssql": ""

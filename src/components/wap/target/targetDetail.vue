@@ -5,15 +5,12 @@
 				<p class="title">{{mainData.title}}</p>
 				<div class="sDate">
 					<flexbox>
-				      <flexbox-item>发布时间：{{date_ops.date_fmt(mainData.inserttime,"MM-dd hh:mm:ss")}}</flexbox-item>
-				      <!-- <flexbox-item>浏览量：{{mainData.viewer}}</flexbox-item> -->
+				      <flexbox-item>发布时间：{{mainData.inserttime}}</flexbox-item>
 					</flexbox>
 				</div>
 			</div>
 			<div class="detail-text">
-				<p v-html="mainData.content" style="line-height:35px;">
-					{{mainData.content}}
-				</p>
+				<p v-html="mainData.content" style="line-height:35px;"></p>
 			</div>
 		</div>
 	</div>
@@ -43,21 +40,19 @@
 	color: #666
 }
 
- .targetDetail .newsImg img{
+.targetDetail .newsImg img{
     width: 100%;
     min-height: 180px;
- }
+}
 
-  .targetDetail  .sDate{
-		margin-top: 10px;
-		font-size: 12px;
-		color: #666
- }
+.targetDetail  .sDate{
+	margin-top: 10px;
+	font-size: 12px;
+	color: #666
+}
 
-  .targetDetail  .text-top{
-		border-bottom: 1px solid #eee;
-		padding: 10px 15px 15px 15px; 
- }
-
-	
+.targetDetail  .text-top{
+	border-bottom: 1px solid #eee;
+	padding: 10px 15px 15px 15px; 
+}
 </style>

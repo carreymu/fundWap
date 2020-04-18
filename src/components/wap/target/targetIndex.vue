@@ -100,7 +100,7 @@
       </flexbox>
       <div class="foot">
         <div class="rect" v-for="(item, index) in sys_cat_list" :key="index">
-          <router-link :to="item.url"><div v-html="item.subtitle"></div></router-link>
+          <router-link :to="item.url+'/'+item.scid"><div v-html="item.subtitle"></div></router-link>
         </div>
       </div>
       <br>
