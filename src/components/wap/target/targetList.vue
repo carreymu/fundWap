@@ -3,29 +3,36 @@
     <div class="load" v-if="itemList.length==0">
         <spinner type="lines"/>
     </div>
-    <div v-else class="newsItem" v-for="(item, index) in itemList" :key="index">
-      <router-link :to="'/fundWap/targetDetail/'+item.id">
-      <flexbox>
+    <div v-else class="hisList">
+      <flexbox orient="vertical">
         <flexbox-item>
-          <flexbox orient="vertical">
+            <v-chart :data="chartData[0].data">
+              <v-scale x field="date" type="timeCat" mask="MM-DD" />
+              <v-scale y field="value" :tick-count="4" :max="300" />
+              <v-tooltip show-crosshairs show-value-in-legend />
+
+              <!-- <v-area series-field="stock_name" shape="smooth" adjust="stack"/> -->
+              <v-line series-field="stock_name" shape="smooth" adjust="stack" />
+              <v-point :style="{ stroke: '#fff',lineWidth: 1}" shape="smooth" adjust="stack"/>
+            </v-chart>
+          <!-- <flexbox orient="vertical">
             <flexbox-item>
                 <flexbox orient="vertical">
                   <flexbox-item class="title">{{item.title}}</flexbox-item>                  
                   <flexbox-item style="font-size:12px;">02-10 18:10</flexbox-item>
                 </flexbox>
             </flexbox-item>          
-          </flexbox>
+          </flexbox> -->
         </flexbox-item>
-        <flexbox-item class="postListImg"><img :src="item.icon"></flexbox-item>      
-      </flexbox>      
-      </router-link>
-      <div class="line"></div>    
+        <!-- <flexbox-item class="postListImg"><img :src="item.icon"></flexbox-item>       -->
+      </flexbox>
+      <div class="line"></div>
     </div>
   </div>
 </template>
 <script>
-  import targetNews  from  "./js/targetNews.js"
-  export default targetNews
+  import targetList  from  "./js/targetList.js"
+  export default targetList
 </script>
 <style>
 a:link {
@@ -53,15 +60,15 @@ a:hover {
     right: 0;
     bottom: 0;
 }
-.targetIndex .newsItem{
+.targetIndex .hisList{
   margin:5px 10px 0 10px;
   position: relative;
-  height: 126px;
+  height: 260px;
   overflow: hidden;
   border-radius: 5px
 }
 
-.targetIndex .newsItem .postListImg {
+.targetIndex .hisList .postListImg {
     display: table-cell;
     width: 160px;
     height: 96px;
@@ -69,7 +76,7 @@ a:hover {
     overflow: hidden;
 }
 
-.targetIndex .newsItem .title{
+.targetIndex .hisList .title{
   font-size:14px;
   font-weight:500;
   padding:10px 15px 20px 20px;  
