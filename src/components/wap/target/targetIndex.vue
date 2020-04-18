@@ -58,13 +58,13 @@
           <flexbox-item :span="1/200"></flexbox-item> 
       </flexbox>
       <flexbox>
-          <flexbox-item class="past">已达标41期查,看往期 >>></flexbox-item> 
+          <flexbox-item class="past"><router-link :to="'/fundWap/targetList'">已达标41期查,看往期 >>></router-link></flexbox-item> 
       </flexbox>
-      <div style="border-bottom:1px solid rgb(230, 230, 230); padding:10px 0 5px 0;"></div>      
+      <div class="line"></div>      
       <flexbox class="newsTitle">        
         <!-- <flexbox-item :span="1/100"></flexbox-item>  -->
         <flexbox-item class="lf">[大目标]投资面对面</flexbox-item> 
-        <flexbox-item class="rg"><router-link :to="'/fundWap/targetDetail/1'">更多 ></router-link></flexbox-item> 
+        <flexbox-item class="rg"><router-link to="/fundWap/targetNews">更多 ></router-link></flexbox-item> 
         <!-- <flexbox-item :span="1/100"></flexbox-item>          -->
       </flexbox>
     </div>
@@ -84,7 +84,7 @@
         <flexbox-item class="postListImg"><img :src="item.icon"></flexbox-item>      
       </flexbox>      
       </router-link>
-      <div style="border-bottom:1px solid rgb(230, 230, 230); padding:10px 0 5px 0;"></div>    
+      <div class="line"></div>    
     </div>
     <div class="footer">
       <div>
@@ -115,70 +115,8 @@
   </div>
 </template>
 <script>
-  import {Tabbar, TabbarItem ,XHeader,XButton,XImg, Swiper, SwiperItem, Flexbox, FlexboxItem } from 'vux'
-  export default {
-    mounted() {
-      this.bannerList();
-      this.loadLatest();
-      this.top3Fund();      
-      this.$store.commit('UPDATE_PAGE_TITLE', '大目标') 
-    },
-    data(){      
-      return {
-        itemList:'',
-        top3FundList:'',
-        urlList:[],
-      }
-    },
-    methods:{
-      bannerList(){
-        let self=this;
-        this.baseAjax({
-          url:'../../../static/basicData/activityBanner.json',
-          showLoading:true,
-          success:function(data){
-              console.log(data)
-              self.urlList=data.returnObject
-              // console.log(self.urlList)
-          }
-        })
-      },
-      top3Fund(){
-        let self=this;
-        this.baseAjax({
-          url:'../../../static/basicData/top3Fund.json',
-          showLoading:true,
-          success:function(data){
-              console.log(data)
-              self.top3FundList=data.returnObject
-          }
-        })
-      },
-      loadLatest(){
-        let self=this;
-        this.baseAjax({
-          url:'../../../static/basicData/latestNews.json',
-          showLoading:true,
-          success:function(data){
-              console.log(data)
-              self.itemList=data.returnObject
-          }
-        })
-      }
-    },
-    components: {
-      Tabbar,
-      TabbarItem,
-      XHeader,
-      XButton,
-      XImg,
-      Swiper,
-      SwiperItem,
-      Flexbox, 
-      FlexboxItem
-    }
-  }
-
+  import targetIndex  from  "./js/targetIndex.js"
+  export default targetIndex
 </script>
 <style>
 a:link {
@@ -195,7 +133,7 @@ a:hover {
  font-size: 12px;
  color: #999999;
 }
-
+.line{ border-bottom:1px solid rgb(230, 230, 230); padding:10px 0 5px 0;}
 .targetIndex .topTxt{
   font-size: 12px;
   text-align: center;

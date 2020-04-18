@@ -1,6 +1,9 @@
 <template>
 	<div class="targetDetail">
-		<div class="detail-box">
+		<div class="load" v-if="JSON.stringify(mainData)=='{}'">
+			<spinner type="lines"/>
+		</div>
+		<div class="detail-box" v-else>
 			<div class="text-top">
 				<p class="title">{{mainData.title}}</p>
 				<div class="sDate">
@@ -19,37 +22,8 @@
 	</div>
 </template>
 <script>
-	import {Flexbox, FlexboxItem,XImg} from 'vux'
-
-	export default{
-		 mounted() {
-			 this.$store.commit('UPDATE_PAGE_TITLE', '详情');
-			 this.loadDetail();	      
-	    },
-	    data(){
-	      return {
-	        mainData:''
-	      }
-	    },
-	    methods:{
-	    	loadDetail(){
-	    		 let self=this;
-	    		 let id=this.$route.params.activityId;
-		          this.baseAjax({
-		            url:'../../../static/basicData/targetDetail.json',
-		            showLoading:true,
-		            success:function(data){
-		                console.log(data.returnObject)
-						self.mainData=data.returnObject	 
-		            }
-		          })
-	    	}	
-	    },
-
-	    components:{
-	    	Flexbox, FlexboxItem,XImg
-	    }
-	}
+  import targetDetail  from  "./js/targetDetail.js"
+  export default targetDetail
 </script>
 <style>
 .targetDetail .title{
@@ -83,10 +57,19 @@
 		color: #666
  }
 
-  .targetDetail  .text-top{
+ .targetDetail  .text-top{
 		border-bottom: 1px solid #eee;
 		padding: 10px 15px 15px 15px; 
  }
 
-	
+ .targetDetail .load{
+    text-align: center;
+    height: 250px;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
 </style>
