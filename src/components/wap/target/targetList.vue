@@ -6,15 +6,15 @@
     <div v-else class="hisList">
       <flexbox orient="vertical">
         <flexbox-item>
-            <v-chart :data="chartData[0].data">
+            <v-chart :data="chartData.data">
               <v-scale x field="date" type="timeCat" mask="MM-DD" />
               <v-scale y field="value" :tick-count="5" :max="300" />
-              <v-tooltip show-crosshairs show-value-in-legend/>
+              <!-- <v-tooltip show-crosshairs show-value-in-legend/> -->
 
               <!-- <v-area series-field="stock_name" shape="smooth" adjust="stack"/> -->
-              <v-line series-field="stock_name" />
-              <div v-for="(item, index) in chartData[0].tag" :key="index">
-              <v-guide type="html" :options="item" />
+              <v-line series-field="stock_name" :colors="chartData.color"/>
+              <div v-for="(item, index) in chartData.tag" :key="index">
+                <v-guide type="html" :options="item" />
               </div>
               <!-- <v-point :style="{ stroke: '#fff',lineWidth: 1}" shape="smooth" :colors="chartData[0].color"/>  -->
            
