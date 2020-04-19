@@ -9,16 +9,12 @@
             <v-chart :data="chartData.data">
               <v-scale x field="date" type="timeCat" mask="MM-DD" />
               <v-scale y field="value" :tick-count="5" :max="300" />
-              <!-- <v-tooltip show-crosshairs show-value-in-legend/> -->
-
-              <!-- <v-area series-field="stock_name" shape="smooth" adjust="stack"/> -->
               <v-line series-field="stock_name" :colors="chartData.color"/>
               <div v-for="(item, index) in chartData.tag" :key="index">
                 <v-guide type="html" :options="item" />
               </div>
-              <!-- <v-point :style="{ stroke: '#fff',lineWidth: 1}" shape="smooth" :colors="chartData[0].color"/>  -->
-           
-
+              <!-- <v-tooltip :show-item-marker="false" show-x-value /> -->
+              <!-- <v-tooltip show-crosshairs show-value-in-legend/> -->
             </v-chart>
           <!-- <flexbox orient="vertical">
             <flexbox-item>
@@ -29,9 +25,23 @@
             </flexbox-item>          
           </flexbox> -->
         </flexbox-item>
-        <!-- <flexbox-item class="postListImg"><img :src="item.icon"></flexbox-item>       -->
+        <flexbox-item ><div>同志们飚车了.</div></flexbox-item> 
+        <flexbox-item ><div class="line"></div></flexbox-item>
+        <flexbox-item>
+          <!-- asdfssfd -->
+          <div>
+            <tab :line-width=2 active-color='#FF0033' v-model="index">
+              <tab-item class="vux-center" :selected="'全部56期' === item" v-for="(item, index) in list2" :key="index">{{item}}</tab-item>
+            </tab>
+            <swiper v-model="index" height="100px" :show-dots="false">
+              <swiper-item v-for="(item, index) in list2" :key="index">
+                <div class="tab-swiper vux-center">{{item}} Container</div>
+              </swiper-item>
+            </swiper>
+          </div>
+        </flexbox-item> 
       </flexbox>
-      <div class="line"></div>
+      
     </div>
   </div>
 </template>
@@ -68,11 +78,16 @@ a:hover {
 .targetIndex .hisList{
   margin:5px 10px 0 10px;
   position: relative;
-  height: 260px;
   overflow: hidden;
   border-radius: 5px
 }
-
+.targetIndex .hisList .wrap span{
+  display:none;
+  float:left;
+}
+.targetIndex .hisList .wrap:hover span{
+  display:block;margin-right:10px;
+}
 .targetIndex .hisList .postListImg {
     display: table-cell;
     width: 160px;
@@ -87,6 +102,10 @@ a:hover {
   padding:10px 15px 20px 20px;  
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.targetIndex .tab-swiper {
+  background-color: #fff;
+  height: 100px;
 }
 </style>
 

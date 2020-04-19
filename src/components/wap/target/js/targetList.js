@@ -1,5 +1,5 @@
-import {Flexbox, FlexboxItem, VChart, VLine, VArea, VTooltip, VGuide, VLegend, VScale, Spinner } from 'vux'
-import { rcompareIdentifiers } from 'semver'
+import {Flexbox, FlexboxItem, VChart, VLine, VTooltip, VGuide, VScale, Spinner,
+    Tab, TabItem, Swiper, SwiperItem } from 'vux'
 export default {
     mounted() {
         this.loadLatest()
@@ -8,6 +8,8 @@ export default {
     },
     data(){      
         return {
+            index: 0,
+            list2: ['全部56期', '已达标42期', '运行中14期'],
             itemList:[],
             chartData:{
                 color:["#c32c1c","#ffd700","#99CCFF"],
@@ -139,10 +141,7 @@ export default {
                     {"date":"2013-06-13","stock_name":"大目标达标","value":122.9},
                     {"date":"2013-06-13","stock_name":"大目标收益率","value":85.4},
                     {"date":"2013-06-13","stock_name":"上证综指涨跌幅","value":10}
-				]}
-            ,
-            
-            
+				]},
         }
     },
     methods:{
@@ -160,15 +159,17 @@ export default {
                 let threshold = 200
                 let fstDone = []
                 let leftStocks = []
-                let ht = '<div style="border:1px solid #c32c1c;background-color: #c32c1c;width:3px;height:3px;border-radius:50%;"></div>'
+                let ht = '<div style="border:1px solid #c32c1c;background-color:#fff;width:3px;height:3px;border-radius:50%;font-size:10px"></div>'
                 let cd = this.chartData.data
                 for(var i=0;i<cd.length;i++){
+                    //cd[i].value = cd[i].value+'e33'
                     if(fstDone.length == 0){
                         fstDone.push({date:cd[i].date,stock_name:"大目标达标",value:cd[i].value})
                     }
                     if(cd[i].stock_name=='大目标收益率'){
                         if(this.randomNum(0,300)>threshold){
                             this.chartData.tag.push({position:[cd[i].date, cd[i].value],html:ht})
+                            leftStocks.push({date:cd[i].date,stock_name:"大目标达标",value:cd[i].value})
                         }
                     }
                     if(cd[i].stock_name!='大目标达标'){
@@ -209,9 +210,8 @@ export default {
         Spinner,
         VChart,
         VLine,
-        VArea,
+        Tab, TabItem, Swiper, SwiperItem ,
         VTooltip,
-        VLegend,
         VGuide,
         VScale
     }
