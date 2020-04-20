@@ -9,7 +9,7 @@ export default {
     data(){      
         return {
             index: 0,
-            list2: ['全部56期', '已达标42期', '运行中14期'],
+            list2: ['全部57期', '已达标42期', '运行中14期'],
             itemList:[],
             chartData:{
                 color:["#c32c1c","#ffd700","#99CCFF"],
@@ -205,7 +205,7 @@ export default {
         }
     },
     components: {
-        Flexbox, 
+        Flexbox,
         FlexboxItem,
         Spinner,
         VChart,
