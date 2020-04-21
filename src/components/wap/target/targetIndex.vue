@@ -91,7 +91,7 @@
     </div>
     <div class="footer">
       <flexbox class="invIntro">
-        <div v-for="(item, index) in investList" :key="index" style="padding-left:35px;">
+        <div v-for="(item, index) in investList" :key="index">
           <flexbox-item ><router-link :to="item.url+'/'+item.sid"><img :src="item.img_url"/><br/>&nbsp;{{item.title}}</router-link></flexbox-item>
         </div>
         <!-- <flexbox-item><router-link :to="'/fundWap/systemInfoDetail/1'"><img src="../../../../static/img/intro.png"/><br/>了解[大目标]</router-link></flexbox-item>
@@ -231,6 +231,7 @@ a:hover {
 }
 .targetIndex .footer .invIntro{
   white-space:nowrap;
+  justify-content: space-around;
 }
 .targetIndex .footer .botTxt{
   text-align:center;

@@ -36,7 +36,7 @@ export default {
             }
             this.bannerList.push({url: url,img_url: si[i].img_url,title: si[i].title})
           }
-          this.investList = r.system_info.filter(x=>x.scid==this.sysFlag.investList)
+          this.investList = r.system_info.filter(x=>x.scid==this.sysFlag.investInfo)
           let comp = r.system_info.filter(x=>x.scid==this.sysFlag.company)
           if(comp.length >0){
             this.companyInfo = comp[0]
