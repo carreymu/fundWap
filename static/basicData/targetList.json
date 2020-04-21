@@ -1,0 +1,44 @@
+{
+	"isSuccess": true,
+	"errorCode": "",
+	"errorMessage": "",
+    "returnObject": [
+        {
+            "id": 1001,
+            
+            "targetName":"201201",
+            "status":"建仓中",
+            "ratio": "6",
+            "days":1
+
+        },
+        {
+            "id": 1002,
+            "targetName":"201202",
+            "status":"建仓中",
+            "ratio": "5",
+            "days":1
+        },
+        {
+            "id": 1001,
+            "targetName":"201203",
+            "status":"建仓中",
+            "ratio": "10",
+            "days":1
+        },
+        {
+            "id": 1002,
+            "targetName":"201204",
+            "status":"已收割",
+            "ratio": "10.1",
+            "days":112
+        },
+        {
+            "id": 1001,
+            "targetName":"201205",
+            "status":"崩溃中",
+            "ratio": "13.24",
+            "days":1334
+        }
+    ]
+}
