@@ -24,10 +24,18 @@ module.exports = {
   dev: {
     env: require('./dev.env'),
     port: 8080,
-    autoOpenBrowser: false,
+    autoOpenBrowser: true, //运行npm run dev 打开浏览器
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/sanic-api': {//前端路由匹配模式
+        target: 'http://localhost:8000',  //后端请求服务域名和端口
+        changeOrigin: true,   //设置请求头
+        pathRewrite: {
+            '^/sanic-api': '/'   //路径重写  前端/sanic-api 对应 后端/
+        },
+      }
+    },
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README
     // (https://github.com/webpack/css-loader#sourcemaps)

@@ -4,10 +4,12 @@ import fundWap from '@/components/fundWap'
 import targetIndex from '@/components/wap/target/targetIndex'
 import targetList from '@/components/wap/target/targetList'
 import targetDetail from '@/components/wap/target/targetDetail'
+import targetList from '@/components/wap/target/targetList'
 import targetNews from '@/components/wap/target/targetNews'
 import drumstick from '@/components/wap/drumstick/drumstick'
 import bestChoice from '@/components/wap/bestChoice/bestChoice'
 import bestChoiceDetail from '@/components/wap/bestChoice/bestChoiceDetail'
+import systemInfoDetail from '@/components/wap/systemInfo/systemInfoDetail'
 import mine from '@/components/wap/mine/mine'
 
 Vue.use(VueRouter)
@@ -38,6 +40,7 @@ const router = new VueRouter({
 					name: 'targetList',
 					component: targetList
 				},
+
 				{
 					path: '/fundWap/targetNews',
 					name: 'targetNews',
@@ -62,6 +65,11 @@ const router = new VueRouter({
 			      path: '/fundWap/bestChoiceDetail/:choiceId',
 			      name: 'bestChoiceDetail',
 			      component: bestChoiceDetail
+			    },
+			    {
+			      path: '/fundWap/systemInfoDetail/:sysId',
+			      name: 'systemInfoDetail',
+			      component: systemInfoDetail
 			    }
 	       ]
 	    },

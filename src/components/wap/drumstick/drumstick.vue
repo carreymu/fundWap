@@ -47,11 +47,11 @@
         </flexbox>
         <br/>
         <flexbox class="invIntro">
-          <flexbox-item><router-link :to="'/fundWap/targetDetail/1'"><img src="../../../assets/images/intro.png"/><br/>了解[鸡腿计划]</router-link></flexbox-item>
+          <flexbox-item><router-link :to="'/fundWap/targetDetail/1'"><img src="../../../../static/img/intro.png"/><br/>了解[鸡腿计划]</router-link></flexbox-item>
           <flexbox-item></flexbox-item>
-          <flexbox-item ><router-link :to="'/fundWap/targetDetail/1'"><img src="../../../assets/images/think.png"/><div style="padding-left:10px;">投资理念</div></router-link></flexbox-item>
+          <flexbox-item ><router-link :to="'/fundWap/targetDetail/1'"><img src="../../../../static/img/think.png"/><div style="padding-left:10px;">投资理念</div></router-link></flexbox-item>
           <flexbox-item></flexbox-item>
-          <flexbox-item><router-link :to="'/fundWap/targetDetail/1'"><img src="../../../assets/images/safe.png"/><div style="padding-left:15px;">团队介绍</div></router-link></flexbox-item>
+          <flexbox-item><router-link :to="'/fundWap/targetDetail/1'"><img src="../../../../static/img/safe.png"/><div style="padding-left:15px;">团队介绍</div></router-link></flexbox-item>
         </flexbox>
         <div style="border-bottom:1px solid rgb(230, 230, 230); padding:10px 0 10px 0;"></div> 
         <div class="newsTop">鸡腿计划动态</div>        

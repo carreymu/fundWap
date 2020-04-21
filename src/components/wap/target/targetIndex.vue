@@ -4,8 +4,8 @@
       <div class="top">大目标</div>
       <div class="topRmk">自动止盈的基金投资服务</div>
       <swiper auto height="230px" dots-position="center">
-        <swiper-item v-for="(item, index) in urlList" :key="index">
-          <a :href="item.url"><img :src="item.img"/></a>
+        <swiper-item v-for="(item, index) in banList" :key="index">
+          <a :href="item.url"><img :alt="item.title" :src="item.img_url"/></a>
         </swiper-item>
       </swiper>
 
@@ -13,7 +13,7 @@
         <div style="height:15px;"></div>
         <flexbox>
           <flexbox-item :span="1/20"></flexbox-item>          
-          <flexbox-item class="title">大目标2005</flexbox-item>
+          <flexbox-item class="title">大目标{{target_run1.name}}</flexbox-item>
           <flexbox-item class="limTime">限时申购</flexbox-item>
           <flexbox-item :span="1/20"></flexbox-item>
         </flexbox>
@@ -22,13 +22,13 @@
           <flexbox-item :span="1/20"></flexbox-item> 
           <flexbox-item>
             <flexbox orient="vertical">
-              <flexbox-item class="aimRate">+8.00<span style="font-size:large;">%</span></flexbox-item>
+              <flexbox-item class="aimRate">+{{target_run1.target_ratio}}<span style="font-size:large;">%</span></flexbox-item>
               <flexbox-item style="text-align:center;">目标收益</flexbox-item>
             </flexbox>
           </flexbox-item>
           <flexbox-item>
             <flexbox orient="vertical">
-              <flexbox-item class="aimLast">6-12<span style="font-size:large;font-weight:700">个月</span></flexbox-item>
+              <flexbox-item class="aimLast">{{target_run1.pre_run}}<span style="font-size:large;font-weight:700">个月</span></flexbox-item>
               <flexbox-item style="text-align:center;">预计持有时长</flexbox-item>
             </flexbox>
           </flexbox-item>
@@ -50,15 +50,15 @@
             <div v-for="(item, index) in top3FundList" :key="index">
               <flexbox-item class="top3fd">
                 <flexbox orient="vertical">
-                  <flexbox-item>大目标{{item.title}}</flexbox-item>
-                  <flexbox-item class="days">{{item.days}}天达标</flexbox-item>
+                  <flexbox-item>大目标{{item.name}}</flexbox-item>
+                  <flexbox-item class="days">{{item.run_days}}天达标</flexbox-item>
                 </flexbox>
               </flexbox-item>
             </div>
           <flexbox-item :span="1/200"></flexbox-item> 
       </flexbox>
       <flexbox>
-          <flexbox-item class="past"><router-link :to="'/fundWap/targetList'">已达标41期查,看往期 >>></router-link></flexbox-item> 
+          <flexbox-item class="past">已<router-link :to="'/fundWap/targetList'">达标{{target_done}}期查,看往期 >>></router-link></flexbox-item> 
       </flexbox>
       <div class="line"></div>      
       <flexbox class="newsTitle">        
@@ -68,20 +68,20 @@
         <!-- <flexbox-item :span="1/100"></flexbox-item>          -->
       </flexbox>
     </div>
-    <div class="newsItem" v-for="(item, index) in itemList" :key="index">
-      <router-link :to="'/fundWap/targetDetail/'+item.id">
+    <div class="newsItem" v-for="(item, index) in news2List" :key="index">
+      <router-link :to="'/fundWap/targetDetail/'+item.nid">
       <flexbox>
         <flexbox-item>
           <flexbox orient="vertical">
             <flexbox-item>
                 <flexbox orient="vertical">
                   <flexbox-item class="title">{{item.title}}</flexbox-item>                  
-                  <flexbox-item style="font-size:12px;"><!-- <img src="../../../assets/images/view.png"> -->02-10 18:10</flexbox-item>
+                  <flexbox-item style="font-size:12px;"><!-- <img src="../../../assets/images/view.png"> -->{{item.inserttime}}</flexbox-item>
                 </flexbox>
             </flexbox-item>          
           </flexbox>
         </flexbox-item>
-        <flexbox-item class="postListImg"><img :src="item.icon"></flexbox-item>      
+        <flexbox-item class="postListImg"><img :src="item.img_url"></flexbox-item>      
       </flexbox>      
       </router-link>
       <div class="line"></div>    
@@ -89,12 +89,17 @@
     <div class="footer">
       <div>
       <flexbox class="invIntro">
-        <flexbox-item><router-link :to="'/fundWap/targetDetail/1'"><img src="../../../assets/images/intro.png"/><br/>了解[大目标]</router-link></flexbox-item>
-        <!-- <flexbox-item></flexbox-item> -->
-        <flexbox-item ><router-link :to="'/fundWap/targetDetail/1'"><img src="../../../assets/images/think.png"/><div style="padding-left:10px;">投资理念</div></router-link></flexbox-item>
-        <!-- <flexbox-item></flexbox-item> -->
-        <flexbox-item><router-link :to="'/fundWap/targetDetail/1'"><img src="../../../assets/images/safe.png"/><div style="padding-left:15px;">安全可靠</div></router-link></flexbox-item>
+        <div v-for="(item, index) in investList" :key="index" style="padding-left:35px;">
+          <flexbox-item ><router-link :to="item.url+'/'+item.sid"><img :src="item.img_url"/><br/>&nbsp;{{item.title}}</router-link></flexbox-item>
+        </div>
+        <!-- <flexbox-item><router-link :to="'/fundWap/systemInfoDetail/1'"><img src="../../../../static/img/intro.png"/><br/>了解[大目标]</router-link></flexbox-item>
+        <flexbox-item ><router-link :to="'/fundWap/systemInfoDetail/1'"><img src="../../../../static/img/think.png"/><div style="padding-left:10px;">投资理念</div></router-link></flexbox-item>
+        <flexbox-item><router-link :to="'/fundWap/systemInfoDetail/1'"><img src="../../../../static/img/safe.png"/><div style="padding-left:15px;">安全可靠</div></router-link></flexbox-item> -->
       </flexbox>
+      <div class="foot">
+        <div class="rect" v-for="(item, index) in sys_cat_list" :key="index">
+          <router-link :to="item.url+'/'+item.scid"><div v-html="item.subtitle"></div></router-link>
+        </div>
       </div>
       <br>
       <div class="foot">
@@ -109,7 +114,7 @@
 
 
       <flexbox>
-        <flexbox-item class="botTxt">快乐投资新体验 | <router-link :to="'/fundWap/targetDetail/1'"><span style="color:#DD5858;">公司介绍</span></router-link></flexbox-item>
+        <flexbox-item class="botTxt">快乐投资新体验 | <router-link :to="company_info.url+'/'+company_info.sid"><span style="color:#DD5858;">{{company_info.title}}</span></router-link></flexbox-item>
       </flexbox>
     </div>
   </div>
@@ -203,13 +208,12 @@ a:hover {
 }
 
 
-
 .targetIndex .foot {
   text-align: left;
 }
 
 .targetIndex .foot .rect{
-  margin-top: 5px;
+  margin-top: 10px;
   padding: 10px 0px 10px 15px;
   border-radius: 6px;
   box-shadow: 5px 5px 5px #e2e1e1; 
@@ -217,8 +221,6 @@ a:hover {
   transition: 0.7s;
   color: dimgray;
 }
-
-
 
 .targetIndex .newsItem{
   margin:5px 10px 0 10px;

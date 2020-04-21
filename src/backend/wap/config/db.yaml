@@ -13,7 +13,9 @@
 #   uat:
 #   pre:
 #   prod:
-
+## if you change data source,make sure you have done two thing:
+## 1. create a map with db name and dt_type, like: db_fund_wap_mysql-> mysql
+## 2. fill SQL_INFO in data_source.sub_config.*.py with SQL and make sure SQL name as same as db_type
 db_fund_wap_mysql:
   owner: ~
   description: ~

@@ -109,3 +109,16 @@ async def wap_error_handler(request, exception):
     """
     result = {"status_code": exception.status_code, "error_message": repr(exception)}
     return response.json(result, status=exception.status_code)
+
+
+# @app.middleware('request')
+# async def print_on_request(request):
+#     if request.method == 'OPTIONS':
+#         return response.json(None)
+
+
+# @app.middleware('response')
+# async def prevent_xss(request, response):
+#     if 'X-Error-Code' not in dict(response.headers):
+#         response.headers['X-Error-Code'] = 0
+#     response.headers["Access-Control-Allow-Origin"] = "*"
