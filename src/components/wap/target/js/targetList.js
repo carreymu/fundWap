@@ -4,11 +4,14 @@ export default {
     mounted() {
         this.loadLatest()
         this.getTags()
+        this.loadDetail()
         this.$store.commit('UPDATE_PAGE_TITLE', '[大目标]往期产品') 
     },
     data(){      
         return {
-            index: 0,
+            selectIdx: 0,
+            autoHeight:120,
+            demo2:'全部57期',
             list2: ['全部57期', '已达标42期', '运行中14期'],
             itemList:[],
             chartData:{
@@ -141,7 +144,8 @@ export default {
                     {"date":"2013-06-13","stock_name":"大目标达标","value":122.9},
                     {"date":"2013-06-13","stock_name":"大目标收益率","value":85.4},
                     {"date":"2013-06-13","stock_name":"上证综指涨跌幅","value":10}
-				]},
+                ]},
+            targetListData:[]
         }
     },
     methods:{
@@ -189,6 +193,26 @@ export default {
                     self.itemList=data.returnObject
                 }
             })
+        },
+        loadDetail(){
+			let self=this;
+			let cid=this.$route.params.cid;
+			this.baseAjax({
+				url:'../../../static/basicData/targetList.json',
+				showLoading:true,
+				params:{
+					cid:cid,
+				},
+				success:function(data){
+					self.targetListData=data.returnObject;
+				}
+			})
+        },
+        onItemClick (index) {
+            this.selectIdx = index
+            this.autoHeight = 120 * 3
+            console.log('on item click:', this.autoHeight)
+            console.log('on item click:', this.selectIdx)
         },
         randomNum(minNum,maxNum){ 
             switch(arguments.length){ 
