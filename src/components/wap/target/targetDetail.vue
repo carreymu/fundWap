@@ -58,10 +58,6 @@
 .targetDetail  .text-top{
 	border-bottom: 1px solid #eee;
 	padding: 10px 15px 15px 15px; 
-
- .targetDetail  .text-top{
-		border-bottom: 1px solid #eee;
-		padding: 10px 15px 15px 15px; 
  }
 
  .targetDetail .load{
