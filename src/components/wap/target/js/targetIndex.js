@@ -1,5 +1,4 @@
 import {Tabbar, TabbarItem ,XHeader,XButton,XImg, Swiper, SwiperItem, Flexbox, FlexboxItem, dateFormat } from 'vux'
-import date_ops from '@/utils/utdate'
 export default {
   mounted() {
     this.bannersList();
@@ -67,7 +66,7 @@ export default {
         if(r.news_info_topx_by_ncid.length > 0){
           let news_list = r.news_info_topx_by_ncid
           for(var i = 0 ;i<news_list.length -1; i++){
-            news_list[i].inserttime = date_ops.date_fmt(news_list[i].inserttime,"MM-dd hh:mm:ss")
+            news_list[i].inserttime = dateFormat(news_list[i].inserttime,"MM-DD HH:mm:ss")
             this.news2List.push(news_list[i])
           }
         }

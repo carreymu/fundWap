@@ -67,8 +67,7 @@
       <flexbox class="newsTitle">        
         <!-- <flexbox-item :span="1/100"></flexbox-item>  -->
         <flexbox-item class="lf">[大目标]投资面对面</flexbox-item> 
-        <flexbox-item class="rg"><router-link :to="'/fundWap/targetList'">更多 ></router-link></flexbox-item> 
-        <!-- <flexbox-item :span="1/100"></flexbox-item>          -->
+        <flexbox-item class="rg"><router-link :to="'/fundWap/targetNews'">更多 ></router-link></flexbox-item> 
       </flexbox>
     </div>
     <div class="newsItem" v-for="(item, index) in news2List" :key="index">
@@ -79,7 +78,7 @@
             <flexbox-item>
                 <flexbox orient="vertical">
                   <flexbox-item class="title">{{item.title}}</flexbox-item>                  
-                  <flexbox-item style="font-size:12px;"><!-- <img src="../../../assets/images/view.png"> -->{{item.inserttime}}</flexbox-item>
+                  <flexbox-item style="font-size:12px;">{{item.inserttime}}</flexbox-item>
                 </flexbox>
             </flexbox-item>          
           </flexbox>
@@ -94,9 +93,6 @@
         <div v-for="(item, index) in investList" :key="index">
           <flexbox-item ><router-link :to="item.url+'/'+item.sid"><img :src="item.img_url"/><br/>&nbsp;{{item.title}}</router-link></flexbox-item>
         </div>
-        <!-- <flexbox-item><router-link :to="'/fundWap/systemInfoDetail/1'"><img src="../../../../static/img/intro.png"/><br/>了解[大目标]</router-link></flexbox-item>
-        <flexbox-item ><router-link :to="'/fundWap/systemInfoDetail/1'"><img src="../../../../static/img/think.png"/><div style="padding-left:10px;">投资理念</div></router-link></flexbox-item>
-        <flexbox-item><router-link :to="'/fundWap/systemInfoDetail/1'"><img src="../../../../static/img/safe.png"/><div style="padding-left:15px;">安全可靠</div></router-link></flexbox-item> -->
       </flexbox>
       <div class="foot">
         <div class="rect" v-for="(item, index) in sysCatList" :key="index">
