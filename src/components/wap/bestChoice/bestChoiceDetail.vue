@@ -79,7 +79,7 @@
         <div class="funds"><span :style="'color:'+item.color">■</span> {{item.name}}</div>
         <div class="fundsDetail">
         <flexbox orient="vertical">
-          <flexbox-item v-for="(it,idx) in item.fundsList" :key="idx" class="fundsDetails">
+          <flexbox-item v-for="(it,idx) in item.fundsList" :key="idx">
             <div style="float: left;">{{it.fundName}}({{it.fundCode}})</div>
             <div style="float: right;">{{it.percent}}%</div>
           </flexbox-item>
@@ -180,7 +180,7 @@
    }
   .bestChoiceDetail .fundsDetail{
     color:#999;
- 	  padding: 5px 10px 5px 20px ;
+ 	  padding: 5px 10px 5px 20px;
     background-color:rgb(240, 240, 240);
     line-height: 22px;
    }

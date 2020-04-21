@@ -31,11 +31,34 @@
         <flexbox-item>
           <!-- asdfssfd -->
             <tab :line-width=2 active-color='#FF0033' v-model="index">
-              <tab-item class="vux-center" :selected="'全部57期' === item" v-for="(item, index) in list2" :key="index">{{item}}</tab-item>
+              <tab-item class="vux-center" :selected="demo2 === item" @on-item-click="onItemClick" v-for="(item, index) in list2" :key="index">{{item}}</tab-item>
             </tab>
-            <swiper v-model="index" height="100px" :show-dots="false">
-              <swiper-item v-for="(item, index) in list2" :key="index">
-                <div class="tab-swiper vux-center">{{item}} Container</div>
+            <swiper v-model="index" :show-dots="false" style="height:100%">
+              <swiper-item v-for="(item, ind) in list2" :key="ind" :style="ind==index?{position:'static'}:''">
+                <div v-for="(it,idx) in targetListData" :key="idx">
+                  <!-- {{targetListData.length}} -->
+                <flexbox orient="vertical">
+                  <flexbox-item style="color:#999;padding-top:10px;">
+                    <div style="float: left;">大目标{{it.targetName}}</div>
+                    <div style="float: right;">建仓中</div>
+                  </flexbox-item>
+                  <flexbox-item style="color:dimgrey;">
+                    <div style="float: left;">目标收益<span style="color:red;">+5.01%</span></div>
+                    <div style="float: right;">运行23天</div>
+                  </flexbox-item>
+                </flexbox>
+                <div class="line"></div>
+                </div>
+                <!-- <flexbox orient="vertical">
+                  <flexbox-item style="color:#999;padding-top:10px;">
+                    <div style="float: left;">大目标2012</div>
+                    <div style="float: right;">建仓中</div>
+                  </flexbox-item>
+                  <flexbox-item style="color:dimgrey;">
+                    <div style="float: left;">目标收益<span style="color:red;">+5.01%</span></div>
+                    <div style="float: right;">运行23天</div>
+                  </flexbox-item>
+                </flexbox> -->
               </swiper-item>
             </swiper>
         </flexbox-item> 
@@ -63,6 +86,7 @@ a:hover {
  font-size: 12px;
  color: #999999;
 }
+.vux-swiper{height:500px;}
 .line{border-bottom:1px solid rgb(230, 230, 230);}
 .targetList .load{
     text-align: center;
