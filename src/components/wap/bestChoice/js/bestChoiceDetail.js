@@ -1,7 +1,7 @@
 
 import { Tab,TabItem,XImg,XButton,Swiper,SwiperItem,Flexbox,FlexboxItem,XDialog,Group,Cell,VChart, VLine, VAxis, VTooltip,VArea,VLegend, VBar, VPie, VGuide, VScale} from 'vux';
 const data = [
-	{name: "量化派", percent: 56.59, a: '1' },
+	{ name: "量化派", percent: 56.59, a: '1' },
 	{ name: "成长型", percent: 20.17, a: '1' },
 	{ name: "价值型", percent: 23.24, a: '1' }
 ]
@@ -303,7 +303,7 @@ export default {
 				{"date":"2010/02/14","type":"沪深300: +8.71%","value":88.44},
 				{"date":"2010/02/15","type":"沪深300: +8.71%","value":89.45},
 				{"date":"2010/02/16","type":"沪深300: +8.71%","value":89.46}
-			]			
+			]
 		};
 	},
 	methods:{		

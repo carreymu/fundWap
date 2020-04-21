@@ -12,6 +12,20 @@ import Base from './assets/js/baseFun.js'         //---------自定义的公共�
 import stores from './store/store'                //---------自定义的全局变量
 import './assets/css/base.css'                    //---------引入的全局公共css
 
+/*charts*/
+import { VChart, VLine, VArea, VBar, VPie, VPoint, VScale, VAxis, VGuide, VTooltip, VLegend } from 'vux' 
+Vue.component('v-chart', VChart)
+Vue.component('v-line', VLine)
+Vue.component('v-area', VArea)
+Vue.component('v-bar', VBar)
+Vue.component('v-pie', VPie)
+Vue.component('v-point', VPoint)
+Vue.component('v-scale', VScale)
+Vue.component('v-axis', VAxis)
+Vue.component('v-guide', VGuide)
+Vue.component('v-tooltip', VTooltip)
+Vue.component('v-legend', VLegend)
+
 FastClick.attach(document.body)
 Vue.config.productionTip = false
 

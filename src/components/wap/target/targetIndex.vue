@@ -26,9 +26,6 @@
               <flexbox-item style="text-align:center;">目标收益</flexbox-item>
             </flexbox>
           </flexbox-item>
-          <!-- <flexbox-item>
-            -------------
-          </flexbox-item> -->
           <flexbox-item>
             <flexbox orient="vertical">
               <flexbox-item class="aimLast">{{target_run1.pre_run}}<span style="font-size:large;font-weight:700">个月</span></flexbox-item>
@@ -63,11 +60,11 @@
       <flexbox>
           <flexbox-item class="past">已<router-link :to="'/fundWap/targetList'">达标{{target_done}}期查,看往期 >>></router-link></flexbox-item> 
       </flexbox>
-      <div style="border-bottom:1px solid rgb(230, 230, 230); padding:10px 0 5px 0;"></div>      
+      <div class="line"></div>      
       <flexbox class="newsTitle">        
         <!-- <flexbox-item :span="1/100"></flexbox-item>  -->
         <flexbox-item class="lf">[大目标]投资面对面</flexbox-item> 
-        <flexbox-item class="rg"><router-link :to="'/fundWap/targetDetail/1'">更多 ></router-link></flexbox-item> 
+        <flexbox-item class="rg"><router-link to="/fundWap/targetNews">更多 ></router-link></flexbox-item> 
         <!-- <flexbox-item :span="1/100"></flexbox-item>          -->
       </flexbox>
     </div>
@@ -87,9 +84,10 @@
         <flexbox-item class="postListImg"><img :src="item.img_url"></flexbox-item>      
       </flexbox>      
       </router-link>
-      <div style="border-bottom:1px solid rgb(230, 230, 230); padding:10px 0 5px 0;"></div>    
+      <div class="line"></div>    
     </div>
     <div class="footer">
+      <div>
       <flexbox class="invIntro">
         <div v-for="(item, index) in investList" :key="index" style="padding-left:35px;">
           <flexbox-item ><router-link :to="item.url+'/'+item.sid"><img :src="item.img_url"/><br/>&nbsp;{{item.title}}</router-link></flexbox-item>
@@ -104,6 +102,17 @@
         </div>
       </div>
       <br>
+      <div class="foot">
+        <div class="rect">
+          <div style="font-size:large;">两分钟全面了解大目标</div>
+          <div>我的大目标投资安全吗?</div>
+        </div>
+        <div class="rect">
+          <div style="font-size:large;">小朋友你是不是有很多疑问?</div>
+        </div>
+      </div>
+
+
       <flexbox>
         <flexbox-item class="botTxt">快乐投资新体验 | <router-link :to="company_info.url+'/'+company_info.sid"><span style="color:#DD5858;">{{company_info.title}}</span></router-link></flexbox-item>
       </flexbox>
@@ -129,7 +138,7 @@ a:hover {
  font-size: 12px;
  color: #999999;
 }
-
+.line{ border-bottom:1px solid rgb(230, 230, 230); padding:10px 0 5px 0;}
 .targetIndex .topTxt{
   font-size: 12px;
   text-align: center;
@@ -197,6 +206,7 @@ a:hover {
   font-size: xx-large;
   text-align: center;
 }
+
 
 .targetIndex .foot {
   text-align: left;
