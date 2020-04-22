@@ -31,34 +31,23 @@
         <flexbox-item>
           <!-- asdfssfd -->
             <tab :line-width=2 active-color='#FF0033' v-model="selectIdx">
-              <tab-item class="vux-center" :selected="demo2 === item" @on-item-click="onItemClick" v-for="(item, index) in targetListData" :key="index">{{item.name}}</tab-item>
+              <tab-item :selected="demo2 === item" @on-item-click="onItemClick" v-for="(item, index) in targetListData" :key="index">{{item.name}}</tab-item>
             </tab>
-            <swiper v-model="selectIdx" :show-dots="false" :style="{height:autoHeight+'px'}" :aspect-ratio="1.3">
+            <swiper v-model="selectIdx" :show-dots="false" :style="{height:autoHeight[selectIdx]+'px'}" :aspect-ratio="1.3">
               <swiper-item v-for="(item, ind) in targetListData" :key="ind">
                 <div v-for="(it,idx) in item.items" :key="idx">
-                  <!-- {{targetListData.length}} -->
-                <flexbox orient="vertical">
-                  <flexbox-item style="color:#999;padding-top:10px;">
-                    <div style="float: left;">大目标{{it.targetName}}</div>
-                    <div style="float: right;">建仓中</div>
-                  </flexbox-item>
-                  <flexbox-item style="color:dimgrey;">
-                    <div style="float: left;">目标收益<span style="color:red;">+5.01%</span></div>
-                    <div style="float: right;">运行23天</div>
-                  </flexbox-item>
-                </flexbox>
-                <div class="line"></div>
+                  <flexbox orient="vertical">
+                    <flexbox-item class="tabTop">
+                      <div style="float: left;">大目标{{it.targetName}}</div>
+                      <div style="float: right;">{{it.status}}</div>
+                    </flexbox-item>
+                    <flexbox-item style="color:dimgrey;">
+                      <div style="float: left;">目标收益<span style="color:red;">+5.01%</span></div>
+                      <div style="float: right;">运行{{it.days}}天</div>
+                    </flexbox-item>
+                  </flexbox>
+                  <div class="line"></div>
                 </div>
-                <!-- <flexbox orient="vertical">
-                  <flexbox-item style="color:#999;padding-top:10px;">
-                    <div style="float: left;">大目标2012</div>
-                    <div style="float: right;">建仓中</div>
-                  </flexbox-item>
-                  <flexbox-item style="color:dimgrey;">
-                    <div style="float: left;">目标收益<span style="color:red;">+5.01%</span></div>
-                    <div style="float: right;">运行23天</div>
-                  </flexbox-item>
-                </flexbox> -->
               </swiper-item>
             </swiper>
         </flexbox-item> 
@@ -125,8 +114,8 @@ a:hover {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.targetList .tab-swiper {
-  background-color: #fff;
-  height: 100px;
+.targetList .hisList .tabTop {
+  color:#999;
+  padding-top:10px;
 }
 </style>

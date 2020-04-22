@@ -10,7 +10,7 @@ export default {
     data(){      
         return {
             selectIdx: 0,
-            autoHeight:120,
+            autoHeight:[420,420,420],
             demo2:'全部57期',
             list2: ['全部57期', '已达标42期', '运行中14期'],
             itemList:[],
@@ -189,7 +189,7 @@ export default {
                 url:'../../../static/basicData/latestNews.json',
                 showLoading:true,
                 success:function(data){
-                    console.log(data)
+                    // console.log(data)
                     self.itemList=data.returnObject
                 }
             })
@@ -204,14 +204,17 @@ export default {
 					cid:cid,
 				},
 				success:function(data){
-					self.targetListData=data.returnObject;
+                    // autoheight do not work,given value before mount.....
+                    this.autoHeight=data.returnObject.map(x=>x.items.length*120)
+                    self.targetListData=data.returnObject;
+                    // console.log(this.autoHeight)
 				}
 			})
         },
         onItemClick (index) {
             this.selectIdx = index
-            this.autoHeight = 120 * 3
-            console.log('on item click:', this.autoHeight)
+            // this.autoHeight = 120 * 3
+            // console.log('on item click:', this.autoHeight)
             console.log('on item click:', this.selectIdx)
         },
         randomNum(minNum,maxNum){ 

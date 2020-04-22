@@ -79,7 +79,7 @@
                 "targetName":"201401",
                 "status":"建仓中",
                 "ratio": "6",
-                "days":1
+                "days":10
     
             },
             {
@@ -87,7 +87,7 @@
                 "targetName":"201403",
                 "status":"建仓中",
                 "ratio": "10",
-                "days":1
+                "days":21
             }
         ]}
 ]

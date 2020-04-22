@@ -30,4 +30,18 @@ config = dict(
       },
       "dependence": exec_base.DBInfo,
     },
+    targets_status_agg_by_run_status={
+      "name": "aggregate result by run_status",
+      "author": "root",
+      "event_default": {},
+      "sql_info": {
+        "engine_name": "db_fund_wap_mysql",
+        "sql": {
+          "mysql": "select run_status,count(1) as tot_target from targets group by run_status",
+          "sqlite3": "",
+          "mssql": ""
+        }
+      },
+      "dependence": exec_base.DBInfo,
+    },
 )
