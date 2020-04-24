@@ -29,7 +29,6 @@
         <div class="line"></div></flexbox-item> 
         <!-- <flexbox-item ></flexbox-item> -->
         <flexbox-item>
-          <!-- asdfssfd -->
             <tab :line-width=2 active-color='#FF0033' v-model="selectIdx">
               <tab-item :selected="demo2 === item" @on-item-click="onItemClick" v-for="(item, index) in targetListData" :key="index">{{item.name}}</tab-item>
             </tab>

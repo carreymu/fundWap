@@ -9,7 +9,7 @@ config = dict(
             "engine_name": "db_fund_wap_mysql",
             "sql": {
                 "mysql": "select tid,name,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime from "
-                         "targets where run_status={run_status} limit {topx}",
+                         "targets where run_status in ({run_status}) limit {topx}",
                 "sqlite3": "",
                 "mssql": ""
             }
@@ -23,7 +23,7 @@ config = dict(
       "sql_info": {
         "engine_name": "db_fund_wap_mysql",
         "sql": {
-          "mysql": "select count(1) as tot_target from targets where run_status>{run_status}",
+          "mysql": "select count(1) as tot_target from targets where run_status in ({run_status})",
           "sqlite3": "",
           "mssql": ""
         }

@@ -78,7 +78,7 @@ export default {
     },
     systemInfo(){
       let dt = {
-        "req": {"pscid":4,"run_status":3},
+        "req": {"pscid":4,"run_status":"5,4"},
         "event_names": ["targets_status_done","system_info_category"]
       }
       this.$api.fetchPost('/sanic-api', dt).then(r=>{
