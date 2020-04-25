@@ -6,6 +6,7 @@ import VueRouter from 'vue-router'
 import App from './App'
 
 import api from './service/index.js'
+import stringFormat from './utils/utstring'
 
 import router from'./router/wapRouter.js'      //---------自定义的路由文件
 import Base from './assets/js/baseFun.js'         //---------自定义的公共函数和公共请求方法
@@ -34,6 +35,8 @@ Vue.prototype.baseFun=Base.baseFun;  //-----注册到vue的全局，方便各个
 Vue.prototype.baseAjax=Base.baseAjax;//-----将封装的ajax请求函数注册到vue的全局 
 
 Vue.prototype.$api = api
+Vue.prototype.$stringFormat = stringFormat
+
 
 Vue.use(VueRouter)
 

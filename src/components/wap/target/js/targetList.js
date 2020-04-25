@@ -1,5 +1,6 @@
 import {Flexbox, FlexboxItem, VChart, VLine, VTooltip, VGuide, VScale, Spinner,
-    Tab, TabItem, Swiper, SwiperItem } from 'vux'
+    Tab, TabItem, Swiper, SwiperItem, dateFormat } from 'vux'
+// import formatStr from '@/utils/utstring'
 export default {
     mounted() {
         this.loadLatest()
@@ -11,8 +12,6 @@ export default {
         return {
             selectIdx: 0,
             autoHeight:[420,420,420],
-            demo2:'全部57期',
-            list2: ['全部57期', '已达标42期', '运行中14期'],
             itemList:[],
             chartData:{
                 color:["#c32c1c","#ffd700","#99CCFF"],
@@ -145,7 +144,10 @@ export default {
                     {"date":"2013-06-13","stock_name":"大目标收益率","value":85.4},
                     {"date":"2013-06-13","stock_name":"上证综指涨跌幅","value":10}
                 ]},
-            targetListData:[]
+                // 1 - 建仓中, 2 - 盈利中, 3 - 浮亏中, 4 - 已达标
+            runStatus:{1:"建仓中",2 :"盈利中",3:"浮亏中", 4:"已达标"},
+            targetListData:[],
+            summary:"共发车{0}期,{1}期已达标5%~8%,平均运行{2}个月.投资年化回报18.49%.跑赢大盘19.66%以上。"
         }
     },
     methods:{
@@ -195,21 +197,44 @@ export default {
             })
         },
         loadDetail(){
-			let self=this;
-			let cid=this.$route.params.cid;
-			this.baseAjax({
-				url:'../../../static/basicData/targetList.json',
-				showLoading:true,
-				params:{
-					cid:cid,
-				},
-				success:function(data){
-                    // autoheight do not work,given value before mount.....
-                    this.autoHeight=data.returnObject.map(x=>x.items.length*120)
-                    self.targetListData=data.returnObject;
-                    // console.log(this.autoHeight)
-				}
-			})
+            let dt = {
+                "req": {"run_status":"1,2,4,3"},
+                "event_names": ["targets_agg_list"]
+              }
+              this.$api.fetchPost('/sanic-api', dt).then(r=>{
+                // if(r.targets_agg_list.length > 0){
+                //   this.targetListData=r.targets_agg_list
+                // }
+                let tot =0
+                let done=0
+                let avem=0
+                if(r.targets_agg_list.length > 0){
+                  let tar_list = r.targets_agg_list
+                  for(var i = 0 ;i<tar_list.length; i++){
+                    let its = tar_list[i].items
+                    for(var j = 0;j<its.length;j++){
+                        its[j].apply_endtime = dateFormat(its[j].apply_endtime/1000,"YYYY-MM-DD HH:mm:ss")
+                        its[j].target_ratio = (its[j].target_ratio*100).toFixed(2)
+                        its[j]["run_statu"]="运行中"
+                        tot=tot+1
+                        avem=avem+its[j].run_days
+                        if(its[j].run_status==4){
+                            its[j]["run_statu"]="用时"
+                            done=done+1
+                        }
+                        its[j]["run_statu"]=its[j].run_status==4?"用时":"运行中"
+                        its[j].run_status = this.runStatus[its[j].run_status]                        
+                    }
+                    this.targetListData.push(tar_list[i])
+                  }
+                  //to do: {投资年化回报},{大盘}
+                  this.summary=this.$stringFormat(this.summary,[tot,done,(avem/30).toFixed(1)])
+                }
+                // console.log(this.targetListData)
+                // console.log(this.summary)
+              }).catch(err=>{
+                console.log(err)
+              })
         },
         onItemClick (index) {
             this.selectIdx = index

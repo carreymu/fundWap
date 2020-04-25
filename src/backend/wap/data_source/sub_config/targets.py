@@ -30,6 +30,21 @@ config = dict(
       },
       "dependence": exec_base.DBInfo,
     },
+    targets_list_by_status={
+      "name": "targets_list",
+      "author": "root",
+      "event_default": {},
+      "sql_info": {
+        "engine_name": "db_fund_wap_mysql",
+        "sql": {
+          "mysql": "select tid,name,target_ratio,run_status,run_days,apply_endtime from targets "
+                   "where run_status in ({run_status}) order by inserttime desc",
+          "sqlite3": "",
+          "mssql": ""
+        }
+      },
+      "dependence": exec_base.DBInfo,
+    },
     targets_status_agg_by_run_status={
       "name": "aggregate result by run_status",
       "author": "root",

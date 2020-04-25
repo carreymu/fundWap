@@ -16,35 +16,28 @@
               <!-- <v-tooltip :show-item-marker="false" show-x-value /> -->
               <!-- <v-tooltip show-crosshairs show-value-in-legend/> -->
             </v-chart>
-          <!-- <flexbox orient="vertical">
-            <flexbox-item>
-                <flexbox orient="vertical">
-                  <flexbox-item class="title">{{item.title}}</flexbox-item>                  
-                  <flexbox-item style="font-size:12px;">02-10 18:10</flexbox-item>
-                </flexbox>
-            </flexbox-item>          
-          </flexbox> -->
         </flexbox-item>
-        <flexbox-item ><div style="font-size:12px;color:dimgray;padding:0 5px;">共发车57期,42期已达标5%~8%,平均运行4.4个月.投资年化回报18.49%.跑赢大盘19.66%以上。</div>
-        <div class="line"></div></flexbox-item> 
-        <!-- <flexbox-item ></flexbox-item> -->
+        <flexbox-item ><div class="summary">{{summary}}</div>
+        <div class="line"></div></flexbox-item>
         <flexbox-item>
             <tab :line-width=2 active-color='#FF0033' v-model="selectIdx">
-              <tab-item :selected="demo2 === item" @on-item-click="onItemClick" v-for="(item, index) in targetListData" :key="index">{{item.name}}</tab-item>
+              <tab-item @on-item-click="onItemClick" v-for="(item, index) in targetListData" :key="index">{{item.name}}</tab-item>
             </tab>
             <swiper v-model="selectIdx" :show-dots="false" :style="{height:autoHeight[selectIdx]+'px'}" :aspect-ratio="1.3">
               <swiper-item v-for="(item, ind) in targetListData" :key="ind">
                 <div v-for="(it,idx) in item.items" :key="idx">
-                  <flexbox orient="vertical">
-                    <flexbox-item class="tabTop">
-                      <div style="float: left;">大目标{{it.targetName}}</div>
-                      <div style="float: right;">{{it.status}}</div>
-                    </flexbox-item>
-                    <flexbox-item style="color:dimgrey;">
-                      <div style="float: left;">目标收益<span style="color:red;">+5.01%</span></div>
-                      <div style="float: right;">运行{{it.days}}天</div>
-                    </flexbox-item>
-                  </flexbox>
+                  <router-link :to="'/fundWap/targetFundDetail/'+it.tid">
+                    <flexbox orient="vertical">
+                      <flexbox-item class="tabTop">
+                        <div style="float: left;">大目标{{it.name}}</div>
+                        <div style="float: right;">{{it.run_status}}</div>
+                      </flexbox-item>
+                      <flexbox-item style="color:dimgrey;">
+                        <div style="float: left;">目标收益<span style="color:red;">+{{it.target_ratio}}%</span></div>
+                        <div style="float: right;">{{it.run_statu}}{{it.run_days}}天</div>
+                      </flexbox-item>
+                    </flexbox>
+                  </router-link>
                   <div class="line"></div>
                 </div>
               </swiper-item>
@@ -116,5 +109,11 @@ a:hover {
 .targetList .hisList .tabTop {
   color:#999;
   padding-top:10px;
+}
+
+.targetList .hisList .summary{
+  font-size:12px;
+  color:dimgray;
+  padding:0 5px;
 }
 </style>
