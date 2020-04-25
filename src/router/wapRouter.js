@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import fundWap from '@/components/fundWap'
 import targetIndex from '@/components/wap/target/targetIndex'
 import targetDetail from '@/components/wap/target/targetDetail'
+import targetFundDetail from '@/components/wap/target/targetFundDetail'
 import targetList from '@/components/wap/target/targetList'
 import targetNews from '@/components/wap/target/targetNews'
 import drumstick from '@/components/wap/drumstick/drumstick'
@@ -35,11 +36,15 @@ const router = new VueRouter({
 			      component: targetDetail
 				},
 				{
+					path: '/fundWap/targetFundDetail/:tid',
+					name: 'targetFundDetail',
+					component: targetFundDetail
+				},
+				{
 					path: '/fundWap/targetList',
 					name: 'targetList',
 					component: targetList
 				},
-
 				{
 					path: '/fundWap/targetNews',
 					name: 'targetNews',

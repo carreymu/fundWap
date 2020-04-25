@@ -17,58 +17,48 @@
           <flexbox-item class="limTime">限时申购</flexbox-item>
           <flexbox-item :span="1/20"></flexbox-item>
         </flexbox>
-        <br/>
-        <flexbox>
-          <flexbox-item :span="1/20"></flexbox-item> 
-          <flexbox-item>
-            <flexbox orient="vertical">
-              <flexbox-item class="aimRate">+{{targetRun1.target_ratio}}<span style="font-size:large;">%</span></flexbox-item>
-              <flexbox-item style="text-align:center;">目标收益</flexbox-item>
-            </flexbox>
-          </flexbox-item>
-          <!-- <flexbox-item>
-            -------------
-          </flexbox-item> -->
-          <flexbox-item>
-            <flexbox orient="vertical">
-              <flexbox-item class="aimLast">{{targetRun1.pre_run}}<span style="font-size:large;font-weight:700">个月</span></flexbox-item>
-              <flexbox-item style="text-align:center;">预计持有时长</flexbox-item>
-            </flexbox>
-          </flexbox-item>
-          <flexbox-item :span="1/20"></flexbox-item> 
-        </flexbox>
-        <br/>
-        <flexbox>
-          <flexbox-item :span="1/4"></flexbox-item> 
-          <flexbox-item><x-button type="warn">立即申购</x-button></flexbox-item>
-          <flexbox-item :span="1/4"></flexbox-item> 
-        </flexbox>
-        <div style="height:30px;"></div>
-      </div>
-      <br>
-      <flexbox>
-          <flexbox-item :span="1/200"></flexbox-item>
-          <flexbox-item :span="5/40"><img src="../../../assets/images/medal3.png" style="height:55px;width:50px;"/></flexbox-item> 
-          <flexbox-item :span="1/100"></flexbox-item>
-            <div v-for="(item, index) in top3FundList" :key="index">
-              <flexbox-item class="top3fd">
-                <flexbox orient="vertical">
-                  <flexbox-item>大目标{{item.name}}</flexbox-item>
-                  <flexbox-item class="days">{{item.run_days}}天达标</flexbox-item>
-                </flexbox>
-              </flexbox-item>
+
+      <div class="topcontext">
+            <div>          
+                <div >
+                        <div class="aimRate">+{{targetRun1.target_ratio}}<span style="font-size:large;">%</span></div>
+                        <div class="aimRmk">目标收益率</div>
+                </div>
+          </div>
+            <div class="slopingside"></div>
+            <div>          
+            <div>
+                    <div class="aimLast">{{targetRun1.pre_run}}<span style="font-size:large;font-weight:700">个月</span></div>
+                    <div class="aimRmk">预计持有时长</div>
             </div>
-          <flexbox-item :span="1/200"></flexbox-item> 
-      </flexbox>
-      <flexbox>
-          <flexbox-item class="past">已<router-link :to="'/fundWap/targetList'">达标{{targetDoneCnt}}期查,看往期 >>></router-link></flexbox-item> 
-      </flexbox>
-      <div style="border-bottom:1px solid rgb(230, 230, 230); padding:10px 0 5px 0;"></div>      
-      <flexbox class="newsTitle">        
-        <!-- <flexbox-item :span="1/100"></flexbox-item>  -->
-        <flexbox-item class="lf">[大目标]投资面对面</flexbox-item> 
-        <flexbox-item class="rg"><router-link :to="'/fundWap/targetNews'">更多 ></router-link></flexbox-item> 
-      </flexbox>
+          </div>
+       </div>
+        <div style="text-align:center; padding:15px 50px;">
+          <x-button type="warn" :link="'/fundWap/targetFundDetail/'+targetRun1.id">立即申购</x-button>
+        </div>
+      </div>
+      <div style="padding-top:15px;">
+        <flexbox>
+            <flexbox-item :span="1/200"></flexbox-item>
+            <flexbox-item :span="5/40"><img src="../../../assets/images/medal3.png" style="height:55px;width:50px;"/></flexbox-item> 
+            <flexbox-item :span="1/100"></flexbox-item>
+              <div v-for="(item, index) in top3FundList" :key="index">
+                <flexbox-item class="top3fd">
+                  <flexbox orient="vertical">
+                    <flexbox-item>大目标{{item.name}}</flexbox-item>
+                    <flexbox-item class="days">{{item.run_days}}天达标</flexbox-item>
+                  </flexbox>
+                </flexbox-item>
+              </div>
+            <flexbox-item :span="1/200"></flexbox-item> 
+        </flexbox>
+      </div>
+      <div class="past"> 已<router-link :to="'/fundWap/targetList'">达标{{targetDoneCnt}}期查,看往期 ></router-link></div>
+      <div class="line"></div>
+      <div class="newsTitle">
+        <div class="lf">[大目标]投资面对面</div> 
+        <div class="rg"><router-link :to="'/fundWap/targetNews'">更多 ></router-link></div> 
+      </div>
     </div>
     <div class="newsItem" v-for="(item, index) in news2List" :key="index">
       <router-link :to="'/fundWap/targetDetail/'+item.nid">
@@ -86,23 +76,22 @@
         <flexbox-item class="postListImg"><img :src="item.img_url"></flexbox-item>      
       </flexbox>      
       </router-link>
-      <div style="border-bottom:1px solid rgb(230, 230, 230); padding:5px 0 5px 0;"></div>    
+      <div class="line"></div>    
     </div>
     <div class="footer">
-      <flexbox class="invIntro">
+      <div class="invIntro">
         <div v-for="(item, index) in investList" :key="index">
-          <flexbox-item ><router-link :to="item.url+'/'+item.sid"><img :src="item.img_url"/><br/>&nbsp;{{item.title}}</router-link></flexbox-item>
+          <div><router-link :to="item.url+'/'+item.sid"><img :src="item.img_url"/><br/>&nbsp;{{item.title}}</router-link></div>
         </div>
-      </flexbox>
+      </div>
       <div class="foot">
         <div class="rect" v-for="(item, index) in sysCatList" :key="index">
           <router-link :to="item.url+'/'+item.scid"><div v-html="item.subtitle"></div></router-link>
         </div>
       </div>
-      <br>
-      <flexbox>
-        <flexbox-item class="botTxt">快乐投资新体验 | <router-link :to="companyInfo.url+'/'+companyInfo.sid"><span style="color:#DD5858;">{{companyInfo.title}}</span></router-link></flexbox-item>
-      </flexbox>
+      <div class="botTxt">
+        快乐投资新体验 | <router-link :to="companyInfo.url+'/'+companyInfo.sid"><span style="color:#DD5858;">{{companyInfo.title}}</span></router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -125,6 +114,7 @@ a:hover {
  font-size: 12px;
  color: #999999;
 }
+.line{border-bottom:1px solid rgb(230, 230, 230);}
 .targetIndex .topTxt{
   font-size: 12px;
   text-align: center;
@@ -154,14 +144,16 @@ a:hover {
   font-size: 14px;font-weight:700;padding-top: 10px;
 }
 .targetIndex .topTxt .newsTitle .lf{
-  text-align:left;
+  /* text-align:left; */
+  float: left;
 }
 .targetIndex .topTxt .newsTitle .rg{
-  text-align:right;
+  /* text-align:right; */
+  float: right;
 }
 .targetIndex .topTxt .rect{
   width: 100%;
-  height: 250px;
+  height: 210px;
   /* padding: 30px 20px 40px 20px; */
   border-radius: 10px;
   box-shadow: 5px 5px 5px #e2e1e1; 
@@ -182,11 +174,27 @@ a:hover {
   text-align: right;
 }
 .targetIndex .topTxt .rect .aimRate{
-  font-size: xx-large;
+  font-size: x-large;
   text-align: center;
 }
+.targetIndex .topTxt .rect .topcontext{
+    padding: 15px 40px 0 40px;
+    display:-webkit-flex;
+    display: flex;
+    justify-content: space-around;
+}
+.targetIndex .topTxt .rect .slopingside{
+    height:0px;
+    width:45px;
+    margin-top: 30px;
+    border-top: 0.1px solid rgb(128, 126, 126);
+    transform:rotate(125deg);
+    -o-transform:rotate(125deg);
+    -moz-transform:rotate(125deg);
+    -webkit-transform:rotate(125deg);
+}
 .targetIndex .topTxt .rect .aimLast{
-  font-size: xx-large;
+  font-size: x-large;
   text-align: center;
 }
 .targetIndex .foot {
@@ -202,6 +210,7 @@ a:hover {
   color: dimgray;
 }
 .targetIndex .newsItem{
+  clear: both;
   margin:5px 10px 0 10px;
   position: relative;
   height: 126px;
@@ -226,8 +235,9 @@ a:hover {
   font-size: 12px;
 }
 .targetIndex .footer .invIntro{
-  white-space:nowrap;
-  justify-content: space-around;
+    display:-webkit-flex;
+    display: flex;
+    justify-content: space-around;
 }
 .targetIndex .footer .botTxt{
   text-align:center;
