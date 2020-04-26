@@ -1,15 +1,30 @@
 import { Tabbar, TabbarItem ,XHeader,XButton,XImg, Flexbox, FlexboxItem, Divider } from 'vux'
 export default {
   mounted() {
-    this.loadLatest();
+    this.loadLatest()
+    this.loadFundDetail()
     this.$store.commit('UPDATE_PAGE_TITLE', '大目标11') 
   },
   data(){
     return {
-        itemList:[]
+      fTypeList:[],
+      itemList:[]
     }
   },
   methods:{
+    loadFundDetail(){
+			let self=this;
+			let cid=this.$route.params.cid;
+			this.baseAjax({
+				url:'../../../static/basicData/choiceDetail.json',
+				showLoading:true,
+				params:{cid:cid},
+				success:function(data){
+					// self.mainData=data.returnObject[0];
+					self.fTypeList=self.mainData.funds
+				}
+			})
+		},
     loadLatest(){
       let self=this;
       this.baseAjax({
