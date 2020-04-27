@@ -43,60 +43,34 @@
         <div style="padding:5px 0;">
           <div v-for="(item,idx) in fundList" :key="idx"  style="clear:both;padding:5px 5px;color:#666;">
             <div style="float: left;">{{item.fundName}}({{item.fundCode}})</div>
-            <div style="float: right;" v-if="idx==0">{{item.percent}} ></div>
-            <div style="float: right;" v-else>{{item.percent}}%</div>
+            <div style="float: right;">{{item.percent}}%&nbsp;  ></div>
           </div>
         </div>
-        
-
-        <!-- <div>
-          <div class="foot">
-            <div class="rect" v-for="(item, index) in sysCatList" :key="index">
-              <router-link :to="item.url+'/'+item.scid"><div v-html="item.subtitle"></div></router-link>
-            </div>
-          </div>
-        </div> -->
-        <!-- <flexbox>
-          <flexbox-item class ="waitInvokeTxtPre">|||| <span class="waitInvokeTxtTail">本期基金</span></flexbox-item>          
-        </flexbox> -->
-        
+                
 
         <div class="line"></div>
         <div style="padding:5px 0;">
             <div class ="waitInvokeTxtPre">||| <span class="waitInvokeTxtTail">服务内容</span></div>
-            <div style="clear:both">-选基说明-v-html</div>
+            <div style="clear:both;margin-left:10px;line-height:25px;" v-html="serviceInfo">-选基说明-v-html</div>
         </div>
-        <div class="line"></div>{{itemList.length}}
-        <div class="newsItem" v-for="(item, index) in itemList" :key="index">
-          <router-link :to="'/fundWap/targetDetail/'+item.id">
-          <flexbox>
-            <flexbox-item>
-              <flexbox orient="vertical">
-                <flexbox-item>
-                    <flexbox orient="vertical">
-                      <flexbox-item >{{item.title}}</flexbox-item>                  
-                      <flexbox-item>02-10 18:10</flexbox-item>
-                    </flexbox>
-                </flexbox-item>          
-              </flexbox>
-            </flexbox-item>
-            <flexbox-item class="postListImg"><img :src="item.icon"></flexbox-item>      
-          </flexbox>      
-          </router-link>
+        
+        <div class="linefd"></div>
+        <div>
+          <group :title="'is-link is set to true automatically when link exists'">
+            <cell :title="'操作与费率说明'" link="/component/radio" ></cell>
+            <cell :title="'大目标服务费说明'" :link="{path:'/demo'}" ></cell>
+            <cell :title="'大目标是什么'" link="https://vux.li" ></cell>
+            <cell :title="'常见问题'" link="https://vux.li" ></cell>
+          </group>
+        </div>
 
-          <!-- <div>
-            <group :title="$t('is-link is set to true automatically when link exists')">
-              <cell :title="$t('Go to Radio Demo')" link="/component/radio" inline-desc='link="/component/radio"'></cell>
-              <cell :title="$t('Go to Demo')" :link="{path:'/demo'}" inline-desc=':link={path:"/demo"}'></cell>
-              <cell :title="$t('Http link')" link="https://vux.li" inline-desc='link="https://vux.li"'></cell>
-            </group>
-          </div> -->
-          <div class="line"></div>           
-        </div>
-        <div class="line"></div>
+        <div class="linefd"></div>
         <div class="footer">
           <div class="bot">基金历史收益部代表其未来表现.<br/>【市场有风险,投资需谨慎。】</div>
         </div>
+        <div class="linefd"></div>
+          <div style="padding:5px 0;text-align:center;">申购倒计时: {{hour}}小时{{min}}分{{second}}秒</div>
+        <div class="linefd"></div>
     </div>
   </div>
 </template>
@@ -104,19 +78,12 @@
   import { Tabbar, TabbarItem ,XHeader,XButton,XImg, Flexbox, FlexboxItem, Divider,Spinner,Cell } from 'vux'
   export default {
     mounted() {
-      // var myDate = new Date();
-      // let mytime=myDate.toLocaleTimeString();
-      // console.log(mytime)
-      // this.loadFundDetail()
-      this.loadLatest()
-      this.$store.commit('UPDATE_PAGE_TITLE', '鸡腿计划') 
+      this.countTime()
+      this.$store.commit('UPDATE_PAGE_TITLE', '大目标2006') 
     },
-    // created() {
-    //     this.loadFundDetail()
-    // },
     data(){
       return {
-        itemList:[],
+        serviceInfo:"- 操作与费率说明<br/>- 大目标服务费说明<br/>- 大目标是什么<br/>- 常见问题<br/>",
         sysInfo:{url:'systemInfoDetail',sid:7},
         fundList:[
           {id: 1001, fundName: "景顺长城沪深100增强基金", fundCode: "000311", percent: "申购基金"},
@@ -129,6 +96,11 @@
           {id: 1007, fundName: "富国动力B", fundCode: "001509", percent: "10.17"},
           {id: 1008, fundName: "前海开源价值成长A", fundCode: "006216", percent: "23.24"}
         ],
+        curStartTime: '2020-07-31 08:00:00',
+        day: '0',
+        hour: '00',
+        min: '00',
+        second: '00',
       }
     },
     methods:{
@@ -153,16 +125,53 @@
       //     }
       //   })
       // },
-      loadLatest(){
-        this.baseAjax({
-          url:'../../../static/basicData/latestNews.json',
-          showLoading:true,
-          success:function(data){              
-              this.itemList=data.returnObject
-              // console.log(this.itemList)
+      // loadLatest(){
+      //   this.baseAjax({
+      //     url:'../../../static/basicData/latestNews.json',
+      //     showLoading:true,
+      //     success:function(data){              
+      //         this.itemList=data.returnObject
+      //         // console.log(this.itemList)
+      //     }
+      //   })
+      // }
+      countTime() {  
+          //获取当前时间  
+          var date = new Date();  
+          var now = date.getTime();  
+          //设置截止时间  
+          let endDate = new Date(this.curStartTime) // this.curStartTime需要倒计时的日期
+          var end = endDate.getTime();  
+          
+          //时间差  
+          var leftTime = end-now; 
+          //定义变量 d,h,m,s保存倒计时的时间  
+          if (leftTime >= 0) {
+            // 天
+            this.day = Math.floor(leftTime / 1000 / 60 / 60 / 24)
+            // 时
+            let h = Math.floor(leftTime / 1000 / 60 / 60 % 24)
+            this.hour = h < 10 ? '0' + h : h
+            // 分
+            let m = Math.floor(leftTime / 1000 / 60 % 60)
+            this.min = m < 10 ? '0' + m : m
+            // 秒
+            let s = Math.floor(leftTime / 1000 % 60)
+            this.second = s < 10 ? '0' + s : s
+          } else {
+            this.day = 0
+            this.hour = '00'
+            this.min = '00'
+            this.second = '00'
           }
-        })
-      }
+          // 等于0的时候不调用
+          if (Number(this.hour) === 0 && Number(this.day) === 0 && Number(this.min) === 0 && Number(this.second) === 0) {
+            return
+          } else {
+          // 递归每秒调用countTime方法，显示动态时间效果,
+            setTimeout(this.countTime, 1000)
+          }
+      } 
     },
     components: {
       Tabbar,
@@ -265,21 +274,10 @@
   }
 
   .targetfund .newsTop{
-    font-size:14px;text-align:left;font-weight:700;padding-top:10px;
-  }
-  .targetfund .newsItem{
-    margin:5px 0px 0px 5px;
-    position: relative;
-    height: 126px;
-    overflow: hidden;
-    border-radius: 5px
-  }
-  .targetfund .newsItem .postListImg {
-    display: table-cell;
-    width: 160px;
-    height: 96px;
-    margin-top: 0;
-    overflow: hidden;
+    font-size:14px;
+    text-align:left;
+    font-weight:700;
+    padding-top:10px;
   }
   .targetfund .footer{
     text-align:center;
