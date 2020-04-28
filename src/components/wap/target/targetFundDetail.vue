@@ -1,4 +1,5 @@
 <template>
+<div>
   <div class="targetfund">
     <div v-if="fundList.length==0">
       <spinner type="lines"/>
@@ -49,18 +50,18 @@
                 
 
         <div class="line"></div>
-        <div style="padding:5px 0;">
+        <div style="padding-top:5px;">
             <div class ="waitInvokeTxtPre">||| <span class="waitInvokeTxtTail">服务内容</span></div>
             <div style="clear:both;margin-left:10px;line-height:25px;" v-html="serviceInfo">-选基说明-v-html</div>
         </div>
         
-        <div class="linefd"></div>
+        <!-- <div class="linefd"></div> -->
         <div>
-          <group :title="'is-link is set to true automatically when link exists'">
-            <cell :title="'操作与费率说明'" link="/component/radio" ></cell>
-            <cell :title="'大目标服务费说明'" :link="{path:'/demo'}" ></cell>
-            <cell :title="'大目标是什么'" link="https://vux.li" ></cell>
-            <cell :title="'常见问题'" link="https://vux.li" ></cell>
+          <group>
+            <cell class="cell" :title="'操作与费率说明'" :link="{path:'/fundWap/systemInfoDetail/8'}" ></cell>
+            <cell class="cell" :title="'大目标服务费说明'" :link="{path:'/fundWap/systemInfoDetail/8'}" ></cell>
+            <cell class="cell" :title="'大目标是什么'" :link="{path:'/fundWap/systemInfoDetail/8'}"></cell>
+            <cell class="cell" :title="'常见问题'" :link="{path:'/fundWap/systemInfoDetail/8'}" ></cell>
           </group>
         </div>
 
@@ -68,14 +69,22 @@
         <div class="footer">
           <div class="bot">基金历史收益部代表其未来表现.<br/>【市场有风险,投资需谨慎。】</div>
         </div>
-        <div class="linefd"></div>
-          <div style="padding:5px 0;text-align:center;">申购倒计时: {{hour}}小时{{min}}分{{second}}秒</div>
-        <div class="linefd"></div>
+
     </div>
   </div>
+  <div class="footerFix">
+    <div class="linefd"></div>
+      <div style="padding:5px 0;text-align:center;">申购倒计时: {{hour}}小时{{min}}分{{second}}秒</div>
+    <div class="linefd"></div>
+    <flexbox style="text-align:center;">
+      <flexbox-item ><div style="font-weight:bold;">3000元起投 0申购费</div><div style="font-size:10px;">需使用服务卡</div></flexbox-item>
+      <flexbox-item ><x-button type="warn">申购</x-button></flexbox-item>
+    </flexbox>
+  </div>
+</div>
 </template>
 <script>
-  import { Tabbar, TabbarItem ,XHeader,XButton,XImg, Flexbox, FlexboxItem, Divider,Spinner,Cell } from 'vux'
+  import { Tabbar, TabbarItem ,XHeader,XButton, Flexbox, FlexboxItem, Spinner,Cell, Group } from 'vux'
   export default {
     mounted() {
       this.countTime()
@@ -178,11 +187,10 @@
       TabbarItem,
       XHeader,
       XButton,
-      XImg,
       Flexbox, 
       FlexboxItem,
-      Divider,
       Spinner,
+      Group,
       Cell
     }
   }
@@ -193,6 +201,9 @@
     /* text-align: center; */
     font-size:12px;
     margin:10px 10px 0px 10px;
+  }
+  .targetfund .cell{
+    font-size:14px;
   }
  .targetfund .topcontext{
     padding: 15px 40px 20px 40px;
@@ -211,7 +222,7 @@
     background-color:rgb(240, 240, 240);
     line-height: 22px;
    }
-  .targetfund .linefd{
+  .linefd{
     border-bottom:1px solid rgb(230, 230, 230);
   }
   .targetfund .line{
@@ -265,7 +276,11 @@
   }
   
   .targetfund .invIntr{
-    width:100%;font-size:12px;line-height:25px;color:dimgray;border:none;padding:0px 5px 0px 5px;
+    width:100%;font-size:12px;
+    line-height:25px;
+    color:dimgray;
+    border:none;
+    padding:0px 5px 0px 5px;
   }
   
  .targetfund .invIntro{
@@ -283,18 +298,27 @@
     text-align:center;
     color:#666;
   }
+  .footerFix{
+    font-size:12px;
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:125px;   /* 底部高度 */
+    background:#F7F7F7;
+  }
 
   .targetfund .footer .bot{
-    font-size:11px;padding:10px 0 20px 0;
+    font-size:11px;
+    padding:10px 0 80px 0;
   }
-.targetfund .slopingside{
-    height:0px;
-    width:45px;
-    margin-top: 30px;
-    border-top: 0.1px solid rgb(128, 126, 126);
-    transform:rotate(125deg);
-    -o-transform:rotate(125deg);
-    -moz-transform:rotate(125deg);
-    -webkit-transform:rotate(125deg);
-}
+  .targetfund .slopingside{
+      height:0px;
+      width:45px;
+      margin-top: 30px;
+      border-top: 0.1px solid rgb(128, 126, 126);
+      transform:rotate(125deg);
+      -o-transform:rotate(125deg);
+      -moz-transform:rotate(125deg);
+      -webkit-transform:rotate(125deg);
+  }
 </style>
