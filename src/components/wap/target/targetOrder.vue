@@ -1,58 +1,62 @@
 <template>
 <div>
-  <div class="targetfund">
+  <div class="targetOrder">
     <div v-if="fundList.length==0">
       <spinner type="lines"/>
     </div>
     <div v-else>
     <div class="topcontext">
-      <div>          
-        <div >
-          <div class="aimRate">+8.00<span style="font-size:large;">%</span></div>
-          <div class="aimRmk">目标收益率</div>
-        </div>
-      </div>
-      <div class="slopingside"></div>
-      <div>          
-        <div>
-          <div class="aimLast">6~12<span style="font-size:large;font-weight:700">个月</span></div>
-          <div class="aimRmk">预计持有时长</div>
-        </div>
-      </div>
+		<div style="padding:10px;">大目标2014</div>
+		<div class="aimRate"><x-input title="￥"  placeholder="最低买入3000.00元"></x-input></div>
     </div>
 
-        
+    <div class="line"></div>
     <div>
-      <div class="aimRmkSub">-- 目标收益为绝对收益,买入1万元,达标收益800元 --</div>
+	<div class="aimRmkSub">
+		<div style="clear:both;padding:5px 5px;color:#666;">
+		<div style="float: left;">买入费率</div>
+		<div style="float: right;">
+			<div>
+			<div style="float: left;">0.00%</div>
+			<div style="float: right;">费率说明<x-icon type="ios-help-outline" size="15"></x-icon></div>
+			</div>
+		</div>
+		</div>
+		<div style="clear:both;padding:5px 5px;color:#666;">
+			<div style="float: left;">确认净值</div>
+			<div style="float: right;">15:00之前提交将按04-29日净值确认份额</div>
+		</div>
+		<div style="clear:both;padding:5px 5px;color:#666;">
+			<div style="float: left;">确认日期</div>
+			<div style="float: right;">04-30周四(预计)</div>
+		</div>
+	</div>
+
       <div class="linefd"></div>
         <div style="padding:5px 0;text-align:center;">申购日: 20年04月20日~20年04月29日</div>
       <div class="linefd"></div>
       <div style="padding: 5px 0;"><img src="../../../../static/img/funddetail_banner.png" width="340" height="80"/></div>
     </div>
 
-        <!-- <div >
-          <div class ="waitInvokeTxtPre">||| <span class="waitInvokeTxtTail">本期基金</span></div>
-          <div style="float:right;"><router-link :to="'/fundWap/'+sysInfo.url+'/'+sysInfo.sid"><x-icon type="ios-help-outline" size="15"></x-icon></router-link></div>
-        </div> -->
-        <flexbox orient="vertical">
-          <flexbox-item>
-          <div class ="waitInvokeTxtPre">||| <span class="waitInvokeTxtTail">本期基金</span></div>
-          <div style="float:right;"><router-link :to="'/fundWap/'+sysInfo.url+'/'+sysInfo.sid"><x-icon type="ios-help-outline" size="15"></x-icon></router-link></div>
-          </flexbox-item>
-        </flexbox>
+	<flexbox>
+		<flexbox-item>
+		<div class ="waitInvokeTxtPre">||| <span class="waitInvokeTxtTail">本期基金</span></div>
+		<div style="float:right;"><router-link :to="'/fundWap/'+sysInfo.url+'/'+sysInfo.sid"><x-icon type="ios-help-outline" size="15"></x-icon></router-link></div>
+		</flexbox-item>
+	</flexbox>
 
-        <div style="padding:5px 0;">
-          <div v-for="(item,idx) in fundList" :key="idx"  style="clear:both;padding:5px 5px;color:#666;">
-            <div style="float: left;">{{item.fundName}}({{item.fundCode}})</div>
-            <div style="float: right;">{{item.percent}}%&nbsp;  ></div>
-          </div>
-        </div>
+	<div style="padding:5px 0;">
+		<div v-for="(item,idx) in fundList" :key="idx"  style="clear:both;padding:5px 5px;color:#666;">
+		<div style="float: left;">{{item.fundName}}({{item.fundCode}})</div>
+		<div style="float: right;">{{item.percent}}%&nbsp;  ></div>
+		</div>
+	</div>
                 
 
         <div class="line"></div>
         <div style="padding-top:5px;">
             <div class ="waitInvokeTxtPre">||| <span class="waitInvokeTxtTail">服务内容</span></div>
-            <div style="clear:both;margin-left:10px;line-height:25px;text-align:left;" v-html="serviceInfo">-选基说明-v-html</div>
+            <div style="clear:both;margin-left:10px;line-height:25px;" v-html="serviceInfo">-选基说明-v-html</div>
         </div>
         
         <!-- <div class="linefd"></div> -->
@@ -84,11 +88,10 @@
 </div>
 </template>
 <script>
-  import { Tabbar, TabbarItem ,XHeader,XButton, Flexbox, FlexboxItem, Spinner,Cell, Group } from 'vux'
+  import { Tabbar, TabbarItem ,XHeader,XButton, Flexbox, FlexboxItem, Spinner,Cell, Group,XInput } from 'vux'
   export default {
     mounted() {
-      this.countTime()
-      this.$store.commit('UPDATE_PAGE_TITLE', '大目标2006') 
+      this.$store.commit('UPDATE_PAGE_TITLE', '申购基金') 
     },
     data(){
       return {
@@ -143,44 +146,7 @@
       //         // console.log(this.itemList)
       //     }
       //   })
-      // }
-      countTime() {  
-          //获取当前时间  
-          var date = new Date();  
-          var now = date.getTime();  
-          //设置截止时间  
-          let endDate = new Date(this.curStartTime) // this.curStartTime需要倒计时的日期
-          var end = endDate.getTime();  
-          
-          //时间差  
-          var leftTime = end-now; 
-          //定义变量 d,h,m,s保存倒计时的时间  
-          if (leftTime >= 0) {
-            // 天
-            this.day = Math.floor(leftTime / 1000 / 60 / 60 / 24)
-            // 时
-            let h = Math.floor(leftTime / 1000 / 60 / 60 % 24)
-            this.hour = h < 10 ? '0' + h : h
-            // 分
-            let m = Math.floor(leftTime / 1000 / 60 % 60)
-            this.min = m < 10 ? '0' + m : m
-            // 秒
-            let s = Math.floor(leftTime / 1000 % 60)
-            this.second = s < 10 ? '0' + s : s
-          } else {
-            this.day = 0
-            this.hour = '00'
-            this.min = '00'
-            this.second = '00'
-          }
-          // 等于0的时候不调用
-          if (Number(this.hour) === 0 && Number(this.day) === 0 && Number(this.min) === 0 && Number(this.second) === 0) {
-            return
-          } else {
-          // 递归每秒调用countTime方法，显示动态时间效果,
-            setTimeout(this.countTime, 1000)
-          }
-      } 
+      // } 
     },
     components: {
       Tabbar,
@@ -191,54 +157,55 @@
       FlexboxItem,
       Spinner,
       Group,
-      Cell
+	  Cell,
+	  XInput
     }
   }
 </script>
 
 <style>
-  .targetfund{
-    /* text-align: center; */
+  .targetOrder{
+    text-align: center;
     font-size:12px;
     margin:10px 10px 0px 10px;
   }
-  .targetfund .cell{
+  .targetOrder .cell{
     font-size:14px;
   }
- .targetfund .topcontext{
-    padding: 15px 40px 20px 40px;
-    display:-webkit-flex;
+ .targetOrder .topcontext{
+    padding: 0px 10px;
+    /* display:-webkit-flex;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-around; */
   }
   .linefd{
     border-bottom:1px solid rgb(230, 230, 230);
   }
-  .targetfund .line{
+  .targetOrder .line{
     border-bottom:1px solid rgb(230, 230, 230);
     padding:10px 0 10px 0;
   }  
-  .targetfund .aimRate{
+  .targetOrder .aimRate{
+    font-size: large;
+    text-align: center;
+  }
+  .targetOrder .aimLast{
     font-size: x-large;
     text-align: center;
   }
-  .targetfund .aimLast{
-    font-size: x-large;
-    text-align: center;
-  }
-  .targetfund .aimRmk{
+  .targetOrder .aimRmk{
     text-align:center;
     color:#999999;
     margin-left:5px;
   }  
-  .targetfund .aimRmkSub{
+  .targetOrder .aimRmkSub{
     text-align:center;
     color:#999999;
     font-size:11px;
-    margin-bottom: 10px;
+    margin-top: 10px;
   }
 
-  .targetfund .waitInvokeTxtPre{
+  .targetOrder .waitInvokeTxtPre{
     color:brown;
     font-weight:900;
     font-size: 15px;
@@ -246,14 +213,14 @@
     float: left;
     clear: both;
   }
-  .targetfund .waitInvokeTxtTail{
+  .targetOrder .waitInvokeTxtTail{
     color:#000000;padding-left:5px;
   }
-  .targetfund .footer{
+  .targetOrder .footer{
     text-align:center;
     color:#666;
   }
-  .targetfund .footer .bot{
+  .targetOrder .footer .bot{
     font-size:11px;
     padding:10px 0 80px 0;
   }  
@@ -265,7 +232,7 @@
     height:125px;
     background:#F7F7F7;
   }
-  .targetfund .slopingside{
+  .targetOrder .slopingside{
     height:0px;
     width:45px;
     margin-top: 30px;
