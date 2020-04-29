@@ -1,94 +1,59 @@
 <template>
 <div>
   <div class="targetOrder">
-    <div v-if="fundList.length==0">
-      <spinner type="lines"/>
-    </div>
-    <div v-else>
     <div class="topcontext">
 		<div style="padding:10px;">大目标2014</div>
 		<div class="aimRate"><x-input title="￥"  placeholder="最低买入3000.00元"></x-input></div>
     </div>
 
-    <div class="line"></div>
+    <div class="linefd"></div>
     <div>
-	<div class="aimRmkSub">
-		<div style="clear:both;padding:5px 5px;color:#666;">
-		<div style="float: left;">买入费率</div>
-		<div style="float: right;">
-			<div>
-			<div style="float: left;">0.00%</div>
-			<div style="float: right;">费率说明<x-icon type="ios-help-outline" size="15"></x-icon></div>
-			</div>
-		</div>
-		</div>
-		<div style="clear:both;padding:5px 5px;color:#666;">
-			<div style="float: left;">确认净值</div>
-			<div style="float: right;">15:00之前提交将按04-29日净值确认份额</div>
-		</div>
-		<div style="clear:both;padding:5px 5px;color:#666;">
-			<div style="float: left;">确认日期</div>
-			<div style="float: right;">04-30周四(预计)</div>
-		</div>
-	</div>
+      <div class="aimRmkSub">
+        <div style="clear:both;padding:5px 5px;color:#666;">
+        <div style="float: left;">买入费率</div>
+        <div style="float: right;">
+          <div>
+          <div style="float: left;">0.00%</div>
+          <div style="float: right;">费率说明<x-icon type="ios-help-outline" size="15"></x-icon></div>
+          </div>
+        </div>
+        </div>
+        <div style="clear:both;padding:5px 5px;">
+          <div style="float: left;">确认净值</div>
+          <div style="float: right;">15:00之前提交将按04-29日净值确认份额</div>
+        </div>
+        <div style="clear:both;padding:5px 5px;">
+          <div style="float: left;">确认日期</div>
+          <div style="float: right;">04-30周四(预计)</div>
+        </div>
+      </div>
 
+      <div class="line"></div>
+        <flexbox style="padding:10px 5px;">
+          <flexbox-item >服务卡使用</flexbox-item>
+          <flexbox-item :span="1/2">扣除一次(剩余8次)</flexbox-item>
+          <flexbox-item style="text-align:right;padding-right:10px;">></flexbox-item>
+        </flexbox>
       <div class="linefd"></div>
-        <div style="padding:5px 0;text-align:center;">申购日: 20年04月20日~20年04月29日</div>
+        <flexbox style="padding:10px 5px;">
+          <flexbox-item :span="1/6">资金来源</flexbox-item>
+          <flexbox-item :span="2/3">
+            <div style="font-weight:bold;">包头银行<span style="font-size:10px;">(9494)</span></div>
+            <div>单笔支付限额10万,日限额10万,月限额3000万</div>
+          </flexbox-item>
+          <flexbox-item style="text-align:right;padding-right:10px;">></flexbox-item>
+        </flexbox>
       <div class="linefd"></div>
-      <div style="padding: 5px 0;"><img src="../../../../static/img/funddetail_banner.png" width="340" height="80"/></div>
-    </div>
-
-	<flexbox>
-		<flexbox-item>
-		<div class ="waitInvokeTxtPre">||| <span class="waitInvokeTxtTail">本期基金</span></div>
-		<div style="float:right;"><router-link :to="'/fundWap/'+sysInfo.url+'/'+sysInfo.sid"><x-icon type="ios-help-outline" size="15"></x-icon></router-link></div>
-		</flexbox-item>
-	</flexbox>
-
-	<div style="padding:5px 0;">
-		<div v-for="(item,idx) in fundList" :key="idx"  style="clear:both;padding:5px 5px;color:#666;">
-		<div style="float: left;">{{item.fundName}}({{item.fundCode}})</div>
-		<div style="float: right;">{{item.percent}}%&nbsp;  ></div>
-		</div>
-	</div>
-                
-
-        <div class="line"></div>
-        <div style="padding-top:5px;">
-            <div class ="waitInvokeTxtPre">||| <span class="waitInvokeTxtTail">服务内容</span></div>
-            <div style="clear:both;margin-left:10px;line-height:25px;" v-html="serviceInfo">-选基说明-v-html</div>
-        </div>
-        
-        <!-- <div class="linefd"></div> -->
-        <div>
-          <group>
-            <cell class="cell" :title="'操作与费率说明'" :link="{path:'/fundWap/systemInfoDetail/8'}" ></cell>
-            <cell class="cell" :title="'大目标服务费说明'" :link="{path:'/fundWap/systemInfoDetail/8'}" ></cell>
-            <cell class="cell" :title="'大目标是什么'" :link="{path:'/fundWap/systemInfoDetail/8'}"></cell>
-            <cell class="cell" :title="'常见问题'" :link="{path:'/fundWap/systemInfoDetail/8'}" ></cell>
-          </group>
-        </div>
-
-        <div class="linefd"></div>
-        <div class="footer">
-          <div class="bot">基金历史收益部代表其未来表现.<br/>【市场有风险,投资需谨慎。】</div>
-        </div>
-
+      <div style="padding-top:5px;"><check-icon :value.sync="demo2" type="plain"> 已认真阅读并同意《金金豆大目标产品管理协议》</check-icon></div>
     </div>
   </div>
   <div class="footerFix">
-    <div class="linefd"></div>
-      <div style="padding:5px 0;text-align:center;">申购倒计时: {{hour}}小时{{min}}分{{second}}秒</div>
-    <div class="linefd"></div>
-    <flexbox style="text-align:center;">
-      <flexbox-item ><div style="font-weight:bold;">3000元起投 0申购费</div><div style="font-size:10px;">需使用服务卡</div></flexbox-item>
-      <flexbox-item ><x-button type="warn" link="/fundWap/targetOrder/2">申购</x-button></flexbox-item>
-    </flexbox>
+      <div style="padding:5px 20px;text-align:center;"><x-button type="warn" link="/fundWap/targetOrder/2">提交</x-button></div>
   </div>
 </div>
 </template>
 <script>
-  import { Tabbar, TabbarItem ,XHeader,XButton, Flexbox, FlexboxItem, Spinner,Cell, Group,XInput } from 'vux'
+  import { Tabbar, TabbarItem ,XHeader,XButton, Flexbox, FlexboxItem, Spinner,XInput,CheckIcon } from 'vux'
   export default {
     mounted() {
       this.$store.commit('UPDATE_PAGE_TITLE', '申购基金') 
@@ -97,17 +62,7 @@
       return {
         serviceInfo:"- 操作与费率说明<br/>- 大目标服务费说明<br/>- 大目标是什么<br/>- 常见问题<br/>",
         sysInfo:{url:'systemInfoDetail',sid:7},
-        fundList:[
-          {id: 1001, fundName: "景顺长城沪深100增强基金", fundCode: "000311", percent: "申购基金"},
-          {id: 1001, fundName: "景顺长城沪深100增强", fundCode: "000311", percent: "36.09"},
-          {id: 1002, fundName: "景顺长城沪深200增强", fundCode: "000312", percent: "20.5"},
-          {id: 1003, fundName: "富国动力A", fundCode: "001508", percent: "10"},
-          {id: 1004, fundName: "富国动力B", fundCode: "001509", percent: "10.17"},
-          {id: 1005, fundName: "前海开源价值成长A", fundCode: "006216", percent: "23.24"},
-          {id: 1006, fundName: "富国动力A", fundCode: "001508", percent: "10"},
-          {id: 1007, fundName: "富国动力B", fundCode: "001509", percent: "10.17"},
-          {id: 1008, fundName: "前海开源价值成长A", fundCode: "006216", percent: "23.24"}
-        ],
+        demo2: true,
         curStartTime: '2020-07-31 08:00:00',
         day: '0',
         hour: '00',
@@ -156,9 +111,8 @@
       Flexbox, 
       FlexboxItem,
       Spinner,
-      Group,
-	  Cell,
-	  XInput
+    XInput,
+    CheckIcon
     }
   }
 </script>
@@ -167,16 +121,11 @@
   .targetOrder{
     text-align: center;
     font-size:12px;
+    color:#666;
     margin:10px 10px 0px 10px;
-  }
-  .targetOrder .cell{
-    font-size:14px;
   }
  .targetOrder .topcontext{
     padding: 0px 10px;
-    /* display:-webkit-flex;
-    display: flex;
-    justify-content: space-around; */
   }
   .linefd{
     border-bottom:1px solid rgb(230, 230, 230);
@@ -188,42 +137,13 @@
   .targetOrder .aimRate{
     font-size: large;
     text-align: center;
-  }
-  .targetOrder .aimLast{
-    font-size: x-large;
-    text-align: center;
-  }
-  .targetOrder .aimRmk{
-    text-align:center;
-    color:#999999;
-    margin-left:5px;
-  }  
+  } 
   .targetOrder .aimRmkSub{
     text-align:center;
     color:#999999;
     font-size:11px;
     margin-top: 10px;
   }
-
-  .targetOrder .waitInvokeTxtPre{
-    color:brown;
-    font-weight:900;
-    font-size: 15px;
-    padding-left:5px;
-    float: left;
-    clear: both;
-  }
-  .targetOrder .waitInvokeTxtTail{
-    color:#000000;padding-left:5px;
-  }
-  .targetOrder .footer{
-    text-align:center;
-    color:#666;
-  }
-  .targetOrder .footer .bot{
-    font-size:11px;
-    padding:10px 0 80px 0;
-  }  
   .footerFix{
     font-size:12px;
     position:absolute;
@@ -231,15 +151,5 @@
     width:100%;
     height:125px;
     background:#F7F7F7;
-  }
-  .targetOrder .slopingside{
-    height:0px;
-    width:45px;
-    margin-top: 30px;
-    border-top: 0.1px solid rgb(128, 126, 126);
-    transform:rotate(125deg);
-    -o-transform:rotate(125deg);
-    -moz-transform:rotate(125deg);
-    -webkit-transform:rotate(125deg);
   }
 </style>
