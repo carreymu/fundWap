@@ -62,16 +62,18 @@
         </flexbox>
       <div class="linefd"></div>
       <div style="padding-top:5px;font-size:12px;">
-        <check-icon size="15" :value.sync="demo2" type="plain"> 已认真阅读并同意《金金豆大目标产品管理协议》</check-icon>
+        <check-icon :value.sync="demo2" type="plain"> 已认真阅读并同意《金金豆大目标产品管理协议》</check-icon>
       </div>
     </div>
     <div class="footerFix">
-      <div style="padding:5px 20px;text-align:center;"><x-button type="warn" link="/fundWap/targetOrder/2">提交</x-button></div>
+      <div style="padding:5px 20px 10px 0px;text-align:center;">
+        <x-button :disabled="!demo2" type="warn" @click.native="processButton001">提交</x-button>
+      </div>
     </div>
   </div>
 </template>
 <script>
-  import { Tabbar, TabbarItem ,XHeader,XButton, Flexbox, FlexboxItem, Spinner,XInput,CheckIcon,XTable  } from 'vux'
+  import { Tabbar, TabbarItem ,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable  } from 'vux'
   export default {
     mounted() {
       this.$store.commit('UPDATE_PAGE_TITLE', '申购基金') 
@@ -103,16 +105,9 @@
       //     }
       //   })
       // },
-      // loadLatest(){
-      //   this.baseAjax({
-      //     url:'../../../static/basicData/latestNews.json',
-      //     showLoading:true,
-      //     success:function(data){              
-      //         this.itemList=data.returnObject
-      //         // console.log(this.itemList)
-      //     }
-      //   })
-      // } 
+      processButton001 () {
+        console.log('click me')
+      }
     },
     components: {
       Tabbar,
@@ -121,7 +116,6 @@
       XButton,
       Flexbox, 
       FlexboxItem,
-      Spinner,
       XInput,
       CheckIcon,
       XTable
