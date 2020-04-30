@@ -1,14 +1,13 @@
 <template>
-<div>
   <div class="targetOrder">
     <div class="topcontext">
 		<div style="padding:10px;">大目标2014</div>
 		<div class="aimRate"><x-input title="￥"  placeholder="最低买入3000.00元"></x-input></div>
     </div>
 
-    <div class="linefd"></div>
+    <!-- <div class="linefd"></div> -->
     <div>
-      <div class="aimRmkSub">
+      <!-- <div class="aimRmkSub">
         <div style="clear:both;padding:5px 5px;color:#666;">
         <div style="float: left;">买入费率</div>
         <div style="float: right;">
@@ -26,14 +25,32 @@
           <div style="float: left;">确认日期</div>
           <div style="float: right;">04-30周四(预计)</div>
         </div>
-      </div>
+      </div> 
+      <div class="line"></div>-->
 
-      <div class="line"></div>
-        <flexbox style="padding:10px 5px;">
-          <flexbox-item >服务卡使用</flexbox-item>
-          <flexbox-item :span="1/2">扣除一次(剩余8次)</flexbox-item>
-          <flexbox-item style="text-align:right;padding-right:10px;">></flexbox-item>
-        </flexbox>
+      <x-table :cell-bordered="false" :content-bordered="false" class="aimRmkSub">
+        <tr>
+          <td>买入费率</td>
+          <td>0.00%&nbsp;</td>
+          <td>费率说明<x-icon type="ios-help-outline" size="15"></x-icon></td>
+        </tr>
+        <tr>
+          <td>确认净值</td>
+          <td colspan="2">15:00之前提交将按04-29日净值确认份额</td>
+        </tr>
+        <tr>
+          <td>确认日期</td>
+          <td>04-30周四(预计)</td>
+          <td></td>
+        </tr>
+      </x-table>
+
+
+      <flexbox style="padding:10px 5px;">
+        <flexbox-item >服务卡使用</flexbox-item>
+        <flexbox-item :span="1/2">扣除一次(剩余8次)</flexbox-item>
+        <flexbox-item style="text-align:right;padding-right:10px;">></flexbox-item>
+      </flexbox>
       <div class="linefd"></div>
         <flexbox style="padding:10px 5px;">
           <flexbox-item :span="1/6">资金来源</flexbox-item>
@@ -44,30 +61,24 @@
           <flexbox-item style="text-align:right;padding-right:10px;">></flexbox-item>
         </flexbox>
       <div class="linefd"></div>
-      <div style="padding-top:5px;"><check-icon :value.sync="demo2" type="plain"> 已认真阅读并同意《金金豆大目标产品管理协议》</check-icon></div>
+      <div style="padding-top:5px;font-size:12px;">
+        <check-icon size="15" :value.sync="demo2" type="plain"> 已认真阅读并同意《金金豆大目标产品管理协议》</check-icon>
+      </div>
+    </div>
+    <div class="footerFix">
+      <div style="padding:5px 20px;text-align:center;"><x-button type="warn" link="/fundWap/targetOrder/2">提交</x-button></div>
     </div>
   </div>
-  <div class="footerFix">
-      <div style="padding:5px 20px;text-align:center;"><x-button type="warn" link="/fundWap/targetOrder/2">提交</x-button></div>
-  </div>
-</div>
 </template>
 <script>
-  import { Tabbar, TabbarItem ,XHeader,XButton, Flexbox, FlexboxItem, Spinner,XInput,CheckIcon } from 'vux'
+  import { Tabbar, TabbarItem ,XHeader,XButton, Flexbox, FlexboxItem, Spinner,XInput,CheckIcon,XTable  } from 'vux'
   export default {
     mounted() {
       this.$store.commit('UPDATE_PAGE_TITLE', '申购基金') 
     },
     data(){
       return {
-        serviceInfo:"- 操作与费率说明<br/>- 大目标服务费说明<br/>- 大目标是什么<br/>- 常见问题<br/>",
-        sysInfo:{url:'systemInfoDetail',sid:7},
         demo2: true,
-        curStartTime: '2020-07-31 08:00:00',
-        day: '0',
-        hour: '00',
-        min: '00',
-        second: '00',
       }
     },
     methods:{
@@ -111,8 +122,9 @@
       Flexbox, 
       FlexboxItem,
       Spinner,
-    XInput,
-    CheckIcon
+      XInput,
+      CheckIcon,
+      XTable
     }
   }
 </script>
