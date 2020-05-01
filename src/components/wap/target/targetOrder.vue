@@ -31,7 +31,7 @@
       <x-table :cell-bordered="false" :content-bordered="false" class="aimRmkSub">
         <tr>
           <td>买入费率</td>
-          <td>0.00%&nbsp;</td>
+          <td style="font-weight:bold;font-size:14px;">0.00%&nbsp;</td>
           <td>费率说明<x-icon type="ios-help-outline" size="15"></x-icon></td>
         </tr>
         <tr>
@@ -46,34 +46,41 @@
       </x-table>
 
 
-      <flexbox style="padding:10px 5px;">
-        <flexbox-item >服务卡使用</flexbox-item>
-        <flexbox-item :span="1/2">扣除一次(剩余8次)</flexbox-item>
-        <flexbox-item style="text-align:right;padding-right:10px;">></flexbox-item>
-      </flexbox>
-      <div class="linefd"></div>
+      <router-link :to="'/fundWap/mineCards'">
         <flexbox style="padding:10px 5px;">
-          <flexbox-item :span="1/6">资金来源</flexbox-item>
-          <flexbox-item :span="2/3">
-            <div style="font-weight:bold;">包头银行<span style="font-size:10px;">(9494)</span></div>
-            <div>单笔支付限额10万,日限额10万,月限额3000万</div>
-          </flexbox-item>
+          <flexbox-item >服务卡使用</flexbox-item>
+          <flexbox-item :span="1/2">扣除一次(剩余8次)</flexbox-item>
           <flexbox-item style="text-align:right;padding-right:10px;">></flexbox-item>
         </flexbox>
+      </router-link>
+      <div class="linefd"></div>
+        <popover placement="bottom">
+          <div slot="content" style="font-size:12px;">
+            本次就到这吧,下回分解。
+          </div>
+          <flexbox style="padding:10px 5px;">
+            <flexbox-item :span="1/6">资金来源</flexbox-item>
+            <flexbox-item :span="2/3">
+              <div style="font-weight:bold;">包头银行<span style="font-size:10px;">(9494)</span></div>
+              <div>单笔支付限额10万,日限额10万,月限额3000万</div>
+            </flexbox-item>
+            <flexbox-item style="text-align:right;padding-right:10px;">></flexbox-item>
+          </flexbox>
+        </popover>
       <div class="linefd"></div>
       <div style="padding-top:5px;font-size:12px;">
         <check-icon :value.sync="demo2" type="plain"> 已认真阅读并同意《金金豆大目标产品管理协议》</check-icon>
       </div>
     </div>
     <div class="footerFix">
-      <div style="padding:5px 20px 10px 0px;text-align:center;">
+      <div style="padding:5px 40px 10px 20px;text-align:center;">
         <x-button :disabled="!demo2" type="warn" @click.native="processButton001">提交</x-button>
       </div>
     </div>
   </div>
 </template>
 <script>
-  import { Tabbar, TabbarItem ,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable  } from 'vux'
+  import { Tabbar, TabbarItem ,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Popover } from 'vux'
   export default {
     mounted() {
       this.$store.commit('UPDATE_PAGE_TITLE', '申购基金') 
@@ -118,7 +125,8 @@
       FlexboxItem,
       XInput,
       CheckIcon,
-      XTable
+      XTable,
+      Popover
     }
   }
 </script>
