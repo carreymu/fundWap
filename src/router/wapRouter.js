@@ -13,6 +13,7 @@ import bestChoiceDetail from '@/components/wap/bestChoice/bestChoiceDetail'
 import systemInfoDetail from '@/components/wap/systemInfo/systemInfoDetail'
 import mine from '@/components/wap/mine/mine'
 import mineCards from '@/components/wap/mine/mineCards'
+import mineNews from '@/components/wap/mine/mineNews'
 
 Vue.use(VueRouter)
 const router = new VueRouter({
@@ -67,6 +68,11 @@ const router = new VueRouter({
 			      name: 'mineCards',
 			      component: mineCards
 				},
+			    {
+					path: '/fundWap/mineNews',
+					name: 'mineNews',
+					component: mineNews
+				  },
 			    {
 					path: '/fundWap/mine',
 					name: 'mine',

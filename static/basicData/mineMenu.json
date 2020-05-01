@@ -8,19 +8,19 @@
 		"title": "■ 消息中心",
 		"startTime": "9:00",
 		"endTime": "10:00", 
-		"reservation": 40,
-		"newsCnt": 0,
-		"url":"http://m.baidu.com",
+		"isWithTail": false,
+		"newsCnt": 1,
+		"url":"/fundWap/mineNews",
 		"comment":"消息,请列出最近10条"
 	},
 	{
-		"id": 2,
+		"id": 9,
 		"title": "✿ 新人指南",
 		"startTime": "9:00",
 		"endTime": "10:00",
-		"reservation": 40,
-		"newsCnt": 8,
-		"url":"http://m.baidu.com",
+		"isWithTail": true,
+		"newsCnt": 0,
+		"url":"/fundWap/systemInfoDetail",
 		"comment":""
 	},
 	{
@@ -28,7 +28,7 @@
 		"title": "◕ 推荐好友",
 		"startTime": "9:00",
 		"endTime": "10:00",
-		"reservation": 10,
+		"isWithTail": false,
 		"newsCnt": 10,
 		"url":"http://m.baidu.com",
 		"comment":""

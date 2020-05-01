@@ -43,12 +43,6 @@
 	color: #666
 }
 
-.targetDetail .newsImg img{
-    width: 100%;
-    min-height: 180px;
-}
-
-
 .targetDetail  .sDate{
 	margin-top: 10px;
 	font-size: 12px;
