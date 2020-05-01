@@ -8,6 +8,7 @@ export default {
   },
   data(){      
     return {
+      notification:"各位豆豆,因HK佛诞日、劳动节港股休市,劳动节A股休市暂停港股通服务。",
       targetRun1:{id:0,name:'2001',target_ratio:8.00,pre_run:'1-12'},
       news2List:[],
       top3FundList:[],

@@ -1,5 +1,11 @@
 <template>
   <div class="targetIndex">
+    <div class="notification" v-if="notification.length>0">
+      <flexbox>
+        <flexbox-item :span="1/12"><x-icon type="ios-information" size="30"></x-icon></flexbox-item>
+        <flexbox-item>{{notification}}</flexbox-item>
+      </flexbox>
+    </div>
     <div class="topTxt">
       <div class="top">大目标</div>
       <div class="topRmk">自动止盈的基金投资服务</div>
@@ -17,19 +23,18 @@
           <flexbox-item class="limTime">限时申购</flexbox-item>
           <flexbox-item :span="1/20"></flexbox-item>
         </flexbox>
-
       <div class="topcontext">
-            <div>          
-                <div >
-                        <div class="aimRate">+{{targetRun1.target_ratio}}<span style="font-size:large;">%</span></div>
-                        <div class="aimRmk">目标收益率</div>
-                </div>
+          <div>          
+            <div >
+              <div class="aimRate">+{{targetRun1.target_ratio}}<span style="font-size:large;">%</span></div>
+              <div class="aimRmk">目标收益率</div>
+            </div>
           </div>
-            <div class="slopingside"></div>
-            <div>          
+          <div class="slopingside"></div>
+          <div>          
             <div>
-                    <div class="aimLast">{{targetRun1.pre_run}}<span style="font-size:large;font-weight:700">个月</span></div>
-                    <div class="aimRmk">预计持有时长</div>
+              <div class="aimLast">{{targetRun1.pre_run}}<span style="font-size:large;font-weight:700">个月</span></div>
+              <div class="aimRmk">预计持有时长</div>
             </div>
           </div>
        </div>
@@ -113,6 +118,13 @@ a:visited {
 a:hover {
  font-size: 12px;
  color: #999999;
+}
+.notification{
+  min-height:100%;
+  position:relative;
+  padding:10px;
+  background:#FFFFCC;
+  font-size:12px;
 }
 .line{border-bottom:1px solid rgb(230, 230, 230);}
 .targetIndex .topTxt{
