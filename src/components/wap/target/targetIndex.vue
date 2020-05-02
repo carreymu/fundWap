@@ -16,28 +16,28 @@
       </swiper>
 
       <div class="rect">
-        <div style="height:15px;"></div>
-        <flexbox>
-          <flexbox-item :span="1/20"></flexbox-item>          
-          <flexbox-item class="title">大目标{{targetRun1.name}}</flexbox-item>
-          <flexbox-item class="limTime">限时申购</flexbox-item>
-          <flexbox-item :span="1/20"></flexbox-item>
-        </flexbox>
-      <div class="topcontext">
-          <div>          
-            <div >
-              <div class="aimRate">+{{targetRun1.target_ratio}}<span style="font-size:large;">%</span></div>
-              <div class="aimRmk">目标收益率</div>
+        <div style="padding:15px;">
+          <flexbox>        
+            <flexbox-item class="title">大目标{{targetRun1.name}}</flexbox-item>
+            <flexbox-item class="limTime">限时申购</flexbox-item>
+          </flexbox>
+        </div>
+        <div class="topcontext">
+            <div>          
+              <div >
+                <div class="aimRate">+{{targetRun1.target_ratio}}<span style="font-size:large;">%</span></div>
+                <div class="aimRmk">目标收益率</div>
+              </div>
             </div>
-          </div>
-          <div class="slopingside"></div>
-          <div>          
-            <div>
-              <div class="aimLast">{{targetRun1.pre_run}}<span style="font-size:large;font-weight:700">个月</span></div>
-              <div class="aimRmk">预计持有时长</div>
+            <div class="slopingside"></div>
+            <div>          
+              <div>
+                <div class="aimLast">{{targetRun1.pre_run}}<span style="font-size:large;font-weight:700">个月</span></div>
+                <div class="aimRmk">预计持有时长</div>
+              </div>
             </div>
-          </div>
-       </div>
+        </div>
+
         <div style="text-align:center; padding:15px 50px;">
           <x-button type="warn" :link="'/fundWap/targetFundDetail/'+targetRun1.id">立即申购</x-button>
         </div>
@@ -190,7 +190,7 @@ a:hover {
   text-align: center;
 }
 .targetIndex .topTxt .rect .topcontext{
-    padding: 15px 40px 0 40px;
+    padding: 10px 40px 0 40px;
     display:-webkit-flex;
     display: flex;
     justify-content: space-around;
