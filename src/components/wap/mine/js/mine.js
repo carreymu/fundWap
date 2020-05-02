@@ -1,4 +1,4 @@
-import { Tabbar, TabbarItem ,XHeader,XButton,Flexbox, FlexboxItem, Group, Badge, Cell } from 'vux'
+import { Tabbar, TabbarItem ,XHeader,XButton,Flexbox, FlexboxItem, Group, Badge, Cell, Actionsheet } from 'vux'
 export default {
   mounted() {
     this.menuLists();
@@ -7,6 +7,11 @@ export default {
   data(){
     return {
       menuList:[],
+      showContent004: false,
+      menus1: {
+        menu1: '分享给朋友',
+        menu2: '分享到朋友圈'
+      },
     }
   },
   methods:{
@@ -30,6 +35,7 @@ export default {
     FlexboxItem,
     Group,
     Cell,
-    Badge
+    Badge,
+    Actionsheet
   }
 }

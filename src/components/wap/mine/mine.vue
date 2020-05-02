@@ -17,9 +17,27 @@
         <cell class="msg" :title="it.title" v-if="it.isWithTail" :link="{path:it.url+'/'+it.id}">
           <badge v-if="it.newsCnt!=undefined & it.newsCnt>0" :text="it.newsCnt"></badge>
         </cell>
-        <cell class="msg" :title="it.title" v-else :link="it.url">
+        <cell class="msg" :title="it.title" v-else-if="it.url.length>0" :link="it.url">
           <badge v-if="it.newsCnt!=undefined & it.newsCnt>0" :text="it.newsCnt"></badge>
         </cell>
+        <span   v-else >
+        <cell class="msg" is-link :title="it.title" :border-intent="false" :arrow-direction="showContent004 ? 'down' : ''"
+        @click.native="showContent004 = !showContent004"></cell>
+        <!-- <p class="slide" :class="showContent004?'animate':''">blablabla...<br/>blablabla...<br/>blablabla...<br/>blablabla...</p> -->
+        <actionsheet v-model="showContent004" :menus="menus1" :close-on-clicking-mask="false" show-cancel
+        @on-click-mask="console('on click mask')"></actionsheet>
+        </span>
+        
+        <!-- <cell v-else :title="it.title"
+        is-link
+        :border-intent="false"
+        :arrow-direction="showContent003 ? 'up' : 'down'"
+        @click.native="showContent003 = !showContent003"></cell>
+
+        <template v-if="showContent003">
+          <cell-box :border-intent="false" class="sub-item">I'm content 003</cell-box>
+        </template> -->
+
       </div>
     </group>
     </div>
@@ -51,6 +69,18 @@
     border-radius: 5px;
     border-color:  rgb(216, 80, 80);
     color: white;
+  }
+
+  .slide {
+    padding: 0 20px;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height .5s cubic-bezier(0, 1, 0, 1) -.1s;
+  }
+  .animate {
+    max-height: 9999px;
+    transition-timing-function: cubic-bezier(0.5, 0, 1, 0);
+    transition-delay: 0s;
   }
 
   .mine .rectAgl .aimRmk{
