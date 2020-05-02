@@ -24,7 +24,7 @@ export default{
                     this.mainData = r.news_info_by_nid[0]
                     this.mainData.inserttime = dateFormat(this.mainData.inserttime,'MM-DD HH:mm:ss')
                 }
-                console.log(this.mainData)
+                // console.log(this.mainData)
             }).catch(err=>{
                 console.log(err)
             })

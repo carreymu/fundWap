@@ -331,8 +331,8 @@ export default {
 					cid:cid,
 				},
 				success:function(data){
-					console.log(Array.isArray(data.returnObject))
-					console.log(typeof(this.chartMap))
+					// console.log(Array.isArray(data.returnObject))
+					// console.log(typeof(this.chartMap))
 					this.chartData=data.returnObject;
 				}
 			})

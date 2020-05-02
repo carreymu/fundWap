@@ -33,7 +33,7 @@ import { Tab, TabItem,XImg,XButton,Flexbox, FlexboxItem,Toast} from 'vux';
           url:'../../../static/basicData/bestChoice.json',
           showLoading:true,
           success:function(data){
-            console.log(data)
+            // console.log(data)
             self.fundList=data.returnObject;
             // console.log(typeof(self.fundList.keys))
             // if(self.fundList.list){
@@ -50,7 +50,7 @@ import { Tab, TabItem,XImg,XButton,Flexbox, FlexboxItem,Toast} from 'vux';
           url:'../../../static/basicData/fundCategory.json',
           showLoading:true,
           success:function(data){
-            console.log(data)
+            // console.log(data)
             self.fundCategoryList=data.returnObject;
           }
         })

@@ -31,7 +31,7 @@ export default {
         url:'../../../static/basicData/latestNews.json',
         showLoading:true,
         success:function(data){
-            console.log(data)
+            // console.log(data)
             self.itemList=data.returnObject
         }
       })

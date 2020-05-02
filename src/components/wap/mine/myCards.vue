@@ -1,5 +1,5 @@
 <template>
-    <div class="mineCards">
+    <div class="myCards">
         <flexbox style="margin:20px 0px;font-size:14px;font-weight:bold;">
             <flexbox-item>大目标服务卡</flexbox-item>
             <flexbox-item :span="2/3" style="text-align:right;">喵了个咪~ 剩余3张&nbsp;&nbsp;&nbsp;<x-button mini type="warn">购买</x-button></flexbox-item>
@@ -38,8 +38,8 @@
     </div>
 </template>
 <script>
-  import mineCards  from  "./js/mineCards.js"
-  export default mineCards
+  import myCards  from  "./js/myCards.js"
+  export default myCards
 </script>
 
 <style>
@@ -54,12 +54,12 @@
   a:hover {
   color:dimgray;
   }
-  .mineCards{
+  .myCards{
     color:dimgray;
     font-size:12px;
     margin:10px 10px 0px 10px;
   }
-  .mineCards .rectAgl{
+  .myCards .rectAgl{
     height: 100px; 
     width: auto;
     /* background: rgb(216, 80, 80); */
@@ -71,11 +71,11 @@
     padding-left: 10px;
     margin-bottom: 10px;
   }
-  .mineCards .rectAgl .aimRmkMoney{
+  .myCards .rectAgl .aimRmkMoney{
     font-weight: 700;
     font-size: 14px;
   }
-  .mineCards .msg{
+  .myCards .msg{
     font-size: 12px;
     margin-left:5px;
   }  

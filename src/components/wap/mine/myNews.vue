@@ -1,5 +1,5 @@
 <template>
-    <div class="mineNews">
+    <div class="myNews">
         <div v-for="(it,idx) in newsList" :key="idx">
         <flexbox class="rectAgl" orient="vertical">
             <flexbox-item>
@@ -35,8 +35,8 @@
     </div>
 </template>
 <script>
-  import mineNews  from  "./js/mineNews.js"
-  export default mineNews
+  import myNews  from  "./js/myNews.js"
+  export default myNews
 </script>
 
 <style>
@@ -51,12 +51,12 @@
   a:hover {
   color:dimgray;
   }
-  .mineNews{
+  .myNews{
     color:dimgray;
     font-size:12px;
     margin:10px 10px 0px 10px;
   }
-  .mineNews .rectAgl{
+  .myNews .rectAgl{
     height:auto;
     width: auto;
     /* background: rgb(216, 80, 80); */
@@ -69,14 +69,14 @@
     margin-bottom: 10px;
     margin-top: 10px;
   }
-  .mineNews .linen{
+  .myNews .linen{
     border-bottom:1px solid rgb(230, 230, 230);
    }
-  .mineNews .rectAgl .aimRmkMoney{
+  .myNews .rectAgl .aimRmkMoney{
     font-weight: 700;
     font-size: 14px;
   }
-  .mineNews .msg{
+  .myNews .msg{
     font-size: 12px;
     margin-left:5px;
   }  

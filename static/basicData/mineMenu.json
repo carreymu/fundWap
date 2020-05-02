@@ -10,7 +10,7 @@
 		"endTime": "10:00", 
 		"isWithTail": false,
 		"newsCnt": 1,
-		"url":"/fundWap/mineNews",
+		"url":"/fundWap/myNews",
 		"comment":"消息,请列出最近10条"
 	},
 	{

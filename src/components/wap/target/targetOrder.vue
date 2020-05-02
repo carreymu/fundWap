@@ -46,7 +46,7 @@
       </x-table>
 
 
-      <router-link :to="'/fundWap/mineCards'">
+      <router-link :to="'/fundWap/myCards'">
         <flexbox style="padding:10px 5px;">
           <flexbox-item >服务卡使用</flexbox-item>
           <flexbox-item :span="1/2">扣除一次(剩余8次)</flexbox-item>

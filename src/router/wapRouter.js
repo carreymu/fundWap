@@ -12,8 +12,9 @@ import bestChoice from '@/components/wap/bestChoice/bestChoice'
 import bestChoiceDetail from '@/components/wap/bestChoice/bestChoiceDetail'
 import systemInfoDetail from '@/components/wap/systemInfo/systemInfoDetail'
 import mine from '@/components/wap/mine/mine'
-import mineCards from '@/components/wap/mine/mineCards'
-import mineNews from '@/components/wap/mine/mineNews'
+import myCards from '@/components/wap/mine/myCards'
+import myNews from '@/components/wap/mine/myNews'
+import myPositions from '@/components/wap/mine/myPositions'
 
 Vue.use(VueRouter)
 const router = new VueRouter({
@@ -64,15 +65,20 @@ const router = new VueRouter({
 			      component: drumstick
 			    },
 			    {
-			      path: '/fundWap/mineCards',
-			      name: 'mineCards',
-			      component: mineCards
+			      path: '/fundWap/myCards',
+			      name: 'myCards',
+			      component: myCards
 				},
 			    {
-					path: '/fundWap/mineNews',
-					name: 'mineNews',
-					component: mineNews
-				  },
+					path: '/fundWap/myNews',
+					name: 'myNews',
+					component: myNews
+				},
+			    {
+					path: '/fundWap/myPositions',
+					name: 'myPositions',
+					component: myPositions
+				},
 			    {
 					path: '/fundWap/mine',
 					name: 'mine',

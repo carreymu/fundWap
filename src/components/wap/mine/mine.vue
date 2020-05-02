@@ -1,17 +1,19 @@
 <template>
   <div class="mine">
-    <flexbox class="rectAgl">
-      <flexbox-item :span="0.2">
-        <img src="../../../assets/images/biz/avastar.jpg" class="avastar"/>
-      </flexbox-item>
-      <flexbox-item >鉄の卵</flexbox-item> 
-      <flexbox-item :span="0.55">
-        <flexbox orient="vertical">
-          <flexbox-item class="aimRmk">总资产: <span class="aimRmkMoney">2,100,200.00</span></flexbox-item>
-          <flexbox-item class="aimRmk">最新收益: <span class="aimRmkMoney">+8,000.01</span></flexbox-item>
-        </flexbox>
-      </flexbox-item>
-    </flexbox>
+    <router-link :to="'/fundWap/myPositions'">
+      <flexbox class="rectAgl">
+        <flexbox-item :span="0.2">
+          <img src="../../../assets/images/biz/avastar.jpg" class="avastar"/>
+        </flexbox-item>
+        <flexbox-item >鉄の卵</flexbox-item> 
+        <flexbox-item :span="0.55">
+          <flexbox orient="vertical">
+            <flexbox-item class="aimRmk">总资产: <span class="aimRmkMoney">2,100,200.00</span></flexbox-item>
+            <flexbox-item class="aimRmk">最新收益: <span class="aimRmkMoney">+8,000.01</span></flexbox-item>
+          </flexbox>
+        </flexbox-item>
+      </flexbox>
+    </router-link>
     <group>
       <div v-for="(it,idx) in menuList" :key="idx">
         <cell class="msg" :title="it.title" v-if="it.isWithTail" :link="{path:it.url+'/'+it.id}">
@@ -23,21 +25,9 @@
         <span   v-else >
         <cell class="msg" is-link :title="it.title" :border-intent="false" :arrow-direction="showContent004 ? 'down' : ''"
         @click.native="showContent004 = !showContent004"></cell>
-        <!-- <p class="slide" :class="showContent004?'animate':''">blablabla...<br/>blablabla...<br/>blablabla...<br/>blablabla...</p> -->
         <actionsheet v-model="showContent004" :menus="menus1" :close-on-clicking-mask="false" show-cancel
         @on-click-mask="console('on click mask')"></actionsheet>
         </span>
-        
-        <!-- <cell v-else :title="it.title"
-        is-link
-        :border-intent="false"
-        :arrow-direction="showContent003 ? 'up' : 'down'"
-        @click.native="showContent003 = !showContent003"></cell>
-
-        <template v-if="showContent003">
-          <cell-box :border-intent="false" class="sub-item">I'm content 003</cell-box>
-        </template> -->
-
       </div>
     </group>
     </div>

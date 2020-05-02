@@ -1,4 +1,4 @@
-import { Tabbar, TabbarItem ,XHeader,XButton,Flexbox, FlexboxItem, Group, Badge, Cell, Actionsheet } from 'vux'
+import { Tabbar, TabbarItem ,XHeader,XButton,Flexbox, FlexboxItem, Group, Badge, Cell, XTable,Grid, GridItem } from 'vux'
 export default {
   mounted() {
     this.menuLists();
@@ -6,8 +6,9 @@ export default {
   },
   data(){
     return {
+      showMsg:false,
       menuList:[],
-      showContent004: false,
+      redemption: '有9笔赎回记录即将到帐,最早预计05-07到帐',
       menus1: {
         menu1: '分享给朋友',
         menu2: '分享到朋友圈'
@@ -15,6 +16,9 @@ export default {
     }
   },
   methods:{
+    tradeHis(){
+        this.showMsg=true;
+    },
     menuLists(){
       let self=this;
       this.baseAjax({
@@ -39,6 +43,7 @@ export default {
     Group,
     Cell,
     Badge,
-    Actionsheet
+    XTable,
+    Grid, GridItem
   }
 }
