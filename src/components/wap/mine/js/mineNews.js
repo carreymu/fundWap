@@ -1,4 +1,4 @@
-import { Tabbar, TabbarItem ,XHeader,XButton,XDialog,Flexbox,FlexboxItem,TransferDomDirective as TransferDom } from 'vux'
+import { Tabbar, TabbarItem ,XHeader,XButton,XDialog,Flexbox,FlexboxItem } from 'vux'
   export default {
     mounted() {
         this.$store.commit('UPDATE_PAGE_TITLE', '消息中心') 
@@ -48,9 +48,6 @@ import { Tabbar, TabbarItem ,XHeader,XButton,XDialog,Flexbox,FlexboxItem,Transfe
     //       }
     //     })
     //   },
-    },
-    directives: {
-      TransferDom
     },
     components: {
       Tabbar,

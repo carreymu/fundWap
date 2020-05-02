@@ -13,18 +13,14 @@
       </flexbox-item>
     </flexbox>
     <group>
-      <cell v-for="(item, index) in menuList" :key="index" class="msg" :title="item.title" is-link>
-        <div v-if="item.isWithTail">
-          <router-link :to="item.url+'/'+item.id">
-            <badge  v-if="item.newsCnt!=undefined & item.newsCnt>0" :text="item.newsCnt"></badge>
-          </router-link>
-        </div>
-        <div v-else>
-          <router-link :to="item.url">
-            <badge  v-if="item.newsCnt!=undefined & item.newsCnt>0" :text="item.newsCnt"></badge>
-          </router-link>
-        </div>
-      </cell>
+      <div v-for="(it,idx) in menuList" :key="idx">
+        <cell class="msg" :title="it.title" v-if="it.isWithTail" :link="{path:it.url+'/'+it.id}">
+          <badge v-if="it.newsCnt!=undefined & it.newsCnt>0" :text="it.newsCnt"></badge>
+        </cell>
+        <cell class="msg" :title="it.title" v-else :link="it.url">
+          <badge v-if="it.newsCnt!=undefined & it.newsCnt>0" :text="it.newsCnt"></badge>
+        </cell>
+      </div>
     </group>
     </div>
 </template>

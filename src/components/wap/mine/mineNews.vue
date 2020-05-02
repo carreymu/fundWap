@@ -3,19 +3,21 @@
         <div v-for="(it,idx) in newsList" :key="idx">
         <flexbox class="rectAgl" orient="vertical">
             <flexbox-item>
-                <div style="padding:10px 10px 0px 10px;">
+              <div style="padding:10px 10px 0px 10px;">
                 <flexbox orient="vertical">
                     <flexbox-item><span style="font-size:13px;">{{it.title}}</span></flexbox-item>
                     <flexbox-item>{{it.dateTime}}</flexbox-item>
                     <flexbox-item>{{(it.content.length > 85)?it.content.substring(0,85)+"...":it.content}}</flexbox-item>
                 </flexbox>
-                </div>
+              </div>
             </flexbox-item>
             <flexbox-item>
+              <div v-if="it.content.length > 85">
                 <div class="linen"></div>
                 <div style="padding:10px 10px 5px 10px;">
                     <x-button mini @click.native="doShowToast(it.id)">查看详情</x-button>
                 </div>
+              </div>
             </flexbox-item>
         </flexbox>
         </div>
