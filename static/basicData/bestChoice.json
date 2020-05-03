@@ -5,50 +5,84 @@
 	"returnObject": [{
 			"id": 1,
 			"categoryName":"活期理财",
-			"name": "超级现金宝",
-			"rateProfit": "2.87",
-			"shortDesc": "智能轮动货基,申赎0费率",
-			"annEarnLong": "七日年化收益",
-			"minInvest":100,
-			"startTime": "10:00",
-			"endTime": "12:00",
-			"status":1
+			"funds":[{
+				"name": "超级现金宝",
+				"rateProfit": "2.87",
+				"shortDesc": "智能轮动货基,申赎0费率",
+				"annEarnLong": "七日年化收益",
+				"minInvest":100,
+				"startTime": "10:00",
+				"endTime": "12:00",
+				"status":1
+			}]			
 		},
 		{
 			"id": 2,
 			"categoryName":"高成长股基组合",
-			"name": "全明星计划",
-			"rateProfit": "36.02",
-			"shortDesc": "跟对人买对基,实力派经理一网打尽",
-			"annEarnLong": "七日年化收益",
-			"minInvest":1000,
-			"startTime": "10:00",
-			"endTime": "12:00",
-			"status":1
+			"funds":[
+				{
+				"name": "全明星计划1",
+				"rateProfit": "36.02",
+				"shortDesc": "跟对人买对基,实力派经理一网打尽",
+				"annEarnLong": "七日年化收益",
+				"minInvest":1000,
+				"startTime": "10:00",
+				"endTime": "12:00",
+				"status":1
+				},
+				{
+				"name": "全明星计划2",
+				"rateProfit": "36.02",
+				"shortDesc": "跟对人买对基,实力派经理一网打尽",
+				"annEarnLong": "七日年化收益",
+				"minInvest":1000,
+				"startTime": "10:00",
+				"endTime": "12:00",
+				"status":1
+				}
+			]
+			
 		},
 		{
 			"id": 3,
 			"categoryName":"稳健债基组合",
-			"name": "小确幸计划",
-			"rateProfit": "15.13",
-			"shortDesc": "精选债基组合,收益长赢",
-			"annEarnLong": "近三年历史收益",
-			"minInvest":1000,
-			"startTime": "08:00",
-			"endTime": "12:00",
-			"status":2
+			"funds":[
+				{
+				"name": "小确幸计划1",
+				"rateProfit": "15.13",
+				"shortDesc": "精选债基组合,收益长赢",
+				"annEarnLong": "近三年历史收益",
+				"minInvest":1000,
+				"startTime": "08:00",
+				"endTime": "12:00",
+				"status":2
+				},
+				{
+				"name": "小确幸计划2",
+				"rateProfit": "15.13",
+				"shortDesc": "精选债基组合,收益长赢",
+				"annEarnLong": "近三年历史收益",
+				"minInvest":1000,
+				"startTime": "08:00",
+				"endTime": "12:00",
+				"status":1
+				}
+		]
 		},
 		{
 			"id": 4,
 			"categoryName":"平衡性股基组合",
-			"name": "稳拿计划",
-			"rateProfit": "15.13",
-			"shortDesc": "股债动态平衡,文件投资典范",
-			"annEarnLong": "近三年历史收益",
-			"minInvest":1000,
-			"startTime": "08:00",
-			"endTime": "12:00",
-			"status":1
+			"funds":[{
+				"name": "稳拿计划",
+				"rateProfit": "15.13",
+				"shortDesc": "股债动态平衡,文件投资典范",
+				"annEarnLong": "近三年历史收益",
+				"minInvest":1000,
+				"startTime": "08:00",
+				"endTime": "12:00",
+				"status":1
+			}]
+
 		}
 	]
 }

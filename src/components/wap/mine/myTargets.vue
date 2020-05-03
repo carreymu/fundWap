@@ -168,13 +168,6 @@
     border-bottom:1px solid rgb(230, 230, 230); 
     padding:0px 0 10px 0;
   }
-  .mytars .avastar{
-    height:40px;
-    width:40px;
-    -webkit-border-radius: 50%;
-    border-radius: 50%;
-    overflow: hidden;
-  }
   .mytars .rectAgl{
     height: 60px; 
     width: auto;
@@ -183,7 +176,6 @@
     border-style: solid;
     border-radius: 5px;
     border-color:  #f0f0f0;
-    /* color: white; */
   }
   .mytars .waitInvokeTxtPre{
     color:brown;
@@ -201,17 +193,4 @@
     -webkit-justify-content: space-around;
     justify-content: space-around;
   }
-  .mytars .rectAgl .aimRmk{
-    /* text-align:center; */
-    margin-left:5px;
-  }
-  .mytars .rectAgl .aimRmkMoney{
-    font-weight: 800;
-    font-size: 14px;
-  }
-  .mytars .msg{
-    font-size: 12px;
-  }  
-
-
 </style>

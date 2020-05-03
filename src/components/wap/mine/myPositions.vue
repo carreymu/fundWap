@@ -2,14 +2,14 @@
   <div class="mypo">
     <div>
     <div class="topRmk">总资产(元)</div>
-    <div class="top">2,100,200.00</div>
+    <div class="top">2,100,200.01</div>
     </div>
 
     <div style="padding:0 10px 0 20px;">
         <flexbox>
-        <flexbox-item :span="0.35">
+        <flexbox-item :span="0.38">
             <div >04月30日 
-                <span class="aimRmkMoney"><img src="../../../assets/images/update_done.png" width="50" height="18"/></span>
+                <span class="aimRmkMoney"><img src="../../../assets/images/update_done.png" width="48" height="18"/></span>
             </div>
             <div>10200.36</div>
         </flexbox-item>
@@ -127,13 +127,6 @@
     border-bottom:1px solid rgb(230, 230, 230); 
     padding:0px 0 10px 0;
   }
-  .mypo .avastar{
-    height:40px;
-    width:40px;
-    -webkit-border-radius: 50%;
-    border-radius: 50%;
-    overflow: hidden;
-  }
   .mypo .rectAgl{
     height: 70px; 
     width: auto;
@@ -142,12 +135,10 @@
     border-style: solid;
     border-radius: 5px;
     border-color:  #f0f0f0;
-    /* color: white; */
   }
   .mypo .waitInvokeTxtPre{
     color:brown;
     font-weight:700;
-    /* padding-left:10px; */
     text-align: left;
   }
   .mypo .waitInvokeTxtTail{
@@ -172,32 +163,10 @@
     padding-top: 20px;
   }
   .mypo .topInfo{
-    font-size: center;
-  }
-
-  .slide {
-    padding: 0 20px;
-    overflow: hidden;
-    max-height: 0;
-    transition: max-height .5s cubic-bezier(0, 1, 0, 1) -.1s;
-  }
-  .animate {
-    max-height: 9999px;
-    transition-timing-function: cubic-bezier(0.5, 0, 1, 0);
-    transition-delay: 0s;
-  }
-
-  .mypo .rectAgl .aimRmk{
-    /* text-align:center; */
-    margin-left:5px;
+    text-align: center;
   }
   .mypo .rectAgl .aimRmkMoney{
     font-weight: 800;
     font-size: 14px;
   }
-  .mypo .msg{
-    font-size: 12px;
-  }  
-
-
 </style>
