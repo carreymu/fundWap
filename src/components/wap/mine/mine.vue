@@ -1,19 +1,20 @@
 <template>
   <div class="mine">
-    <router-link :to="'/fundWap/myPositions'">
-      <flexbox class="rectAgl">
-        <flexbox-item :span="0.2">
-          <img src="../../../assets/images/biz/avastar.jpg" class="avastar"/>
-        </flexbox-item>
-        <flexbox-item >鉄の卵</flexbox-item> 
-        <flexbox-item :span="0.55">
-          <flexbox orient="vertical">
-            <flexbox-item class="aimRmk">总资产: <span class="aimRmkMoney">2,100,200.00</span></flexbox-item>
-            <flexbox-item class="aimRmk">最新收益: <span class="aimRmkMoney">+8,000.01</span></flexbox-item>
-          </flexbox>
-        </flexbox-item>
-      </flexbox>
-    </router-link>
+    <flexbox class="rectAgl">
+      <flexbox-item :span="0.2">
+        <router-link :to="'/fundWap/myAccount'"><img src="../../../assets/images/biz/avastar.jpg" class="avastar"/></router-link>
+      </flexbox-item>
+      <flexbox-item ><router-link :to="'/fundWap/myAccount'" style="color:white;"> 鉄の卵</router-link></flexbox-item> 
+      <flexbox-item :span="0.55">
+        <router-link :to="'/fundWap/myPositions'">
+        <flexbox orient="vertical">
+          <flexbox-item class="aimRmk">总资产: <span class="aimRmkMoney">2,100,200.00</span></flexbox-item>
+          <flexbox-item class="aimRmk">最新收益: <span class="aimRmkMoney">+8,000.01</span></flexbox-item>
+        </flexbox>
+        </router-link>
+      </flexbox-item>
+    </flexbox>
+    
     <group>
       <div v-for="(it,idx) in menuList" :key="idx">
         <cell class="msg" :title="it.title" v-if="it.isWithTail" :link="{path:it.url+'/'+it.id}">
@@ -76,6 +77,7 @@
   .mine .rectAgl .aimRmk{
     /* text-align:center; */
     margin-left:5px;
+    color:white;
   }
   .mine .rectAgl .aimRmkMoney{
     font-weight: 800;
