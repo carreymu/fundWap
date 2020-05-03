@@ -46,19 +46,17 @@
         </flexbox>
       </div>
       <div class="rectAgl">
-          <div class="invIntro">
-              <div style="padding-top:20px;">
-                  <div>04月30日+2.88%</div>
-                  <div style="color:#d95353;">+9500.02</div>
-              </div>
-              <div style="padding-top:20px;">
-                  |
-              </div>
-              <div style="padding-top:20px;">
-                  <div>持仓盈亏 -2.88%</div>
-                  <div style="color:green;">-10035.54</div>
-              </div>
+        <div class="invIntro">
+          <div style="padding-top:20px;">
+            <div>04月30日+2.88%</div>
+            <div style="color:#d95353;">+9500.02</div>
           </div>
+          <div class="linkRight"></div>
+          <div style="padding-top:20px;">
+            <div>持仓盈亏 -2.88%</div>
+            <div style="color:green;">-10035.54</div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -67,19 +65,17 @@
         <div class ="waitInvokeTxtPre">|||| <span class="waitInvokeTxtTail">鸡腿计划</span></div>
       </div>
       <div class="rectAgl">
-          <div class="invIntro">
-              <div style="padding-top:20px;">
-                  <div>04月30日+2.88%</div>
-                  <div style="color:#d95353;">+9500.02</div>
-              </div>
-              <div style="padding-top:20px;">
-                  |
-              </div>
-              <div style="padding-top:20px;">
-                  <div>持仓盈亏 -2.88%</div>
-                  <div style="color:green;">-10035.54</div>
-              </div>
+        <div class="invIntro">
+          <div style="padding-top:20px;">
+            <div>04月30日+2.88%</div>
+            <div style="color:#d95353;">+9500.02</div>
           </div>
+          <div class="linkRight"></div>
+          <div style="padding-top:20px;">
+            <div>持仓盈亏 -2.88%</div>
+            <div style="color:green;">-10035.54</div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -88,19 +84,17 @@
         <div class ="waitInvokeTxtPre">|||| <span class="waitInvokeTxtTail">活期理财</span></div>
       </div>
       <div class="rectAgl">
-          <div class="invIntro">
-              <div style="padding-top:20px;">
-                  <div>04月30日+2.88%</div>
-                  <div style="color:#d95353;">+9500.02</div>
-              </div>
-              <div style="padding-top:20px;">
-                  |
-              </div>
-              <div style="padding-top:20px;">
-                  <div>持仓盈亏 -2.88%</div>
-                  <div style="color:green;">-10035.54</div>
-              </div>
+        <div class="invIntro">
+          <div style="padding-top:20px;">
+            <div>04月30日+2.88%</div>
+            <div style="color:#d95353;">+9500.02</div>
           </div>
+          <div class="linkRight"></div>
+          <div style="padding-top:20px;">
+            <div>持仓盈亏 -2.88%</div>
+            <div style="color:green;">-10035.54</div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -123,6 +117,10 @@
     color:dimgray;
     font-size:12px;
     margin:10px 10px 0px 10px;
+  }
+  .linkRight {
+    margin-top:20px;
+    border-right: solid #ACC0D8 1px;
   }
   .line{
     clear: both;
