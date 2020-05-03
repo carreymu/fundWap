@@ -23,7 +23,7 @@
 
     <group>
       <cell class="msg" :title="'使用帮助'"  is-link></cell>
-      <cell class="msg" :title="'关键豆豆金'" is-link></cell>
+      <cell class="msg" :title="'关于豆豆金'" is-link></cell>
     </group>
     <div style="height:40px"/>
 
