@@ -6,6 +6,7 @@
 			"id": 1,
 			"categoryName":"活期理财",
 			"funds":[{
+				"fid":1,
 				"name": "超级现金宝",
 				"rateProfit": "2.87",
 				"shortDesc": "智能轮动货基,申赎0费率",
@@ -13,7 +14,8 @@
 				"minInvest":100,
 				"startTime": "10:00",
 				"endTime": "12:00",
-				"status":1
+				"status":1,
+				"isSingle":true
 			}]			
 		},
 		{
@@ -21,6 +23,7 @@
 			"categoryName":"高成长股基组合",
 			"funds":[
 				{
+				"fid":2,
 				"name": "全明星计划1",
 				"rateProfit": "36.02",
 				"shortDesc": "跟对人买对基,实力派经理一网打尽",
@@ -28,9 +31,11 @@
 				"minInvest":1000,
 				"startTime": "10:00",
 				"endTime": "12:00",
-				"status":1
+				"status":1,
+				"isSingle":false
 				},
 				{
+				"fid":3,
 				"name": "全明星计划2",
 				"rateProfit": "36.02",
 				"shortDesc": "跟对人买对基,实力派经理一网打尽",
@@ -38,7 +43,8 @@
 				"minInvest":1000,
 				"startTime": "10:00",
 				"endTime": "12:00",
-				"status":1
+				"status":1,
+				"isSingle":true
 				}
 			]
 			
@@ -48,6 +54,7 @@
 			"categoryName":"稳健债基组合",
 			"funds":[
 				{
+				"fid":4,
 				"name": "小确幸计划1",
 				"rateProfit": "15.13",
 				"shortDesc": "精选债基组合,收益长赢",
@@ -55,9 +62,11 @@
 				"minInvest":1000,
 				"startTime": "08:00",
 				"endTime": "12:00",
-				"status":2
+				"status":2,
+				"isSingle":false
 				},
 				{
+				"fid":5,
 				"name": "小确幸计划2",
 				"rateProfit": "15.13",
 				"shortDesc": "精选债基组合,收益长赢",
@@ -65,7 +74,8 @@
 				"minInvest":1000,
 				"startTime": "08:00",
 				"endTime": "12:00",
-				"status":1
+				"status":1,
+				"isSingle":false
 				}
 		]
 		},
@@ -73,6 +83,7 @@
 			"id": 4,
 			"categoryName":"平衡性股基组合",
 			"funds":[{
+				"fid":5,
 				"name": "稳拿计划",
 				"rateProfit": "15.13",
 				"shortDesc": "股债动态平衡,文件投资典范",
@@ -80,9 +91,9 @@
 				"minInvest":1000,
 				"startTime": "08:00",
 				"endTime": "12:00",
-				"status":1
+				"status":1,
+				"isSingle":true
 			}]
-
 		}
 	]
 }

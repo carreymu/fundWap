@@ -74,7 +74,7 @@
   </div>
   <div class="footerFix">
     <div class="linefd"></div>
-      <div style="padding:5px 0;text-align:center;">申购倒计时: {{hour}}小时{{min}}分{{second}}秒</div>
+      <div class="timeFont">申购倒计时: {{hour}}小时{{min}}分{{second}}秒</div>
     <div class="linefd"></div>
     <flexbox style="text-align:center;">
       <flexbox-item ><div style="font-weight:bold;">3000元起投 0申购费</div><div style="font-size:10px;">需使用服务卡</div></flexbox-item>
@@ -262,8 +262,12 @@
     position:absolute;
     bottom:0;
     width:100%;
-    height:125px;
+    height:130px;
     background:#F7F7F7;
+  }
+  .footerFix .timeFont{
+    padding:5px 0;
+    text-align:center;
   }
   .targetfund .slopingside{
     height:0px;

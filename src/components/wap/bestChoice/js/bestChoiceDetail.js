@@ -1,5 +1,6 @@
 
-import { Tab,TabItem,XImg,XButton,Swiper,SwiperItem,Flexbox,FlexboxItem,XDialog,Group,Cell,VChart, VLine, VAxis, VTooltip,VArea,VLegend, VBar, VPie, VGuide, VScale} from 'vux';
+import { Tab,TabItem,XImg,XButton,Swiper,SwiperItem,Flexbox,FlexboxItem,XDialog,Group,Cell,VChart, VLine, VAxis, 
+	VTooltip,VArea,VLegend, VBar, VPie, VGuide, VScale} from 'vux';
 const data = [
 	{ name: "量化派", percent: 56.59, a: '1' },
 	{ name: "成长型", percent: 20.17, a: '1' },
@@ -306,10 +307,10 @@ export default {
 			]
 		};
 	},
-	methods:{		
+	methods:{
 		loadDetail(){
 			let self=this;
-			let cid=this.$route.params.cid;
+			let cid=this.$route.params.choiceId;
 			this.baseAjax({
 				url:'../../../static/basicData/choiceDetail.json',
 				showLoading:true,
@@ -323,7 +324,7 @@ export default {
 			})
 		},
 		loadChartData(){
-			let cid=this.$route.params.cid;
+			let cid=this.$route.params.choiceId;
 			this.baseAjax({
 				url:'../../../static/basicData/bestChoiceDetailChart.json',
 				showLoading:true,
@@ -355,6 +356,7 @@ export default {
 		/*.........to do .........*/
 	},
 	components:{
-		Tab, TabItem,XImg,XButton,Swiper, SwiperItem,Flexbox, FlexboxItem,XDialog,Group,Cell,VChart, VLine, VAxis, VTooltip,VArea,VLegend, VBar, VPie, VGuide, VScale
+		Tab, TabItem,XImg,XButton,Swiper, SwiperItem,Flexbox, FlexboxItem,XDialog,Group,Cell,
+		VChart, VLine, VAxis, VTooltip,VArea,VLegend, VBar, VPie, VGuide, VScale
 	}
 }

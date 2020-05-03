@@ -10,6 +10,7 @@ import targetOrder from '@/components/wap/target/targetOrder'
 import drumstick from '@/components/wap/drumstick/drumstick'
 import bestChoice from '@/components/wap/bestChoice/bestChoice'
 import bestChoiceDetail from '@/components/wap/bestChoice/bestChoiceDetail'
+import bestChoiceSingle from '@/components/wap/bestChoice/bestChoiceSingle'
 import systemInfoDetail from '@/components/wap/systemInfo/systemInfoDetail'
 import mine from '@/components/wap/mine/mine'
 import myCards from '@/components/wap/mine/myCards'
@@ -99,7 +100,12 @@ const router = new VueRouter({
 			      path: '/fundWap/bestChoiceDetail/:choiceId',
 			      name: 'bestChoiceDetail',
 			      component: bestChoiceDetail
-			    },
+				},
+			    {
+					path: '/fundWap/bestChoiceSingle/:choiceId',
+					name: 'bestChoiceSingle',
+					component: bestChoiceSingle
+				  },
 			    {
 			      path: '/fundWap/systemInfoDetail/:sysId',
 			      name: 'systemInfoDetail',

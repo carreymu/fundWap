@@ -1,29 +1,22 @@
 <template>
-	<div class="targetDetail">
+	<div class="bstSgl">
 		<div class="load" v-if="JSON.stringify(mainData)=='{}'">
 			<spinner type="lines"/>
 		</div>
 		<div v-else>
-			<div class="text-top">
-				<p class="title">{{mainData.title}}</p>
-				<div class="sDate">
-					<flexbox>
-				      <flexbox-item>发布时间：{{mainData.inserttime}}</flexbox-item>
-					</flexbox>
-				</div>
-			</div>
 			<div class="detail-text">
 				<p v-html="mainData.content" style="line-height:35px;"></p>
+                <div style="font-size:15px;">醒醒,你不是分析君啊,你是优选基金页面，单个页面!!</div>
 			</div>
 		</div>
 	</div>
 </template>
 <script>
-  import targetDetail  from  "./js/targetDetail.js"
-  export default targetDetail
+  import bestChoiceSingle  from  "./js/bestChoiceSingle.js"
+  export default bestChoiceSingle
 </script>
 <style>
-.targetDetail .title{
+.bstSgl .title{
 	font-size: 16px;
 	line-height: 25px;
 	overflow: hidden;
@@ -31,30 +24,30 @@
 	padding: 10px 5px 5px 5px;
 }
 
-.targetDetail .detail-text{
+.bstSgl .detail-text{
 	color: #666;
 	padding:10px 15px;	
 }
 
-.targetDetail .detail-text p{
+.bstSgl .detail-text p{
 	text-indent: 28px;
 	font-size: 14px;
 	line-height: 22px;
 	color: #666
 }
 
-.targetDetail  .sDate{
+.bstSgl  .sDate{
 	margin-top: 10px;
 	font-size: 12px;
 	color: #666
 }
 
-.targetDetail  .text-top{
+.bstSgl  .text-top{
 	border-bottom: 1px solid #eee;
 	padding: 10px 15px 15px 15px; 
  }
 
- .targetDetail .load{
+ .bstSgl .load{
     text-align: center;
     height: 250px;
     margin: auto;
