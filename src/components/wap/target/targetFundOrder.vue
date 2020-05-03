@@ -1,29 +1,39 @@
 <template>
 <div>
-  <div class="targetfund">
+  <div class="tarfndord">
     <div v-if="fundList.length==0">
       <spinner type="lines"/>
     </div>
     <div v-else>
-      <div class="topcontext">
-        <div>
-          <div class="aimRate">+8.00<span style="font-size:large;">%</span></div>
-          <div class="aimRmk">目标收益率</div>
+       <div style="margin:15px 0 5px 10px;">
+          <div style="line-height:25px;">天弘鸿运宝A(001386)</div>
+          <div><span style="color:brown;">货币型</span>&nbsp;&nbsp;  | &nbsp;&nbsp; 76/722</div>
         </div>
-        <div class="slopingside"></div>
-        <div>
-          <div class="aimLast">6~12<span style="font-size:large;font-weight:700">个月</span></div>
-          <div class="aimRmk">预计持有时长</div>
+      <div class="linefd"></div>
+      <div style="padding:10px 80px;color:#666">
+        <div style="float: left;">
+            <div>七日年化</div>
+            <div class="ratio">+2.08%</div>
+        </div>
+        <div style="float: right;">
+            <div>万份收益</div>
+            <div class="ratio">0.6096</div>
         </div>
       </div>
-          
-      <div>
-        <div class="aimRmkSub">-- 目标收益为绝对收益,买入1万元,达标收益800元 --</div>
-        <div class="linefd"></div>
-          <div style="padding:5px 0;text-align:center;">申购日: 20年04月20日~20年04月29日</div>
-        <div class="linefd"></div>
-        <div style="padding: 5px 0;"><img src="../../../../static/img/funddetail_banner.png" width="340" height="80"/></div>
+    
+      <div class="linefd"></div>
+      <div class="itfoIntro">
+        <div class="tfotitle">基金经理</div>
+        <div class="tfoMen">李晨,范冰冰,王遗风 ></div>
+        <div class="tfolinkRight"></div>
+        <div class="tfotitle">申购费率</div>
+        <div class="tfopdTop">0.00%</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
       </div>
+      <div class="linefd"></div>
+
+
+
 
       <flexbox orient="vertical">
         <flexbox-item>
@@ -74,21 +84,49 @@
 </div>
 </template>
 <script>
-  import targetFundDetail  from  "./js/targetFundDetail.js"
-  export default targetFundDetail
+  import targetFundOrder  from  "./js/targetFundOrder.js"
+  export default targetFundOrder
 </script>
 
 <style>
-  .targetfund{
+  .tarfndord{
     /* text-align: center; */
     font-size:12px;
-    margin:10px 10px 0px 10px;
+    /* margin:10px 10px 0px 10px; */
   }
-  .targetfund .cell{
+  .tarfndord .ratio{
+      color:brown;
+      font-size: 14px;
+      margin-bottom: 5px;
+  }
+  .tarfndord .itfoIntro{
+    display:-webkit-flex;
+    display: flex;
+    justify-content: space-around;
+    height: 50px;
+    padding-top: 5px;
+  }
+  .tarfndord .itfoIntro .tfolinkRight{
+    margin-top:5px;
+    margin-bottom:5px;
+    border-right: solid #ACC0D8 1px;
+  }
+  .tarfndord .itfoIntro .tfopdTop{
+    padding-top:10px;
+  }
+  .tarfndord .itfoIntro .tfotitle{
+    color:#666;
+    padding-top:10px;
+  }
+  .tarfndord .itfoIntro .tfoMen{
+    width:80px;
+    padding-top:5px;
+  }
+  .tarfndord .cell{
     font-size:13px;
   }
- .targetfund .topcontext{
-    padding: 15px 40px 20px 40px;
+ .tarfndord .topcontext{
+    /* padding: 15px 40px 20px 40px; */
     display:-webkit-flex;
     display: flex;
     justify-content: space-around;
@@ -96,31 +134,31 @@
   .linefd{
     border-bottom:1px solid rgb(230, 230, 230);
   }
-  .targetfund .line{
+  .tarfndord .line{
     border-bottom:1px solid rgb(230, 230, 230);
     padding:10px 0 10px 0;
   }  
-  .targetfund .aimRate{
+  .tarfndord .aimRate{
     font-size: x-large;
     text-align: center;
   }
-  .targetfund .aimLast{
+  .tarfndord .aimLast{
     font-size: x-large;
     text-align: center;
   }
-  .targetfund .aimRmk{
+  .tarfndord .aimRmk{
     text-align:center;
     color:#999999;
     margin-left:5px;
   }  
-  .targetfund .aimRmkSub{
+  .tarfndord .aimRmkSub{
     text-align:center;
     color:#999999;
     font-size:11px;
     margin-bottom: 10px;
   }
 
-  .targetfund .waitInvokeTxtPre{
+  .tarfndord .waitInvokeTxtPre{
     color:brown;
     font-weight:900;
     font-size: 15px;
@@ -128,14 +166,14 @@
     float: left;
     clear: both;
   }
-  .targetfund .waitInvokeTxtTail{
+  .tarfndord .waitInvokeTxtTail{
     color:#000000;padding-left:5px;
   }
-  .targetfund .footer{
+  .tarfndord .footer{
     text-align:center;
     color:#666;
   }
-  .targetfund .footer .bot{
+  .tarfndord .footer .bot{
     font-size:11px;
     padding:10px 0 80px 0;
   }  
@@ -151,7 +189,7 @@
     padding:5px 0;
     text-align:center;
   }
-  .targetfund .slopingside{
+  .tarfndord .slopingside{
     height:0px;
     width:45px;
     margin-top: 30px;
