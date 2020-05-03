@@ -42,7 +42,7 @@
       <div style="padding:15px 0 5px 0;">
         <flexbox>
           <flexbox-item><div class ="waitInvokeTxtPre">|||| <span class="waitInvokeTxtTail">大目标</span></div></flexbox-item>
-          <flexbox-item><div style="text-align:right;">持有3期&nbsp;> </div></flexbox-item>
+          <flexbox-item><div style="text-align:right;"><router-link :to="'/fundWap/myTargets'">持有3期&nbsp;> </router-link></div></flexbox-item>
         </flexbox>
       </div>
       <div class="rectAgl">

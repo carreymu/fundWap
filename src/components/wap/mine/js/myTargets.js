@@ -7,7 +7,7 @@ export default {
   data(){
     return {
       // showMsg:false,
-      redemption: '有9笔赎回记录即将到帐,最早预计05-07到帐',
+    //   redemption: '有9笔赎回记录即将到帐,最早预计05-07到帐',
     }
   },
   methods:{

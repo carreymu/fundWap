@@ -15,6 +15,7 @@ import mine from '@/components/wap/mine/mine'
 import myCards from '@/components/wap/mine/myCards'
 import myNews from '@/components/wap/mine/myNews'
 import myPositions from '@/components/wap/mine/myPositions'
+import myTargets from '@/components/wap/mine/myTargets'
 
 Vue.use(VueRouter)
 const router = new VueRouter({
@@ -78,6 +79,11 @@ const router = new VueRouter({
 					path: '/fundWap/myPositions',
 					name: 'myPositions',
 					component: myPositions
+				},
+			    {
+					path: '/fundWap/myTargets',
+					name: 'myTargets',
+					component: myTargets
 				},
 			    {
 					path: '/fundWap/mine',
