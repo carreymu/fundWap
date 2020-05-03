@@ -149,27 +149,34 @@
     text-align: left;
   }
   .drumstick .waitInvokeTxtTail{
-    color:#000000;padding-left:5px;
+    color:#000000;
+    padding-left:5px;
   }
   
   .drumstick .invIntr{
-    width:100%;font-size:12px;line-height:25px;color:dimgray;border:none;padding:0px 5px 0px 5px;
+    width:100%;
+    font-size:12px;
+    line-height:25px;
+    color:dimgray;
+    border:none;
+    padding:0px 5px 0px 5px;
   }
   
  .drumstick .invIntro{
     padding:10px 20px 0 0;    
     white-space:nowrap;
   }
-
   .drumstick .newsTop{
-    font-size:14px;text-align:left;font-weight:700;padding-top:10px;
+    font-size:14px;
+    text-align:left;
+    font-weight:700;
+    padding-top:10px;
   }
   .drumstick .newsItem{
     margin:5px 0px 0px 5px;
     position: relative;
-    height: 126px;
+    height: 116px;
     overflow: hidden;
-    border-radius: 5px
   }
   .drumstick .newsItem .postListImg {
     display: table-cell;

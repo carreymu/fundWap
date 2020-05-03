@@ -37,23 +37,79 @@
         <router-link :to="'#'">{{redemption}} &nbsp; ></router-link>
     </div>
     <div class="line"/>
-    <br/>
-    <div class="rectAgl">
-        <div class="invIntro">
-            <div style="padding-top:20px;">
-                <div>04月30日+2.88%</div>
-                <div style="color:#d95353;">+9500.02</div>
-            </div>
-            <div style="padding-top:20px;">
-                |
-            </div>
-            <div style="padding-top:20px;">
-                <div>持仓盈亏 -2.88%</div>
-                <div style="color:green;">-10035.54</div>
-            </div>
-        </div>
+    
+    <div>
+      <div style="padding:15px 0 5px 0;">
+        <flexbox>
+          <flexbox-item><div class ="waitInvokeTxtPre">|||| <span class="waitInvokeTxtTail">大目标</span></div></flexbox-item>
+          <flexbox-item><div style="text-align:right;">持有3期&nbsp;> </div></flexbox-item>
+        </flexbox>
+      </div>
+      <div class="rectAgl">
+          <div class="invIntro">
+              <div style="padding-top:20px;">
+                  <div>04月30日+2.88%</div>
+                  <div style="color:#d95353;">+9500.02</div>
+              </div>
+              <div style="padding-top:20px;">
+                  |
+              </div>
+              <div style="padding-top:20px;">
+                  <div>持仓盈亏 -2.88%</div>
+                  <div style="color:green;">-10035.54</div>
+              </div>
+          </div>
+      </div>
     </div>
 
+    <div>
+      <div style="padding:15px 0 5px 0;">
+        <div class ="waitInvokeTxtPre">|||| <span class="waitInvokeTxtTail">鸡腿计划</span></div>
+      </div>
+      <div class="rectAgl">
+          <div class="invIntro">
+              <div style="padding-top:20px;">
+                  <div>04月30日+2.88%</div>
+                  <div style="color:#d95353;">+9500.02</div>
+              </div>
+              <div style="padding-top:20px;">
+                  |
+              </div>
+              <div style="padding-top:20px;">
+                  <div>持仓盈亏 -2.88%</div>
+                  <div style="color:green;">-10035.54</div>
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <div>
+      <div style="padding:15px 0 5px 0;">
+        <div class ="waitInvokeTxtPre">|||| <span class="waitInvokeTxtTail">活期理财</span></div>
+      </div>
+      <div class="rectAgl">
+          <div class="invIntro">
+              <div style="padding-top:20px;">
+                  <div>04月30日+2.88%</div>
+                  <div style="color:#d95353;">+9500.02</div>
+              </div>
+              <div style="padding-top:20px;">
+                  |
+              </div>
+              <div style="padding-top:20px;">
+                  <div>持仓盈亏 -2.88%</div>
+                  <div style="color:green;">-10035.54</div>
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="line"/>
+    <div style="padding-top:15px;">
+      <div style="float: left;">已清仓</div>
+      <div style="float: right;">赎回明细 ></div>
+    </div>
+    <div class="line"/>
     <!-- <toast v-model="showMsg" type="text"  width="20em" class="showMsg" :time="2000">coming soon....</toast> -->
   </div>
 </template>
@@ -69,8 +125,9 @@
     margin:10px 10px 0px 10px;
   }
   .line{
+    clear: both;
     border-bottom:1px solid rgb(230, 230, 230); 
-    padding:5px 0 10px 0;
+    padding:0px 0 10px 0;
   }
   .mypo .avastar{
     height:40px;
@@ -89,13 +146,22 @@
     border-color:  #f0f0f0;
     /* color: white; */
   }
+  .mypo .waitInvokeTxtPre{
+    color:brown;
+    font-weight:700;
+    /* padding-left:10px; */
+    text-align: left;
+  }
+  .mypo .waitInvokeTxtTail{
+    color:#000000;padding-left:5px;
+  }
   .mypo .invIntro {
     display: -webkit-flex;
     display: -webkit-box;
     display: flex;
     -webkit-justify-content: space-around;
     justify-content: space-around;
-}
+  }
   .mypo .top{
     font-size: 20px;
     font-weight:600;
