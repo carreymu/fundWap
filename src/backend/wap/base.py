@@ -95,6 +95,7 @@ async def exec_sql(sql_info: dict, fmt: str = "json", **sql_params):
         sql_params['topx'] = DEFAULT_TOP_X
     if 'status' not in sql_params.keys():
         sql_params['status'] = DEFAULT_STATUS
+    # print(db.sql.format(**sql_params))
     df = await db.read_sql(db.sql.format(**sql_params), columns=columns)
     # import pdb;pdb.set_trace()
     return df_to_fmt(df, fmt)

@@ -1,4 +1,5 @@
 <template>
+<div>
   <div class="bestChoiceDetail">
     <div class="topImg">
       <div class="topTxt"><span style="color:brown">{{mainData.joinNums}}</span>人已购买</div>
@@ -78,15 +79,15 @@
     <div v-for="(item,index) in fTypeList" :key="index">
         <div class="funds"><span :style="'color:'+item.color">■</span> {{item.name}}</div>
         <div class="fundsDetail">
-        <flexbox orient="vertical">
-          <flexbox-item v-for="(it,idx) in item.fundsList" :key="idx">
-            <div style="float: left;">{{it.fundName}}({{it.fundCode}})</div>
-            <div style="float: right;">{{it.percent}}%</div>
-          </flexbox-item>
-        </flexbox>
+          <flexbox orient="vertical">
+            <flexbox-item v-for="(it,idx) in item.fundsList" :key="idx">
+              <div style="float: left;">{{it.fundName}}({{it.fundCode}})</div>
+              <div style="float: right;">{{it.percent}}%</div>
+            </flexbox-item>
+          </flexbox>
         </div>
     </div>
-    <div>
+    <div style="height:440px;text-align:left;">
       <v-chart
         :data="data"
         :padding="[20, 'auto']">
@@ -96,7 +97,33 @@
         <v-legend :options="legendOptions" />
         <v-guide type="html" :options="htmlOptions" />
       </v-chart>
+      <div class="linefd"></div>
+        <div>
+          <div class="tradeFont" style="float: left;">交易规则及费用</div>
+          <div class="tradeFont" style="float: right;"> > &nbsp;</div>
+        </div>
+      <div class="linefd"></div>
+      <div class="tradeCon">交易规则交易规则交易规则交易规则交易规则交易规则交易规则交易规则交易规则交易规则交易规则交易规
+        则交易规则交易规则交易规则交易规则交易规则交易规则交易规则交易规则交易规则</div>
     </div>
+
+  </div>
+
+  <div class="bstfooterFix">
+    <flexbox style="text-align:center;padding-top:3px;">
+      <flexbox-item >
+        <x-button type="default"><div style="font-size:13px;">定投</div>
+        <div style="font-size:10px;">500元起投(费率1折起)</div>
+        </x-button>
+        </flexbox-item>
+      <flexbox-item >
+        <x-button type="warn" link="/fundWap/targetOrder/2">
+        <div style="font-size:13px">申购</div><div style="font-size:10px;">1000元起(费率1折起)</div>
+        </x-button>
+      </flexbox-item>
+    </flexbox>
+  </div>
+
   </div>
 </template>
 <script>
@@ -184,9 +211,6 @@
     background-color:rgb(240, 240, 240);
     line-height: 22px;
    }
-  // .bestChoiceDetail .fundsDetails{
-  //   border-bottom:1px solid rgb(230, 230, 230);
-  //  }
    
   .bestChoiceDetail .timeBtn {
     margin: 0 5px 0 5px;
@@ -199,5 +223,30 @@
       color: rgba(206, 60, 57, 0.6)!important;
       background-color: transparent;
     }
+  }
+
+  .bstfooterFix{
+    font-size:12px;
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:111px;
+    background:#F7F7F7;
+    // padding:0 3px 0 3px;
+  }
+  .linefd{
+    clear:both;
+    border-bottom:1px solid rgb(230, 230, 230);
+  }
+  .tradeFont{
+    background-color: white;
+    padding:5px 0 5px 5px;
+    color:#666;
+  }
+  .tradeCon{
+    
+    font-size: 10px;
+    padding:5px 0 5px 5px;
+    color:#666;
   }
 </style>

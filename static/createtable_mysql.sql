@@ -14,10 +14,10 @@ INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(
 CREATE TABLE system_info(sid int(5) primary key AUTO_INCREMENT,scid int,title varchar(50),subtitle varchar(100),content varchar(1000), url varchar(200), img_url varchar(200),status int, inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(1,'banner1','','', 'http://www.baidu.com','http://www.baidu.com/img/PCpad_bc531b595cf1e37c3907d14b69e3a2dd.png',1);
 INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(1,'banner2','','', 'http://www.baidu.com','https://img.zcool.cn/community/01678c574d4f4832f875a429c5c234.jpg@1280w_1l_2o_100sh.jpg',1);
-INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(2,'了解"大目标"','','了解了解了解', 'http://www.baidu.com','../../../static/img/intro.png',1);
-INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(2,'投资理念','','投资理念投资理念', 'http://www.baidu.com','../../../static/img/think.png',1);
-INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(2,'安全可靠','','安全可靠安全可靠', 'http://www.baidu.com','../../../static/img/safe.png',1);
-INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(3,'公司介绍','','公司介绍公司介绍', 'systemInfoDetail','',1);
+INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(2,'了解"大目标"','<h2>了解"大目标"</h2>','了解了解了解', 'http://www.baidu.com','../../../static/img/intro.png',1);
+INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(2,'投资理念','<p>“大目标”系列基金组合</p><p>志在为您提供省心的投资服务<br/>帮您获得实实在在的收益</p>','投资理念投资理念', 'http://www.baidu.com','../../../static/img/think.png',1);
+INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(2,'安全可靠','<h2>保证资金安全</h2>','安全可靠安全可靠', 'http://www.baidu.com','../../../static/img/safe.png',1);
+INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(3,'公司介绍','<h2>公司介绍</h2>','公司介绍公司介绍', 'systemInfoDetail/','',1);
 INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(5,'两分钟了解大目标','','[大目标]必读<br/>[大目标]实力<br/>[大目标]怎么投', '','',1);
 INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(5,'我对你们很失望,你们忘记了大目标的宗旨','','你们忘记了大目标的宗旨', '','',1);
 INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(5,'听说低于2800就送服务卡?','','送服务卡送服务卡送服务卡', '','',1);
@@ -187,8 +187,8 @@ INSERT INTO targets(name,target_ratio,run_status,run_days,pre_run,apply_starttim
 INSERT INTO targets(name,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime) values('1999',0.08,5,50,'5-12','2020-03-16 10:10:00','2020-03-23 10:10:00');
 
 /*--30.target and its funds*/
-CREATE TABLE target_funds(tf_id int(11) primary key AUTO_INCREMENT,fid int,amt float,last_returns float,inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO target_funds(fid,amt,last_returns) values(1,2478.63,4.51);
+CREATE TABLE target_funds(tf_id int(11) primary key AUTO_INCREMENT,tid int,fid int,amt float,last_returns float,inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO target_funds(tid,fid,amt,last_returns) values(1,1,1,2478.63,4.51); -- big target 2006,景顺长城沪深300增强,
 
 /*--31.history of daily target news,status:0-show,1-not show*/
 CREATE TABLE target_history(th_id int(11) primary key AUTO_INCREMENT,tid int,title varchar(50), content varchar(1000),status int,inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;

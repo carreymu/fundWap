@@ -17,13 +17,14 @@ config = dict(
         "dependence": exec_base.DBInfo,
     },
     system_info_by_id={
-        "name": "get system information by id",
+        "name": "get system information by sid",
         "author": "root",
         "event_default": {},
         "sql_info": {
             "engine_name": "db_fund_wap_mysql",
             "sql": {
-                "mysql": "select sid,title,content,url,img_url from system_info where id={id} and status={status}",
+                "mysql": "select sid,title,subtitle,content,url,img_url,inserttime from system_info "
+                         "where sid={sid} and status={status}",
                 "sqlite3": "",
                 "mssql": ""
             }

@@ -24,7 +24,7 @@ npm run build --report
 ./src/backend
 
 # install dependencies
-pip install ![requirements.txt](https://github.com/carreymu/fundWap/tree/master/src/backend/requirements.txt)
+pip install [requirements.txt](https://github.com/carreymu/fundWap/tree/master/src/backend/requirements.txt)
 
 # start project
 cd /src/backend
@@ -34,12 +34,12 @@ python main.py
 
 ## Pages
 - [ ] 大目标 -- Doing
-- [ ] 大目标 - Banner -- todo(python)
-- [ ] 大目标 - 申购 -- todo
-- [ ] 大目标 - 查看往期 -- todo
-- [ ] 大目标 - 投资面对面 - List -- todo
-- [ ] 大目标 - 投资面对面 - News -- todo(python)
-- [ ] 大目标 - 公司介绍 -- todo(python)
+- [x] 大目标 - Banner -- Done
+- [ ] 大目标 - 申购 -- todo(python)
+- [ ] 大目标 - 查看往期 -- doing(python)
+- [x] 大目标 - 投资面对面 - List -- Done
+- [x] 大目标 - 投资面对面 - News -- Done
+- [x] 大目标 - 公司介绍 -- Done
 
 - [ ] 鸡腿计划 -- Doing
 - [ ] 鸡腿计划 - 设置提醒 -- todo
@@ -47,13 +47,11 @@ python main.py
 - [ ] 鸡腿计划 - 投资面对面 - 更多内容 -- todo(python)
 
 - [ ] 优选 -- Doing
-- [ ] 优选 - 测评s -- todo
+- [ ] 优选 - 测评 -- todo
 - [ ] 优选 - 活期理财 -- todo(python)
 
 - [ ] 我的 -- todo(python)
 - [ ] 我的 - Tabs -- todo
-
-- [ ] 国际化 - todo
 
 - [ ] 监控 - todo
 

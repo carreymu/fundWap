@@ -1,4 +1,4 @@
-import {Flexbox, FlexboxItem,XImg} from 'vux'
+// import {Flexbox, FlexboxItem,XImg} from 'vux'
 export default{
     mounted() {
         this.$store.commit('UPDATE_PAGE_TITLE', '详情');
@@ -17,14 +17,14 @@ export default{
                 //alter and back to pre page
             }
             let dt = {
-                "req": {"id":id},
+                "req": {"sid":id},
                 "event_names": ["system_info_by_id"]
             }
             this.$api.fetchPost('/sanic-api', dt).then(r=>{
                 if(r.system_info_by_id.length > 0){
                     this.mainData = r.system_info_by_id[0]
                 }
-                console.log(this.mainData)
+                // console.log(this.mainData)
             }).catch(err=>{
                 console.log(err)
             })
@@ -32,6 +32,6 @@ export default{
     },
 
     components:{
-        Flexbox, FlexboxItem,XImg
+        // Flexbox, FlexboxItem,XImg
     }
 }

@@ -1,22 +1,22 @@
 <template>
   <div class="targetIndex">
-    <div class="load" v-if="itemList.length==0">
+    <div class="load" v-if="newsList.length==0">
         <spinner type="lines"/>
     </div>
-    <div v-else class="newsItem" v-for="(item, index) in itemList" :key="index">
-      <router-link :to="'/fundWap/targetDetail/'+item.id">
+    <div v-else class="newsItem" v-for="(item, index) in newsList" :key="index">
+      <router-link :to="'/fundWap/targetDetail/'+item.nid">
       <flexbox>
         <flexbox-item>
           <flexbox orient="vertical">
             <flexbox-item>
                 <flexbox orient="vertical">
                   <flexbox-item class="title">{{item.title}}</flexbox-item>                  
-                  <flexbox-item style="font-size:12px;">02-10 18:10</flexbox-item>
+                  <flexbox-item style="font-size:12px;">{{item.inserttime}}</flexbox-item>
                 </flexbox>
             </flexbox-item>          
           </flexbox>
         </flexbox-item>
-        <flexbox-item class="postListImg"><img :src="item.icon"></flexbox-item>      
+        <flexbox-item class="postListImg"><img :src="item.img_url"></flexbox-item>      
       </flexbox>      
       </router-link>
       <div class="line"></div>    

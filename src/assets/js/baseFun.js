@@ -32,13 +32,13 @@ const baseAjax=function(param){
       headers: defaultParam.headers,
       changeOrigin: true
     }).then(function(response) {
-        console.log(response)
+        // console.log(response)
         stores.commit('UPDATE_LOADING', false)
         
       param.success(response.data)
     }).catch(function(erro){
         stores.commit('UPDATE_LOADING', false)
-        console.log(erro)    
+        // console.log(erro)    
     })
 }
 

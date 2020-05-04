@@ -11,7 +11,7 @@ export default{
     },
     methods:{
         loadDetail(){
-            let id=this.$route.params.targetId;
+            let id=this.$route.params.tId;
             if(id == undefined){
                 //alter and back to pre page
             }
