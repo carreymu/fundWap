@@ -1,103 +1,55 @@
 <template>
   <div class="mine">
     <flexbox class="rectAgl">
-      <flexbox-item :span="0.2"><img src="../../../assets/images/biz/avastar.jpg" style="height:40px;width:40px;-webkit-border-radius: 50%;border-radius: 50%;overflow: hidden;"/></flexbox-item>
-      <flexbox-item >鉄の卵</flexbox-item> 
-      <flexbox-item :span="0.55">
+      <flexbox-item :span="0.15">
+        <router-link :to="'/fundWap/myAccount'"><img src="../../../assets/images/biz/avastar.jpg" class="avastar"/></router-link>
+      </flexbox-item>
+      <flexbox-item ><router-link :to="'/fundWap/myAccount'" style="color:white;"> 总有刁民想害朕</router-link></flexbox-item> 
+      <flexbox-item :span="0.45">
+        <router-link :to="'/fundWap/myPositions'">
         <flexbox orient="vertical">
           <flexbox-item class="aimRmk">总资产: <span class="aimRmkMoney">2,100,200.00</span></flexbox-item>
           <flexbox-item class="aimRmk">最新收益: <span class="aimRmkMoney">+8,000.01</span></flexbox-item>
         </flexbox>
+        </router-link>
       </flexbox-item>
     </flexbox>
+    
     <group>
-      <div v-for="(item, index) in menuList" :key="index" class="msg">
-        <cell :title="item.title" is-link>
-          <div>
-            <router-link :to="'/fundWap/targetDetail/1'">
-              <div v-if="item.newsCnt!=undefined & item.newsCnt>0">
-                <span>新消息 &nbsp;</span>
-                <badge :text="item.newsCnt"></badge></div>
-              <div v-else>
-                <span>查看消息 &nbsp;</span>
-              </div>
-            </router-link>
-          </div>
+      <div v-for="(it,idx) in menuList" :key="idx">
+        <cell class="msg" :title="it.title" v-if="it.isWithTail" :link="{path:it.url+'/'+it.id}">
+          <badge v-if="it.newsCnt!=undefined & it.newsCnt>0" :text="it.newsCnt"></badge>
         </cell>
+        <cell class="msg" :title="it.title" v-else-if="it.url.length>0" :link="it.url">
+          <badge v-if="it.newsCnt!=undefined & it.newsCnt>0" :text="it.newsCnt"></badge>
+        </cell>
+        <span   v-else >
+        <cell class="msg" is-link :title="it.title" :border-intent="false" :arrow-direction="showContent004 ? 'down' : ''"
+        @click.native="showContent004 = !showContent004"></cell>
+        <actionsheet v-model="showContent004" :menus="menus1" :close-on-clicking-mask="false" show-cancel
+        @on-click-mask="console('on click mask')"></actionsheet>
+        </span>
       </div>
     </group>
     </div>
 </template>
 <script>
-  import { Tabbar, TabbarItem ,XHeader,XButton,XImg, Flexbox, FlexboxItem, Group, Badge, Cell } from 'vux'
-  export default {
-    mounted() {
-      this.menuLists();
-      this.loadLatest(); 
-      this.$store.commit('UPDATE_PAGE_TITLE', '我的理财') 
-    },
-    data(){
-      return {
-        itemList:'',
-        menuList:'',
-      }
-    },
-    methods:{
-      loadLatest(){
-        let self=this;
-        this.baseAjax({
-          url:'../../../static/basicData/latestNews.json',
-          showLoading:true,
-          success:function(data){
-              console.log(data)
-              self.itemList=data.returnObject
-          }
-        })
-      },
-      menuLists(){
-        let self=this;
-        this.baseAjax({
-          url:'../../../static/basicData/mineMenu.json',
-          showLoading:true,
-          success:function(data){
-              console.log(data)
-              self.menuList=data.returnObject
-              // console.log(self.urlList)
-          }
-        })
-      },
-    },
-    components: {
-      Tabbar,
-      TabbarItem,
-      XHeader,
-      XButton,
-      XImg,
-      Flexbox,
-      FlexboxItem,
-      Group,
-      Cell,
-      Badge
-    }
-  }
+  import mine  from  "./js/mine.js"
+  export default mine
 </script>
 
 <style>
-  a:link {
-  color:dimgray;
-  text-decoration: none;
-  }
-  a:visited {
-  color:dimgray;
-  text-decoration: none;
-  }
-  a:hover {
-  color:dimgray;
-  }
   .mine{
     color:dimgray;
     font-size:12px;
     margin:10px 10px 0px 10px;
+  }
+  .mine .avastar{
+    height:40px;
+    width:40px;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    overflow: hidden;
   }
   .mine .rectAgl{
     height: 70px; 
@@ -105,27 +57,34 @@
     background: rgb(216, 80, 80);
     border-width: 10px;
     border-style: solid;
-    border-radius: 15px;
+    border-radius: 5px;
     border-color:  rgb(216, 80, 80);
     color: white;
+  }
+
+  .slide {
+    padding: 0 20px;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height .5s cubic-bezier(0, 1, 0, 1) -.1s;
+  }
+  .animate {
+    max-height: 9999px;
+    transition-timing-function: cubic-bezier(0.5, 0, 1, 0);
+    transition-delay: 0s;
   }
 
   .mine .rectAgl .aimRmk{
     /* text-align:center; */
     margin-left:5px;
+    color:white;
   }
   .mine .rectAgl .aimRmkMoney{
     font-weight: 800;
     font-size: 14px;
   }
-  /* .mine .rectAgl .aimRmkSub{
-    font-size: 14px;
-    text-align: center;
-  } */
-
   .mine .msg{
     font-size: 12px;
-    margin-left:5px;
   }  
 
 

@@ -34,13 +34,9 @@
           </flexbox-item>
           <flexbox-item :span="1/20"></flexbox-item> 
         </flexbox>
-        <br/>
-        <flexbox>
-          <flexbox-item :span="1/4"></flexbox-item> 
-          <flexbox-item><x-button type="warn">立即申购</x-button></flexbox-item>
-          <flexbox-item :span="1/4"></flexbox-item> 
-        </flexbox>
-        <div style="height:30px;"></div>
+        <div style="text-align:center; padding:15px 50px;">
+          <x-button type="warn" :link="'/fundWap/targetFundDetail/1'">立即申购</x-button>
+        </div>
       </div>
       <br>
       <flexbox>
@@ -58,7 +54,7 @@
           <flexbox-item :span="1/200"></flexbox-item> 
       </flexbox>
       <flexbox>
-          <flexbox-item class="past"><router-link :to="'/fundWap/targetList'">已达标41期查,看往期 >>></router-link></flexbox-item> 
+          <flexbox-item class="past"><router-link :to="'/fundWap/targetList'">已达标41期查,看往期 ></router-link></flexbox-item> 
       </flexbox>
       <div class="line"></div>      
       <flexbox class="newsTitle">        
@@ -87,16 +83,11 @@
       <div class="line"></div>    
     </div>
     <div class="footer">
-      <div>
-      <flexbox class="invIntro">
-        <flexbox-item><router-link :to="'/fundWap/targetDetail/1'"><img src="../../../assets/images/intro.png"/><br/>了解[大目标]</router-link></flexbox-item>
-        <!-- <flexbox-item></flexbox-item> -->
-        <flexbox-item ><router-link :to="'/fundWap/targetDetail/1'"><img src="../../../assets/images/think.png"/><div style="padding-left:10px;">投资理念</div></router-link></flexbox-item>
-        <!-- <flexbox-item></flexbox-item> -->
-        <flexbox-item><router-link :to="'/fundWap/targetDetail/1'"><img src="../../../assets/images/safe.png"/><div style="padding-left:15px;">安全可靠</div></router-link></flexbox-item>
-      </flexbox>
+      <div class="invIntro">
+        <div><router-link :to="'/fundWap/targetDetail/1'"><img src="../../../assets/images/intro.png"/><br/>了解[大目标]</router-link></div>
+        <div><router-link :to="'/fundWap/targetDetail/1'"><img src="../../../assets/images/think.png"/><div style="padding-left:10px;">投资理念</div></router-link></div>
+        <div><router-link :to="'/fundWap/targetDetail/1'"><img src="../../../assets/images/safe.png"/><div style="padding-left:15px;">安全可靠</div></router-link></div>
       </div>
-      <br>
       <div class="foot">
         <div class="rect">
           <div style="font-size:large;">两分钟全面了解大目标</div>
@@ -108,9 +99,12 @@
       </div>
 
 
-      <flexbox>
+      <!-- <flexbox>
         <flexbox-item class="botTxt">快乐投资新体验 | <router-link :to="'/fundWap/targetDetail/1'"><span style="color:#DD5858;">公司介绍</span></router-link></flexbox-item>
-      </flexbox>
+      </flexbox> -->
+      <div class="botTxt">
+        快乐投资新体验 | <router-link :to="'/fundWap/targetDetail/1'"><span style="color:#DD5858;">公司介绍</span></router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -250,9 +244,15 @@ a:hover {
 }
 
 .targetIndex .footer .invIntro{
-  white-space:nowrap;
+  display:-webkit-flex;
+  display: flex;
+  justify-content: space-around;
 }
-
+.targetIndex .footer .botTxt{
+  text-align:center;
+  color:#999999;
+  padding:20px;
+}
 .targetIndex .footer .botTxt{
   text-align:center;
   color:#999999;
