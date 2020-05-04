@@ -247,9 +247,9 @@ a:hover {
   font-size: 12px;
 }
 .targetIndex .footer .invIntro{
-    display:-webkit-flex;
-    display: flex;
-    justify-content: space-around;
+  display:-webkit-flex;
+  display: flex;
+  justify-content: space-around;
 }
 .targetIndex .footer .botTxt{
   text-align:center;
