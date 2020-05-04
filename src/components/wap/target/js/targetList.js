@@ -1,4 +1,4 @@
-import {Flexbox, FlexboxItem, VChart, VLine, VTooltip, VGuide, VScale, Spinner,
+import {VChart, VLine, VTooltip, VGuide, VScale, Spinner,VAxis,
     Tab, TabItem, Swiper, SwiperItem, dateFormat, numberRandom } from 'vux'
 // import formatStr from '@/utils/utstring'
 export default {
@@ -243,16 +243,25 @@ export default {
             // console.log('on item click:', this.autoHeight)
             console.log('on item click:', this.selectIdx)
         },
+        lblFx(text) {
+            return {
+                text: dateFormat(text,'MM-DD')
+            }
+        },
+        lblFy(text) {
+            return {
+                text: text / 100 + '%'
+            }
+        },
     },
     components: {
-        Flexbox,
-        FlexboxItem,
         Spinner,
         VChart,
         VLine,
         Tab, TabItem, Swiper, SwiperItem ,
         VTooltip,
         VGuide,
-        VScale
+        VScale,
+        VAxis
     }
 }

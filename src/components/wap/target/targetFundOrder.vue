@@ -35,7 +35,7 @@
       <div>
         <tab :line-width=1 active-color='#db5361' v-model="index">
           <tab-item class="vux-center" v-for="(item, index) in list2" 
-          :key="index" @on-item-click="onItemClick">{{item}}</tab-item>
+          :key="index" @on-item-click="onItemClick" style="font-size:12px;">{{item}}</tab-item>
         </tab>
         <swiper v-model="index" height="260px" :show-dots="false">
           <swiper-item v-for="(item, index) in list2" :key="index">
@@ -44,7 +44,8 @@
                 <!-- <v-scale x :tick-count="4" /> -->
                 <v-scale x field="date" :tick-count="4"/>
                 <v-scale y field="value" :min="0" :tick-count="5" />
-                <v-axis y :label="labelFormat"/>
+                <v-axis y :label="lblFy"/>
+                <v-axis x :label="lblFx"/>
                 <v-tooltip :show-item-marker="false" show-x-value />
                 <v-line :colors="lineColor" shape="smooth"/>
               </v-chart>

@@ -3,49 +3,47 @@
     <div class="load" v-if="itemList.length==0">
         <spinner type="lines"/>
     </div>
-    <div v-else class="hisList">
-      <flexbox orient="vertical">
-        <flexbox-item>
-            <v-chart :data="chartData.data">
-              <v-scale x field="date" type="timeCat" mask="MM-DD" />
-              <v-scale y field="value" :tick-count="5" :max="300" />
-              <v-line series-field="stock_name" :colors="chartData.color"/>
-              <div v-for="(item, index) in chartData.tag" :key="index">
-                <v-guide type="html" :options="item" />
-              </div>
-              <!-- <v-tooltip :show-item-marker="false" show-x-value /> -->
-              <!-- <v-tooltip show-crosshairs show-value-in-legend/> -->
-            </v-chart>
-        </flexbox-item>
-        <flexbox-item ><div class="summary">{{summary}}</div>
-        <div class="line"></div></flexbox-item>
-        <flexbox-item>
-            <tab :line-width=2 active-color='#db5361' v-model="selectIdx">
-              <tab-item @on-item-click="onItemClick" v-for="(item, index) in targetListData" :key="index">{{item.name}}</tab-item>
-            </tab>
-            <swiper v-model="selectIdx" :show-dots="false" :style="{height:autoHeight[selectIdx]+'px'}" :aspect-ratio="1.3">
-              <swiper-item v-for="(item, ind) in targetListData" :key="ind">
-                <div v-for="(it,idx) in item.items" :key="idx">
-                  <router-link :to="'/fundWap/targetFundDetail/'+it.tid">
-                    <flexbox orient="vertical">
-                      <flexbox-item class="tabTop">
-                        <div style="float: left;">大目标{{it.name}}</div>
-                        <div style="float: right;">{{it.run_status}}</div>
-                      </flexbox-item>
-                      <flexbox-item style="color:dimgrey;">
-                        <div style="float: left;">目标收益<span style="color:#db5361;">+{{it.target_ratio}}%</span></div>
-                        <div style="float: right;">{{it.run_statu}}{{it.run_days}}天</div>
-                      </flexbox-item>
-                    </flexbox>
-                  </router-link>
-                  <div class="line"></div>
+    <div v-else>
+      <div> 
+        <v-chart :data="chartData.data">
+          <v-scale x field="date" type="timeCat" mask="MM-DD"/>
+          <v-scale y field="value" :tick-count="5" />
+          <v-axis y :label="lblFy"/>
+          <v-line series-field="stock_name" :colors="chartData.color"/>
+          <div v-for="(item, index) in chartData.tag" :key="index">
+            <v-guide type="html" :options="item" />
+          </div>
+          <!-- <v-tooltip :show-item-marker="false" show-x-value /> -->
+          <!-- <v-tooltip show-crosshairs show-value-in-legend/> -->
+        </v-chart>
+      </div>
+      <div class="hisList">
+        <div class="summary">{{summary}}</div>
+        <div class="line"></div>
+        <tab :line-width=2 active-color='#db5361' v-model="selectIdx">
+          <tab-item @on-item-click="onItemClick"  style="font-size:12px;" v-for="(item, index) in targetListData" :key="index">{{item.name}}</tab-item>
+        </tab>
+        <swiper v-model="selectIdx" :show-dots="false" :style="{height:autoHeight[selectIdx]+'px'}" :aspect-ratio="1.3">
+          <swiper-item v-for="(item, ind) in targetListData" :key="ind">
+            <div v-for="(it,idx) in item.items" :key="idx">
+              <router-link :to="'/fundWap/targetFundDetail/'+it.tid">
+                <div class="tabTop">
+                  <div style="float: left;">大目标{{it.name}}</div>
+                  <div style="float: right;">{{it.run_status}}</div>
                 </div>
-              </swiper-item>
-            </swiper>
-        </flexbox-item> 
-      </flexbox>
-      
+                <div style="color:dimgrey;clear:both;">
+                  <div style="float: left;">目标收益<span style="color:#db5361;">+{{it.target_ratio}}%</span></div>
+                  <div style="float: right;">{{it.run_statu}}{{it.run_days}}天</div>
+                </div>
+              </router-link>
+              <div class="line"></div>
+            </div>
+          </swiper-item>
+        </swiper>
+      </div>
     </div>
+
+
   </div>
 </template>
 <script>

@@ -1,9 +1,8 @@
-import { Tabbar, TabbarItem ,XHeader,XButton, VAxis, Spinner, Tab, TabItem,Swiper,SwiperItem,VChart, VTooltip, VLine, VScale} from 'vux'
+import { Tabbar, TabbarItem ,XHeader,XButton, VAxis, Spinner, dateFormat, Tab, TabItem,Swiper,SwiperItem,VChart, VTooltip, VLine, VScale} from 'vux'
 export default {
   mounted() {
     this.$store.commit('UPDATE_PAGE_TITLE', '基金档案') 
     this.loadDataOneYear()
-    // this.loadFundDetail()
   },
   data(){
     return {
@@ -19,28 +18,12 @@ export default {
     }
   },
   methods:{
-    // loadFundDetail(){
-    //   let cid=this.$route.params.cid;
-    //   this.baseAjax({
-    //     url:'../../../static/basicData/choiceDetail.json',
-    //     showLoading:true,
-    //     // params:{cid:cid},
-    //     success:function(data){
-    //       // var myDate = new Date();
-    //       // let mytime=myDate.toLocaleTimeString();
-    //       // console.log(mytime)
-    //       let arr=[]
-    //       let ro = data.returnObject[0].funds
-    //       for(var i=0;i<ro.length;i++){
-    //         arr=arr.concat(ro[i].fundsList)
-    //       }
-    //       this.fundList=arr
-    //       console.log(this.fundList.length)
-    //       console.log(this.fundList)
-    //     }
-    //   })
-    // },
-    labelFormat(text) {
+    lblFx(text) {
+      return {
+        text: dateFormat(text,'MM-DD')
+      }
+    },
+    lblFy(text) {
       return {
         text: text + '%'
       }
