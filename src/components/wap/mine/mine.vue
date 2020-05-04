@@ -1,11 +1,11 @@
 <template>
   <div class="mine">
     <flexbox class="rectAgl">
-      <flexbox-item :span="0.2">
+      <flexbox-item :span="0.15">
         <router-link :to="'/fundWap/myAccount'"><img src="../../../assets/images/biz/avastar.jpg" class="avastar"/></router-link>
       </flexbox-item>
-      <flexbox-item ><router-link :to="'/fundWap/myAccount'" style="color:white;"> 鉄の卵</router-link></flexbox-item> 
-      <flexbox-item :span="0.55">
+      <flexbox-item ><router-link :to="'/fundWap/myAccount'" style="color:white;"> 总有刁民想害朕</router-link></flexbox-item> 
+      <flexbox-item :span="0.45">
         <router-link :to="'/fundWap/myPositions'">
         <flexbox orient="vertical">
           <flexbox-item class="aimRmk">总资产: <span class="aimRmkMoney">2,100,200.00</span></flexbox-item>

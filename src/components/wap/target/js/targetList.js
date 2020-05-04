@@ -1,5 +1,5 @@
 import {Flexbox, FlexboxItem, VChart, VLine, VTooltip, VGuide, VScale, Spinner,
-    Tab, TabItem, Swiper, SwiperItem, dateFormat } from 'vux'
+    Tab, TabItem, Swiper, SwiperItem, dateFormat, numberRandom } from 'vux'
 // import formatStr from '@/utils/utstring'
 export default {
     mounted() {
@@ -173,7 +173,8 @@ export default {
                         fstDone.push({date:cd[i].date,stock_name:"大目标达标",value:cd[i].value})
                     }
                     if(cd[i].stock_name=='大目标收益率'){
-                        if(this.randomNum(0,300)>threshold){
+                        // console.log(numberRandom(0,300))
+                        if(numberRandom(0,300)>threshold){
                             this.chartData.tag.push({position:[cd[i].date, cd[i].value],html:ht})
                             leftStocks.push({date:cd[i].date,stock_name:"大目标达标",value:cd[i].value})
                         }
@@ -242,19 +243,6 @@ export default {
             // console.log('on item click:', this.autoHeight)
             console.log('on item click:', this.selectIdx)
         },
-        randomNum(minNum,maxNum){ 
-            switch(arguments.length){ 
-                case 1: 
-                    return parseInt(Math.random()*minNum+1,10); 
-                break; 
-                case 2: 
-                    return parseInt(Math.random()*(maxNum-minNum+1)+minNum,10); 
-                break; 
-                    default: 
-                        return 0; 
-                    break; 
-            } 
-        }
     },
     components: {
         Flexbox,

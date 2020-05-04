@@ -20,7 +20,7 @@
         <flexbox-item ><div class="summary">{{summary}}</div>
         <div class="line"></div></flexbox-item>
         <flexbox-item>
-            <tab :line-width=2 active-color='#FF0033' v-model="selectIdx">
+            <tab :line-width=2 active-color='#db5361' v-model="selectIdx">
               <tab-item @on-item-click="onItemClick" v-for="(item, index) in targetListData" :key="index">{{item.name}}</tab-item>
             </tab>
             <swiper v-model="selectIdx" :show-dots="false" :style="{height:autoHeight[selectIdx]+'px'}" :aspect-ratio="1.3">
@@ -33,7 +33,7 @@
                         <div style="float: right;">{{it.run_status}}</div>
                       </flexbox-item>
                       <flexbox-item style="color:dimgrey;">
-                        <div style="float: left;">目标收益<span style="color:red;">+{{it.target_ratio}}%</span></div>
+                        <div style="float: left;">目标收益<span style="color:#db5361;">+{{it.target_ratio}}%</span></div>
                         <div style="float: right;">{{it.run_statu}}{{it.run_days}}天</div>
                       </flexbox-item>
                     </flexbox>

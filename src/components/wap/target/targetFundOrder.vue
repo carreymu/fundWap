@@ -1,7 +1,7 @@
 <template>
 <div>
   <div class="tarfndord">
-    <div v-if="fundList.length==0">
+    <div style="text-align:center;" v-if="list2.length==0">
       <spinner type="lines"/>
     </div>
     <div v-else>
@@ -32,54 +32,38 @@
       </div>
       <div class="linefd"></div>
 
-
-
-
-      <flexbox orient="vertical">
-        <flexbox-item>
-        <div class ="waitInvokeTxtPre">||| <span class="waitInvokeTxtTail">本期基金</span></div>
-        <div style="float:right;"><router-link :to="'/fundWap/'+sysInfo.url+'/'+sysInfo.sid"><x-icon type="ios-help-outline" size="15"></x-icon></router-link></div>
-        </flexbox-item>
-      </flexbox>
-
-      <div style="padding:5px 0;">
-        <div v-for="(item,idx) in fundList" :key="idx"  style="clear:both;padding:5px 5px;color:#666;">
-            <div style="float: left;">{{item.fundName}}({{item.fundCode}})</div>
-            <div style="float: right;" v-if="idx==0"><router-link :to="'/fundWap/targetFundOrder/'+item.id">{{item.percent}}&nbsp; ></router-link></div>
-            <div style="float: right;" v-else><router-link :to="'/fundWap/targetStockOrder/'+item.id">{{item.percent}}%&nbsp; ></router-link></div>
-        </div>
-      </div>
-
-      <div class="line"></div>
-      <div style="padding-top:5px;">
-          <div class ="waitInvokeTxtPre">||| <span class="waitInvokeTxtTail">服务内容</span></div>
-          <div style="clear:both;margin-left:10px;line-height:25px;text-align:left;" v-html="serviceInfo"></div>
-      </div>
-          
       <div>
-        <group>
-          <cell class="cell" :border-intent="false" :title="'操作与费率说明'" :link="{path:'/fundWap/systemInfoDetail/8'}" ></cell>
-          <cell class="cell" :border-intent="false" :title="'大目标服务费说明'" :link="{path:'/fundWap/systemInfoDetail/8'}" ></cell>
-          <cell class="cell" :border-intent="false" :title="'大目标是什么'" :link="{path:'/fundWap/systemInfoDetail/8'}"></cell>
-          <cell class="cell" :border-intent="false" :title="'常见问题'" :link="{path:'/fundWap/systemInfoDetail/8'}" ></cell>
-        </group>
+        <tab :line-width=1 active-color='#db5361' v-model="index">
+          <tab-item class="vux-center" v-for="(item, index) in list2" 
+          :key="index" @on-item-click="onItemClick">{{item}}</tab-item>
+        </tab>
+        <swiper v-model="index" height="260px" :show-dots="false">
+          <swiper-item v-for="(item, index) in list2" :key="index">
+            <div class="tabSwiper">&nbsp;&nbsp;&nbsp;七日年化
+              <v-chart :data="data" prevent-default>
+                <!-- <v-scale x :tick-count="4" /> -->
+                <v-scale x field="date" :tick-count="4"/>
+                <v-scale y field="value" :min="0" :tick-count="5" />
+                <v-axis y :label="labelFormat"/>
+                <v-tooltip :show-item-marker="false" show-x-value />
+                <v-line :colors="lineColor" shape="smooth"/>
+              </v-chart>
+            </div>
+          </swiper-item>
+        </swiper>
       </div>
 
-      <div class="linefd"></div>
-      <div class="footer">
-        <div class="bot">基金历史收益部代表其未来表现.<br/>【市场有风险,投资需谨慎。】</div>
+      <div style="height:95px;">
+        <div class="linefd"></div>
+          <div style="float:left;padding:10px;"> 基金信息</div>
+          <div style="float:right;padding:10px;"> > </div>
+        <div class="linefd"></div>
       </div>
 
     </div>
   </div>
-  <div class="footerFix">
-    <div class="linefd"></div>
-      <div class="timeFont">申购倒计时: {{hour}}小时{{min}}分{{second}}秒</div>
-    <div class="linefd"></div>
-    <flexbox style="text-align:center;">
-      <flexbox-item ><div style="font-weight:bold;">3000元起投 0申购费</div><div style="font-size:10px;">需使用服务卡</div></flexbox-item>
-      <flexbox-item ><x-button type="warn" link="/fundWap/targetOrder/2">申购</x-button></flexbox-item>
-    </flexbox>
+  <div class="tarfooterFix">
+    <x-button type="warn"  link="/fundWap/targetOrder/2">申购</x-button>
   </div>
 </div>
 </template>
@@ -122,81 +106,19 @@
     width:80px;
     padding-top:5px;
   }
-  .tarfndord .cell{
-    font-size:13px;
-  }
- .tarfndord .topcontext{
-    /* padding: 15px 40px 20px 40px; */
-    display:-webkit-flex;
-    display: flex;
-    justify-content: space-around;
-  }
   .linefd{
     border-bottom:1px solid rgb(230, 230, 230);
   }
-  .tarfndord .line{
-    border-bottom:1px solid rgb(230, 230, 230);
-    padding:10px 0 10px 0;
-  }  
-  .tarfndord .aimRate{
-    font-size: x-large;
-    text-align: center;
-  }
-  .tarfndord .aimLast{
-    font-size: x-large;
-    text-align: center;
-  }
-  .tarfndord .aimRmk{
-    text-align:center;
-    color:#999999;
-    margin-left:5px;
-  }  
-  .tarfndord .aimRmkSub{
-    text-align:center;
-    color:#999999;
-    font-size:11px;
-    margin-bottom: 10px;
-  }
-
-  .tarfndord .waitInvokeTxtPre{
-    color:brown;
-    font-weight:900;
-    font-size: 15px;
-    padding-left:5px;
-    float: left;
-    clear: both;
-  }
-  .tarfndord .waitInvokeTxtTail{
-    color:#000000;padding-left:5px;
-  }
-  .tarfndord .footer{
-    text-align:center;
-    color:#666;
-  }
-  .tarfndord .footer .bot{
-    font-size:11px;
-    padding:10px 0 80px 0;
-  }  
-  .footerFix{
+  .tarfooterFix{
     font-size:12px;
     position:absolute;
     bottom:0;
     width:100%;
-    height:130px;
+    height:97px;
     background:#F7F7F7;
   }
-  .footerFix .timeFont{
-    padding:5px 0;
-    text-align:center;
-  }
-  .tarfndord .slopingside{
-    height:0px;
-    width:45px;
-    margin-top: 30px;
-    border-top: 0.1px solid rgb(128, 126, 126);
-    transform:rotate(125deg);
-    -o-transform:rotate(125deg);
-    -moz-transform:rotate(125deg);
-    -webkit-transform:rotate(125deg);
+  .tarfndord .tabSwiper {
+    background-color: #fff;
+    height: 260px;
   }
 </style>
