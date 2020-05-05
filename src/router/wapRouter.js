@@ -14,6 +14,7 @@ import bestChoice from '@/components/wap/bestChoice/bestChoice'
 import bestChoiceDetail from '@/components/wap/bestChoice/bestChoiceDetail'
 import bestChoiceSingle from '@/components/wap/bestChoice/bestChoiceSingle'
 import systemInfoDetail from '@/components/wap/systemInfo/systemInfoDetail'
+import systemInfo from '@/components/wap/systemInfo/systemInfo'
 import mine from '@/components/wap/mine/mine'
 import myCards from '@/components/wap/mine/myCards'
 import myNews from '@/components/wap/mine/myNews'
@@ -34,101 +35,106 @@ const router = new VueRouter({
 	      name: 'fundWap',
 	      component: fundWap,
 	      children:[
-	      	   {
-			      path: '/fundWap/targetIndex',
-			      name: 'targetIndex',
-			      component: targetIndex
-			    },
-			    {
-			      path: '/fundWap/targetDetail/:targetId',
-			      name: 'targetDetail',
-			      component: targetDetail
+			{
+				path: '/fundWap/targetIndex',
+				name: 'targetIndex',
+				component: targetIndex
+			},
+			{
+				path: '/fundWap/targetDetail/:targetId',
+				name: 'targetDetail',
+				component: targetDetail
+			},
+			{
+				path: '/fundWap/targetFundDetail/:tid',
+				name: 'targetFundDetail',
+				component: targetFundDetail
+			},
+			{
+				path: '/fundWap/targetList',
+				name: 'targetList',
+				component: targetList
+			},
+			{
+				path: '/fundWap/targetNews/:ncid',
+				name: 'targetNews',
+				component: targetNews
+			},
+			{
+				path: '/fundWap/targetOrder/:tid',
+				name: 'targetOrder',
+				component: targetOrder
+			},
+			{
+				path: '/fundWap/targetFundOrder/:tid',
+				name: 'targetFundOrder',
+				component: targetFundOrder
+			},
+			{
+				path: '/fundWap/targetStockOrder/:tid',
+				name: 'targetStockOrder',
+				component: targetStockOrder
+			},
+			{
+				path: '/fundWap/drumstick',
+				name: 'drumstick',
+				component: drumstick
+			},
+			{
+				path: '/fundWap/myCards',
+				name: 'myCards',
+				component: myCards
+			},
+			{
+				path: '/fundWap/myNews',
+				name: 'myNews',
+				component: myNews
+			},
+			{
+				path: '/fundWap/myPositions',
+				name: 'myPositions',
+				component: myPositions
+			},
+			{
+				path: '/fundWap/myTargets',
+				name: 'myTargets',
+				component: myTargets
+			},
+			{
+				path: '/fundWap/myAccount',
+				name: 'myAccount',
+				component: myAccount
+			},
+			{
+				path: '/fundWap/mine',
+				name: 'mine',
+				component: mine
 				},
-				{
-					path: '/fundWap/targetFundDetail/:tid',
-					name: 'targetFundDetail',
-					component: targetFundDetail
-				},
-				{
-					path: '/fundWap/targetList',
-					name: 'targetList',
-					component: targetList
-				},
-				{
-					path: '/fundWap/targetNews/:ncid',
-					name: 'targetNews',
-					component: targetNews
-				},
-				{
-					path: '/fundWap/targetOrder/:tid',
-					name: 'targetOrder',
-					component: targetOrder
-				},
-				{
-					path: '/fundWap/targetFundOrder/:tid',
-					name: 'targetFundOrder',
-					component: targetFundOrder
-				},
-				{
-					path: '/fundWap/targetStockOrder/:tid',
-					name: 'targetStockOrder',
-					component: targetStockOrder
-				},
-			    {
-			      path: '/fundWap/drumstick',
-			      name: 'drumstick',
-			      component: drumstick
-			    },
-			    {
-			      path: '/fundWap/myCards',
-			      name: 'myCards',
-			      component: myCards
-				},
-			    {
-					path: '/fundWap/myNews',
-					name: 'myNews',
-					component: myNews
-				},
-			    {
-					path: '/fundWap/myPositions',
-					name: 'myPositions',
-					component: myPositions
-				},
-			    {
-					path: '/fundWap/myTargets',
-					name: 'myTargets',
-					component: myTargets
-				},
-			    {
-					path: '/fundWap/myAccount',
-					name: 'myAccount',
-					component: myAccount
-				},
-			    {
-					path: '/fundWap/mine',
-					name: 'mine',
-					component: mine
-				  },
-			    {
-			      path: '/fundWap/bestChoice',
-			      name: 'bestChoice',
-			      component: bestChoice
-			    },
-			    {
-			      path: '/fundWap/bestChoiceDetail/:choiceId',
-			      name: 'bestChoiceDetail',
-			      component: bestChoiceDetail
-				},
-			    {
-					path: '/fundWap/bestChoiceSingle/:choiceId',
-					name: 'bestChoiceSingle',
-					component: bestChoiceSingle
-				  },
-			    {
-			      path: '/fundWap/systemInfoDetail/:sysId',
-			      name: 'systemInfoDetail',
-			      component: systemInfoDetail
-			    }
+			{
+				path: '/fundWap/bestChoice',
+				name: 'bestChoice',
+				component: bestChoice
+			},
+			{
+				path: '/fundWap/bestChoiceDetail/:choiceId',
+				name: 'bestChoiceDetail',
+				component: bestChoiceDetail
+			},
+			{
+				path: '/fundWap/bestChoiceSingle/:choiceId',
+				name: 'bestChoiceSingle',
+				component: bestChoiceSingle
+			},
+			{
+				path: '/fundWap/systemInfoDetail',
+				name: 'systemInfoDetail',
+				component: systemInfoDetail
+			},
+			{
+				path: '/fundWap/systemInfo',
+				name: 'systemInfo',
+				component: systemInfo
+			}
 	       ]
 	    },
 	     

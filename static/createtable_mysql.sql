@@ -6,9 +6,11 @@ INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(
 INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(0,'invest introduction','','','invest introduction in target index',1);
 INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(0,'company introduction','','','company introduction',1);
 INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(0,'about targets','','','about targets in target index',1);
-INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(4,'大目标指南','<div style="font-size:large;">两分钟全面了解大目标</div><div>我的大目标投资安全吗?</div>','/fundwap/systemInfoDetail/','此货是循环链接,页面展示subtitle',1);
-INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(4,'问大目标团队','<div style="font-size:15px;">小朋友你是不是有很多疑问?</div>','systemInfoDetail/','此货是循环链接,页面展示subtitle',1);
+INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(4,'大目标指南','<div style="font-size:large;">两分钟全面了解大目标</div><div>我的大目标投资安全吗?</div>','/fundwap/systemInfo','此货是循环链接,页面展示subtitle',1);
+INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(4,'问大目标团队','<div style="font-size:15px;">小朋友你是不是有很多疑问?</div>','/fundwap/systemInfo','此货是循环链接,页面展示subtitle',1);
 INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(0,'about drumstick','','','about drumstick',1);
+INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(0,'drumstick system info','','','drumstick system info',1);
+INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(0,'notification','','','notification',1);
 
 /*--1.system info like 1-banners/2-company introduction/3-about target/4-introduction of selecting funds etc.*/
 -- drop table system_info;
@@ -25,6 +27,8 @@ INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(5
 INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(7,'了解"鸡腿计划"','<h2>了解"鸡腿计划"</h2>','了解了解了解', 'systemInfoDetail','../../../static/img/intro.png',1);
 INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(7,'鸡腿理念','<p>“鸡腿计划”系列基金组合</p><p>志在为您提供省心的投资服务<br/>帮您获得实实在在的收益</p>','投鸡腿计划资理念投资理念', 'systemInfoDetail','../../../static/img/think.png',1);
 INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(7,'鸡腿可靠','<h2>保证鸡腿计划资金安全</h2>','鸡腿计划安全可靠安全可靠', 'systemInfoDetail','../../../static/img/safe.png',1);
+INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(8,'鸡腿计划系统信息','{"ratio":"+14.8","time":"3~5","remark":"-- 根据策略信号不定期开车,平均每月1～2次 --"}','长期投资,不能傻傻持有。鸡腿计划，帮你做资产轮动中抓住投资机会,在风险积聚时自动调仓,锁定收益。', '#','../../../static/img/stas.png',1);
+INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(9,'首页顶部通知','','各位豆豆,因HK佛诞日、劳动节港股休市,劳动节A股休市暂停港股通服务。', '','',1);
 
 /*--2.news type*/
 CREATE TABLE news_category(nc_id int(11) primary key AUTO_INCREMENT,category_name varchar(50),status int) ENGINE=InnoDB DEFAULT CHARSET=utf8;

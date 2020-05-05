@@ -1,17 +1,18 @@
-import {Flexbox, FlexboxItem, AlertModule, dateFormat,Spinner} from 'vux'
+import {Spinner,AlertModule } from 'vux'
 export default{
     mounted() {
-        this.$store.commit('UPDATE_PAGE_TITLE', '详情');
+        this.$store.commit('UPDATE_PAGE_TITLE', this.$route.query.title);
         this.loadDetail();	      
     },
     data(){
         return {
-        mainData:{}
+            arrData:[],
+            arrTitle:''
         }
     },
     methods:{
         loadDetail(){
-            let id=this.$route.params.targetId;
+            let id=this.$route.query.scid;
             if(id == undefined){
                 AlertModule.show({
                     title: '亲~~',
@@ -21,14 +22,11 @@ export default{
                     }
                 })
             }
-            let dt = {
-                "req": {"nid":id},
-                "event_names": ["news_info_by_nid"]
-            }
+            let dt = {"req": {"scids":id},"event_names": ["system_info"]}
             this.$api.fetchPost('/sanic-api', dt).then(r=>{
-                if(r.news_info_by_nid.length > 0){
-                    this.mainData = r.news_info_by_nid[0]
-                    this.mainData.inserttime = dateFormat(this.mainData.inserttime,'MM-DD HH:mm:ss')
+                if(r.system_info!=undefined && r.system_info.length > 0){
+                    this.arrTitle = this.$route.query.title
+                    this.arrData = r.system_info
                 }else{
                     AlertModule.show({
                         title: '不好意思~~',
@@ -46,6 +44,6 @@ export default{
     },
 
     components:{
-        Flexbox, FlexboxItem,AlertModule,Spinner
+        Spinner,AlertModule 
     }
 }

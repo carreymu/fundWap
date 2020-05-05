@@ -8,8 +8,8 @@ config = dict(
         "sql_info": {
             "engine_name": "db_fund_wap_mysql",
             "sql": {
-                "mysql": "select sid,scid,title,subtitle,content,url,img_url from system_info where scid in({scids}) "
-                         "and status={status}",
+                "mysql": "select sid,scid,title,subtitle,content,url,img_url,status from system_info where "
+                         "scid in({scids}) and status={status}",
                 "sqlite3": "",
                 "mssql": ""
             }

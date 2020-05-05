@@ -84,7 +84,7 @@
       </div>
       <div class="foot">
         <div class="rect" v-for="(item, index) in sysCatList" :key="index">
-          <router-link :to="item.url+'/'+item.scid"><div v-html="item.subtitle"></div></router-link>
+          <router-link :to="{path:item.url,query:{scid:item.scid,title:item.title}}"><div v-html="item.subtitle"></div></router-link>
         </div>
       </div>
       <div class="botTxt">

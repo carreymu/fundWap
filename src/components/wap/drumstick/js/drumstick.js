@@ -54,19 +54,15 @@ export default {
           }
         }
         if(r.system_info.length > 0){
-          this.drumstickList = r.system_info.filter(x=>x.scid==this.sysFlag.drumstick)
+          this.drumstickList = r.system_info.filter(x=>x.scid==this.sysFlag.drumstick && x.status == 1)
           let sy = r.system_info.filter(x=>x.scid==this.sysFlag.drumstickInfo)
-          
           if(sy.length > 0){
             this.drumstickInfo = sy[0]
             let sbt =eval("(" + this.drumstickInfo.subtitle + ")")
             this.drumstickInfoSub = sbt
           }
-          // console.log(this.drumstickInfoSub)
         }
-        
         // console.log(this.news2List)
-        
       }).catch(err=>{
         console.log(err)
       })
