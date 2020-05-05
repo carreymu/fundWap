@@ -56,12 +56,17 @@ npm run build --report
 |   |-- components                   // 组件
 |       |-- wap                      // 主要代码
 |           |-- bestChoice           // 优选
-|           |-- bestChoice           // 优选
+|           |-- systemInfo           // 系统信息
 |           |-- drumstick            // 鸡腿计划
 |           |-- mine                 // 我的
 |           |-- target               // 大目标
 |   |-- router                       // 路由
 |       |-- wapRouter.js
+|   |-- utils                       // 工具类
+|       |-- utdate.js
+|       |-- utmap.js
+|       |-- utrandom.js
+|       |-- utstring.js
 |   |-- store                       // Vue 路由
 |       |-- actions.js
 |       |-- data.js
