@@ -2,6 +2,13 @@
 
 > A Vue.js and Sanic project
 
+# Notice
+```
+# if you care about fontend only, please checkout static_data
+git checkout static_data
+
+```
+
 ## frontend Build Setup
 
 ``` bash
@@ -33,27 +40,33 @@ python main.py
 ```
 
 ## Pages
-- [ ] 大目标 -- Doing
-- [x] 大目标 - Banner -- Done
-- [ ] 大目标 - 申购 -- todo(python)
-- [ ] 大目标 - 查看往期 -- doing(python)
-- [x] 大目标 - 投资面对面 - List -- Done
-- [x] 大目标 - 投资面对面 - News -- Done
-- [x] 大目标 - 公司介绍 -- Done
+- [ ] 大目标 
+- [ ] 大目标 - 申购
+- [x] 大目标 - 查看往期
+- [x] 大目标 - 投资面对面
+- [x] 大目标 - 了解大目标
+- [x] 大目标 - 公司介绍 
+    
+- [x] 鸡腿计划
+- [x] 鸡腿计划 - 设置提醒
+- [x] 鸡腿计划 - 鸡腿计划动态
+- [x] 鸡腿计划 - 更多内容
+    
+- [ ] 优选
+- [ ] 优选 - 测评
+- [ ] 优选 - 活期理财(类)
+- [ ] 优选 - 全明星计划(类)
+    
+- [ ] 我的
+- [ ] 我的 - 个人设置
+- [ ] 我的 - 消息列表
+- [ ] 我的 - 大目标服务卡
+- [ ] 我的 - 新人指南
+- [x] 我的 - 推荐给好友
+- [ ] 我的 - 我的持仓
+- [ ] 我的 - 我的大目标
 
-- [ ] 鸡腿计划 -- Doing
-- [ ] 鸡腿计划 - 设置提醒 -- todo
-- [ ] 鸡腿计划 - List -- todo
-- [ ] 鸡腿计划 - 投资面对面 - 更多内容 -- todo(python)
-
-- [ ] 优选 -- Doing
-- [ ] 优选 - 测评 -- todo
-- [ ] 优选 - 活期理财 -- todo(python)
-
-- [ ] 我的 -- todo(python)
-- [ ] 我的 - Tabs -- todo
-
-- [ ] 监控 - todo
+- [ ] 监控
 
 ## Document Structure ##
 ```
@@ -65,12 +78,17 @@ python main.py
 |   |-- components                   // 组件
 |       |-- wap                      // 主要代码
 |           |-- bestChoice           // 优选
-|           |-- bestChoice           // 优选
+|           |-- systemInfo           // 系统信息
 |           |-- drumstick            // 鸡腿计划
 |           |-- mine                 // 我的
 |           |-- target               // 大目标
 |   |-- router                       // 路由
 |       |-- wapRouter.js
+|   |-- utils                       // 工具类
+|       |-- utdate.js
+|       |-- utmap.js
+|       |-- utrandom.js
+|       |-- utstring.js
 |   |-- store                       // Vue 路由
 |       |-- actions.js
 |       |-- data.js
