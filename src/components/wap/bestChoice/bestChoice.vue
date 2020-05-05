@@ -6,13 +6,12 @@
       <flexbox-item><x-button :gradients="['#A644FF', '#FC5BC4']" @click.native="fundMemo"><div class="top3UpTxt">基金记账</div><div class="top3DownTxt">基金记账我在行</div></x-button></flexbox-item>
       <flexbox-item><x-button :gradients="['#1D62F0', '#19D5FD']" @click.native="fundInvest"><div class="top3UpTxt">定投助手</div><div class="top3DownTxt">定投好坏我清楚</div></x-button></flexbox-item>
     </flexbox>
-    <br/>
     <div class="fundItems">
-    	<div class="itemBox" v-for="(item,index) in fundList" :key="index">
+    	<div class="itemBox" v-for="(it,idx) in fundList" :key="idx">
     		 <flexbox orient="vertical">
-           <flexbox-item class ="waitInvokeTxtPre">|| <span class="waitInvokeTxtTail">{{item.categoryName}}</span></flexbox-item> 
+           <flexbox-item class ="waitInvokeTxtPre">|| <span class="waitInvokeTxtTail">{{it.categoryName}}</span></flexbox-item> 
           <flexbox-item>
-            <div class="itemContent">
+            <div class="itemContent" v-for="(item,index) in it.funds" :key="index">
                 <flexbox orient="vertical">
                   <flexbox-item class="cont">
                     <div class="name">{{item.name}}</div>
@@ -20,11 +19,17 @@
                     <div class="rate">+{{item.rateProfit}}%</div>
                     <p class="itemDesc">{{item.annEarnLong}}</p>
                   </flexbox-item>
-                  <flexbox-item class="cont">
-                    <router-link :to="'/fundWap/bestChoiceDetail/'+item.id" v-show="item.status==1" >
-                        <x-button style="width:70%;" type="warn"  action-type='button' >{{item.minInvest}}起投</x-button>
-                    </router-link>
-                    <x-button style="width:70%;" type="default" v-show="item.status==2"  action-type='button' >已售完</x-button>
+                  <flexbox-item>
+                    <div v-if="item.isSingle">
+                      <x-button class="redBtn" type="warn" action-type='button' 
+                      :link="'/fundWap/bestChoiceSingle/'+item.fid" v-show="item.status==1">{{item.minInvest}}起投</x-button>
+                      <x-button class="redBtn" type="default" v-show="item.status==2" action-type='button' >已售完</x-button>
+                    </div>
+                    <div v-else>
+                      <x-button class="redBtn" type="warn" action-type='button' 
+                      :link="'/fundWap/bestChoiceDetail/'+item.fid" v-show="item.status==1">{{item.minInvest}}起投</x-button>
+                      <x-button class="redBtn" type="default" v-show="item.status==2" action-type='button' >已售完</x-button>
+                    </div>
                   </flexbox-item>
                 </flexbox>
               </div>
@@ -57,7 +62,7 @@
     font-size: 14px;
   }
   .bestChoice .top3DownTxt{
-    font-size:12px;
+    font-size:10px;
     white-space:nowrap;
   }
 
@@ -81,6 +86,9 @@
   .bestChoice .itemContent{
     border-bottom:1px solid #eee;
     padding: 10px 0;
+   }
+   .bestChoice .redBtn{
+     width:70%;height:40px;font-size:15px;
    }
   .bestChoice .itemContent .cont{
     text-align: center;

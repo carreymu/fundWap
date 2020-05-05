@@ -18,44 +18,33 @@ npm run build
 npm run build --report
 ```
 
-## backend Build Setup
-```bash
-# path
-./src/backend
-
-# install dependencies
-pip install ![requirements.txt](https://github.com/carreymu/fundWap/tree/master/src/backend/requirements.txt)
-
-# start project
-cd /src/backend
-python main.py
-
-```
 
 ## Pages
-- [ ] 大目标 -- Doing
-- [ ] 大目标 - Banner -- todo(python)
-- [ ] 大目标 - 申购 -- todo
-- [ ] 大目标 - 查看往期 -- todo
-- [ ] 大目标 - 投资面对面 - List -- todo
-- [ ] 大目标 - 投资面对面 - News -- todo(python)
-- [ ] 大目标 - 公司介绍 -- todo(python)
+- [x] 大目标 
+- [x] 大目标 - 申购
+- [x] 大目标 - 查看往期
+- [x] 大目标 - 投资面对面
+- [x] 大目标 - 了解大目标
+- [x] 大目标 - 公司介绍 
 
-- [ ] 鸡腿计划 -- Doing
-- [ ] 鸡腿计划 - 设置提醒 -- todo
-- [ ] 鸡腿计划 - List -- todo
-- [ ] 鸡腿计划 - 投资面对面 - 更多内容 -- todo(python)
+- [x] 鸡腿计划
+- [x] 鸡腿计划 - 设置提醒
+- [x] 鸡腿计划 - 鸡腿计划动态
+- [x] 鸡腿计划 - 更多内容
 
-- [ ] 优选 -- Doing
-- [ ] 优选 - 测评s -- todo
-- [ ] 优选 - 活期理财 -- todo(python)
+- [x] 优选
+- [x] 优选 - 测评
+- [x] 优选 - 活期理财(类)
+- [x] 优选 - 全明星计划(类)
 
-- [ ] 我的 -- todo(python)
-- [ ] 我的 - Tabs -- todo
-
-- [ ] 国际化 - todo
-
-- [ ] 监控 - todo
+- [x] 我的
+- [x] 我的 - 个人设置
+- [x] 我的 - 消息列表
+- [x] 我的 - 大目标服务卡
+- [x] 我的 - 新人指南
+- [x] 我的 - 推荐给好友
+- [x] 我的 - 我的持仓
+- [x] 我的 - 我的大目标
 
 ## Document Structure ##
 ```
