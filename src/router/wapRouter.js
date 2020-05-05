@@ -55,7 +55,7 @@ const router = new VueRouter({
 					component: targetList
 				},
 				{
-					path: '/fundWap/targetNews',
+					path: '/fundWap/targetNews/:ncid',
 					name: 'targetNews',
 					component: targetNews
 				},

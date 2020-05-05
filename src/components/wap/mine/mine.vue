@@ -23,7 +23,7 @@
         <cell class="msg" :title="it.title" v-else-if="it.url.length>0" :link="it.url">
           <badge v-if="it.newsCnt!=undefined & it.newsCnt>0" :text="it.newsCnt"></badge>
         </cell>
-        <span   v-else >
+        <span v-else >
         <cell class="msg" is-link :title="it.title" :border-intent="false" :arrow-direction="showContent004 ? 'down' : ''"
         @click.native="showContent004 = !showContent004"></cell>
         <actionsheet v-model="showContent004" :menus="menus1" :close-on-clicking-mask="false" show-cancel

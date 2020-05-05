@@ -47,12 +47,12 @@
       </div>
       <div class="rectAgl">
         <div class="invIntro">
-          <div style="padding-top:20px;">
+          <div style="padding-top:12px;">
             <div>04月30日+2.88%</div>
             <div style="color:#d95353;">+9500.02</div>
           </div>
           <div class="linkRight"></div>
-          <div style="padding-top:20px;">
+          <div style="padding-top:12px;">
             <div>持仓盈亏 -2.88%</div>
             <div style="color:green;">-10035.54</div>
           </div>
@@ -66,12 +66,12 @@
       </div>
       <div class="rectAgl">
         <div class="invIntro">
-          <div style="padding-top:20px;">
+          <div style="padding-top:12px;">
             <div>04月30日+2.88%</div>
             <div style="color:#d95353;">+9500.02</div>
           </div>
           <div class="linkRight"></div>
-          <div style="padding-top:20px;">
+          <div style="padding-top:12px;">
             <div>持仓盈亏 -2.88%</div>
             <div style="color:green;">-10035.54</div>
           </div>
@@ -85,12 +85,12 @@
       </div>
       <div class="rectAgl">
         <div class="invIntro">
-          <div style="padding-top:20px;">
+          <div style="padding-top:12px;">
             <div>04月30日+2.88%</div>
             <div style="color:#d95353;">+9500.02</div>
           </div>
           <div class="linkRight"></div>
-          <div style="padding-top:20px;">
+          <div style="padding-top:12px;">
             <div>持仓盈亏 -2.88%</div>
             <div style="color:green;">-10035.54</div>
           </div>
@@ -99,7 +99,7 @@
     </div>
 
     <div class="line"/>
-    <div style="padding-top:15px;">
+    <div style="padding-top:12px;">
       <div style="float: left;">已清仓</div>
       <div style="float: right;">赎回明细 ></div>
     </div>
@@ -128,7 +128,7 @@
     padding:0px 0 10px 0;
   }
   .mypo .rectAgl{
-    height: 70px; 
+    height: 60px; 
     width: auto;
     background: #f0f0f0;
     border-width: 1px;
