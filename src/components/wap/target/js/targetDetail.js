@@ -1,37 +1,23 @@
-import {Flexbox, FlexboxItem, XImg, dateFormat,Spinner} from 'vux'
+import {Flexbox, FlexboxItem,Spinner,dateFormat} from 'vux'
 export default{
     mounted() {
-        this.$store.commit('UPDATE_PAGE_TITLE', '详情');
-        this.loadDetail();	      
+        this.$store.commit('UPDATE_PAGE_TITLE', '详情');     
     },
     data(){
         return {
-        mainData:{}
+            mainData:{
+                "nid": 1,
+                "title": "[大目标]2周年运行情况和当前市场分析",
+                "img_url": "https://image.talicai.com/MGZjODAyMzU3Zjc4MjA4Y2RkZDQ0MWYzYTU3ZGQ3Mzc-sq200",
+                "content": "我是分析君...哈哈哈",
+                "inserttime": dateFormat(1586726041000,'MM-DD HH:mm:ss')
+                }
         }
     },
-    methods:{
-        loadDetail(){
-            let id=this.$route.params.targetId;
-            if(id == undefined){
-                //alter and back to pre page
-            }
-            let dt = {
-                "req": {"nid":id},
-                "event_names": ["news_info_by_nid"]
-            }
-            this.$api.fetchPost('/sanic-api', dt).then(r=>{
-                if(r.news_info_by_nid.length > 0){
-                    this.mainData = r.news_info_by_nid[0]
-                    this.mainData.inserttime = dateFormat(this.mainData.inserttime,'MM-DD HH:mm:ss')
-                }
-                console.log(this.mainData)
-            }).catch(err=>{
-                console.log(err)
-            })
-        }	
+    methods:{	
     },
 
     components:{
-        Flexbox, FlexboxItem,XImg,Spinner
+        Flexbox, FlexboxItem,Spinner
     }
 }

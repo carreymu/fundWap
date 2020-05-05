@@ -6,12 +6,14 @@ import targetList from '@/components/wap/target/targetList'
 import targetDetail from '@/components/wap/target/targetDetail'
 import targetFundDetail from '@/components/wap/target/targetFundDetail'
 import targetNews from '@/components/wap/target/targetNews'
+import targetOrder from '@/components/wap/target/targetOrder'
 import targetFundOrder from '@/components/wap/target/targetFundOrder'
 import targetStockOrder from '@/components/wap/target/targetStockOrder'
 import drumstick from '@/components/wap/drumstick/drumstick'
 import bestChoice from '@/components/wap/bestChoice/bestChoice'
 import bestChoiceDetail from '@/components/wap/bestChoice/bestChoiceDetail'
 import bestChoiceSingle from '@/components/wap/bestChoice/bestChoiceSingle'
+import systemInfoDetail from '@/components/wap/systemInfo/systemInfoDetail'
 import mine from '@/components/wap/mine/mine'
 import myCards from '@/components/wap/mine/myCards'
 import myNews from '@/components/wap/mine/myNews'
@@ -56,6 +58,11 @@ const router = new VueRouter({
 					path: '/fundWap/targetNews',
 					name: 'targetNews',
 					component: targetNews
+				},
+				{
+					path: '/fundWap/targetOrder/:tid',
+					name: 'targetOrder',
+					component: targetOrder
 				},
 				{
 					path: '/fundWap/targetFundOrder/:tid',
@@ -117,6 +124,11 @@ const router = new VueRouter({
 					name: 'bestChoiceSingle',
 					component: bestChoiceSingle
 				},
+			    {
+					path: '/fundWap/systemInfoDetail/:sysId',
+					name: 'systemInfoDetail',
+					component: systemInfoDetail
+				}
 	       ]
 	    },
 	     

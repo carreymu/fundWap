@@ -8,8 +8,7 @@
 				<p class="title">{{mainData.title}}</p>
 				<div class="sDate">
 					<flexbox>
-				      <flexbox-item>发布时间：{{mainData.publishDate}}</flexbox-item>
-				      <flexbox-item>浏览量：{{mainData.viewer}}</flexbox-item>
+				      <flexbox-item>发布时间：{{mainData.inserttime}}</flexbox-item>
 					</flexbox>
 				</div>
 			</div>

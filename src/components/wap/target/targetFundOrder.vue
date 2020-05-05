@@ -108,6 +108,7 @@
     padding-top:5px;
   }
   .linefd{
+    clear:both;
     border-bottom:1px solid rgb(230, 230, 230);
   }
   .tarfooterFix{

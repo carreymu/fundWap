@@ -24,6 +24,16 @@
 		"comment":""
 	},
 	{
+		"id": 2,
+		"title": "● 我的大目标卡",
+		"startTime": "9:00",
+		"endTime": "10:00",
+		"isWithTail": false,
+		"newsCnt": 0,
+		"url":"/fundWap/myCards",
+		"comment":""
+	},
+	{
 		"id": 3,
 		"title": "◕ 推荐好友",
 		"startTime": "9:00",

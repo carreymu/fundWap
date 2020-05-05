@@ -5,6 +5,11 @@ import FastClick from 'fastclick'
 import VueRouter from 'vue-router'
 import App from './App'
 
+import api from './service/index.js'
+import stringFormat from './utils/utstring'
+import utdate from './utils/utdate.js'
+import utrandom from './utils/utrandom.js'
+
 import router from'./router/wapRouter.js'      //---------自定义的路由文件
 import Base from './assets/js/baseFun.js'         //---------自定义的公共函数和公共请求方法
 import stores from './store/store'                //---------自定义的全局变量
@@ -30,6 +35,12 @@ Vue.config.productionTip = false
 //注册全局函数和全局常量
 Vue.prototype.baseFun=Base.baseFun;  //-----注册到vue的全局，方便各个组件和页面js调用公共函数
 Vue.prototype.baseAjax=Base.baseAjax;//-----将封装的ajax请求函数注册到vue的全局 
+
+Vue.prototype.$api = api
+Vue.prototype.$stringFormat = stringFormat
+Vue.prototype.$utdate = utdate
+Vue.prototype.$utrandom = utrandom
+
 
 Vue.use(VueRouter)
 
