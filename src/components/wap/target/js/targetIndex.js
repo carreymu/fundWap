@@ -45,7 +45,7 @@ export default {
             this.companyInfo = comp[0]
           }
           let no = r.system_info.filter(x=>x.scid==this.sysFlag.notification && x.status == 1)
-          console.log(no)
+          // console.log(no)
           if(no.length > 0){
             this.notification = no[0].content
           }

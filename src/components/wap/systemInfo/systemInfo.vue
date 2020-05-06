@@ -9,7 +9,7 @@
             <div class="titleBot2">比较生猛 / 不易达成 / 落袋为安 / 省心</div>
             <div class="titleCont">[武林秘籍]看了再说</div>
             <div v-for="(it,idx) in arrData" :key="idx">
-                <div class="linkList"><router-link :to="{path:'/fundWap/systemInfoDetail',query:{sysId:it.sid}}"> {{idx+1}}. {{it.title}}</router-link></div>
+                <div class="linkList"><router-link :to="{path:'/fundWap/systemInfoDetail',query:{sid:it.sid}}"> {{idx+1}}. {{it.title}}</router-link></div>
             </div>
         </div>
 	</div>

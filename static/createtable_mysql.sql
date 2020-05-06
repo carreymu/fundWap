@@ -1,7 +1,7 @@
 /*----------------------------------news and system info.--biz:news and AD and system info.--------------------------------------------------
 --0.system info category.*/
 -- drop table system_info_category;
-CREATE TABLE system_info_category(scid int(5) primary key AUTO_INCREMENT,pscid int(5),title varchar(50),subtitle varchar(100),url varchar(100),remark varchar(500),status int, inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE system_info_category(scid int(5) primary key AUTO_INCREMENT,pscid int(5),title varchar(50),subtitle varchar(500),url varchar(100),remark varchar(500),status int, inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(0,'banner','','','banner in target index',1);
 INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(0,'invest introduction','','','invest introduction in target index',1);
 INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(0,'company introduction','','','company introduction',1);
@@ -11,6 +11,7 @@ INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(
 INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(0,'about drumstick','','','about drumstick',1);
 INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(0,'drumstick system info','','','drumstick system info',1);
 INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(0,'notification','','','notification',1);
+INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(0,'target service content','- 持续升级的基金投资策略<br/> - 智能调仓止盈的全程服务<br/> - 每季度"大目标面对面投资"<br/> - 每月"市场行情报告" <br/> - 每日"大目标投资播报" <br/> - 大目标专属服务群','','content',1);
 
 /*--1.system info like 1-banners/2-company introduction/3-about target/4-introduction of selecting funds etc.*/
 -- drop table system_info;
@@ -28,7 +29,11 @@ INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(7
 INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(7,'鸡腿理念','<p>“鸡腿计划”系列基金组合</p><p>志在为您提供省心的投资服务<br/>帮您获得实实在在的收益</p>','投鸡腿计划资理念投资理念', 'systemInfoDetail','../../../static/img/think.png',1);
 INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(7,'鸡腿可靠','<h2>保证鸡腿计划资金安全</h2>','鸡腿计划安全可靠安全可靠', 'systemInfoDetail','../../../static/img/safe.png',1);
 INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(8,'鸡腿计划系统信息','{"ratio":"+14.8","time":"3~5","remark":"-- 根据策略信号不定期开车,平均每月1～2次 --"}','长期投资,不能傻傻持有。鸡腿计划，帮你做资产轮动中抓住投资机会,在风险积聚时自动调仓,锁定收益。', '#','../../../static/img/stas.png',1);
-INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(9,'首页顶部通知','','各位豆豆,因HK佛诞日、劳动节港股休市,劳动节A股休市暂停港股通服务。', '','',1);
+INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(9,'首页顶部通知','首页顶部通知','各位豆豆,因HK佛诞日、劳动节港股休市,劳动节A股休市暂停港股通服务。', '','',1);
+INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(10,'操作与费率说明','操作与费率说明','操作与费率说明HTML', '','',1);
+INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(10,'大目标服务费说明','大目标服务费说明','各大目标服务费说明HTML', '','',1);
+INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(10,'大目标是什么','大目标是什么','大目标是什么HTML', '','',1);
+INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(10,'常见问题','常见问题','各常见问题HTML', '','',1);
 
 /*--2.news type*/
 CREATE TABLE news_category(nc_id int(11) primary key AUTO_INCREMENT,category_name varchar(50),status int) ENGINE=InnoDB DEFAULT CHARSET=utf8;

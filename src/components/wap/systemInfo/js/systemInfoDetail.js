@@ -11,8 +11,7 @@ export default{
     },
     methods:{
         loadDetail(){
-            // let self=this;
-            let id=this.$route.query.sysId;
+            let id=this.$route.query.sid;
             if(id == undefined){
                 AlertModule.show({
                     title: '亲~~',

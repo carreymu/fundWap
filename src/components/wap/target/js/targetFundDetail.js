@@ -3,11 +3,12 @@ export default {
   mounted() {
     this.countTime()
     this.loadFundDetail()
+    this.loadLatest()
     this.$store.commit('UPDATE_PAGE_TITLE', '大目标2006') 
   },
   data(){
     return {
-      serviceInfo:"- 操作与费率说明<br/>- 大目标服务费说明<br/>- 大目标是什么<br/>- 常见问题<br/>",
+      serviceInfo:"",
       sysInfo:{url:'systemInfoDetail',sid:7},
       fundList:[],
       curStartTime: '2020-07-31 08:00:00',
@@ -15,6 +16,8 @@ export default {
       hour: '00',
       min: '00',
       second: '00',
+      targetRun1:{id:0,name:'2001',targetRatio:8.00,pre_run:'1-12',money:811,appStart:'20年04月20日',appEnd:'20年04月20日'},
+      sysInfos:[]
     }
   },
   methods:{
@@ -49,16 +52,47 @@ export default {
       //   }
       // })
     },
-    // loadLatest(){
-    //   this.baseAjax({
-    //     url:'../../../static/basicData/latestNews.json',
-    //     showLoading:true,
-    //     success:function(data){              
-    //         this.itemList=data.returnObject
-    //         // console.log(this.itemList)
-    //     }
-    //   })
-    // }
+    loadLatest(){
+      let scid=10
+      let dt = {
+        "req": {"scid":scid,"scids":scid,"run_status":0,"topx":1},
+        "event_names": ["system_info_category_by_scid","system_info","targets_status_topx"]
+      }
+      this.$api.fetchPost('/sanic-api', dt).then(r=>{
+          if(r.system_info_category_by_scid!=undefined && r.system_info_category_by_scid.length > 0){
+            let sub = r.system_info_category_by_scid[0].subtitle
+            if(sub.length>0){
+              this.serviceInfo = r.system_info_category_by_scid[0].subtitle
+            }
+          }
+          if(r.system_info!=undefined && r.system_info.length >0){
+            this.sysInfos=r.system_info
+          }
+          if(r.targets_status_topx!=undefined && r.targets_status_topx.length > 0){
+            let tar_1 = r.targets_status_topx[0]
+            this.targetRun1.name = tar_1.name
+            this.targetRun1.target_ratio=(tar_1.targetRatio*100).toFixed(2)
+            this.targetRun1.pre_run=tar_1.pre_run
+            this.targetRun1.id=tar_1.tid
+            this.targetRun1.money = tar_1.targetRatio*10000
+            let fmt = 'yy年MM月dd日'
+            this.targetRun1.appStart = this.$utdate.dateFmt(tar_1.apply_starttime,fmt)
+            this.targetRun1.appEnd = this.$utdate.dateFmt(tar_1.apply_endtime,fmt)
+          }
+          // else{
+          //     AlertModule.show({
+          //         title: '不好意思~~',
+          //         content: '没找到你要的信息.',
+          //         onHide () {
+          //           window.history.go(-1)
+          //         }
+          //     })
+          // }
+          // console.log(this.mainData)
+      }).catch(err=>{
+          console.log(err)
+      })
+    },
     countTime() {  
         //获取当前时间  
         var date = new Date();  
