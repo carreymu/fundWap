@@ -93,6 +93,9 @@ purchase_process,redemption_fee_remark,redemption_process,redemption_position,ag
 INSERT INTO fund_info(fc_id,fcc_id,fund_name,fund_code,fund_company,fund_assets,start_date,management_fee,custody_fee,purchase_rate_old,purchase_rate_new,purchase_rate_discount,sched_invest_remark,
 purchase_process,redemption_fee_remark,redemption_process,redemption_position,agreement,share_bonus_type,remark) values(1,2,'富国新动力A','001508','富国','130亿','2016-10-01',0.26,0.07,0.01,0.001,1,'定投规则:遇到节假日自动延迟到下一个交易日扣款',
 'T日/T+1日/T+1当日净值更新后','赎回费率如下:','赎回流程','赎回份额','景顺长城的协议',0,'富国新动力A备注'); /*-- fid=2*/
+INSERT INTO fund_info(fc_id,fcc_id,fund_name,fund_code,fund_company,fund_assets,start_date,management_fee,custody_fee,purchase_rate_old,purchase_rate_new,purchase_rate_discount,sched_invest_remark,
+purchase_process,redemption_fee_remark,redemption_process,redemption_position,agreement,share_bonus_type,remark) values(1,2,'富国新动力B','001508','富国','130亿','2016-10-01',0.26,0.07,0.01,0.001,1,'定投规则:遇到节假日自动延迟到下一个交易日扣款',
+'T日/T+1日/T+1当日净值更新后','赎回费率如下:','赎回流程','赎回份额','景顺长城的协议',0,'富国新动力A备注'); /*-- fid=2*/
 
 /*--10.fund bonus and split (bonus.type=0,split.type=1)*/
 CREATE TABLE fund_bonus_split(fbs_id int(11) primary key AUTO_INCREMENT,fid int,type int,remark varchar(30),amt float,currency varchar(5),inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -187,8 +190,21 @@ CREATE TABLE city(cid int(11) primary key AUTO_INCREMENT,pid int,name varchar(30
 CREATE TABLE user_bank(ub_id int(11) primary key AUTO_INCREMENT,uid int,card_number varchar(20),bid int,bbid int,pid int,cid int,leave_phonenumber varchar(15)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO user_bank(uid,card_number,bid,bbid,pid,cid,leave_phonenumber) values(1,'520145687956235',1,1,1,1,'18856898989');
 
+/*--29.fund template*/
+CREATE TABLE fund_template(ft_id int(11) primary key AUTO_INCREMENT,tmp_name varchar(50),remark varchar(500), inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO fund_template(tmp_name,remark) values('2006聚能环01','2019年12月前表现不错');
+INSERT INTO fund_template(tmp_name,remark) values('2006聚能环02','关注了神秘代码007');
+INSERT INTO fund_template(tmp_name,remark) values('钻石王老五01','王老五护体');
+INSERT INTO fund_template(tmp_name,remark) values('钻石王老五02','隔壁老王是谁?');
+
+/*--29.fund template and its funds*/
+CREATE TABLE fund_templates(fts_id int(11) primary key AUTO_INCREMENT,ft_id int,fid int,percentage float,remark varchar(500), inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO fund_templates(ft_id,fid,percentage,remark) values(1,1,0.41,''); -- 2006聚能环01,景顺长城沪深300增强,41%
+INSERT INTO fund_templates(ft_id,fid,percentage,remark) values(1,2,0.44,''); -- 2006聚能环01,富国新动力A,44%
+INSERT INTO fund_templates(ft_id,fid,percentage,remark) values(1,3,0.15,''); -- 2006聚能环01,富国新动力B,15%
+
 /*------------------------------------target--biz:target------------------------------------------------
---29.target run_status:-1-流标,0-申请中,1-建仓中,2-盈利中,3-浮亏中,4-已达标,5已清仓 ,0<N<4->运行中*/
+--30.target run_status:-1-流标,0-申请中,1-建仓中,2-盈利中,3-浮亏中,4-已达标,5已清仓 ,0<N<4->运行中*/
 CREATE TABLE targets(tid int(11) primary key AUTO_INCREMENT,name varchar(10),target_ratio float,apply_starttime datetime,apply_endtime datetime,run_status int,run_days int,pre_run varchar(20),inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO targets(name,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime) values('2006',0.08,0,0,'6-12','2020-04-07 10:10:00','2020-04-13 10:10:00');
 INSERT INTO targets(name,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime) values('2005',0.08,1,0,'6-12','2020-04-01 10:10:00','2020-04-06 10:10:00');
@@ -199,28 +215,28 @@ INSERT INTO targets(name,target_ratio,run_status,run_days,pre_run,apply_starttim
 INSERT INTO targets(name,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime) values('2000',0.05,4,34,'5-12','2020-03-16 10:10:00','2020-03-23 10:10:00');
 INSERT INTO targets(name,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime) values('1999',0.08,5,50,'5-12','2020-03-16 10:10:00','2020-03-23 10:10:00');
 
-/*--30.target and its funds*/
-CREATE TABLE target_funds(tf_id int(11) primary key AUTO_INCREMENT,tid int,fid int,amt float,last_returns float,inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO target_funds(tid,fid,amt,last_returns) values(1,1,1,2478.63,4.51); -- big target 2006,景顺长城沪深300增强,
+/*--31.target and its fund template*/
+CREATE TABLE target_funds(tf_id int(11) primary key AUTO_INCREMENT,tid int,fts_id int,inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO target_funds(tid,fts_id) values(1,1); -- 2006,2006聚能环01
 
-/*--31.history of daily target news,status:0-show,1-not show*/
+/*--32.history of daily target news,status:0-show,1-not show*/
 CREATE TABLE target_history(th_id int(11) primary key AUTO_INCREMENT,tid int,title varchar(50), content varchar(1000),status int,inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO target_history(tid,title,content,status) values(1,'2月23日[大目标]投资播报','萌新们吓被股市吓坏了吧.',1);
 
-/*--32.fund trade summery status:0-提前赎回,1-到期赎回*/
+/*--33.fund trade summery status:0-提前赎回,1-到期赎回*/
 CREATE TABLE target_trade_summery(tts_id int(11) primary key AUTO_INCREMENT,uid int,tid int,bc_id int,invest_amt float,bonus_amt float,status int,inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO target_trade_summery(uid,tid,bc_id,invest_amt,bonus_amt,status) values(1,1,1,3000,242.08,1);/*--Lady Gaga-2006期大目标-使用银行卡0005回款账号-投资3000-收益242.08-到期赎回*/
 
-/*--33.fund trade body status:0-赎回中,1-已到账*/
+/*--34.fund trade body status:0-赎回中,1-已到账*/
 CREATE TABLE target_trade_process(ttp_id int(11) primary key AUTO_INCREMENT,uid int,fid int,tt_id int,tid int,status int,confirm_fund_amt float,confirm_date datetime,pay_date datetime,inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO target_trade_process(uid,fid,tt_id,tid,status,confirm_fund_amt,confirm_date,pay_date) values(1,2,1,1,2,340.85,'2020-02-21','2020-02-25');/*--Lady Gaga-景顺长城沪深300增强-天弘弘运宝A-1-[大目标]1902-转换-转入237.36-转出*/
 
-/*--34.fund trade history details  status:0-申购,1-分红,2-赎回; trade_status:1-已确认*/
+/*--35.fund trade history details  status:0-申购,1-分红,2-赎回; trade_status:1-已确认*/
 CREATE TABLE target_trade_process_details1(ttpd1_id int(11) primary key AUTO_INCREMENT,uid int,fid int,tid int,bc_id int,apply_amt float,confirm_worth float,confirm_portion float,charge float, trade_status int,
 order_date datetime,pay_date datetime,confirm_date datetime,inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO target_trade_process_details1(uid,fid,tid,bc_id,apply_amt,confirm_worth,confirm_portion,charge,trade_status,order_date,pay_date,confirm_date) values(1,1,1,1,3000,1.0,3000,0.00,1,'2019-10-21 13:58:10','2019-10-21 13:58:10','2019-11-01 13:58:10');
 
-/*--35.fund trade history details  status:0-申购,1-分红,2-赎回; trade_status:1-已确认*/
+/*--36.fund trade history details  status:0-申购,1-分红,2-赎回; trade_status:1-已确认*/
 CREATE TABLE target_trade_process_details2(tthd2_id int(11) primary key AUTO_INCREMENT,uid int,tid int,fid_in int,fid_out int,worth_out float,worth_in float,fund_portion_in float,fund_portion_out float,charge_in float,charge_out float,
 trade_status_in int,trade_status_out int,inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO target_trade_process_details2(uid,tid,fid_in,fid_out,worth_out,worth_in,fund_portion_in,fund_portion_out,charge_in,charge_out,trade_status_in,trade_status_out) values(1,1,1,2,1,1.0,1.26,188.3,237.26,0.00,1,1);
