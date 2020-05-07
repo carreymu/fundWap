@@ -17,7 +17,8 @@ export default {
       sysCatList:[],
       companyInfo:{},
       targetDoneCnt:0,
-      sysFlag:{banner:1,investInfo:2,company:3,notification:9}
+      sysFlag:{banner:1,investInfo:2,company:3,notification:9},
+      top1TargetRct20d:{},//最近20天达标的一期大目标
     }
   },
   methods:{
@@ -49,7 +50,6 @@ export default {
           if(no.length > 0){
             this.notification = no[0].content
           }
-
         }
         if(r.targets_status_topx.length > 0){
           let tar_1 = r.targets_status_topx[0]
@@ -67,12 +67,21 @@ export default {
     top3Fund(){
       let dt = {
         "req": {"run_status":4,"topx":3,"nc_id":1},
-        "event_names": ["targets_status_topx","news_info_topx_by_ncid"]
+        "event_names": ["targets_status_topx","targets_status_topx_by_days","news_info_topx_by_ncid"]
       }
       this.$api.fetchPost('/sanic-api', dt).then(r=>{
-        if(r.targets_status_topx.length > 0){
-          let top3 = r.targets_status_topx.sort(function(a,b){a.run_days-b.run_days})
+        if(r.targets_status_topx_by_days!=undefined && r.targets_status_topx_by_days.length>0){
+          let top3 = r.targets_status_topx_by_days
           this.top3FundList=top3
+        }
+        if(r.targets_status_topx.length > 0){
+          let top1 = r.targets_status_topx //.sort(function(a,b){b.apply_endtime-a.apply_endtime})
+          //展示最近20天达标的一期大目标
+          let days = this.$utdate.getDaysLong(top1[0].apply_endtime,new Date().getTime())
+          if(days<=20){
+            this.top1TargetRct20d=top1[0]
+            this.top1TargetRct20d.target_ratio=(this.top1TargetRct20d.target_ratio*100).toFixed(0)
+          }
         }
         if(r.news_info_topx_by_ncid.length > 0){
           let news_list = r.news_info_topx_by_ncid

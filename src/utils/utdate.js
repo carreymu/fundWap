@@ -44,6 +44,10 @@ export function getDays(date1 , date2){
     var date2Obj = new Date(date2Str[0],(date2Str[1]-1),date2Str[2]);
     var t1 = date1Obj.getTime();
     var t2 = date2Obj.getTime();
+    return getDaysLong(t1,t2)
+}
+
+export function getDaysLong(t1, t2){
     var dateTime = 1000*60*60*24; //每一天的毫秒数
     var minusDays = Math.floor(((t2-t1)/dateTime));//计算出两个日期的天数差
     var days = Math.abs(minusDays);//取绝对值
@@ -60,4 +64,4 @@ export function addDate(date,days){
     return d.getFullYear()+'-'+m+'-'+dd; 
   }
 
-export default { dateFmt, getDays, addDate }
+export default { dateFmt, getDays, addDate, getDaysLong}

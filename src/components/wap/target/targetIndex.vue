@@ -16,32 +16,39 @@
       </swiper>
 
       <div class="rect">
-        <div style="padding:15px;">
+        <div style="padding:10px;">
           <flexbox>        
             <flexbox-item class="title">大目标{{targetRun1.name}}</flexbox-item>
             <flexbox-item class="limTime">限时申购</flexbox-item>
           </flexbox>
         </div>
         <div class="topcontext">
-          <div>          
-            <div >
-              <div class="aimRate">+{{targetRun1.target_ratio}}<span style="font-size:large;">%</span></div>
-              <div class="aimRmk">目标收益率</div>
-            </div>
+          <div> 
+            <div class="aimRate">+{{targetRun1.target_ratio}}<span style="font-size:large;">%</span></div>
+            <div class="aimRmk">目标收益率</div>
           </div>
-          <div class="slopingside"></div>
-          <div>          
-            <div>
-              <div class="aimLast">{{targetRun1.pre_run}}<span style="font-size:large;font-weight:700">个月</span></div>
-              <div class="aimRmk">预计持有时长</div>
-            </div>
+          <div class="slopingside"></div>      
+          <div>
+            <div class="aimLast">{{targetRun1.pre_run}}<span style="font-size:large;font-weight:700">个月</span></div>
+            <div class="aimRmk">预计持有时长</div>
           </div>
         </div>
-
-        <div style="text-align:center; padding:15px 50px;">
+        <div style="text-align:center; padding:12px 50px;">
           <x-button type="warn" :link="'/fundWap/targetFundDetail/'+targetRun1.id">立即申购</x-button>
         </div>
+        <div v-if="JSON.stringify(top1TargetRct20d)!='{}'">
+          <div class="line"/>
+          <flexbox style="text-align:center;padding:10px 0;">
+            <flexbox-item><img src="../../../assets/images/happy.gif" /></flexbox-item>
+            <flexbox-item :span="1/2">
+              <div style="color:brown;">大目标{{top1TargetRct20d.name}}到期了</div>
+              <div style="color:#666;font-size:10px;">运行{{top1TargetRct20d.run_days}}天达标{{top1TargetRct20d.target_ratio}}%,快围观</div>
+            </flexbox-item>
+            <flexbox-item><img src="../../../assets/images/happy.gif" /></flexbox-item>
+          </flexbox>
+        </div>
       </div>
+
       <div style="padding-top:15px;">
         <div class="invIntro">
           <div><img src="../../../assets/images/medal3.png" style="height:50px;width:45px;"/></div>
@@ -159,7 +166,7 @@ a:hover {
 }
 .targetIndex .topTxt .rect{
   width: 100%;
-  height: 210px;
+  height: auto;
   /* padding: 30px 20px 40px 20px; */
   border-radius: 10px;
   box-shadow: 5px 5px 5px #e2e1e1; 
@@ -170,13 +177,11 @@ a:hover {
   opacity: 0
 } */
 .targetIndex .topTxt .rect .title{
-  font-size: 20px;
-  font-weight: 800;
+  font-size: 14px;
   text-align: left;
 }
 .targetIndex .topTxt .rect .limTime{
-  font-size: 20px;
-  font-weight: 800;
+  font-size: 14px;
   text-align: right;
 }
 .targetIndex .topTxt .rect .aimRate{
@@ -184,7 +189,7 @@ a:hover {
   text-align: center;
 }
 .targetIndex .topTxt .rect .topcontext{
-    padding: 10px 40px 0 40px;
+    padding: 0 40px;
     display:-webkit-flex;
     display: flex;
     justify-content: space-around;
