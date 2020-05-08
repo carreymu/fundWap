@@ -8,8 +8,8 @@ config = dict(
         "sql_info": {
             "engine_name": "db_fund_wap_mysql",
             "sql": {
-                "mysql": "select tid,name,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime from "
-                         "targets where run_status in ({run_status}) order by inserttime desc limit {topx}",
+                "mysql": "select tid,ft_id,name,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime "
+                         "from targets where run_status in ({run_status}) order by inserttime desc limit {topx}",
                 "sqlite3": "",
                 "mssql": ""
             }
@@ -23,8 +23,8 @@ config = dict(
         "sql_info": {
             "engine_name": "db_fund_wap_mysql",
             "sql": {
-                "mysql": "select tid,name,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime from "
-                         "targets where run_status in ({run_status}) order by run_days desc limit {topx}",
+                "mysql": "select tid,ft_id,name,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime "
+                         "from targets where run_status in ({run_status}) order by run_days desc limit {topx}",
                 "sqlite3": "",
                 "mssql": ""
             }
@@ -52,7 +52,7 @@ config = dict(
       "sql_info": {
         "engine_name": "db_fund_wap_mysql",
         "sql": {
-          "mysql": "select tid,name,target_ratio,run_status,run_days,apply_endtime from targets "
+          "mysql": "select tid,ft_id,name,target_ratio,run_status,run_days,apply_endtime from targets "
                    "where run_status in ({run_status}) order by inserttime desc",
           "sqlite3": "",
           "mssql": ""

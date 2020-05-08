@@ -191,33 +191,39 @@ CREATE TABLE user_bank(ub_id int(11) primary key AUTO_INCREMENT,uid int,card_num
 INSERT INTO user_bank(uid,card_number,bid,bbid,pid,cid,leave_phonenumber) values(1,'520145687956235',1,1,1,1,'18856898989');
 
 /*--29.fund template*/
-CREATE TABLE fund_template(ft_id int(11) primary key AUTO_INCREMENT,tmp_name varchar(50),remark varchar(500), inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO fund_template(tmp_name,remark) values('2006聚能环01','2019年12月前表现不错');
-INSERT INTO fund_template(tmp_name,remark) values('2006聚能环02','关注了神秘代码007');
-INSERT INTO fund_template(tmp_name,remark) values('钻石王老五01','王老五护体');
-INSERT INTO fund_template(tmp_name,remark) values('钻石王老五02','隔壁老王是谁?');
+CREATE TABLE fund_template(ft_id int(11) primary key AUTO_INCREMENT,tmp_name varchar(50),remark varchar(500), status int, inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO fund_template(tmp_name,status,remark) values('2006聚能环01',1,'2019年12月前表现不错');
+INSERT INTO fund_template(tmp_name,status,remark) values('2006聚能环02',1,'关注了神秘代码007');
+INSERT INTO fund_template(tmp_name,status,remark) values('钻石王老五01',1,'王老五护体');
+INSERT INTO fund_template(tmp_name,status,remark) values('钻石王老五02',1,'隔壁老王是钻石王老五');
 
 /*--29.fund template and its funds*/
 CREATE TABLE fund_templates(fts_id int(11) primary key AUTO_INCREMENT,ft_id int,fid int,percentage float,remark varchar(500), inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO fund_templates(ft_id,fid,percentage,remark) values(1,1,0.41,''); -- 2006聚能环01,景顺长城沪深300增强,41%
 INSERT INTO fund_templates(ft_id,fid,percentage,remark) values(1,2,0.44,''); -- 2006聚能环01,富国新动力A,44%
 INSERT INTO fund_templates(ft_id,fid,percentage,remark) values(1,3,0.15,''); -- 2006聚能环01,富国新动力B,15%
+INSERT INTO fund_templates(ft_id,fid,percentage,remark) values(2,2,1,''); -- 2006聚能环02,富国新动力A,44%
+INSERT INTO fund_templates(ft_id,fid,percentage,remark) values(3,3,0.25,''); -- 钻石王老五01,富国新动力B,25%
+INSERT INTO fund_templates(ft_id,fid,percentage,remark) values(3,2,0.25,''); -- 钻石王老五01,富国新动力A,25%
+INSERT INTO fund_templates(ft_id,fid,percentage,remark) values(3,1,0.50,''); -- 钻石王老五01,景顺长城沪深300增强,50%
 
 /*------------------------------------target--biz:target------------------------------------------------
 --30.target run_status:-1-流标,0-申请中,1-建仓中,2-盈利中,3-浮亏中,4-已达标,5已清仓 ,0<N<4->运行中*/
-CREATE TABLE targets(tid int(11) primary key AUTO_INCREMENT,name varchar(10),target_ratio float,apply_starttime datetime,apply_endtime datetime,run_status int,run_days int,pre_run varchar(20),inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO targets(name,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime) values('2006',0.08,0,0,'6-12','2020-04-07 10:10:00','2020-04-13 10:10:00');
-INSERT INTO targets(name,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime) values('2005',0.08,1,0,'6-12','2020-04-01 10:10:00','2020-04-06 10:10:00');
-INSERT INTO targets(name,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime) values('2004',0.05,2,10,'5-12','2020-03-24 10:10:00','2020-03-31 10:10:00');
-INSERT INTO targets(name,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime) values('2003',0.08,3,17,'5-12','2020-03-16 10:10:00','2020-03-23 10:10:00');
-INSERT INTO targets(name,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime) values('2002',0.07,4,40,'5-12','2020-03-16 10:10:00','2020-03-23 10:10:00');
-INSERT INTO targets(name,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime) values('2001',0.06,4,25,'5-12','2020-03-16 10:10:00','2020-03-23 10:10:00');
-INSERT INTO targets(name,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime) values('2000',0.05,4,34,'5-12','2020-03-16 10:10:00','2020-03-23 10:10:00');
-INSERT INTO targets(name,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime) values('1999',0.08,5,50,'5-12','2020-03-16 10:10:00','2020-03-23 10:10:00');
+CREATE TABLE targets(tid int(11) primary key AUTO_INCREMENT,ft_id int,name varchar(10),target_ratio float,apply_starttime datetime,apply_endtime datetime,run_status int,run_days int,pre_run varchar(20),inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime) values('2006',1,0.08,0,0,'6-12','2020-04-07 10:10:00','2020-04-13 10:10:00');-- 2006,2006聚能环01
+INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime) values('2005',2,0.08,1,0,'6-12','2020-04-01 10:10:00','2020-04-06 10:10:00');-- 2005,2006聚能环02
+INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime) values('2004',3,0.05,2,10,'5-12','2020-03-24 10:10:00','2020-03-31 10:10:00');-- 2004,钻石王老五01
+INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime) values('2003',1,0.08,3,17,'5-12','2020-03-16 10:10:00','2020-03-23 10:10:00');
+INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime) values('2002',2,0.07,4,40,'5-12','2020-03-16 10:10:00','2020-03-23 10:10:00');
+INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime) values('2001',1,0.06,4,25,'5-12','2020-03-16 10:10:00','2020-03-23 10:10:00');
+INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime) values('2000',2,0.05,4,34,'5-12','2020-03-16 10:10:00','2020-03-23 10:10:00');
+INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime) values('1999',3,0.08,5,50,'5-12','2020-03-16 10:10:00','2020-03-23 10:10:00');
 
 /*--31.target and its fund template*/
-CREATE TABLE target_funds(tf_id int(11) primary key AUTO_INCREMENT,tid int,fts_id int,inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO target_funds(tid,fts_id) values(1,1); -- 2006,2006聚能环01
+-- CREATE TABLE target_funds(tf_id int(11) primary key AUTO_INCREMENT,tid int,ft_id int,inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- INSERT INTO target_funds(tid,ft_id) values(1,1); -- 2006,2006聚能环01
+-- INSERT INTO target_funds(tid,ft_id) values(2,3); -- 2005,钻石王老五01
+-- INSERT INTO target_funds(tid,ft_id) values(1,2); -- 2004,2006聚能环02
 
 /*--32.history of daily target news,status:0-show,1-not show*/
 CREATE TABLE target_history(th_id int(11) primary key AUTO_INCREMENT,tid int,title varchar(50), content varchar(1000),status int,inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
