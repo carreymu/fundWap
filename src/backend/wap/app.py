@@ -60,7 +60,7 @@ async def main(request):
     data = {}
     # 这里就已经在并行计算了
     variables = [Variables(ctx, event_names).start() for event_names in events]
-    print(variables)
+    # print(variables)
     try:
         # 将计算完的结果提取
         for future in asyncio.as_completed(variables):
