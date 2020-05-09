@@ -57,8 +57,14 @@ class Variables:
                     self.result = await Variable(self.ctx, self.event_names).get_result()
                 elif 'dependence_source' in self.event_info:
                     print(f'exec joined event:{self.event_names}>>>>>>>>>>')
-                    dep_res = {event_names: await Variable(self.ctx, event_names).get_result() for event_names in
-                               self.event_info['dependence_source']}
+                    ds = self.event_info['dependence_source']
+
+                    # dict or list, dict contains filters,key is table_name ,value is filter if it is not empty
+                    is_dict = isinstance(ds[0], dict)
+                    dep_src = [k for k, v in ds[0].items() if len(v) > 0] if is_dict else ds
+                    dep_res = {event_names: await Variable(self.ctx, event_names).get_result() for event_names in dep_src}
+                    if is_dict:
+                        dep_res['filter'] = ds
                     # print(dep_res)
                     self.result = await Variable(self.ctx, self.event_names).get_result_joined(dep_res)
             except asyncio.CancelledError:
