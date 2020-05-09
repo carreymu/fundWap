@@ -5,7 +5,7 @@ from operator import itemgetter
 
 
 class TargetsAggList(DataSource):
-    req: dict
+    # req: dict
     event_default: Any
     dependence_source: dict
 

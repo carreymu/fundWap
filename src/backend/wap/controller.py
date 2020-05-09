@@ -26,7 +26,8 @@ class Variable:
           )
 
     async def get_result_joined(self, dep_resource):
-        return await self.dependence(req=self.ctx["req"], event_default=self.default, dependence_source=dep_resource)
+        # return await self.dependence(req=self.ctx["req"], event_default=self.default, dependence_source=dep_resource)
+        return await self.dependence(event_default=self.default, dependence_source=dep_resource)
 
 
 class Variables:
