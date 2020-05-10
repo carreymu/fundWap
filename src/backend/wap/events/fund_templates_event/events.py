@@ -1,5 +1,6 @@
 from typing import Any
 from wap.base import DataSource
+from wap.data_source import exec_base
 
 
 class FundTemplates(DataSource):
@@ -9,16 +10,16 @@ class FundTemplates(DataSource):
 
     async def compute(self):
         # return result if result else self.event_default
-        # tid-> fids-> fund_info
         result = self.dependence_source
-        print(result)
-        print(result['filter'][0]['fund_templates'])
+        # print(result["fund_templates"])
         if result:
             key = result['filter'][0]['fund_templates']
             fids = [x[key] for x in result["fund_templates"]]
             if len(fids) > 0:
-              fs ={'fids': ','.join(fids)}
-            # if len(fids) > 0:
-
-            # return result
+                # {'fids': ",".join(list(map(str, fids)))}
+                fund_info = await exec_base.exec_sql_key(event_names='fund_info_short', **{'fids': tuple(fids)})
+                per_dict = dict((x['fid'], x['percentage']) for x in result['fund_templates'])
+                for x in fund_info:
+                    x['percentage'] = per_dict[x['fid']]
+                return fund_info
         return self.event_default

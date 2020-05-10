@@ -97,8 +97,17 @@ async def exec_sql(sql_info: dict, fmt: str = "json", **sql_params):
         sql_params['status'] = DEFAULT_STATUS
     # print(db.sql.format(**sql_params))
     df = await db.read_sql(db.sql.format(**sql_params), columns=columns)
-    # import pdb;pdb.set_trace()
     return df_to_fmt(df, fmt)
+
+
+# exec sql from event_names
+async def exec_sql_key(event_names: str, fmt: str = "json", **sql_params):
+    event_info = app.var[event_names]
+    if 'sql_info' not in event_info.keys():
+        print(f'{event_names} does not have key [sql_info].')
+        return
+    # import pdb;pdb.set_trace()
+    return await exec_sql(sql_info=event_info['sql_info'], fmt=fmt, **sql_params)
 
 
 async def get_columns(sql_in):
