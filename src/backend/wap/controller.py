@@ -62,8 +62,10 @@ class Variables:
                     # dict or list, dict contains filters,key is table_name ,value is filter if it is not empty
                     is_dict = isinstance(ds[0], dict)
                     dep_src = [k for k, v in ds[0].items() if len(v) > 0] if is_dict else ds
-                    dep_res = {event_names: await Variable(self.ctx, event_names).get_result() for event_names in dep_src}
+                    dep_res = {event_names: await Variable(self.ctx, event_names).get_result() for event_names
+                               in dep_src}
                     if is_dict:
+                        # {'filter':[{"fund_templates": "fid", "fund_info_short": ""}]}
                         dep_res['filter'] = ds
                     # print(dep_res)
                     self.result = await Variable(self.ctx, self.event_names).get_result_joined(dep_res)

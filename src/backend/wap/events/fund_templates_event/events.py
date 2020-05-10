@@ -11,10 +11,11 @@ class FundTemplates(DataSource):
         # return result if result else self.event_default
         # tid-> fids-> fund_info
         result = self.dependence_source
-        print('*9'*9)
         print(result)
+        print(result['filter'][0]['fund_templates'])
         if result:
-            fids = [x['fid'] for x in result["fund_templates"]]
+            key = result['filter'][0]['fund_templates']
+            fids = [x[key] for x in result["fund_templates"]]
             if len(fids) > 0:
               fs ={'fids': ','.join(fids)}
             # if len(fids) > 0:
