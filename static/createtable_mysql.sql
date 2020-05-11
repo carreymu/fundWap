@@ -99,6 +99,9 @@ purchase_process,redemption_fee_remark,redemption_process,redemption_position,ag
 INSERT INTO fund_info(fc_id,fcc_id,fund_name,fund_code,fund_company,fund_assets,start_date,management_fee,custody_fee,purchase_rate_old,purchase_rate_new,purchase_rate_discount,sched_invest_remark,
 purchase_process,redemption_fee_remark,redemption_process,redemption_position,agreement,share_bonus_type,status,remark) values(1,2,'富国新动力C','001507','富国','132亿','2016-10-12',0.26,0.07,0.01,0.001,1,'定投规则:遇到节假日自动延迟到下一个交易日扣款',
 'T日/T+1日/T+1当日净值更新后','赎回费率如下:','赎回流程','赎回份额','景顺长城的协议',0,0,'富国新动力C备注'); /*-- fid=4*/
+INSERT INTO fund_info(fc_id,fcc_id,fund_name,fund_code,fund_company,fund_assets,start_date,management_fee,custody_fee,purchase_rate_old,purchase_rate_new,purchase_rate_discount,sched_invest_remark,
+purchase_process,redemption_fee_remark,redemption_process,redemption_position,agreement,share_bonus_type,status,remark) values(8,1,'天弘鸿运宝','001386','天弘','190亿','2015-10-01',0.3,0.08,0.012,0.0012,1,'定投规则:遇到节假日自动延迟到下一个交易日扣款',
+'T日/T+1日/T+1当日净值更新后','赎回费率如下:','赎回流程','赎回份额','天弘鸿运宝的协议',0,1,'天弘鸿运宝备注'); /*-- fid=5*/
 
 /*--10.fund bonus and split (bonus.type=0,split.type=1)*/
 CREATE TABLE fund_bonus_split(fbs_id int(11) primary key AUTO_INCREMENT,fid int,type int,remark varchar(30),amt float,currency varchar(5),inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -209,6 +212,7 @@ INSERT INTO fund_templates(ft_id,fid,percentage,remark) values(2,2,1,''); -- 200
 INSERT INTO fund_templates(ft_id,fid,percentage,remark) values(3,3,0.25,''); -- 钻石王老五01,富国新动力B,25%
 INSERT INTO fund_templates(ft_id,fid,percentage,remark) values(3,2,0.25,''); -- 钻石王老五01,富国新动力A,25%
 INSERT INTO fund_templates(ft_id,fid,percentage,remark) values(3,1,0.50,''); -- 钻石王老五01,景顺长城沪深300增强,50%
+INSERT INTO fund_templates(ft_id,fid,percentage,remark) values(1,5,0.50,''); -- 2006聚能环01,天弘鸿运宝,100%
 
 /*------------------------------------target--biz:target------------------------------------------------
 --30.target run_status:-1-流标,0-申请中,1-建仓中,2-盈利中,3-浮亏中,4-已达标,5已清仓 ,0<N<4->运行中*/

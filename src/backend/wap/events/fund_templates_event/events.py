@@ -11,10 +11,11 @@ class FundTemplates(DataSource):
     async def compute(self):
         # return result if result else self.event_default
         result = self.dependence_source
-        # print(result["fund_templates"])
+        print(result["fund_templates"])
         if result:
             key = result['filter'][0]['fund_templates']
             fids = [x[key] for x in result["fund_templates"]]
+            # import pdb;pdb.set_trace()
             if len(fids) > 0:
                 # {'fids': ",".join(list(map(str, fids)))}
                 fund_info = await exec_base.exec_sql_key(event_names='fund_info_short', **{'fids': tuple(fids)})
