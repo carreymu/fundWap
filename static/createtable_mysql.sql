@@ -85,17 +85,20 @@ INSERT INTO fund_customized_category(name,ico_color) values('成长型','#3BA4FF
 /*--9.fund details share_bonus_type:0-现金分红,1-红利再投*/
 CREATE TABLE fund_info(fid int(11) primary key AUTO_INCREMENT, fc_id int, fcc_id int,fund_name varchar(50), fund_code varchar(20),fund_company varchar(50),fund_assets varchar(30), 
 start_date datetime,management_fee float,custody_fee float,purchase_rate_old float,purchase_rate_new float,purchase_rate_discount float,sched_invest_remark varchar(500),
-purchase_process varchar(500),redemption_fee_remark varchar(500),redemption_process varchar(500),redemption_position varchar(100),agreement varchar(800),share_bonus_type int,
+purchase_process varchar(500),redemption_fee_remark varchar(500),redemption_process varchar(500),redemption_position varchar(100),agreement varchar(800),share_bonus_type int,status int,
 remark varchar(500),inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO fund_info(fc_id,fcc_id,fund_name,fund_code,fund_company,fund_assets,start_date,management_fee,custody_fee,purchase_rate_old,purchase_rate_new,purchase_rate_discount,sched_invest_remark,
-purchase_process,redemption_fee_remark,redemption_process,redemption_position,agreement,share_bonus_type,remark) values(1,1,'景顺长城沪深300增强','000311','景顺长城基金','100亿','2016-10-01',0.3,0.08,0.012,0.0012,1,'定投规则:遇到节假日自动延迟到下一个交易日扣款',
-'T日/T+1日/T+1当日净值更新后','赎回费率如下:','赎回流程','赎回份额','景顺长城的协议',0,'景顺长城沪深300增强备注'); /*-- fid=1*/
+purchase_process,redemption_fee_remark,redemption_process,redemption_position,agreement,share_bonus_type,status,remark) values(1,1,'景顺长城沪深300增强','000311','景顺长城基金','100亿','2016-10-01',0.3,0.08,0.012,0.0012,1,'定投规则:遇到节假日自动延迟到下一个交易日扣款',
+'T日/T+1日/T+1当日净值更新后','赎回费率如下:','赎回流程','赎回份额','景顺长城的协议',0,1,'景顺长城沪深300增强备注'); /*-- fid=1*/
 INSERT INTO fund_info(fc_id,fcc_id,fund_name,fund_code,fund_company,fund_assets,start_date,management_fee,custody_fee,purchase_rate_old,purchase_rate_new,purchase_rate_discount,sched_invest_remark,
-purchase_process,redemption_fee_remark,redemption_process,redemption_position,agreement,share_bonus_type,remark) values(1,2,'富国新动力A','001508','富国','130亿','2016-10-01',0.26,0.07,0.01,0.001,1,'定投规则:遇到节假日自动延迟到下一个交易日扣款',
-'T日/T+1日/T+1当日净值更新后','赎回费率如下:','赎回流程','赎回份额','景顺长城的协议',0,'富国新动力A备注'); /*-- fid=2*/
+purchase_process,redemption_fee_remark,redemption_process,redemption_position,agreement,share_bonus_type,status,remark) values(1,2,'富国新动力A','001508','富国','130亿','2016-10-01',0.26,0.07,0.01,0.001,1,'定投规则:遇到节假日自动延迟到下一个交易日扣款',
+'T日/T+1日/T+1当日净值更新后','赎回费率如下:','赎回流程','赎回份额','景顺长城的协议',0,1,'富国新动力A备注'); /*-- fid=2*/
 INSERT INTO fund_info(fc_id,fcc_id,fund_name,fund_code,fund_company,fund_assets,start_date,management_fee,custody_fee,purchase_rate_old,purchase_rate_new,purchase_rate_discount,sched_invest_remark,
-purchase_process,redemption_fee_remark,redemption_process,redemption_position,agreement,share_bonus_type,remark) values(1,2,'富国新动力B','001508','富国','130亿','2016-10-01',0.26,0.07,0.01,0.001,1,'定投规则:遇到节假日自动延迟到下一个交易日扣款',
-'T日/T+1日/T+1当日净值更新后','赎回费率如下:','赎回流程','赎回份额','景顺长城的协议',0,'富国新动力A备注'); /*-- fid=3*/
+purchase_process,redemption_fee_remark,redemption_process,redemption_position,agreement,share_bonus_type,status,remark) values(1,2,'富国新动力B','001507','富国','131亿','2016-10-11',0.26,0.07,0.01,0.001,1,'定投规则:遇到节假日自动延迟到下一个交易日扣款',
+'T日/T+1日/T+1当日净值更新后','赎回费率如下:','赎回流程','赎回份额','景顺长城的协议',0,1,'富国新动力B备注'); /*-- fid=3*/
+INSERT INTO fund_info(fc_id,fcc_id,fund_name,fund_code,fund_company,fund_assets,start_date,management_fee,custody_fee,purchase_rate_old,purchase_rate_new,purchase_rate_discount,sched_invest_remark,
+purchase_process,redemption_fee_remark,redemption_process,redemption_position,agreement,share_bonus_type,status,remark) values(1,2,'富国新动力C','001507','富国','132亿','2016-10-12',0.26,0.07,0.01,0.001,1,'定投规则:遇到节假日自动延迟到下一个交易日扣款',
+'T日/T+1日/T+1当日净值更新后','赎回费率如下:','赎回流程','赎回份额','景顺长城的协议',0,0,'富国新动力C备注'); /*-- fid=4*/
 
 /*--10.fund bonus and split (bonus.type=0,split.type=1)*/
 CREATE TABLE fund_bonus_split(fbs_id int(11) primary key AUTO_INCREMENT,fid int,type int,remark varchar(30),amt float,currency varchar(5),inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;

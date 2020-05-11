@@ -1,7 +1,7 @@
 from . import events
 
 config = dict(
-    fund_templates_list={
+    fund_templates_short_list={
       "name": "target templates",
       "author": "root",
       "event_default": {},

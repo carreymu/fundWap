@@ -20,6 +20,7 @@ class FundTemplates(DataSource):
                 fund_info = await exec_base.exec_sql_key(event_names='fund_info_short', **{'fids': tuple(fids)})
                 per_dict = dict((x['fid'], x['percentage']) for x in result['fund_templates'])
                 for x in fund_info:
-                    x['percentage'] = per_dict[x['fid']]
+                    if x['status'] == 1:
+                        x['percentage'] = per_dict[x['fid']]
                 return fund_info
         return self.event_default

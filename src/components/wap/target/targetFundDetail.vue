@@ -32,9 +32,9 @@
 
       <div style="padding:5px 0;">
         <div v-for="(item,idx) in fundList" :key="idx"  class="fundList">
-            <div style="float: left;">{{item.fundName}}({{item.fundCode}})</div>
-            <div style="float: right;" v-if="idx==0"><router-link :to="'/fundWap/targetFundOrder/'+item.id">{{item.percent}}&nbsp; ></router-link></div>
-            <div style="float: right;" v-else><router-link :to="'/fundWap/targetStockOrder/'+item.id">{{item.percent}}%&nbsp; ></router-link></div>
+            <div style="float: left;">{{item.fund_name}}({{item.fund_code}})</div>
+            <div style="float: right;" v-if="idx==0"><router-link :to="'/fundWap/targetFundOrder/'+item.fid">{{item.percentage}}&nbsp; ></router-link></div>
+            <div style="float: right;" v-else><router-link :to="'/fundWap/targetStockOrder/'+item.fid">{{item.percentage}}%&nbsp; ></router-link></div>
         </div>
       </div>
 
