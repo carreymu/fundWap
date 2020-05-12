@@ -53,7 +53,7 @@ INSERT INTO fund_category(name,risk_level,status,show_order) values('股债平�
 INSERT INTO fund_category(name,risk_level,status,show_order) values('偏债型','R2',1,3);
 INSERT INTO fund_category(name,risk_level,status,show_order) values('债券型','R1',1,2);
 INSERT INTO fund_category(name,risk_level,status,show_order) values('保本型','R1',1,1);
-INSERT INTO fund_category(name,risk_level,status,show_order) values('货币型','R1',1,0);
+INSERT INTO fund_category(name,risk_level,status,show_order) values('货币型','R1',1,0); /* show_order=0,must be a type of currency fund*/
 
 /*--5.fund manager*/
 CREATE TABLE fund_manager(fm_id int(11) primary key AUTO_INCREMENT, name varchar(30), status int, remark varchar(1000), inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;

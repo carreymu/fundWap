@@ -17,11 +17,15 @@ class FundTemplates(DataSource):
             fids = [x[key] for x in result["fund_templates"]]
             # import pdb;pdb.set_trace()
             if len(fids) > 0:
-                # {'fids': ",".join(list(map(str, fids)))}
+                if len(fids) == 1:
+                    fids.append(0)
                 fund_info = await exec_base.exec_sql_key(event_names='fund_info_short', **{'fids': tuple(fids)})
+                fund_cat = await exec_base.exec_sql_key(event_names='fund_category')
                 per_dict = dict((x['fid'], x['percentage']) for x in result['fund_templates'])
                 for x in fund_info:
                     if x['status'] == 1:
-                        x['percentage'] = per_dict[x['fid']]
-                return fund_info
+                        flt_cat = [y for y in fund_cat if y["fc_id"] == x["fc_id"]]
+                        x['percentage'] = per_dict[x['fid']] * 100
+                        x['show_order'] = flt_cat[0]["show_order"] if len(flt_cat) > 0 else 0
+                return sorted(fund_info, key=lambda x: x['show_order'])
         return self.event_default

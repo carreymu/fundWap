@@ -7,7 +7,8 @@ from wap.data_source.sub_config import (
     targets,
     fund_template,
     fund_templates,
-    fund_info
+    fund_info,
+    fund_category
 )
 # only original information from DB
 data_source_config = dict(
@@ -18,5 +19,6 @@ data_source_config = dict(
     targets=targets.config,
     fund_template=fund_template.config,
     fund_templates=fund_templates.config,
-    fund_info=fund_info.config
+    fund_info=fund_info.config,
+    fund_category=fund_category.config
 )

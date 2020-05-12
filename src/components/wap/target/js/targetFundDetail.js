@@ -22,17 +22,6 @@ export default {
   },
   methods:{
     loadFundDetail(){
-      // let self = this
-      // self.fundList=[{id: 1001, fundName: "景顺长城沪深100增强基金", fundCode: "000311", percent: "申购基金"},
-      // {id: 1001, fundName: "景顺长城沪深100增强", fundCode: "000311", percent: "36.09"},
-      // {id: 1002, fundName: "景顺长城沪深200增强", fundCode: "000312", percent: "20.5"},
-      // {id: 1003, fundName: "富国动力A", fundCode: "001508", percent: "10"},
-      // {id: 1004, fundName: "富国动力B", fundCode: "001509", percent: "10.17"},
-      // {id: 1005, fundName: "前海开源价值成长A", fundCode: "006216", percent: "23.24"},
-      // {id: 1006, fundName: "富国动力A", fundCode: "001508", percent: "10"},
-      // {id: 1007, fundName: "富国动力B", fundCode: "001509", percent: "10.17"},
-      // {id: 1008, fundName: "前海开源价值成长A", fundCode: "006216", percent: "23.24"}]
-
       let tid=this.$route.params.tid;
       let dt = {
         "req": {"ft_id":tid},
