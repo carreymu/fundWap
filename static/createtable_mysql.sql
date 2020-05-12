@@ -45,15 +45,15 @@ INSERT INTO news_info(title,nc_id,img_url, content, status) values('[大目标]2
 
 /*----------------------------------fund details--biz:target,drumstick and best choice--------------------------------------------------
 --4.fund category  like ETF/LOF/QDFII etc.*/
-CREATE TABLE fund_category(fc_id int(11) primary key AUTO_INCREMENT, name varchar(50), risk_level varchar(2),status int) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO fund_category(name,risk_level,status) values('股票型','R3',1); /*--fc_id=1*/
-INSERT INTO fund_category(name,risk_level,status) values('指数型','R4',1);
-INSERT INTO fund_category(name,risk_level,status) values('偏股型','R4',1);
-INSERT INTO fund_category(name,risk_level,status) values('股债平衡型','R3',1);
-INSERT INTO fund_category(name,risk_level,status) values('偏债型','R2',1);
-INSERT INTO fund_category(name,risk_level,status) values('债券型','R1',1);
-INSERT INTO fund_category(name,risk_level,status) values('保本型','R1',1);
-INSERT INTO fund_category(name,risk_level,status) values('货币型','R1',1);
+CREATE TABLE fund_category(fc_id int(11) primary key AUTO_INCREMENT, name varchar(50), risk_level varchar(2),status int,show_order int) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO fund_category(name,risk_level,status,show_order) values('股票型','R3',1,7); /*--fc_id=1*/
+INSERT INTO fund_category(name,risk_level,status,show_order) values('指数型','R4',1,6);
+INSERT INTO fund_category(name,risk_level,status,show_order) values('偏股型','R4',1,5);
+INSERT INTO fund_category(name,risk_level,status,show_order) values('股债平衡型','R3',1,4);
+INSERT INTO fund_category(name,risk_level,status,show_order) values('偏债型','R2',1,3);
+INSERT INTO fund_category(name,risk_level,status,show_order) values('债券型','R1',1,2);
+INSERT INTO fund_category(name,risk_level,status,show_order) values('保本型','R1',1,1);
+INSERT INTO fund_category(name,risk_level,status,show_order) values('货币型','R1',1,0);
 
 /*--5.fund manager*/
 CREATE TABLE fund_manager(fm_id int(11) primary key AUTO_INCREMENT, name varchar(30), status int, remark varchar(1000), inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
