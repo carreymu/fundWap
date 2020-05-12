@@ -23,18 +23,27 @@ export default {
   methods:{
     loadFundDetail(){
       let tid=this.$route.params.tid;
+      if(tid == undefined){
+        AlertModule.show({
+            title: '亲~~',
+            content: '请勿瞎搞.',
+            onHide () {
+                window.location.replace(document.referrer)
+            }
+        })
+      }
       let dt = {
         "req": {"ft_id":tid},
         "event_names": ["fund_templates_short_list"]
       }
       this.$api.fetchPost('/sanic-api', dt).then(r=>{
-          if(r.fund_templates_short_list!=undefined && r.fund_templates_short_list.length > 0){
-            let flt = r.fund_templates_short_list.filter(x=>x.status==1)
-            if(flt.length > 0){
-              this.fundList = flt
-            }
+        if(r.fund_templates_short_list!=undefined && r.fund_templates_short_list.length > 0){
+          let flt = r.fund_templates_short_list.filter(x=>x.status==1)
+          if(flt.length > 0){
+            this.fundList = flt
           }
-          console.log(this.fundList)
+        }
+        // console.log(this.fundList)
       })
     },
     loadLatest(){

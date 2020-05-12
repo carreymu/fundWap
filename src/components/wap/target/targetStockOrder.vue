@@ -199,7 +199,7 @@ a:hover {
   color:green;
 }
 .tarstkord .fnt25{
-  font-size:10px;
+  font-size:25px;
 }
 .tarstkord .fnt13{
   font-size:12px;
