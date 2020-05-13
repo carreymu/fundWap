@@ -7,7 +7,8 @@
     <div v-else>
        <div style="margin:15px 0 5px 10px;">
           <div style="line-height:25px;">天弘鸿运宝A(001386)</div>
-          <div><span style="color:brown;">货币型</span>&nbsp;&nbsp;  | &nbsp;&nbsp; 76/722</div>
+          <div><span style="color:brown;">货币型</span>&nbsp;&nbsp;  
+          <span style="color:#ccc"> | </span> &nbsp;&nbsp; 76/722</div>
         </div>
       <div class="linefd"></div>
       <div style="padding:10px 80px;color:#666">

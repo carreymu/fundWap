@@ -65,10 +65,10 @@ export default {
           if(r.targets_status_topx!=undefined && r.targets_status_topx.length > 0){
             let tar_1 = r.targets_status_topx[0]
             this.targetRun1.name = tar_1.name
-            this.targetRun1.target_ratio=(tar_1.targetRatio*100).toFixed(2)
+            this.targetRun1.target_ratio=(tar_1.target_ratio*100).toFixed(2)
             this.targetRun1.pre_run=tar_1.pre_run
             this.targetRun1.id=tar_1.tid
-            this.targetRun1.money = tar_1.targetRatio*10000
+            this.targetRun1.money = tar_1.target_ratio*10000
             let fmt = 'yy年MM月dd日'
             this.targetRun1.appStart = this.$utdate.dateFmt(tar_1.apply_starttime,fmt)
             this.targetRun1.appEnd = this.$utdate.dateFmt(tar_1.apply_endtime,fmt)
