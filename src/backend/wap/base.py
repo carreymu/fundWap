@@ -90,12 +90,14 @@ class Database:
 # exec sql
 async def exec_sql(sql_info: dict, fmt: str = "json", **sql_params):
     db = Database(sql_info)
+    # import pdb;
+    # pdb.set_trace()
     columns = await get_columns(db.sql)
     if 'topx' not in sql_params.keys():
         sql_params['topx'] = DEFAULT_TOP_X
     if 'status' not in sql_params.keys():
         sql_params['status'] = DEFAULT_STATUS
-    # print(db.sql.format(**sql_params))
+    print(db.sql.format(**sql_params))
     df = await db.read_sql(db.sql.format(**sql_params), columns=columns)
     return df_to_fmt(df, fmt)
 
@@ -106,7 +108,6 @@ async def exec_sql_key(event_names: str, fmt: str = "json", **sql_params):
     if 'sql_info' not in event_info.keys():
         print(f'{event_names} does not have key [sql_info].')
         return
-    # import pdb;pdb.set_trace()
     return await exec_sql(sql_info=event_info['sql_info'], fmt=fmt, **sql_params)
 
 

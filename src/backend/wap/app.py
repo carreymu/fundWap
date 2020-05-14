@@ -49,6 +49,11 @@ async def main(request):
     ctx = {"data_source": {}}
 
     # 将 req 塞入 ctx 以便各个地方使用
+    # 遍历参数处理sql的in操作,为了对in (int list)操作
+    for k, v in req["req"].items():
+        if isinstance(v, list):
+            fmt = "%s" if isinstance(v[0], int) else "'%s'"
+            req["req"][k] = ",".join(fmt % str(x) for x in v)
     ctx["req"] = req["req"]
     ctx["wap_info"] = req["wap_info"]
     ctx_event.set(ctx)
