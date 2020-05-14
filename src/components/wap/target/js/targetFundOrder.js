@@ -15,6 +15,7 @@ export default {
       ],
       data: [],
       allData: [],
+      funcInfo:{}
     }
   },
   methods:{

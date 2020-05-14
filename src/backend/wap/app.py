@@ -9,6 +9,8 @@ from wap.controller import Variable, Variables
 from wap import wap_app as app
 from wap.exceptions import GeneralException
 from wap.dependence import dependence_cleanup, dependence_init
+from wap.utils.sql_handler import sql_in
+
 
 @app.get("/ha")
 async def heart_ack(request):
@@ -52,8 +54,7 @@ async def main(request):
     # 遍历参数处理sql的in操作,为了对in (int list)操作
     for k, v in req["req"].items():
         if isinstance(v, list):
-            fmt = "%s" if isinstance(v[0], int) else "'%s'"
-            req["req"][k] = ",".join(fmt % str(x) for x in v)
+            req["req"][k] = sql_in(v)
     ctx["req"] = req["req"]
     ctx["wap_info"] = req["wap_info"]
     ctx_event.set(ctx)
