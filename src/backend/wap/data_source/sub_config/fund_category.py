@@ -8,7 +8,7 @@ config = dict(
         "sql_info": {
             "engine_name": "db_fund_wap_mysql",
             "sql": {
-                "mysql": "select fc_id,name,risk_level,status,show_order from fund_category",
+                "mysql": "select fc_id,name,risk_level,status,fund_tot,show_order from fund_category",
                 "sqlite3": "",
                 "mssql": ""
             }
