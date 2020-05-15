@@ -49,8 +49,8 @@ CREATE TABLE fund_category(fc_id int(11) primary key AUTO_INCREMENT,
 name varchar(50) NOT NULL COMMENT '基金类型名', 
 risk_level varchar(2) NOT NULL COMMENT '风险等级',
 fund_tot int(8) NOT NULL COMMENT '基金总数',
-status int NOT NULL COMMENT '状态',
-show_order int NOT NULL COMMENT '显示顺序',
+status int NOT NULL COMMENT '使用状态,0-废弃,1-使用中',
+show_order int NOT NULL COMMENT '显示顺序'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO fund_category(name,risk_level,fund_tot,status,show_order) values('股票型','R3',1001,1,7); /*--fc_id=1*/
 INSERT INTO fund_category(name,risk_level,fund_tot,status,show_order) values('指数型','R4',1001,1,6);
@@ -89,11 +89,28 @@ INSERT INTO fund_customized_category(name,ico_color) values('主题型','#707DDE
 INSERT INTO fund_customized_category(name,ico_color) values('成长型','#3BA4FF');
 
 /*--9.fund details share_bonus_type:0-现金分红,1-红利再投*/
-CREATE TABLE fund_info(fid int(11) primary key AUTO_INCREMENT, fc_id int, fcc_id int,fund_name varchar(50), fund_code varchar(20),fund_company varchar(50),fund_assets varchar(30), 
-start_date datetime,management_fee float,custody_fee float,purchase_rate_old float,purchase_rate_new float,purchase_rate_discount float,
-topn int(8) NOT NULL COMMENT '排名',
-sched_invest_remark varchar(500),
-purchase_process varchar(500),redemption_fee_remark varchar(500),redemption_process varchar(500),redemption_position varchar(100),agreement varchar(800),share_bonus_type int,status int,
+CREATE TABLE fund_info(fid int(11) primary key AUTO_INCREMENT,
+fc_id int not null comment '基金风险类型',
+fcc_id int not null comment '自定义基金类型',
+fund_name varchar(50) not null comment '名称', 
+fund_code varchar(20) not null comment '代码',
+fund_company varchar(50) not null comment '基金公司',
+fund_assets varchar(30) not null comment '资产总额', 
+start_date datetime not null comment '建立时间',
+management_fee float not null comment '管理费',
+custody_fee float not null comment '托管费',
+purchase_rate_old float not null comment'老申购费率',
+purchase_rate_new float not null comment '新申购费率',
+purchase_rate_discount float not null comment '购买折扣率',
+topn int(8) not null comment '排名',
+sched_invest_remark varchar(500) not null comment '投资时间表备注????',
+purchase_process varchar(500) not null comment '申购进度????',
+redemption_fee_remark varchar(500) not null comment '赎回费说明',
+redemption_process varchar(500) not null comment '赎回进度',
+redemption_position varchar(100) not null comment '赎回仓位',
+agreement varchar(800) not null comment '协议',
+share_bonus_type int not null comment '分红类型',
+status int,
 remark varchar(500),inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO fund_info(fc_id,fcc_id,fund_name,fund_code,fund_company,fund_assets,start_date,management_fee,custody_fee,purchase_rate_old,purchase_rate_new,purchase_rate_discount,topn,sched_invest_remark,
 purchase_process,redemption_fee_remark,redemption_process,redemption_position,agreement,share_bonus_type,status,remark) values(1,1,'景顺长城沪深300增强','000311','景顺长城基金','100亿','2016-10-01',0.3,0.08,0.012,0.0012,1,50,'定投规则:遇到节假日自动延迟到下一个交易日扣款',
@@ -128,28 +145,41 @@ INSERT INTO fund_managers(fid,fm_id) values(1,1); /*--景顺长城沪深300增�
 INSERT INTO fund_managers(fid,fm_id) values(1,2); /*--景顺长城沪深300增强--阿瓦买提*/
 
 /*-- 13.fund managers and their fund history*/
-CREATE TABLE fund_managers_history(fmh_id int(11) primary key AUTO_INCREMENT,fm_id int,fid int,review_num float,hu_shen_300 float,inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE fund_managers_history(fmh_id int(11) primary key AUTO_INCREMENT,
+fm_id int,
+fid int,review_num float,hu_shen_300 float,inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO fund_managers_history(fm_id,fid,review_num,hu_shen_300) values(1,1,10.52,-10.1);
 
 /*--14.fund position, stock position*/
-CREATE TABLE fund_position(fp_id int(11) primary key AUTO_INCREMENT,fid int, fs_id int,hold_num float,inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE fund_position(fp_id int(11) primary key AUTO_INCREMENT,fid int,
+fs_id int not null comment '股票ID',
+hold_num float not null comment '仓位',
+inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO fund_position(fid,fs_id,hold_num) values(1,1,752);/*--景顺长城沪深300增强-中国平安-7.52*/
 INSERT INTO fund_position(fid,fs_id,hold_num) values(1,2,513);/*--景顺长城沪深300增强-招商银行-5.13*/
 
 /*--15.fund postion, other position category*/
-CREATE TABLE fund_position_other_category(fpoc_id int(11) primary key AUTO_INCREMENT,name varchar(30)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE fund_position_other_category(fpoc_id int(11) primary key AUTO_INCREMENT,
+name varchar(30) not null comment '持仓类型名') ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO fund_position_other_category(name) values('债券');
 INSERT INTO fund_position_other_category(name) values('银行存款');
 INSERT INTO fund_position_other_category(name) values('其他');
 
 /*--16.fund position, other position*/
-CREATE TABLE fund_position_other(fpo_id int(11) primary key AUTO_INCREMENT,fid int, fpoc_id int,hold_num float,inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE fund_position_other(fpo_id int(11) primary key AUTO_INCREMENT,fid int,
+fpoc_id int not null comment '持仓类型',
+hold_num float not null comment '仓位',
+inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO fund_position_other(fid,fpoc_id,hold_num) values(1,1,3.16);
 INSERT INTO fund_position_other(fid,fpoc_id,hold_num) values(1,2,2.6);
 INSERT INTO fund_position_other(fid,fpoc_id,hold_num) values(1,3,0.66);
 
 /*--17.fund worth history*/
-CREATE TABLE fund_worth_history(fwh_id int(11) primary key AUTO_INCREMENT,fid int,worth float,daily_change float,inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE fund_worth_history(fwh_id int(11) primary key AUTO_INCREMENT,
+fid int not null comment '基金ID',
+worth float not null comment '万份收益/净值',
+daily_change float not null comment '七日年化/日涨跌幅',
+inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO fund_worth_history(fid,worth,daily_change) values(1,2.195,-3.37);
 
 /*------------------------------------fund plans--biz:target,drumstick and best choice------------------------------------------------
