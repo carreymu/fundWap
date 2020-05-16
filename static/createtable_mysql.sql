@@ -46,11 +46,11 @@ INSERT INTO news_info(title,nc_id,img_url, content, status) values('[大目标]2
 /*----------------------------------fund details--biz:target,drumstick and best choice--------------------------------------------------
 --4.fund category  like ETF/LOF/QDFII etc.*/
 CREATE TABLE fund_category(fc_id int(11) primary key AUTO_INCREMENT, 
-name varchar(50) NOT NULL COMMENT '基金类型名', 
-risk_level varchar(2) NOT NULL COMMENT '风险等级',
-fund_tot int(8) NOT NULL COMMENT '基金总数',
-status int NOT NULL COMMENT '使用状态,0-废弃,1-使用中',
-show_order int NOT NULL COMMENT '显示顺序'
+name varchar(50) not null comment '基金类型名', 
+risk_level varchar(2) not null comment '风险等级',
+fund_tot int(8) not null comment '基金总数',
+status int not null comment '使用状态,0-废弃,1-使用中',
+show_order int not null comment '显示顺序'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO fund_category(name,risk_level,fund_tot,status,show_order) values('股票型','R3',1001,1,7); /*--fc_id=1*/
 INSERT INTO fund_category(name,risk_level,fund_tot,status,show_order) values('指数型','R4',1001,1,6);
@@ -140,18 +140,28 @@ INSERT INTO fund_redemption_rate(fid,hold_days,rate) values(1,365,0.5); /*--[7,3
 INSERT INTO fund_redemption_rate(fid,hold_days,rate) values(1,730,0.0); /*--[365,730)*/
 
 /*--12.fund manager matchs funds*/
-CREATE TABLE fund_managers(fms_id int(11) primary key AUTO_INCREMENT,fid int, fm_id int,inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*--12.fund manager matchs funds*/
+CREATE TABLE fund_managers(fms_id int(11) primary key AUTO_INCREMENT,
+fid int not null comment '基金ID',
+fm_id int not null comment '经理ID',
+inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO fund_managers(fid,fm_id) values(1,1); /*--景顺长城沪深300增强--张三疯*/
 INSERT INTO fund_managers(fid,fm_id) values(1,2); /*--景顺长城沪深300增强--阿瓦买提*/
+INSERT INTO fund_managers(fid,fm_id) values(5,1); /*--景顺长城沪深300增强--张三疯*/
+INSERT INTO fund_managers(fid,fm_id) values(5,2); /*--景顺长城沪深300增强--阿瓦买提*/
 
 /*-- 13.fund managers and their fund history*/
 CREATE TABLE fund_managers_history(fmh_id int(11) primary key AUTO_INCREMENT,
-fm_id int,
-fid int,review_num float,hu_shen_300 float,inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+fm_id int not null comment '经理ID',
+fid int not null comment '基金ID',
+review_num float,
+hu_shen_300 float,
+inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO fund_managers_history(fm_id,fid,review_num,hu_shen_300) values(1,1,10.52,-10.1);
 
 /*--14.fund position, stock position*/
-CREATE TABLE fund_position(fp_id int(11) primary key AUTO_INCREMENT,fid int,
+CREATE TABLE fund_position(fp_id int(11) primary key AUTO_INCREMENT,
+fid int not null comment '基金ID',
 fs_id int not null comment '股票ID',
 hold_num float not null comment '仓位',
 inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -166,7 +176,8 @@ INSERT INTO fund_position_other_category(name) values('银行存款');
 INSERT INTO fund_position_other_category(name) values('其他');
 
 /*--16.fund position, other position*/
-CREATE TABLE fund_position_other(fpo_id int(11) primary key AUTO_INCREMENT,fid int,
+CREATE TABLE fund_position_other(fpo_id int(11) primary key AUTO_INCREMENT,
+fid int not null comment '基金ID',
 fpoc_id int not null comment '持仓类型',
 hold_num float not null comment '仓位',
 inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -181,6 +192,9 @@ worth float not null comment '万份收益/净值',
 daily_change float not null comment '七日年化/日涨跌幅',
 inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO fund_worth_history(fid,worth,daily_change) values(1,2.195,-3.37);
+INSERT INTO fund_worth_history(fid,worth,daily_change) values(5,2.195,-3.37);
+INSERT INTO fund_worth_history(fid,worth,daily_change) values(5,2.295,-3.17);
+INSERT INTO fund_worth_history(fid,worth,daily_change) values(5,2.395,-3.07);
 
 /*------------------------------------fund plans--biz:target,drumstick and best choice------------------------------------------------
 --18.fund plan (returns_type:1-七日年化收益,2-近六月历史收益,3-近三年历史收益|page_type:1-only text or image,2-including FOFs etc.)*/

@@ -66,12 +66,12 @@ const router = new VueRouter({
 				component: targetOrder
 			},
 			{
-				path: '/fundWap/targetFundOrder/:tid',
+				path: '/fundWap/targetFundOrder/:fid',
 				name: 'targetFundOrder',
 				component: targetFundOrder
 			},
 			{
-				path: '/fundWap/targetStockOrder/:tid',
+				path: '/fundWap/targetStockOrder/:fid',
 				name: 'targetStockOrder',
 				component: targetStockOrder
 			},

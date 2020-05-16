@@ -25,7 +25,7 @@ config = dict(
       "sql_info": {
         "engine_name": "db_fund_wap_mysql",
         "sql": {
-          "mysql": "select fid,fc_id,fcc_id,fund_name,fund_code,fund_company,status,topn,purchase_rate_new "
+          "mysql": "select fid,fc_id,fcc_id,fund_name,fund_code,fund_company,topn,purchase_rate_new,status "
                    " from fund_info where fid in ({fids})",
           "sqlite3": "",
           "mssql": ""

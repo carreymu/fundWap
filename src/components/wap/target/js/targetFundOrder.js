@@ -3,11 +3,12 @@ export default {
   mounted() {
     this.$store.commit('UPDATE_PAGE_TITLE', '基金档案') 
     this.loadDataOneYear()
+    this.loadFundOrderData()
   },
   data(){
     return {
       tabMap:[30,90,180,365],
-      list2:['最近一月', '最近三月', '最近半年', '最近一年'],
+      dataList:['最近一月', '最近三月', '最近半年', '最近一年'],
       index: 0,
       lineColor:[
         [0, '#FE6384'],
@@ -28,6 +29,48 @@ export default {
       return {
         text: text + '%'
       }
+    },
+    loadFundOrderData(){
+      let fid=this.$route.params.fid;
+      if(fid == undefined){
+        AlertModule.show({
+            title: '亲~~',
+            content: '请勿瞎搞.',
+            onHide () {
+                window.location.replace(document.referrer)
+            }
+        })
+      }
+      let dt = {
+        "req": {"fids":fid,"fid":fid},
+        "event_names": ["fund_info_short","fund_category","fund_manangers_list","fund_worth_history_by_fid"]
+      }
+      this.$api.fetchPost('/sanic-api', dt).then(r=>{
+        let fc_id = 0
+        if(r.fund_info_short!=undefined && r.fund_info_short.length > 0){
+          let flt = r.fund_info_short.filter(x=>x.status==1)
+          if(flt.length > 0){
+            this.funcInfo = flt[0]
+            this.funcInfo['purchase_rate_new'] = (this.funcInfo['purchase_rate_new'] *100).toFixed(2)
+            fc_id = this.funcInfo.fc_id
+          }
+        }
+        if(r.fund_category!=undefined && r.fund_category.length>0){
+          let flt = r.fund_category.filter(x=>x.fc_id ==fc_id)
+          if(flt.length>0){
+            this.funcInfo['fund_tot'] = flt[0].fund_tot
+            this.funcInfo['cat_name'] = flt[0].name
+          }
+        }
+        if(r.fund_manangers_list!=undefined && r.fund_manangers_list.length>0){
+          this.funcInfo['managers']=r.fund_manangers_list.map(x=>x.name).join()
+        }
+        if(r.fund_worth_history_by_fid!=undefined && r.fund_worth_history_by_fid.length>0){
+          this.funcInfo['worth']= (r.fund_worth_history_by_fid[0].worth *100).toFixed(2)
+          this.funcInfo['daily_change']= r.fund_worth_history_by_fid[0].daily_change
+        }
+        // console.log(this.fundList)
+      })
     },
     loadDataOneYear(){
       var days = 365

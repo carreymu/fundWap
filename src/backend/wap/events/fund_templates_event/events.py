@@ -17,7 +17,7 @@ class FundTemplates(DataSource):
             fids = [x[key] for x in result["fund_templates"]]
             # import pdb;pdb.set_trace()
             if len(fids) > 0:
-                sql_params = str(fids[0]) if len(fids) == 1 else sql_in(fids)  # ",".join(["%" for x in fids])
+                sql_params = str(fids[0]) if len(fids) == 1 else sql_in(fids)
                 fund_info = await exec_base.exec_sql_key(event_names='fund_info_short', **{'fids': sql_params})
                 fund_cat = await exec_base.exec_sql_key(event_names='fund_category')
                 per_dict = dict((x['fid'], x['percentage']) for x in result['fund_templates'])
