@@ -1,7 +1,7 @@
 <template>
 <div>
   <div class="tarfndord">
-    <div style="text-align:center;" v-if="dataList.length==0">
+    <div style="text-align:center;" v-if="allData.length==0">
       <spinner type="lines"/>
     </div>
     <div v-else>

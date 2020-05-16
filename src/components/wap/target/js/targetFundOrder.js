@@ -2,7 +2,6 @@ import { Tabbar, TabbarItem ,XHeader,XButton, VAxis, Spinner, dateFormat, Tab, T
 export default {
   mounted() {
     this.$store.commit('UPDATE_PAGE_TITLE', '基金档案') 
-    this.loadDataOneYear()
     this.loadFundOrderData()
   },
   data(){
@@ -16,20 +15,13 @@ export default {
       ],
       data: [],
       allData: [],
-      funcInfo:{}
+      funcInfo:{},
+      fundDailyData:[],
     }
   },
   methods:{
-    lblFx(text) {
-      return {
-        text: dateFormat(text,'MM-DD')
-      }
-    },
-    lblFy(text) {
-      return {
-        text: text + '%'
-      }
-    },
+    lblFx(text) {return {text: dateFormat(text,'MM-DD')}},
+    lblFy(text) {return {text: text + '%'}},
     loadFundOrderData(){
       let fid=this.$route.params.fid;
       if(fid == undefined){
@@ -68,6 +60,14 @@ export default {
         if(r.fund_worth_history_by_fid!=undefined && r.fund_worth_history_by_fid.length>0){
           this.funcInfo['worth']= (r.fund_worth_history_by_fid[0].worth *100).toFixed(2)
           this.funcInfo['daily_change']= r.fund_worth_history_by_fid[0].daily_change
+          for(var i=0;i<r.fund_worth_history_by_fid.length;i++){
+            this.fundDailyData.push({
+              date:this.$utdate.dateFmt(r.fund_worth_history_by_fid[i].inserttime,"yyyy-MM-dd"), 
+              value: (r.fund_worth_history_by_fid[i].worth *100).toFixed(2)
+            })
+          }
+          // console.log(this.fundDailyData)
+          this.loadDataOneYear()
         }
         // console.log(this.fundList)
       })
@@ -78,8 +78,15 @@ export default {
       var rndEnd = this.$utrandom.randomFullClose(0,4)
       for(var j=1;j<days;j++){
         let dt = this.$utdate.addDate(startDate,j)
-        let rnd = parseFloat(this.$utrandom.randomFullOpen(0,rndEnd).toFixed(2))
+        let rnd = 0;
+        let fDate = this.fundDailyData.filter(x=>x.date==dt)
+        if(fDate!=null&& fDate.length>0){
+          rnd = fDate[0].value
+        }else{
+          rnd = parseFloat(this.$utrandom.randomFullOpen(0,rndEnd).toFixed(2))
+        }
         let d = {date:dt, value: rnd}
+        // console.log(d)
         this.allData.push(d)
         if(days-j<this.tabMap[0]){
           this.data.push(d)
