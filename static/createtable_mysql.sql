@@ -191,15 +191,28 @@ fid int not null comment '基金ID',
 worth float not null comment '万份收益/净值',
 daily_change float not null comment '七日年化/日涨跌幅',
 inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO fund_worth_history(fid,worth,daily_change) values(1,2.195,-3.37);
-INSERT INTO fund_worth_history(fid,worth,daily_change) values(5,2.195,-3.37);
-INSERT INTO fund_worth_history(fid,worth,daily_change) values(5,2.295,-3.17);
-INSERT INTO fund_worth_history(fid,worth,daily_change) values(5,2.395,-3.07);
+INSERT INTO fund_worth_history(fid,worth,daily_change,inserttime) values(1,2.195,-3.37,'2020-03-23 3:14:36');
+INSERT INTO fund_worth_history(fid,worth,daily_change,inserttime) values(1,0.02196,-3.37,'2020-03-24 13:14:36');
+INSERT INTO fund_worth_history(fid,worth,daily_change,inserttime) values(1,0.02096,3.17,'2020-03-25 13:14:36');
+INSERT INTO fund_worth_history(fid,worth,daily_change,inserttime) values(1,0.02296,-2.07,'2020-03-26 13:14:36');
+INSERT INTO fund_worth_history(fid,worth,daily_change,inserttime) values(5,2.195,-3.37,'2020-03-23 13:14:36');
+INSERT INTO fund_worth_history(fid,worth,daily_change,inserttime) values(5,2.295,-3.17,'2020-03-24 13:14:36');
+INSERT INTO fund_worth_history(fid,worth,daily_change,inserttime) values(5,2.395,-3.07,'2020-03-25 13:14:36');
 
 /*------------------------------------fund plans--biz:target,drumstick and best choice------------------------------------------------
 --18.fund plan (returns_type:1-七日年化收益,2-近六月历史收益,3-近三年历史收益|page_type:1-only text or image,2-including FOFs etc.)*/
-CREATE TABLE fund_plan(fpl_id int(11) primary key AUTO_INCREMENT,name varchar(20),returns float,loss float,returns_type int,threshold float,sched_threshold float,img_url varchar(200),
-page_type int,details varchar(500),short_intro varchar(30),remark varchar(200),inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE fund_plan(fpl_id int(11) primary key AUTO_INCREMENT,
+name varchar(20),
+returns float,
+loss float,
+returns_type int,
+threshold float,
+sched_threshold float,
+img_url varchar(200),
+page_type int,
+details varchar(500),
+short_intro varchar(30),
+remark varchar(200),inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO fund_plan(name,returns,loss,returns_type,threshold,sched_threshold,img_url,page_type,details,short_intro,remark) values('超级现金宝',2.8,0,1,100,0,'//images_url',1,'','','仅一张图片的页面');
 INSERT INTO fund_plan(name,returns,loss,returns_type,threshold,sched_threshold,img_url,page_type,details,short_intro,remark) values('全明星计划',35.57,43.11,3,1000,500,'//images_url',2,'组合详情:','跟对人买对基,实力派经理一网打尽','有基列表');
 INSERT INTO fund_plan(name,returns,loss,returns_type,threshold,sched_threshold,img_url,page_type,details,short_intro,remark) values('海投计划',30.63,18.24,3,1000,100,'//images_url',2,'组合详情:','全球资产配置,把握更多投资机会','高尔基');

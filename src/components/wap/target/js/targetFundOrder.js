@@ -78,13 +78,9 @@ export default {
       var rndEnd = this.$utrandom.randomFullClose(0,4)
       for(var j=1;j<days;j++){
         let dt = this.$utdate.addDate(startDate,j)
-        let rnd = 0;
+        
         let fDate = this.fundDailyData.filter(x=>x.date==dt)
-        if(fDate!=null&& fDate.length>0){
-          rnd = fDate[0].value
-        }else{
-          rnd = parseFloat(this.$utrandom.randomFullOpen(0,rndEnd).toFixed(2))
-        }
+        let rnd = fDate!=null&& fDate.length>0?fDate[0].value:parseFloat(this.$utrandom.randomFullOpen(0,rndEnd).toFixed(2))
         let d = {date:dt, value: rnd}
         // console.log(d)
         this.allData.push(d)

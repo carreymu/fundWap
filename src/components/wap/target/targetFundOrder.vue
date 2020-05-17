@@ -1,7 +1,7 @@
 <template>
 <div>
   <div class="tarfndord">
-    <div style="text-align:center;" v-if="allData.length==0">
+    <div class="load" v-if="allData.length==0">
       <spinner type="lines"/>
     </div>
     <div v-else>
@@ -81,6 +81,16 @@
     font-size:12px;
     /* margin:10px 10px 0px 10px; */
   }
+  .tarfndord .load{
+    text-align: center;
+    height: 250px;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
   .tarfndord .ratio{
       color:brown;
       font-size: 14px;
@@ -106,7 +116,7 @@
     padding-top:10px;
   }
   .tarfndord .itfoIntro .tfoMen{
-    width:80px;
+    width:100px;
     padding-top:5px;
   }
   .linefd{

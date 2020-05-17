@@ -1,6 +1,6 @@
 <template>
   <div class="tarstkord">
-    <div class="load" v-if="itemList.length==0">
+    <div class="load" v-if="fundDailyData.length==0">
         <spinner type="lines"/>
     </div>
     <div v-else>
@@ -92,12 +92,16 @@
         查看更多 >
       </div>
       <div>
-      <group>
-        <cell class="fnt12" :border-intent="false" :title="'基金概况'" :value="'天弘基金'" is-link></cell>
-        <cell class="fnt12" :border-intent="false" :title="'基金经理'" :value="'川大爷'" is-link></cell>
-        <cell class="fnt12" :border-intent="false" :title="'基金持仓'" is-link></cell>
-        <cell class="fnt12" :border-intent="false" :title="'分红拆分'" is-link></cell>
-      </group>
+        <div style="padding-top:12px;">
+          <div style="float: left;">已清仓</div>
+          <div style="float: right;">赎回明细 ></div>
+        </div>
+        <group>
+          <cell class="fnt12" :border-intent="false" :title="'基金概况'" :value="funcInfo.fund_name" is-link></cell>
+          <cell class="fnt12" :border-intent="false" :title="'基金经理'" :value="funcInfo.managers" is-link></cell>
+          <cell class="fnt12" :border-intent="false" :title="'基金持仓'" is-link></cell>
+          <cell class="fnt12" :border-intent="false" :title="'分红拆分'" is-link></cell>
+        </group>
       </div>
       <div>
       <group>
@@ -105,7 +109,9 @@
       </group>
       </div>
       <div class="line"/>
-        <div class="summary">基金行情数据及基金交易服务由川大爷的公司提供,基金销售服务资格暂时不告诉你.本页非任何法律文件,投资前请认真阅读基金合同.市场有风险,投资需谨慎。</div>
+        <div class="summary">
+          基金行情数据及基金交易服务由川大爷的公司提供,基金销售服务资格暂时不告诉你.本页非任何法律文件,投资前请认真阅读基金合同.市场有风险,投资需谨慎。
+          </div>
         <div class="line"></div>
       </div>
     </div>

@@ -10,14 +10,19 @@ export default {
   },
   data(){      
       return {
+        data: [],
+        allData: [],
+        funcInfo:{},
+        fundDailyData:[],
+        index: 0,
           list2:['近1月', '近3月', '近6月', '近1年', '近3年'],
           selectIdx: 0,
           autoHeight:[420,420,420],
           itemList:[],
           chartData:{
               color:["#c32c1c","#ffd700","#99CCFF"],
-      tag: [],
-      data:[
+              tag: [],
+              data:[
                   {"date":"2010-01-10","stock_name":"大目标达标","value":96.6},
                   {"date":"2010-01-10","stock_name":"大目标收益率","value":96.6},
                   {"date":"2010-01-10","stock_name":"上证综指涨跌幅","value":97.2},
@@ -188,15 +193,63 @@ export default {
           }
       },
       loadLatest(){
-          let self=this;
-          this.baseAjax({
-              url:'../../../static/basicData/latestNews.json',
-              showLoading:true,
-              success:function(data){
-                  // console.log(data)
-                  self.itemList=data.returnObject
+        let fid=this.$route.params.fid;
+        if(fid == undefined){
+          AlertModule.show({
+              title: '亲~~',
+              content: '请勿瞎搞.',
+              onHide () {
+                  window.location.replace(document.referrer)
               }
           })
+        }
+        let dt = {
+          "req": {"fids":fid,"fid":fid},
+          "event_names": ["fund_info_short","fund_category","fund_manangers_list","fund_worth_history_by_fid"]
+        }
+        this.$api.fetchPost('/sanic-api', dt).then(r=>{
+        let fc_id = 0
+        if(r.fund_info_short!=undefined && r.fund_info_short.length > 0){
+          let flt = r.fund_info_short.filter(x=>x.status==1)
+          if(flt.length > 0){
+            this.funcInfo = flt[0]
+            this.funcInfo['purchase_rate_new'] = (this.funcInfo['purchase_rate_new'] *100).toFixed(2)
+            fc_id = this.funcInfo.fc_id
+          }
+        }
+        if(r.fund_category!=undefined && r.fund_category.length>0){
+          let flt = r.fund_category.filter(x=>x.fc_id ==fc_id)
+          if(flt.length>0){
+            this.funcInfo['fund_tot'] = flt[0].fund_tot
+            this.funcInfo['cat_name'] = flt[0].name
+          }
+        }
+        if(r.fund_manangers_list!=undefined && r.fund_manangers_list.length>0){
+          this.funcInfo['managers']=r.fund_manangers_list.map(x=>x.name).join()
+        }
+        if(r.fund_worth_history_by_fid!=undefined && r.fund_worth_history_by_fid.length>0){
+          this.funcInfo['worth']= (r.fund_worth_history_by_fid[0].worth *100).toFixed(2)
+          this.funcInfo['daily_change']= r.fund_worth_history_by_fid[0].daily_change
+          for(var i=0;i<r.fund_worth_history_by_fid.length;i++){
+            this.fundDailyData.push({
+              date:this.$utdate.dateFmt(r.fund_worth_history_by_fid[i].inserttime,"yyyy-MM-dd"), 
+              value: (r.fund_worth_history_by_fid[i].worth *100).toFixed(2)
+            })
+          }
+          // console.log(this.fundDailyData)
+          
+        }
+        // console.log(this.fundList)
+      })
+        //   let self=this;
+        //   this.baseAjax({
+        //       url:'../../../static/basicData/latestNews.json',
+        //       showLoading:true,
+        //       success:function(data){
+        //           // console.log(data)
+        //           self.itemList=data.returnObject
+        //       }
+        //   })
       },
       loadDetail(){
           let dt = {
