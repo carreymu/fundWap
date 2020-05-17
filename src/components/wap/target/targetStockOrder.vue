@@ -76,26 +76,31 @@
           </tr>
         </thead>
         <tbody>
+          <span v-for="(it,idx) in data" :key="idx">
           <tr>
-            <td>2020-04-30</td>
-            <td>1.25</td>
-            <td class="fntBrown">+1.43%</td>
+            <td>{{it.inserttime}}</td>
+            <td>{{it.worth}}</td>
+            <td>
+              <span class="fntBrown" v-if="it.daily_change>0">+{{it.daily_change}}%</span>
+              <span class="fntGreen" v-else>-{{it.daily_change}}%</span>
+              </td>
           </tr>
-          <tr>
+          </span>
+          <!-- <tr>
             <td>2020-04-29</td>
             <td>1.25</td>
             <td class="fntGreen">-0.43%</td>
-          </tr>
+          </tr> -->
         </tbody>
       </x-table>
       <div class="seeMore">
         查看更多 >
       </div>
       <div>
-        <div style="padding-top:12px;">
+        <!-- <div style="padding-top:12px;">
           <div style="float: left;">已清仓</div>
           <div style="float: right;">赎回明细 ></div>
-        </div>
+        </div> -->
         <group>
           <cell class="fnt12" :border-intent="false" :title="'基金概况'" :value="funcInfo.fund_name" is-link></cell>
           <cell class="fnt12" :border-intent="false" :title="'基金经理'" :value="funcInfo.managers" is-link></cell>

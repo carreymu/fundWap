@@ -10,6 +10,8 @@ export default {
   },
   data(){      
       return {
+        tabMap:[30,90,180,365,1095],
+        stockList:["大目标达标","大目标收益率","上证综指涨跌幅"],
         data: [],
         allData: [],
         funcInfo:{},
@@ -236,60 +238,46 @@ export default {
               value: (r.fund_worth_history_by_fid[i].worth *100).toFixed(2)
             })
           }
-          // console.log(this.fundDailyData)
-          
+          this.loadDailyData()
         }
         // console.log(this.fundList)
       })
-        //   let self=this;
-        //   this.baseAjax({
-        //       url:'../../../static/basicData/latestNews.json',
-        //       showLoading:true,
-        //       success:function(data){
-        //           // console.log(data)
-        //           self.itemList=data.returnObject
-        //       }
-        //   })
       },
-      loadDetail(){
-          let dt = {
-              "req": {"run_status":"1,2,4,3"},
-              "event_names": ["targets_agg_list"]
-            }
-            this.$api.fetchPost('/sanic-api', dt).then(r=>{
-              // if(r.targets_agg_list.length > 0){
-              //   this.targetListData=r.targets_agg_list
-              // }
-              let tot =0
-              let done=0
-              let avem=0
-              if(r.targets_agg_list.length > 0){
-                let tar_list = r.targets_agg_list
-                for(var i = 0 ;i<tar_list.length; i++){
-                  let its = tar_list[i].items
-                  for(var j = 0;j<its.length;j++){
-                      its[j].apply_endtime = dateFormat(its[j].apply_endtime/1000,"YYYY-MM-DD HH:mm:ss")
-                      its[j].target_ratio = (its[j].target_ratio*100).toFixed(2)
-                      its[j]["run_statu"]="运行中"
-                      tot=tot+1
-                      avem=avem+its[j].run_days
-                      if(its[j].run_status==4){
-                          its[j]["run_statu"]="用时"
-                          done=done+1
-                      }
-                      its[j]["run_statu"]=its[j].run_status==4?"用时":"运行中"
-                      its[j].run_status = this.runStatus[its[j].run_status]                        
-                  }
-                  this.targetListData.push(tar_list[i])
+      loadDailyData(){
+        let threshold = 200
+        let fstDone = []
+        let leftStocks = []
+        let ht = '<div style="border:1px solid #c32c1c;background-color:#fff;width:3px;height:3px;border-radius:50%;font-size:10px"></div>'
+
+        var days = 365
+        var startDate = this.$utdate.addDate(new Date(),-days)
+        var rndEnd = this.$utrandom.randomFullClose(0,4)
+        for(var j=1;j<days;j++){
+          let dt = this.$utdate.addDate(startDate,j)
+          let fDate = this.fundDailyData.filter(x=>x.date==dt)
+          let rnd = fDate!=null && fDate.length>0?fDate[0].value:parseFloat(this.$utrandom.randomFullOpen(0,rndEnd).toFixed(2))
+          for(var i=0;i<stockList.length;i++){
+            let d = {"date": dt,"stock_name": stockList[i],"value": rnd}
+
+            if(stockList[i].stock_name=='大目标收益率'){
+                // console.log(numberRandom(0,300))
+                if(numberRandom(0,300)>threshold){
+                    this.chartData.tag.push({position:[dt, rnd],html:ht})
+                    leftStocks.push({date:dt,stock_name:"大目标达标",value:rnd})
                 }
-                //to do: {投资年化回报},{大盘}
-                this.summary=this.$stringFormat(this.summary,[tot,done,(avem/30).toFixed(1)])
-              }
-              // console.log(this.targetListData)
-              // console.log(this.summary)
-            }).catch(err=>{
-              console.log(err)
-            })
+            }
+            if(stockList[i].stock_name!='大目标达标'){
+                leftStocks.push(d)
+            }
+
+            this.allData.push(d)
+
+            if(days-j<this.tabMap[0]){
+              this.data.push(d)
+            }
+          }
+        }
+        console.log(this.allData)
       },
       onItemClick (index) {
           this.selectIdx = index

@@ -9,7 +9,7 @@ config = dict(
             "engine_name": "db_fund_wap_mysql",
             "sql": {
                 "mysql": "select fid,worth,daily_change,inserttime from fund_worth_history where fid={fid} "
-                         "order by inserttime desc",
+                         " order by inserttime desc limit {topx}",
                 "sqlite3": "",
                 "mssql": ""
             }
