@@ -1,6 +1,6 @@
 <template>
   <div class="tarstkord">
-    <div class="load" v-if="fundDailyData.length==0">
+    <div class="load" v-if="chartData.data.length==0">
         <spinner type="lines"/>
     </div>
     <div v-else>
@@ -8,10 +8,13 @@
         <flexbox>
           <flexbox-item>
             <div class="fnt10"> 日涨跌幅</div>
-            <div style="color:green;font-size:25px;">-4.03%</div>
+            <div style="font-size:25px;">
+              <span class="fntBrown" v-if="funcInfo.daily_change>0">+{{funcInfo.daily_change}}%</span>
+              <span class="fntGreen" v-else>-{{funcInfo.daily_change}}%</span>
+              </div>
             </flexbox-item>
-          <flexbox-item><div class="fnt10">单位净值(04-30)</div>
-          <div class="fnt25">2.1759</div></flexbox-item>
+          <flexbox-item><div class="fnt10">单位净值({{funcInfo.date}})</div>
+          <div class="fnt25">{{funcInfo.value}}</div></flexbox-item>
         </flexbox>
         <div>
           <div class="stkF1">指数型</div> 
@@ -76,7 +79,7 @@
           </tr>
         </thead>
         <tbody>
-          <span v-for="(it,idx) in data" :key="idx">
+          <span v-for="(it,idx) in chartData.data" :key="idx">
           <tr>
             <td>{{it.inserttime}}</td>
             <td>{{it.worth}}</td>
