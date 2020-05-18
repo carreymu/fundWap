@@ -12,8 +12,6 @@ export default {
       return {
         tabMap:[30,90,180,365,1095],
         stockList:["大目标收益率","大目标达标","上证综指涨跌幅"],
-        // data: [],
-        // allData: [],
         funcInfo:{},
         fundDailyData:[],
         index: 0,
@@ -25,7 +23,8 @@ export default {
               color:["#c32c1c","#ffd700","#99CCFF"],
               tag: [],
               alldata:[],
-              data:[]},
+              data:[],
+              daily:[]},
               // 1 - 建仓中, 2 - 盈利中, 3 - 浮亏中, 4 - 已达标
           runStatus:{1:"建仓中",2 :"盈利中",3:"浮亏中", 4:"已达标"},
           targetListData:[],
@@ -106,7 +105,7 @@ export default {
         if(r.fund_worth_history_by_fid!=undefined && r.fund_worth_history_by_fid.length>0){
           for(var i=0;i<r.fund_worth_history_by_fid.length;i++){
             let dt = this.$utdate.dateFmt(r.fund_worth_history_by_fid[i].inserttime,"yyyy-MM-dd")
-            let v = (r.fund_worth_history_by_fid[i].worth *100).toFixed(2)
+            let v = (r.fund_worth_history_by_fid[i].worth *100).toFixed(4)
             let cg = r.fund_worth_history_by_fid[0].daily_change
             if(i == 0){
               this.funcInfo['date'] = dt
@@ -126,33 +125,39 @@ export default {
         var days = 1095
         var startDate = this.$utdate.addDate(new Date(),-days)
         var rndEnd = this.$utrandom.randomFullClose(0,4)
-        var rndDaily = this.$utrandom.randomFullClose(0,3)
-        for(var j=1;j<days;j+=5){
+        // var rndDaily = this.$utrandom.randomFullClose(0,3)
+        for(var j=1;j<days;j++){
           let dt = this.$utdate.addDate(startDate,j)
+          var day = new Date(dt).getDay();//0-周日，6-周六
+          if(day==0 || day==6) {
+              continue
+          }
           let fDate = this.fundDailyData.filter(x=>x.date==dt)
           let rnd = 0 
+          // rndDaily = parseFloat(this.$utrandom.randomFullOpen(0,rndDaily).toFixed(2))
           if(fDate!=null && fDate.length>0){
             rnd = fDate[0].value
           }
           for(var i=0;i<this.stockList.length;i++){
             if(this.stockList[i]!="大目标达标"){
               rnd = parseFloat(this.$utrandom.randomFullOpen(0,rndEnd).toFixed(2))
-              rndDaily = parseFloat(this.$utrandom.randomFullOpen(0,rndDaily).toFixed(2))
             }
-            let d = {date: dt,stock_name: this.stockList[i],value: rnd, daily_change: rnd-rndDaily}
+            let d = {date: dt,stock_name: this.stockList[i],value: rnd, daily_change: rnd}//-rndDaily
             if(this.chartData.alldata.length == 0){
               this.chartData.alldata.push(d)
             }else{
               if(numberRandom(0,300)>threshold){
-                // console.log(numberRandom(0,300))
                 this.chartData.tag.push({position:[dt, rnd],html:ht})
-                this.chartData.alldata.push({date:dt,stock_name:"大目标达标",value:rnd, daily_change: rnd-rndDaily})
+                this.chartData.alldata.push({date:dt,stock_name:"大目标达标",value:rnd, daily_change: rnd})
                 i++
               }
               this.chartData.alldata.push(d)
             }
-            if(j<this.tabMap[0]){
+            if(days-j<10){
               this.chartData.data.push(d)
+              if(this.stockList[i]=="大目标收益率"){
+                this.chartData.daily.push(d)
+              }
             }
           }
         }

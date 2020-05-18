@@ -10,7 +10,7 @@
             <div class="fnt10"> 日涨跌幅</div>
             <div style="font-size:25px;">
               <span class="fntBrown" v-if="funcInfo.daily_change>0">+{{funcInfo.daily_change}}%</span>
-              <span class="fntGreen" v-else>-{{funcInfo.daily_change}}%</span>
+              <span class="fntGreen" v-else>{{funcInfo.daily_change}}%</span>
               </div>
             </flexbox-item>
           <flexbox-item><div class="fnt10">单位净值({{funcInfo.date}})</div>
@@ -79,16 +79,14 @@
           </tr>
         </thead>
         <tbody>
-          <span v-for="(it,idx) in chartData.data" :key="idx">
-          <tr>
-            <td>{{it.inserttime}}</td>
-            <td>{{it.worth}}</td>
+          <tr v-for="(it,idx) in chartData.daily" :key="idx">
+            <td>{{it.date}}</td>
+            <td>{{it.value}}</td>
             <td>
               <span class="fntBrown" v-if="it.daily_change>0">+{{it.daily_change}}%</span>
               <span class="fntGreen" v-else>-{{it.daily_change}}%</span>
               </td>
           </tr>
-          </span>
           <!-- <tr>
             <td>2020-04-29</td>
             <td>1.25</td>
