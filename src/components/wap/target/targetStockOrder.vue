@@ -51,7 +51,7 @@
       <div>
         <div class="stkPre">基金收益率走势</div>
         <swiper v-model="index" height="260px" :show-dots="false">
-          <swiper-item v-for="(item, index) in list2" :key="index">
+          <swiper-item v-for="(item, index) in timeRange" :key="index">
             <div>
               <v-chart :data="chartData.data">
                 <v-scale x field="date" type="timeCat" mask="MM-DD"/>
@@ -66,7 +66,7 @@
           </swiper-item>
         </swiper>
         <tab :scroll-threshold="5" :line-width=3 active-color='#db5361' bar-position="top" v-model="selectIdx">
-          <tab-item @on-item-click="onItemClick"  class="fnt12" v-for="(item, index) in list2" :key="index">{{item}}</tab-item>
+          <tab-item @on-item-click="onItemClick"  class="fnt12" v-for="(item, index) in timeRange" :key="index">{{item}}</tab-item>
         </tab>
       </div>
       <div>

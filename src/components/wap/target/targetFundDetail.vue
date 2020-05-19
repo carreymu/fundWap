@@ -1,7 +1,7 @@
 <template>
 <div>
   <div class="targetfund">
-    <div v-if="fundList.length==0">
+    <div class="load" v-if="fundList.length==0">
       <spinner type="lines"/>
     </div>
     <div v-else>
@@ -89,110 +89,120 @@
     font-size:12px;
     margin:10px 10px 0px 10px;
   }
-  .targetfund .fundList{
-    clear:both;
-    padding:5px 5px;
-    color:#333;
-  }
-  .targetfund .sysLt{
-    float:left;
-    line-height:35px;
-    padding-left:10px;
-    color:#333;
-  }
-  .targetfund .sysRt{
-    float:right;
-    line-height:35px;
-    padding-right:10px;
-  }
-  .targetfund .serviceInfo{
-    clear:both;
-    padding: 10px 0 0 10px;
-    line-height:25px;
-    text-align:left;
-    
-  }
-  .targetfund .cell{
-    font-size:13px;
-  }
- .targetfund .topcontext{
-    padding: 15px 40px 20px 40px;
-    display:-webkit-flex;
-    display: flex;
-    justify-content: space-around;
-  }
-  .line{
-    clear: both;
-    border-bottom: 1px solid rgb(230, 230, 230);
-    padding: 0px 0 10px 0;
-  }
-  .linefd{
-    clear: both;
-    border-bottom:1px solid rgb(230, 230, 230);
-  }
-  .targetfund .tfdline{
-    border-bottom:1px solid rgb(230, 230, 230);
-    margin:5px 0;
-  }  
-  .targetfund .aimRate{
-    font-size: x-large;
-    text-align: center;
-  }
-  .targetfund .aimLast{
-    font-size: x-large;
-    text-align: center;
-  }
-  .targetfund .aimRmk{
-    text-align:center;
-    color:#999999;
-    margin-left:5px;
-  }  
-  .targetfund .aimRmkSub{
-    text-align:center;
-    color:#999999;
-    font-size:11px;
-    margin-bottom: 10px;
-  }
+  .targetfund .load{
+  text-align: center;
+  height: 250px;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.targetfund .fundList{
+  clear:both;
+  padding:5px 5px;
+  color:#333;
+}
+.targetfund .sysLt{
+  float:left;
+  line-height:35px;
+  padding-left:10px;
+  color:#333;
+}
+.targetfund .sysRt{
+  float:right;
+  line-height:35px;
+  padding-right:10px;
+}
+.targetfund .serviceInfo{
+  clear:both;
+  padding: 10px 0 0 10px;
+  line-height:25px;
+  text-align:left;
+  
+}
+.targetfund .cell{
+  font-size:13px;
+}
+.targetfund .topcontext{
+  padding: 15px 40px 20px 40px;
+  display:-webkit-flex;
+  display: flex;
+  justify-content: space-around;
+}
+.line{
+  clear: both;
+  border-bottom: 1px solid rgb(230, 230, 230);
+  padding: 0px 0 10px 0;
+}
+.linefd{
+  clear: both;
+  border-bottom:1px solid rgb(230, 230, 230);
+}
+.targetfund .tfdline{
+  border-bottom:1px solid rgb(230, 230, 230);
+  margin:5px 0;
+}  
+.targetfund .aimRate{
+  font-size: x-large;
+  text-align: center;
+}
+.targetfund .aimLast{
+  font-size: x-large;
+  text-align: center;
+}
+.targetfund .aimRmk{
+  text-align:center;
+  color:#999999;
+  margin-left:5px;
+}  
+.targetfund .aimRmkSub{
+  text-align:center;
+  color:#999999;
+  font-size:11px;
+  margin-bottom: 10px;
+}
 
-  .targetfund .waitInvokeTxtPre{
-    color:brown;
-    font-weight:900;
-    font-size: 15px;
-    padding-left:5px;
-    float: left;
-    clear: both;
-  }
-  .targetfund .waitInvokeTxtTail{
-    color:#000000;padding-left:5px;
-  }
-  .targetfund .footer{
-    text-align:center;
-    color:#666;
-  }
-  .targetfund .footer .bot{
-    font-size:11px;
-    padding:10px 0 80px 0;
-  }  
-  .footerFix{
-    font-size:12px;
-    position:absolute;
-    bottom:0;
-    width:100%;
-    height:130px;
-    background:#F7F7F7;
-  }
-  .footerFix .timeFont{
-    padding:5px 0;
-    text-align:center;
-  }
-  .targetfund .slopingside{
-    height:0px;
-    width:45px;
-    margin-top: 30px;
-    border-top: 0.1px solid rgb(128, 126, 126);
-    transform:rotate(125deg);
-    -o-transform:rotate(125deg);
-    -moz-transform:rotate(125deg);
-    -webkit-transform:rotate(125deg);
-  }
+.targetfund .waitInvokeTxtPre{
+  color:brown;
+  font-weight:900;
+  font-size: 15px;
+  padding-left:5px;
+  float: left;
+  clear: both;
+}
+.targetfund .waitInvokeTxtTail{
+  color:#000000;padding-left:5px;
+}
+.targetfund .footer{
+  text-align:center;
+  color:#666;
+}
+.targetfund .footer .bot{
+  font-size:11px;
+  padding:10px 0 80px 0;
+}  
+.footerFix{
+  font-size:12px;
+  position:absolute;
+  bottom:0;
+  width:100%;
+  height:130px;
+  background:#F7F7F7;
+}
+.footerFix .timeFont{
+  padding:5px 0;
+  text-align:center;
+}
+.targetfund .slopingside{
+  height:0px;
+  width:45px;
+  margin-top: 30px;
+  border-top: 0.1px solid rgb(128, 126, 126);
+  transform:rotate(125deg);
+  -o-transform:rotate(125deg);
+  -moz-transform:rotate(125deg);
+  -webkit-transform:rotate(125deg);
+}
 </style>

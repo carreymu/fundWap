@@ -6,7 +6,7 @@ export default {
       this.loadLatest()
       // this.getTags()
     //   this.loadDetail()
-      this.$store.commit('UPDATE_PAGE_TITLE', '汇添富中证主要消费ETF连接 <br/>000248') 
+      this.$store.commit('UPDATE_PAGE_TITLE', '汇添富中证主要消费ETF连接(000248)') 
   },
   data(){      
       return {
@@ -15,20 +15,22 @@ export default {
         funcInfo:{},
         fundDailyData:[],
         index: 0,
-          list2:['近1月', '近3月', '近6月', '近1年', '近3年'],
-          selectIdx: 0,
-          autoHeight:[420,420,420],
-          itemList:[],
-          chartData:{
-              color:["#c32c1c","#ffd700","#99CCFF"],
-              tag: [],
-              alldata:[],
-              data:[],
-              daily:[]},
-              // 1 - 建仓中, 2 - 盈利中, 3 - 浮亏中, 4 - 已达标
-          runStatus:{1:"建仓中",2 :"盈利中",3:"浮亏中", 4:"已达标"},
-          targetListData:[],
-          summary:"共发车{0}期,{1}期已达标5%~8%,平均运行{2}个月.投资年化回报18.49%.跑赢大盘19.66%以上。"
+
+        // timeRange:[{'近1月':0}, {'近3月':3}, {'近6月':6}, {'近1年':12}, {'近3年':36}],
+        timeRange:['近1月','近3月','近6月','近1年','近3年'],
+        selectIdx: 0,
+        autoHeight:[420,420,420],
+        itemList:[],
+        chartData:{
+            color:["#c32c1c","#ffd700","#99CCFF"],
+            tag: [],
+            alldata:[],
+            data:[],
+            daily:[]},
+            // 1 - 建仓中, 2 - 盈利中, 3 - 浮亏中, 4 - 已达标
+        runStatus:{1:"建仓中",2 :"盈利中",3:"浮亏中", 4:"已达标"},
+        targetListData:[],
+        summary:"共发车{0}期,{1}期已达标5%~8%,平均运行{2}个月.投资年化回报18.49%.跑赢大盘19.66%以上。"
       }
   },
   methods:{
@@ -90,6 +92,7 @@ export default {
             this.funcInfo = flt[0]
             this.funcInfo['purchase_rate_new'] = (this.funcInfo['purchase_rate_new'] *100).toFixed(2)
             fc_id = this.funcInfo.fc_id
+            this.$store.commit('UPDATE_PAGE_TITLE', this.funcInfo.fund_name+"("+ this.funcInfo.fund_code +")")
           }
         }
         if(r.fund_category!=undefined && r.fund_category.length>0){
@@ -120,21 +123,21 @@ export default {
       })
       },
       loadDailyData(){
+        //todo:----------------->前端算力有限,数据后端直接提供,否则慢的要骂娘
         let threshold = 200
         let ht = '<div style="border:1px solid #c32c1c;background-color:#fff;width:3px;height:3px;border-radius:50%;font-size:10px"></div>'
         var days = 1095
         var startDate = this.$utdate.addDate(new Date(),-days)
         var rndEnd = this.$utrandom.randomFullClose(0,4)
-        // var rndDaily = this.$utrandom.randomFullClose(0,3)
         for(var j=1;j<days;j++){
           let dt = this.$utdate.addDate(startDate,j)
-          var day = new Date(dt).getDay();//0-周日，6-周六
+          //周六周日赌场不开门 0-周日，6-周六
+          var day = new Date(dt).getDay();
           if(day==0 || day==6) {
               continue
           }
           let fDate = this.fundDailyData.filter(x=>x.date==dt)
-          let rnd = 0 
-          // rndDaily = parseFloat(this.$utrandom.randomFullOpen(0,rndDaily).toFixed(2))
+          let rnd = 0
           if(fDate!=null && fDate.length>0){
             rnd = fDate[0].value
           }
@@ -153,31 +156,41 @@ export default {
               }
               this.chartData.alldata.push(d)
             }
-            if(days-j<10){
+            //Display data for the last 30 days,for the first chart
+            if(days-j<this.tabMap[0]){
               this.chartData.data.push(d)
-              if(this.stockList[i]=="大目标收益率"){
+              //the last 10 days for the table
+              if(this.stockList[i]=="大目标收益率" && days-j<10){
                 this.chartData.daily.push(d)
               }
             }
           }
         }
-        console.log(this.chartData.data)
+        // console.log(this.chartData.data)
       },
       onItemClick (index) {
           this.selectIdx = index
           // this.autoHeight = 120 * 3
           // console.log('on item click:', this.autoHeight)
+          let sDate = this.$utdate.addDate(new Date(),-this.tabMap[index])
+          this.chartData.data = this.chartData.alldata.filter(x=>x.date > sDate)
+          // let topn = this.chartData.alldata.filter(x=>x.date > sDate)
+          // for(var i=0;i<timeRange.length;i++){
+          //   this.chartData.data.push()
+          // }
+          // this.chartData.data = this.chartData.alldata.filter(x=>x.date > sDate)
           console.log('on item click:', this.selectIdx)
+          console.log('chartData.daily:', this.chartData.data)
       },
       lblFx(text) {
-          return {
-              text: dateFormat(text,'MM-DD')
-          }
+        return {
+          text: dateFormat(text,'MM-DD')
+        }
       },
       lblFy(text) {
-          return {
-              text: text + '%'
-          }
+        return {
+          text: text + '%'
+        }
       },
   },
   components: {
