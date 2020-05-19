@@ -10,7 +10,7 @@ export default {
   },
   data(){      
       return {
-        tabMap:[30,90,180,365,1095],
+        tabMap:[30,90,180,360,1080],
         stockList:["大目标收益率","大目标达标","上证综指涨跌幅"],
         funcInfo:{},
         fundDailyData:[],
@@ -27,7 +27,7 @@ export default {
             alldata:[],
             data:[],
             daily:[]},
-            // 1 - 建仓中, 2 - 盈利中, 3 - 浮亏中, 4 - 已达标
+        // 1 - 建仓中, 2 - 盈利中, 3 - 浮亏中, 4 - 已达标
         runStatus:{1:"建仓中",2 :"盈利中",3:"浮亏中", 4:"已达标"},
         targetListData:[],
         summary:"共发车{0}期,{1}期已达标5%~8%,平均运行{2}个月.投资年化回报18.49%.跑赢大盘19.66%以上。"
@@ -172,15 +172,22 @@ export default {
           this.selectIdx = index
           // this.autoHeight = 120 * 3
           // console.log('on item click:', this.autoHeight)
+          /*
+          * 这样做是不对的,不过,我不想努力了~~~
+          * 正常逻辑比较在前台仍然比较慢,后台有应处理好数据,直接提供给前台
+          * 正常逻辑：按照日期切成30份,没个日期取一个点,再从chardata.data里取这些日期的数据,取一定数量的点方便加载
+          */
           let sDate = this.$utdate.addDate(new Date(),-this.tabMap[index])
-          this.chartData.data = this.chartData.alldata.filter(x=>x.date > sDate)
-          // let topn = this.chartData.alldata.filter(x=>x.date > sDate)
-          // for(var i=0;i<timeRange.length;i++){
-          //   this.chartData.data.push()
-          // }
           // this.chartData.data = this.chartData.alldata.filter(x=>x.date > sDate)
-          console.log('on item click:', this.selectIdx)
-          console.log('chartData.daily:', this.chartData.data)
+          let topn = this.chartData.alldata.filter(x=>x.date > sDate)
+          let step = this.tabMap[index]/30
+          this.chartData.data=[]
+          for(var i=0;i<this.tabMap[index] && step*i< topn.length;i++){
+            this.chartData.data.push(topn[step*i])
+          }
+          // this.chartData.data = this.chartData.alldata.filter(x=>x.date > sDate)
+          // console.log('on item click:', this.selectIdx)
+          // console.log('chartData.daily:', this.chartData.data)
       },
       lblFx(text) {
         return {
