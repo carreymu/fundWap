@@ -11,7 +11,8 @@ from wap.data_source.sub_config import (
     fund_category,
     fund_manager,
     fund_managers,
-    fund_worth_history
+    fund_worth_history,
+    fund_worth_history_stage,
 )
 # only original information from DB
 data_source_config = dict(
@@ -27,4 +28,5 @@ data_source_config = dict(
     fund_manager=fund_manager.config,
     fund_managers=fund_managers.config,
     fund_worth_history=fund_worth_history.config,
+    fund_worth_history_stage=fund_worth_history_stage.config,
 )

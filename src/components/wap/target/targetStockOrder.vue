@@ -24,26 +24,31 @@
       <div class="line"/>
       <div class="rctCont">
         <div class="dotIntro">
-          <div>
-            <div> 近一周</div>
-            <div class="fntBrown">+0.03%</div>
-            <div>733/944</div>
-          </div>
-          <div>
-            <div> 近三月</div>
-            <div class="fntGreen">-0.01%</div>
-            <div>18/888</div>
-          </div>
-          <div>
-            <div style="float:left;">
-              <div> 近一年</div>
-              <div class="fntBrown">+10.01%</div>
-              <div>118/788</div>
+          <div  v-for="(ite,indx) in fundWorthStage" :key="indx">
+          <div v-if="indx!=fundWorthStage-1">
+            <div> {{ite.stages}}</div>
+            <div>
+              <span class="fntBrown" v-if="ite.worth>0">+{{ite.worth}}%</span>
+              <span class="fntGreen" v-else>{{ite.worth}}%</span>
             </div>
-            <div style="float:right;">
-              <div style="padding-top:10px;"></div>
-              <div class="mor"></div>
+            <div>{{ite.topn}}/{{ite.his_tot}}</div>
+          </div>
+          <div v-else>
+            <div>
+              <div style="float:left;">
+                <div> {{ite.stages}}</div>
+                <div>
+                  <span class="fntBrown" v-if="ite.worth>0">+{{ite.worth}}%</span>
+                  <span class="fntGreen" v-else>{{ite.worth}}%</span>
+                </div>
+                <div>{{ite.topn}}/{{ite.his_tot}}</div>
+              </div>
+              <div style="float:right;">
+                <div style="padding-top:10px;"></div>
+                <div class="mor"></div>
+              </div>
             </div>
+          </div>
           </div>
         </div>
       </div>
@@ -121,7 +126,7 @@
         <div class="line"></div>
       </div>
     </div>
-  <div class="tarsofooterFix">
+  <div class="tarsofooterFix" v-if="chartData.data.length>0">
     <div style="padding:0 5px;">
     <flexbox>
       <flexbox-item>

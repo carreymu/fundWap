@@ -15,7 +15,8 @@ export default {
         funcInfo:{},
         fundDailyData:[],
         index: 0,
-
+        fundWorthStage:[],
+        stageMap:{7:'近一周',90:'近三月',365:'近一年'},
         // timeRange:[{'近1月':0}, {'近3月':3}, {'近6月':6}, {'近1年':12}, {'近3年':36}],
         timeRange:['近1月','近3月','近6月','近1年','近3年'],
         selectIdx: 0,
@@ -82,7 +83,7 @@ export default {
         }
         let dt = {
           "req": {"fids":fid,"fid":fid},
-          "event_names": ["fund_info_short","fund_category","fund_manangers_list","fund_worth_history_by_fid"]
+          "event_names": ["fund_info_short","fund_category","fund_manangers_list","fund_worth_history_by_fid","fund_worth_history_stage_by_fid"]
         }
         this.$api.fetchPost('/sanic-api', dt).then(r=>{
         let fc_id = 0
@@ -118,6 +119,16 @@ export default {
             this.fundDailyData.push({date:dt, value: v,daily_change:cg})
           }
           this.loadDailyData()
+        }
+        if(r.fund_worth_history_stage_by_fid!=undefined && r.fund_worth_history_stage_by_fid.length>0){
+          //one week,three months,one year
+          this.fundWorthStage = r.fund_worth_history_stage_by_fid.filter(x=>[7,90,365].includes(x.stage))
+          for(var i=0;i<this.fundWorthStage.length;i++){
+            // console.log(this.fundWorthStage[i])
+            this.fundWorthStage[i]['stages']=this.stageMap[this.fundWorthStage[i].stage]
+            this.fundWorthStage[i]['worth']=(this.fundWorthStage[i].worth *100).toFixed(2)
+          }
+          // console.log(this.fundWorthStage)
         }
         // console.log(this.fundList)
       })
@@ -173,8 +184,8 @@ export default {
           // this.autoHeight = 120 * 3
           // console.log('on item click:', this.autoHeight)
           /*
-          * 这样做是不对的,不过,我不想努力了~~~
-          * 正常逻辑比较在前台仍然比较慢,后台有应处理好数据,直接提供给前台
+          * 下面逻辑不对,不过,我不想努力了~~~
+          * 不在前台有重逻辑处理,比较慢,后台应处理好数据,直接提供给前台
           * 正常逻辑：按照日期切成30份,没个日期取一个点,再从chardata.data里取这些日期的数据,取一定数量的点方便加载
           */
           let sDate = this.$utdate.addDate(new Date(),-this.tabMap[index])
