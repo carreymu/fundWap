@@ -280,8 +280,28 @@ INSERT INTO user_card(name,source,status,exp_date_start,exp_date_end) values('�
 INSERT INTO user_card(name,source,status,exp_date_start,exp_date_end) values('加鸡腿服务卡',1,1,'2020-01-22','2022-01-22');
 
 /*--26.bank information*/
-CREATE TABLE bank(bid int(11) primary key AUTO_INCREMENT,name varchar(50)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-CREATE TABLE branch_bank(bbid int(11) primary key AUTO_INCREMENT,bid int,name varchar(50));
+CREATE TABLE bank(bid int(11) primary key AUTO_INCREMENT,
+name varchar(50) not null comment '银行名',
+status int not null comment '是否可用',
+remark varchar(500) comment '备注',
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO bank(name,status,remark) values('包头银行',1,'硕鼠01')
+INSERT INTO bank(name,status,remark) values('工商银行',1,'惹不起')
+INSERT INTO bank(name,status,remark) values('建设银行',1,'基建狂魔的银行')
+INSERT INTO bank(name,status,remark) values('天地银行',1,'天地良心')
+
+/*--27.branch bank information*/
+CREATE TABLE branch_bank(bbid int(11) primary key AUTO_INCREMENT,
+pid int not null comment '省份id',
+cid int not null comment '城市id',
+bid int not null comment '银行id',
+name varchar(50) not null comment '分行名',
+status int not null comment '是否可用',
+remark varchar(500) comment '备注',
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO branch_bank(pid,cid,bid,name,status,remark) values(1,1,1,'包头银行(帝都天门支行)',1,'')
+INSERT INTO branch_bank(pid,cid,bid,name,status,remark) values(1,1,1,'包头银行(帝都门天支行)',1,'')
+
 
 /*--27./28.province/city*/
 CREATE TABLE province(pid int(11) primary key AUTO_INCREMENT,name varchar(20)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
