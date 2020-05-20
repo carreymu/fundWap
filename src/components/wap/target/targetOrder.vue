@@ -4,7 +4,8 @@
 		<div style="padding:10px;">大目标2014</div>
       <div class="aimRate">
         <group>
-          <x-input title="￥" type="number" :icon-type="iconType" :min="1" :max="7" required v-model="amount"  placeholder="最低买入3000.00元"></x-input>
+          <x-input title="￥" type="number" :icon-type="iconType" required v-model="amount"  
+          placeholder="最低买入3000.00元" @on-change="change"></x-input>
           <!-- @keyup.enter.native="f" -->
         </group>
       </div>

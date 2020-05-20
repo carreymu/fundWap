@@ -328,8 +328,16 @@ INSERT INTO city(pid,name) values(1,'南城区');
 INSERT INTO city(pid,name) values(1,'北城区');
 
 /*--29.bank card number bankid*/
-CREATE TABLE user_bank(ub_id int(11) primary key AUTO_INCREMENT,uid int,card_number varchar(20),bid int,bbid int,pid int,cid int,leave_phonenumber varchar(15)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE user_bank(ub_id int(11) primary key AUTO_INCREMENT,
+uid int not null comment '用户id',
+card_number varchar(20) not null comment '卡号',
+bid int not null comment '银行id',
+bbid int not null comment '支行id',
+pid int not null comment '省id',
+cid int not null comment '市id',
+leave_phonenumber varchar(15) not null comment '预留电话') ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO user_bank(uid,card_number,bid,bbid,pid,cid,leave_phonenumber) values(1,'520145687956235',1,1,1,1,'18856898989');
+INSERT INTO user_bank(uid,card_number,bid,bbid,pid,cid,leave_phonenumber) values(1,'510145687956236',2,3,1,1,'18856898989');
 
 /*--30.fund template*/
 CREATE TABLE fund_template(ft_id int(11) primary key AUTO_INCREMENT,tmp_name varchar(50),remark varchar(500), status int, inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
