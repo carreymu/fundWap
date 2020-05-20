@@ -34,6 +34,7 @@
             <div>{{ite.topn}}/{{ite.his_tot}}</div>
           </div>
           <div v-else>
+            <!--todo:使用v-else后右箭头没了-->
             <div>
               <div style="float:left;">
                 <div> {{ite.stages}}</div>
@@ -120,9 +121,7 @@
       </group>
       </div>
       <div class="line"/>
-        <div class="summary">
-          基金行情数据及基金交易服务由川大爷的公司提供,基金销售服务资格暂时不告诉你.本页非任何法律文件,投资前请认真阅读基金合同.市场有风险,投资需谨慎。
-          </div>
+        <div class="summary">{{funcInfo.notice}}</div>
         <div class="line"></div>
       </div>
     </div>

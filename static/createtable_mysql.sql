@@ -1,7 +1,13 @@
 /*----------------------------------news and system info.--biz:news and AD and system info.--------------------------------------------------
 --0.system info category.*/
 -- drop table system_info_category;
-CREATE TABLE system_info_category(scid int(5) primary key AUTO_INCREMENT,pscid int(5),title varchar(50),subtitle varchar(500),url varchar(100),remark varchar(500),status int, inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE system_info_category(scid int(5) primary key AUTO_INCREMENT,
+pscid int(5) not null comment '父菜单Id',
+title varchar(50) not null comment '标题',
+subtitle varchar(500) comment '子标题',
+url varchar(100),remark varchar(500),
+status int not null comment '是否可用', 
+inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(0,'banner','','','banner in target index',1);
 INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(0,'invest introduction','','','invest introduction in target index',1);
 INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(0,'company introduction','','','company introduction',1);
@@ -12,10 +18,16 @@ INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(
 INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(0,'drumstick system info','','','drumstick system info',1);
 INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(0,'notification','','','notification',1);
 INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(0,'target service content','- 持续升级的基金投资策略<br/> - 智能调仓止盈的全程服务<br/> - 每季度"大目标面对面投资"<br/> - 每月"市场行情报告" <br/> - 每日"大目标投资播报" <br/> - 大目标专属服务群','','content',1);
+INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(0,'股票型基金购买说明','','','content',1);
 
 /*--1.system info like 1-banners/2-company introduction/3-about target/4-introduction of selecting funds etc.*/
 -- drop table system_info;
-CREATE TABLE system_info(sid int(5) primary key AUTO_INCREMENT,scid int,title varchar(50),subtitle varchar(100),content varchar(1000), url varchar(200), img_url varchar(200),status int, inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE system_info(sid int(5) primary key AUTO_INCREMENT,
+scid int not null comment '类型Id',
+title varchar(50) not null comment '标题',
+subtitle varchar(100) comment '子标题',
+content varchar(1000) comment '内容', 
+url varchar(200), img_url varchar(200),status int, inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(1,'banner1','','', 'http://www.baidu.com','http://www.baidu.com/img/PCpad_bc531b595cf1e37c3907d14b69e3a2dd.png',1);
 INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(1,'banner2','','', 'http://www.baidu.com','https://img.zcool.cn/community/01678c574d4f4832f875a429c5c234.jpg@1280w_1l_2o_100sh.jpg',1);
 INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(2,'了解"大目标"','<h2>了解"大目标"</h2>','了解了解了解', 'systemInfoDetail','../../../static/img/intro.png',1);
@@ -34,6 +46,7 @@ INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(1
 INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(10,'大目标服务费说明','大目标服务费说明','各大目标服务费说明HTML', '','',1);
 INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(10,'大目标是什么','大目标是什么','大目标是什么HTML', '','',1);
 INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(10,'常见问题','常见问题','各常见问题HTML', '','',1);
+INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(11,'股票型基金购买说明','','基金行情数据及基金交易服务由川大爷的公司提供,基金销售服务资格暂时不告诉你.本页非任何法律文件,投资前请认真阅读基金合同.市场有风险,投资需谨慎。', '','',1);
 
 /*--2.news type*/
 CREATE TABLE news_category(nc_id int(11) primary key AUTO_INCREMENT,category_name varchar(50),status int) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -62,7 +75,10 @@ INSERT INTO fund_category(name,risk_level,fund_tot,status,show_order) values('�
 INSERT INTO fund_category(name,risk_level,fund_tot,status,show_order) values('货币型','R1',1001,1,0); /* show_order=0,must be a type of currency fund*/
 
 /*--5.fund manager*/
-CREATE TABLE fund_manager(fm_id int(11) primary key AUTO_INCREMENT, name varchar(30), status int, remark varchar(1000), inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE fund_manager(fm_id int(11) primary key AUTO_INCREMENT,
+name varchar(30) not null comment '经理名', 
+status int not null comment '是否还在干这行',
+remark varchar(1000), inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO fund_manager(name,status,remark) values('张三疯',1,'经济学博士,CFA.我是三丰...不是三疯...'); /*--fm_id=1*/
 INSERT INTO fund_manager(name,status,remark) values('阿瓦买提',1,'经济学**,CFA.我是买买提.'); /*--fm_id=2*/
 

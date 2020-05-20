@@ -82,8 +82,9 @@ export default {
           })
         }
         let dt = {
-          "req": {"fids":fid,"fid":fid},
-          "event_names": ["fund_info_short","fund_category","fund_manangers_list","fund_worth_history_by_fid","fund_worth_history_stage_by_fid"]
+          "req": {"fids":fid,"fid":fid,"sid":19},
+          "event_names": ["fund_info_short","fund_category","fund_manangers_list",
+          "fund_worth_history_by_fid","fund_worth_history_stage_by_fid","system_info_by_id"]
         }
         this.$api.fetchPost('/sanic-api', dt).then(r=>{
         let fc_id = 0
@@ -129,6 +130,9 @@ export default {
             this.fundWorthStage[i]['worth']=(this.fundWorthStage[i].worth *100).toFixed(2)
           }
           // console.log(this.fundWorthStage)
+        }
+        if(r.system_info_by_id!=undefined&&r.system_info_by_id.length>0){
+          this.funcInfo['notice']=r.system_info_by_id[0].content
         }
         // console.log(this.fundList)
       })
