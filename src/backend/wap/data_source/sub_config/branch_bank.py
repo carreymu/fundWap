@@ -1,15 +1,14 @@
 from wap.data_source import exec_base
 
 config = dict(
-    user_bank_by_uid={
-        "name": "user bank",
+    branch_bank_by_bbid={
+        "name": "branch bank",
         "author": "root",
         "event_default": {},
         "sql_info": {
             "engine_name": "db_fund_wap_mysql",
             "sql": {
-                "mysql": "select uid,card_number,bid,bbid,pid,cid,leave_phonenumber from user_bank where uid={uid} "
-                         " order by ub_id desc limit {topx}",
+                "mysql": "select pid,cid,bid,name,status,policy,remark from branch_bank where bbid={bbid}",
                 "sqlite3": "",
                 "mssql": ""
             }

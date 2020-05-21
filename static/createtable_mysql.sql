@@ -275,9 +275,17 @@ idcard_expdate datetime,address varchar(100),occupation int,inserttime timestamp
 INSERT INTO user_fund_account(real_name,risk_level,tax_id,trade_password,idcard_num,idcard_expdate,address,occupation) values('张翠花',1,1,'YadnSEWOdwO09uwFepOe====','110221199202235460','2033-12-02','上海市南京东西路xxx号',1);
 
 /*--25.service card (source:1-购买,2-赠送,3-免费领取,4-友情援助;status:1-未使用,0-已使用)*/
-CREATE TABLE user_card(uc_id int(11) primary key AUTO_INCREMENT,name varchar(20),source int,status int,exp_date_start datetime,exp_date_end datetime,inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO user_card(name,source,status,exp_date_start,exp_date_end) values('大目标服务卡',1,1,'2020-01-22','2022-01-22');
-INSERT INTO user_card(name,source,status,exp_date_start,exp_date_end) values('加鸡腿服务卡',1,1,'2020-01-22','2022-01-22');
+CREATE TABLE user_card(uc_id int(11) primary key AUTO_INCREMENT,
+uid int not null comment '用户id',
+name varchar(20) not null comment '卡名',
+source int not null comment '来源',
+status int not null comment '状态',
+exp_date_start datetime not null comment '有效期开始时间',
+exp_date_end datetime not null comment '有效期结束时间',
+inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO user_card(uid,name,source,status,exp_date_start,exp_date_end) values(1,'大目标服务卡',1,1,'2020-01-22','2022-01-22');
+INSERT INTO user_card(uid,name,source,status,exp_date_start,exp_date_end) values(1,'大目标服务卡',1,1,'2020-01-22','2022-01-22');
+INSERT INTO user_card(uid,name,source,status,exp_date_start,exp_date_end) values(1,'加鸡腿服务卡',1,1,'2020-01-22','2022-01-22');
 
 /*--26.bank information*/
 CREATE TABLE bank(bid int(11) primary key AUTO_INCREMENT,

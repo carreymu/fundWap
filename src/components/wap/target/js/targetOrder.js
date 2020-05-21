@@ -1,11 +1,13 @@
 import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Popover } from 'vux'
   export default {
-    /* userid comes from storage*/
+    /****** serid comes from storage ******/
     mounted() {
-      this.$store.commit('UPDATE_PAGE_TITLE', '申购基金') 
+      this.$store.commit('UPDATE_PAGE_TITLE', '申购基金')
+      this.loadOrder()
     },
     data(){
       return {
+        uid:1,
         orderInfo:{},
         demo2: true,
         amount:'',
@@ -56,27 +58,73 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
         }
         console.log('on change', this.amount)
       },
-      // loadFundDetail(){
-      //   // let cid=this.$route.params.cid;
-      //   this.baseAjax({
-      //     url:'../../../static/basicData/choiceDetail.json',
-      //     showLoading:true,
-      //     // params:{cid:cid},
-      //     success:function(data){
-      //       // var myDate = new Date();
-      //       // let mytime=myDate.toLocaleTimeString();
-      //       // console.log(mytime)
-      //       let arr=[]
-      //       let ro = data.returnObject[0].funds
-      //       for(var i=0;i<ro.length;i++){
-      //         arr=arr.concat(ro[i].fundsList)
-      //       }
-      //       this.fundList=arr
-      //       console.log(this.fundList.length)
-      //       console.log(this.fundList)
-      //     }
-      //   })
-      // },
+      loadOrder(){
+        let tid=this.$route.params.tid;
+        if(tid == undefined){
+          AlertModule.show({
+              title: '亲~~',
+              content: '请勿瞎搞.',
+              onHide () {
+                  window.location.replace(document.referrer)
+              }
+          })
+        }
+        let dt = {
+          "req": {"uid":this.uid},
+          "event_names": ["user_bank_by_uid","fund_category","fund_manangers_list",
+          "fund_worth_history_by_fid","fund_worth_history_stage_by_fid","system_info_by_id"]
+        }
+        this.$api.fetchPost('/sanic-api', dt).then(r=>{
+          let fc_id = 0
+          if(r.fund_info_short!=undefined && r.fund_info_short.length > 0){
+            let flt = r.fund_info_short.filter(x=>x.status==1)
+            if(flt.length > 0){
+              this.funcInfo = flt[0]
+              this.funcInfo['purchase_rate_new'] = (this.funcInfo['purchase_rate_new'] *100).toFixed(2)
+              fc_id = this.funcInfo.fc_id
+              this.$store.commit('UPDATE_PAGE_TITLE', this.funcInfo.fund_name+"("+ this.funcInfo.fund_code +")")
+            }
+          }
+          if(r.fund_category!=undefined && r.fund_category.length>0){
+            let flt = r.fund_category.filter(x=>x.fc_id ==fc_id)
+            if(flt.length>0){
+              this.funcInfo['fund_tot'] = flt[0].fund_tot
+              this.funcInfo['cat_name'] = flt[0].name
+            }
+          }
+          if(r.fund_manangers_list!=undefined && r.fund_manangers_list.length>0){
+            this.funcInfo['managers']=r.fund_manangers_list.map(x=>x.name).join()
+          }
+          if(r.fund_worth_history_by_fid!=undefined && r.fund_worth_history_by_fid.length>0){
+            for(var i=0;i<r.fund_worth_history_by_fid.length;i++){
+              let dt = this.$utdate.dateFmt(r.fund_worth_history_by_fid[i].inserttime,"yyyy-MM-dd")
+              let v = (r.fund_worth_history_by_fid[i].worth *100).toFixed(4)
+              let cg = r.fund_worth_history_by_fid[0].daily_change
+              if(i == 0){
+                this.funcInfo['date'] = dt
+                this.funcInfo['value']= v
+                this.funcInfo['daily_change']= cg
+              }
+              this.fundDailyData.push({date:dt, value: v,daily_change:cg})
+            }
+            this.loadDailyData()
+          }
+          if(r.fund_worth_history_stage_by_fid!=undefined && r.fund_worth_history_stage_by_fid.length>0){
+            //one week,three months,one year
+            this.fundWorthStage = r.fund_worth_history_stage_by_fid.filter(x=>[7,90,365].includes(x.stage))
+            for(var i=0;i<this.fundWorthStage.length;i++){
+              // console.log(this.fundWorthStage[i])
+              this.fundWorthStage[i]['stages']=this.stageMap[this.fundWorthStage[i].stage]
+              this.fundWorthStage[i]['worth']=(this.fundWorthStage[i].worth *100).toFixed(2)
+            }
+            // console.log(this.fundWorthStage)
+          }
+          if(r.system_info_by_id!=undefined&&r.system_info_by_id.length>0){
+            this.funcInfo['notice']=r.system_info_by_id[0].content
+          }
+          // console.log(this.fundList)
+        })
+      },
       processButton001 () {
         console.log('click me')
       }

@@ -15,6 +15,8 @@ from wap.data_source.sub_config import (
     fund_worth_history_stage,
     bank,
     user_bank,
+    branch_bank,
+    user_card,
 )
 # only original information from DB
 data_source_config = dict(
@@ -33,4 +35,6 @@ data_source_config = dict(
     fund_worth_history_stage=fund_worth_history_stage.config,
     bank=bank.config,
     user_bank=user_bank.config,
+    branch_bank=branch_bank.config,
+    user_card=user_card.config,
 )
