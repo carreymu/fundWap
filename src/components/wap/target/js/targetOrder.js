@@ -1,10 +1,12 @@
 import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Popover } from 'vux'
   export default {
+    /* userid comes from storage*/
     mounted() {
       this.$store.commit('UPDATE_PAGE_TITLE', '申购基金') 
     },
     data(){
       return {
+        orderInfo:{},
         demo2: true,
         amount:'',
         iconType:''

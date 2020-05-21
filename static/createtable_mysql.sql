@@ -297,12 +297,12 @@ cid int not null comment '城市id',
 bid int not null comment '银行id',
 name varchar(50) not null comment '分行名',
 status int not null comment '是否可用',
+policy varchar(100) comment '政策',
 remark varchar(500) comment '备注'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO branch_bank(pid,cid,bid,name,status,remark) values(1,1,1,'包头银行(帝都天门支行)',1,'');
-INSERT INTO branch_bank(pid,cid,bid,name,status,remark) values(1,1,1,'包头银行(帝都门天支行)',1,'');
-INSERT INTO branch_bank(pid,cid,bid,name,status,remark) values(1,2,2,'工商银行(都门天支行)',1,'');
-
+INSERT INTO branch_bank(pid,cid,bid,name,status,policy,remark) values(1,1,1,'包头银行(帝都天门支行)',1,'单笔支付限额10万,日限额10万,月限额3000万','');
+INSERT INTO branch_bank(pid,cid,bid,name,status,policy,remark) values(1,1,1,'包头银行(帝都门天支行)',1,'单笔支付限额11万,日限额11万,月限额3000万','');
+INSERT INTO branch_bank(pid,cid,bid,name,status,policy,remark) values(1,2,2,'工商银行(都门天支行)',1,'单笔支付限额5万,日限额10万,月限额300万','');
 
 /*--27./28.province/city*/
 CREATE TABLE province(pid int(11) primary key AUTO_INCREMENT,
