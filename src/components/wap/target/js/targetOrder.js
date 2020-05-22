@@ -71,8 +71,7 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
         }
         let dt = {
           "req": {"uid":this.uid},
-          "event_names": ["user_bank_by_uid","fund_category","fund_manangers_list",
-          "fund_worth_history_by_fid","fund_worth_history_stage_by_fid","system_info_by_id"]
+          "event_names": ["user_bank_wapper","user_card_cnt_uid"]
         }
         this.$api.fetchPost('/sanic-api', dt).then(r=>{
           let fc_id = 0
