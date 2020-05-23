@@ -15,16 +15,16 @@
       <x-table :cell-bordered="false" :content-bordered="false" class="aimRmkSub">
         <tr>
           <td>买入费率</td>
-          <td style="font-weight:bold;font-size:14px;">0.00%&nbsp;</td>
-          <td>费率说明<x-icon type="ios-help-outline" size="15"></x-icon></td>
+          <td style="font-weight:bold;font-size:14px;">{{orderInfo.fee_ratio}}%&nbsp;</td>
+          <td>费率说明 <x-icon type="ios-help-outline" size="15"></x-icon></td>
         </tr>
         <tr>
           <td>确认净值</td>
-          <td colspan="2">15:00之前提交将按04-29日净值确认份额</td>
+          <td colspan="2">15:00之前提交将按{{orderInfo.startDate}}日净值确认份额</td>
         </tr>
         <tr>
           <td>确认日期</td>
-          <td>04-30周四(预计)</td>
+          <td>{{orderInfo.endDate}}{{orderInfo.weekday}}(预计)</td>
           <td></td>
         </tr>
       </x-table>

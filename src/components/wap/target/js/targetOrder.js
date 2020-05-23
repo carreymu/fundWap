@@ -4,6 +4,7 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
     mounted() {
       this.$store.commit('UPDATE_PAGE_TITLE', '申购基金')
       this.loadOrder()
+      
     },
     data(){
       return {
@@ -47,6 +48,31 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
     //     }
     // },
     methods:{
+      initDates(){
+        var startDate = new Date()
+        var day = startDate.getDay()
+        // 0-周日，6-周六
+        let sdate = startDate
+        let edate = startDate
+        switch(day){
+          case 0:
+            sdate=this.$utdate.addDate(startDate,1)
+            edate=this.$utdate.addDate(startDate,2)
+            break
+          case 6:
+            sdate=this.$utdate.addDate(startDate,2)
+            edate=this.$utdate.addDate(startDate,3)
+            break
+          default:
+            sdate=startDate
+            edate=this.$utdate.addDate(startDate,1)
+            break
+        }
+        var weekday=["星期日","星期一","星期二","星期三","星期四","星期五","星期六"]
+        this.orderInfo['startDate']=this.$utdate.dateFmt(sdate,"MM-dd")
+        this.orderInfo['endDate']=this.$utdate.dateFmt(edate,"MM-dd")
+        this.orderInfo['weekday']=weekday[(new Date(edate)).getDay()]
+      },
       change (val) {
         var reg = /^(\d+|\d+\.\d{1,2})$/
         if(reg.test(val)){
@@ -70,8 +96,8 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
           })
         }
         let dt = {
-          "req": {"uid":this.uid},
-          "event_names": ["user_bank_wapper","user_card_cnt_uid"]
+          "req": {"uid":this.uid,"tid":tid},
+          "event_names": ["user_bank_wapper","user_card_cnt_uid","targets_by_tid"]
         }
         this.$api.fetchPost('/sanic-api', dt).then(r=>{
           if(r.user_bank_wapper!=undefined && r.user_bank_wapper.length > 0){
@@ -80,9 +106,9 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
           if(r.user_card_cnt_uid!=undefined && r.user_card_cnt_uid.length>0){
             this.orderInfo['card_cnt'] = r.user_card_cnt_uid[0]['cnt']
           }
-          // if(r.fund_manangers_list!=undefined && r.fund_manangers_list.length>0){
-          //   this.funcInfo['managers']=r.fund_manangers_list.map(x=>x.name).join()
-          // }
+          if(r.targets_by_tid!=undefined && r.targets_by_tid.length>0){
+            this.orderInfo['fee_ratio']=(r.targets_by_tid[0]['fee_ratio']*100).toFixed(2)
+          }
           // if(r.fund_worth_history_by_fid!=undefined && r.fund_worth_history_by_fid.length>0){
           //   for(var i=0;i<r.fund_worth_history_by_fid.length;i++){
           //     let dt = this.$utdate.dateFmt(r.fund_worth_history_by_fid[i].inserttime,"yyyy-MM-dd")
@@ -110,6 +136,7 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
           // if(r.system_info_by_id!=undefined&&r.system_info_by_id.length>0){
           //   this.funcInfo['notice']=r.system_info_by_id[0].content
           // }
+          this.initDates()
           console.log(this.orderInfo)
         })
       },

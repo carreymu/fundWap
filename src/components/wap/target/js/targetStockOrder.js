@@ -147,7 +147,7 @@ export default {
         for(var j=1;j<days;j++){
           let dt = this.$utdate.addDate(startDate,j)
           //周六周日赌场不开门 0-周日，6-周六
-          var day = new Date(dt).getDay();
+          var day = new Date(dt).getDay()
           if(day==0 || day==6) {
               continue
           }
