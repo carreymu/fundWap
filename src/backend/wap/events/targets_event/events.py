@@ -23,5 +23,3 @@ class TargetsAggList(DataSource):
                     res.append({"name": k.format(cnt=len(itm)), "cnt": len(itm), "items": itm})
                 return res
         return self.event_default
-
-

@@ -33,7 +33,7 @@
       <router-link :to="'/fundWap/myCards'">
         <flexbox style="padding:10px 5px;">
           <flexbox-item >服务卡使用</flexbox-item>
-          <flexbox-item :span="1/2">扣除一次(剩余8次)</flexbox-item>
+          <flexbox-item :span="1/2">扣除一次(剩余{{orderInfo.card_cnt}}次)</flexbox-item>
           <flexbox-item style="text-align:right;padding-right:10px;">></flexbox-item>
         </flexbox>
       </router-link>
@@ -45,8 +45,8 @@
           <flexbox style="padding:10px 5px;">
             <flexbox-item :span="1/6">资金来源</flexbox-item>
             <flexbox-item :span="2/3">
-              <div style="font-weight:bold;">包头银行<span style="font-size:10px;">(9494)</span></div>
-              <div>单笔支付限额10万,日限额10万,月限额3000万</div>
+              <div style="font-weight:bold;">{{orderInfo.bank_name}}<span style="font-size:10px;">({{orderInfo.card_tail}})</span></div>
+              <div>{{orderInfo.policy}}</div>
             </flexbox-item>
             <flexbox-item style="text-align:right;padding-right:10px;">></flexbox-item>
           </flexbox>

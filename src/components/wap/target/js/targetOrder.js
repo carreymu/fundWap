@@ -74,54 +74,43 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
           "event_names": ["user_bank_wapper","user_card_cnt_uid"]
         }
         this.$api.fetchPost('/sanic-api', dt).then(r=>{
-          let fc_id = 0
-          if(r.fund_info_short!=undefined && r.fund_info_short.length > 0){
-            let flt = r.fund_info_short.filter(x=>x.status==1)
-            if(flt.length > 0){
-              this.funcInfo = flt[0]
-              this.funcInfo['purchase_rate_new'] = (this.funcInfo['purchase_rate_new'] *100).toFixed(2)
-              fc_id = this.funcInfo.fc_id
-              this.$store.commit('UPDATE_PAGE_TITLE', this.funcInfo.fund_name+"("+ this.funcInfo.fund_code +")")
-            }
+          if(r.user_bank_wapper!=undefined && r.user_bank_wapper.length > 0){
+            this.orderInfo = r.user_bank_wapper[0]
           }
-          if(r.fund_category!=undefined && r.fund_category.length>0){
-            let flt = r.fund_category.filter(x=>x.fc_id ==fc_id)
-            if(flt.length>0){
-              this.funcInfo['fund_tot'] = flt[0].fund_tot
-              this.funcInfo['cat_name'] = flt[0].name
-            }
+          if(r.user_card_cnt_uid!=undefined && r.user_card_cnt_uid.length>0){
+            this.orderInfo['card_cnt'] = r.user_card_cnt_uid[0]['cnt']
           }
-          if(r.fund_manangers_list!=undefined && r.fund_manangers_list.length>0){
-            this.funcInfo['managers']=r.fund_manangers_list.map(x=>x.name).join()
-          }
-          if(r.fund_worth_history_by_fid!=undefined && r.fund_worth_history_by_fid.length>0){
-            for(var i=0;i<r.fund_worth_history_by_fid.length;i++){
-              let dt = this.$utdate.dateFmt(r.fund_worth_history_by_fid[i].inserttime,"yyyy-MM-dd")
-              let v = (r.fund_worth_history_by_fid[i].worth *100).toFixed(4)
-              let cg = r.fund_worth_history_by_fid[0].daily_change
-              if(i == 0){
-                this.funcInfo['date'] = dt
-                this.funcInfo['value']= v
-                this.funcInfo['daily_change']= cg
-              }
-              this.fundDailyData.push({date:dt, value: v,daily_change:cg})
-            }
-            this.loadDailyData()
-          }
-          if(r.fund_worth_history_stage_by_fid!=undefined && r.fund_worth_history_stage_by_fid.length>0){
-            //one week,three months,one year
-            this.fundWorthStage = r.fund_worth_history_stage_by_fid.filter(x=>[7,90,365].includes(x.stage))
-            for(var i=0;i<this.fundWorthStage.length;i++){
-              // console.log(this.fundWorthStage[i])
-              this.fundWorthStage[i]['stages']=this.stageMap[this.fundWorthStage[i].stage]
-              this.fundWorthStage[i]['worth']=(this.fundWorthStage[i].worth *100).toFixed(2)
-            }
-            // console.log(this.fundWorthStage)
-          }
-          if(r.system_info_by_id!=undefined&&r.system_info_by_id.length>0){
-            this.funcInfo['notice']=r.system_info_by_id[0].content
-          }
-          // console.log(this.fundList)
+          // if(r.fund_manangers_list!=undefined && r.fund_manangers_list.length>0){
+          //   this.funcInfo['managers']=r.fund_manangers_list.map(x=>x.name).join()
+          // }
+          // if(r.fund_worth_history_by_fid!=undefined && r.fund_worth_history_by_fid.length>0){
+          //   for(var i=0;i<r.fund_worth_history_by_fid.length;i++){
+          //     let dt = this.$utdate.dateFmt(r.fund_worth_history_by_fid[i].inserttime,"yyyy-MM-dd")
+          //     let v = (r.fund_worth_history_by_fid[i].worth *100).toFixed(4)
+          //     let cg = r.fund_worth_history_by_fid[0].daily_change
+          //     if(i == 0){
+          //       this.funcInfo['date'] = dt
+          //       this.funcInfo['value']= v
+          //       this.funcInfo['daily_change']= cg
+          //     }
+          //     this.fundDailyData.push({date:dt, value: v,daily_change:cg})
+          //   }
+          //   this.loadDailyData()
+          // }
+          // if(r.fund_worth_history_stage_by_fid!=undefined && r.fund_worth_history_stage_by_fid.length>0){
+          //   //one week,three months,one year
+          //   this.fundWorthStage = r.fund_worth_history_stage_by_fid.filter(x=>[7,90,365].includes(x.stage))
+          //   for(var i=0;i<this.fundWorthStage.length;i++){
+          //     // console.log(this.fundWorthStage[i])
+          //     this.fundWorthStage[i]['stages']=this.stageMap[this.fundWorthStage[i].stage]
+          //     this.fundWorthStage[i]['worth']=(this.fundWorthStage[i].worth *100).toFixed(2)
+          //   }
+          //   // console.log(this.fundWorthStage)
+          // }
+          // if(r.system_info_by_id!=undefined&&r.system_info_by_id.length>0){
+          //   this.funcInfo['notice']=r.system_info_by_id[0].content
+          // }
+          console.log(this.orderInfo)
         })
       },
       processButton001 () {
