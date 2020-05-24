@@ -114,7 +114,8 @@ INSERT INTO fund_stock(name,code,status,remark) values('招商银行','600036.SH
 /*--8.fund customized category*/
 CREATE TABLE fund_customized_category(fcc_id int(11) primary key AUTO_INCREMENT,
 name varchar(50) not null comment '定制化类型名称',
-ico_color varchar(7) comment '定制化颜色') ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ico_color varchar(7) comment '定制化颜色'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO fund_customized_category(name,ico_color) values('量化派','#FE5D4D');
 INSERT INTO fund_customized_category(name,ico_color) values('稳健派','#FE554D');
 INSERT INTO fund_customized_category(name,ico_color) values('价值型','#737DDE');
@@ -258,23 +259,26 @@ INSERT INTO fund_worth_history_stage(fid,stage,worth,topn,his_tot) values(1,365,
 /*------------------------------------fund plans--biz:target,drumstick and best choice------------------------------------------------
 --19.fund plan (returns_type:1-七日年化收益,2-近六月历史收益,3-近三年历史收益|page_type:1-only text or image,2-including FOFs etc.)*/
 CREATE TABLE fund_plan(fpl_id int(11) primary key AUTO_INCREMENT,
-name varchar(20),
-returns float,
-loss float,
-returns_type int,
-threshold float,
-sched_threshold float,
-img_url varchar(200),
-page_type int,
-details varchar(500),
-short_intro varchar(30),
+name varchar(20) not null comment '基金计划id',
+returns float not null comment '汇报',
+loss float not null comment '历史最大亏损',
+returns_type int comment '返回类型',
+threshold float not null comment '起投金额',
+sched_threshold float not null comment '定投起始金额',
+img_url varchar(200) not null comment '图片地址',
+page_type int not nul comment '图片or普通页面',
+details varchar(500) not null comment '详细',
+short_intro varchar(30) not null comment '简介',
 remark varchar(200),inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO fund_plan(name,returns,loss,returns_type,threshold,sched_threshold,img_url,page_type,details,short_intro,remark) values('超级现金宝',2.8,0,1,100,0,'//images_url',1,'','','仅一张图片的页面');
 INSERT INTO fund_plan(name,returns,loss,returns_type,threshold,sched_threshold,img_url,page_type,details,short_intro,remark) values('全明星计划',35.57,43.11,3,1000,500,'//images_url',2,'组合详情:','跟对人买对基,实力派经理一网打尽','有基列表');
 INSERT INTO fund_plan(name,returns,loss,returns_type,threshold,sched_threshold,img_url,page_type,details,short_intro,remark) values('海投计划',30.63,18.24,3,1000,100,'//images_url',2,'组合详情:','全球资产配置,把握更多投资机会','高尔基');
 
 /*--20.fund plan details*/
-CREATE TABLE fund_plan_details(fpd_id int(11) primary key AUTO_INCREMENT,fpl_id int,fid int,inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE fund_plan_details(fpd_id int(11) primary key AUTO_INCREMENT,
+fpl_id int not null comment '基金详细id',
+fid int not null comment '基金id',
+inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO fund_plan_details(fpl_id,fid) values(2,1); /*--全明星计划-景顺长城沪深300增强,fpid_id=1*/
 INSERT INTO fund_plan_details(fpl_id,fid) values(2,2); /*--全明星计划-富国新动力A,fpid_id=2*/
 INSERT INTO fund_plan_details(fpl_id,fid) values(3,2); /*--海投计划-富国新动力A,fpid_id=3*/
