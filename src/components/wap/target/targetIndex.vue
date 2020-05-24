@@ -86,7 +86,7 @@
     <div class="footer">
       <div class="invIntro">
         <div v-for="(item, index) in investList" :key="index">
-          <router-link :to="item.url+'/'+item.sid"><img :src="item.img_url"/><br/>&nbsp;{{item.title}}</router-link>
+          <router-link :to="{path:item.url,query:{sid:item.sid}}"><img :src="item.img_url"/><br/>&nbsp;{{item.title}}</router-link>
         </div>
       </div>
       <div class="foot">

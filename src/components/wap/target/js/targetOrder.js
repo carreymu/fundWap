@@ -104,40 +104,17 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
             this.orderInfo = r.user_bank_wapper[0]
           }
           if(r.user_card_cnt_uid!=undefined && r.user_card_cnt_uid.length>0){
-            this.orderInfo['card_cnt'] = r.user_card_cnt_uid[0]['cnt']
+            let cnt = r.user_card_cnt_uid[0]['cnt']
+            this.orderInfo['card_cnt'] = cnt-1<0?0:cnt-1
           }
           if(r.targets_by_tid!=undefined && r.targets_by_tid.length>0){
             this.orderInfo['fee_ratio']=(r.targets_by_tid[0]['fee_ratio']*100).toFixed(2)
           }
-          // if(r.fund_worth_history_by_fid!=undefined && r.fund_worth_history_by_fid.length>0){
-          //   for(var i=0;i<r.fund_worth_history_by_fid.length;i++){
-          //     let dt = this.$utdate.dateFmt(r.fund_worth_history_by_fid[i].inserttime,"yyyy-MM-dd")
-          //     let v = (r.fund_worth_history_by_fid[i].worth *100).toFixed(4)
-          //     let cg = r.fund_worth_history_by_fid[0].daily_change
-          //     if(i == 0){
-          //       this.funcInfo['date'] = dt
-          //       this.funcInfo['value']= v
-          //       this.funcInfo['daily_change']= cg
-          //     }
-          //     this.fundDailyData.push({date:dt, value: v,daily_change:cg})
-          //   }
-          //   this.loadDailyData()
-          // }
-          // if(r.fund_worth_history_stage_by_fid!=undefined && r.fund_worth_history_stage_by_fid.length>0){
-          //   //one week,three months,one year
-          //   this.fundWorthStage = r.fund_worth_history_stage_by_fid.filter(x=>[7,90,365].includes(x.stage))
-          //   for(var i=0;i<this.fundWorthStage.length;i++){
-          //     // console.log(this.fundWorthStage[i])
-          //     this.fundWorthStage[i]['stages']=this.stageMap[this.fundWorthStage[i].stage]
-          //     this.fundWorthStage[i]['worth']=(this.fundWorthStage[i].worth *100).toFixed(2)
-          //   }
-          //   // console.log(this.fundWorthStage)
-          // }
           // if(r.system_info_by_id!=undefined&&r.system_info_by_id.length>0){
           //   this.funcInfo['notice']=r.system_info_by_id[0].content
           // }
           this.initDates()
-          console.log(this.orderInfo)
+          // console.log(this.orderInfo)
         })
       },
       processButton001 () {

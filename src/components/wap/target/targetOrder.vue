@@ -44,7 +44,7 @@
           </div>
           <flexbox style="padding:10px 5px;">
             <flexbox-item :span="1/6">资金来源</flexbox-item>
-            <flexbox-item :span="2/3">
+            <flexbox-item :span="0.7">
               <div style="font-weight:bold;">{{orderInfo.bank_name}}<span style="font-size:10px;">({{orderInfo.card_tail}})</span></div>
               <div>{{orderInfo.policy}}</div>
             </flexbox-item>
@@ -53,7 +53,9 @@
         </popover>
       <div class="linefd"></div>
       <div class="contract">
-        <check-icon :value.sync="demo2" type="plain"> 已认真阅读并同意《金金豆大目标产品管理协议》</check-icon>
+        <check-icon :value.sync="demo2" type="plain"> 
+          <router-link :to="{path:'/fundWap/systemInfoDetail',query:{sid:20}}">已认真阅读并同意《金金豆大目标产品管理协议》</router-link>
+          </check-icon>
       </div>
     </div>
     <div class="footerFix">
