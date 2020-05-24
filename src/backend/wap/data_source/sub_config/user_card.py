@@ -8,8 +8,8 @@ config = dict(
         "sql_info": {
             "engine_name": "db_fund_wap_mysql",
             "sql": {
-                "mysql": "select uid,name,source,status,exp_date_start,exp_date_end from user_card where uid={uid} "
-                         " order by inserttime desc limit {topx}",
+                "mysql": "select uc_id,uid,name,source,type,status,exp_date_start,exp_date_end from user_card "
+                         " where uid={uid} order by inserttime desc limit {topx}",
                 "sqlite3": "",
                 "mssql": ""
             }

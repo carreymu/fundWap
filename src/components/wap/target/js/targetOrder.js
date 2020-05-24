@@ -1,6 +1,13 @@
 import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Popover } from 'vux'
   export default {
-    /****** serid comes from storage ******/
+    /****** to do
+     * 1. userid from storage
+     * 2. purchase threshold 3000 or 500 or 1000
+     * 3. show my cards or not
+     * 4. show start dealing date or not
+     * 5. different fee ratio
+     * 6. purchase threshold input box, float value only
+     *  ******/
     mounted() {
       this.$store.commit('UPDATE_PAGE_TITLE', '申购基金')
       this.loadOrder()
@@ -109,6 +116,7 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
           }
           if(r.targets_by_tid!=undefined && r.targets_by_tid.length>0){
             this.orderInfo['fee_ratio']=(r.targets_by_tid[0]['fee_ratio']*100).toFixed(2)
+            this.orderInfo['target_name']=r.targets_by_tid[0]['name']
           }
           // if(r.system_info_by_id!=undefined&&r.system_info_by_id.length>0){
           //   this.funcInfo['notice']=r.system_info_by_id[0].content
