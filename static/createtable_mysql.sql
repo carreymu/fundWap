@@ -323,7 +323,8 @@ exp_date_start datetime not null comment '有效期开始时间',
 exp_date_end datetime not null comment '有效期结束时间',
 inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO user_card(uid,name,type,source,status,exp_date_start,exp_date_end) values(1,'大目标服务卡',0,0,1,'2020-01-22','2022-01-22');
-INSERT INTO user_card(uid,name,type,source,status,exp_date_start,exp_date_end) values(1,'大目标服务卡',0,0,1,'2020-01-22','2022-01-22');
+INSERT INTO user_card(uid,name,type,source,status,exp_date_start,exp_date_end) values(1,'大目标服务卡',0,0,1,'2020-01-22','2022-06-22');
+INSERT INTO user_card(uid,name,type,source,status,exp_date_start,exp_date_end) values(1,'大目标服务卡',0,0,1,'2020-01-22','2020-05-22');
 INSERT INTO user_card(uid,name,type,source,status,exp_date_start,exp_date_end) values(1,'加鸡腿服务卡',1,1,1,'2020-01-22','2022-01-22');
 
 /*--26.bank information*/

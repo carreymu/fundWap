@@ -22,17 +22,23 @@ import { Tabbar, TabbarItem ,XHeader,XButton, Flexbox, FlexboxItem } from 'vux'
         }
         this.$api.fetchPost('/sanic-api', dt).then(r=>{
           if(r.user_card_by_uid!=undefined && r.user_card_by_uid.length>0){
-            // console.log(r.user_card_by_uid)
+            let exps = []
+            let unexps = []
             r.user_card_by_uid.forEach(x=>{
-              let days = this.$utdate.getDaysLong(new Date().getTime(),x['exp_date_end'])
+              let days = this.$utdate.getDaysLong(new Date().getTime(),x['exp_date_end'],false)
               console.log(days)
               x['sources']=this.sc[x['source']]
               x['exp_date_start']=this.$utdate.dateFmt(x['exp_date_start'],"yy年MM月dd日")
               x['exp_date_end']=this.$utdate.dateFmt(x['exp_date_end'],"yy年MM月dd日")
-              x['is_exp']= days>0
-              x['is_recent']= days<=30
-              this.cards.push(x)
+              x['diff_days']= days
+              if(days<0){
+                exps.push(x)
+              }else{
+                unexps.push(x)
+              }
             })
+            console.log(exps)
+            this.cards= unexps.concat(exps)
           }
           console.log(this.cards)
         })
