@@ -117,7 +117,7 @@
         </x-button>
         </flexbox-item>
       <flexbox-item >
-        <x-button type="warn" link="/fundWap/targetOrder/2">
+        <x-button type="warn" :link="{path:'/fundWap/targetOrder',query:{tid:2}}">
         <div style="font-size:13px">申购</div><div style="font-size:10px;">1000元起(费率1折起)</div>
         </x-button>
       </flexbox-item>

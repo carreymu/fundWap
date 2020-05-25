@@ -5,62 +5,65 @@
       <div class="aimRate">
         <group>
           <x-input title="￥" type="number" :icon-type="iconType" required v-model="amount"  
-          placeholder="最低买入3000.00元" @on-change="change"></x-input>
+          :placeholder="'最低买入'+orderInfo.initial_amt+'元'" @on-change="change"></x-input>
           <!-- @keyup.enter.native="f" -->
         </group>
       </div>
     </div>
 
     <div>
-      <x-table :cell-bordered="false" :content-bordered="false" class="aimRmkSub">
-        <tr>
-          <td>买入费率</td>
-          <td style="font-weight:bold;font-size:14px;">{{orderInfo.fee_ratio}}%&nbsp;</td>
-          <td>费率说明 <x-icon type="ios-help-outline" size="15"></x-icon></td>
-        </tr>
-        <tr>
-          <td>确认净值</td>
-          <td colspan="2">15:00之前提交将按{{orderInfo.startDate}}日净值确认份额</td>
-        </tr>
-        <tr>
-          <td>确认日期</td>
-          <td>{{orderInfo.endDate}}{{orderInfo.weekday}}(预计)</td>
-          <td></td>
-        </tr>
-      </x-table>
-
-
-      <router-link :to="'/fundWap/myCards'">
-        <flexbox style="padding:10px 5px;">
-          <flexbox-item >服务卡使用</flexbox-item>
-          <flexbox-item :span="1/2">扣除一次(剩余{{orderInfo.card_cnt}}次)</flexbox-item>
-          <flexbox-item style="text-align:right;padding-right:10px;">></flexbox-item>
-        </flexbox>
-      </router-link>
-      <div class="linefd"></div>
-        <popover placement="bottom">
-          <div slot="content" style="font-size:12px;">
-            本次就到这吧,下回分解。
-          </div>
+      <div v-if="orderInfo.is_show_value">
+        <x-table :cell-bordered="false" :content-bordered="false" class="aimRmkSub">
+          <tr>
+            <td>买入费率</td>
+            <td style="font-weight:bold;font-size:14px;">{{orderInfo.fee_ratio}}%&nbsp;</td>
+            <td>费率说明 <x-icon type="ios-help-outline" size="15"></x-icon></td>
+          </tr>
+          <tr>
+            <td>确认净值</td>
+            <td colspan="2">15:00之前提交将按{{orderInfo.startDate}}日净值确认份额</td>
+          </tr>
+          <tr>
+            <td>确认日期</td>
+            <td>{{orderInfo.endDate}}{{orderInfo.weekday}}(预计)</td>
+            <td></td>
+          </tr>
+        </x-table>
+      </div>
+      <div v-if="orderInfo.is_show_card">
+        <router-link :to="'/fundWap/myCards'">
           <flexbox style="padding:10px 5px;">
-            <flexbox-item :span="1/6">资金来源</flexbox-item>
-            <flexbox-item :span="0.7">
-              <div style="font-weight:bold;">{{orderInfo.bank_name}}<span style="font-size:10px;">({{orderInfo.card_tail}})</span></div>
-              <div>{{orderInfo.policy}}</div>
-            </flexbox-item>
+            <flexbox-item >服务卡使用</flexbox-item>
+            <flexbox-item :span="1/2">扣除一次(剩余{{orderInfo.card_cnt}}次)</flexbox-item>
             <flexbox-item style="text-align:right;padding-right:10px;">></flexbox-item>
           </flexbox>
-        </popover>
+        </router-link>
+      </div>
+
+      <div class="linefd"></div>
+      <popover placement="bottom">
+        <div slot="content" style="font-size:12px;">
+          本次就到这吧,下回分解。
+        </div>
+        <flexbox style="padding:10px 5px;">
+          <flexbox-item :span="1/6">资金来源</flexbox-item>
+          <flexbox-item :span="0.7">
+            <div style="font-weight:bold;">{{orderInfo.bank_name}}<span style="font-size:10px;">({{orderInfo.card_tail}})</span></div>
+            <div>{{orderInfo.policy}}</div>
+          </flexbox-item>
+          <flexbox-item style="text-align:right;padding-right:10px;">></flexbox-item>
+        </flexbox>
+      </popover>
       <div class="linefd"></div>
       <div class="contract">
-        <check-icon :value.sync="demo2" type="plain"> 
+        <check-icon :value.sync="isChecked" type="plain"> 
           <router-link :to="{path:'/fundWap/systemInfoDetail',query:{sid:20}}">已认真阅读并同意《金金豆大目标产品管理协议》</router-link>
           </check-icon>
       </div>
     </div>
     <div class="footerFix">
       <div class="butt">
-        <x-button :disabled="!demo2" type="warn" @click.native="processButton001">提交</x-button>
+        <x-button :disabled="!isChecked" type="warn" @click.native="processButton001">提交</x-button>
       </div>
     </div>
   </div>

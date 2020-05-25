@@ -26,7 +26,7 @@ import { Tabbar, TabbarItem ,XHeader,XButton, Flexbox, FlexboxItem } from 'vux'
             let unexps = []
             r.user_card_by_uid.forEach(x=>{
               let days = this.$utdate.getDaysLong(new Date().getTime(),x['exp_date_end'],false)
-              console.log(days)
+              // console.log(days)
               x['sources']=this.sc[x['source']]
               x['exp_date_start']=this.$utdate.dateFmt(x['exp_date_start'],"yy年MM月dd日")
               x['exp_date_end']=this.$utdate.dateFmt(x['exp_date_end'],"yy年MM月dd日")
@@ -37,7 +37,7 @@ import { Tabbar, TabbarItem ,XHeader,XButton, Flexbox, FlexboxItem } from 'vux'
                 unexps.push(x)
               }
             })
-            console.log(exps)
+            // console.log(exps)
             this.cards= unexps.concat(exps)
           }
           console.log(this.cards)

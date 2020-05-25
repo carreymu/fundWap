@@ -61,7 +61,7 @@ const router = new VueRouter({
 				component: targetNews
 			},
 			{
-				path: '/fundWap/targetOrder/:tid',
+				path: '/fundWap/targetOrder',
 				name: 'targetOrder',
 				component: targetOrder
 			},

@@ -72,6 +72,8 @@ export default {
             let fmt = 'yy年MM月dd日'
             this.targetRun1.appStart = this.$utdate.dateFmt(tar_1.apply_starttime,fmt)
             this.targetRun1.appEnd = this.$utdate.dateFmt(tar_1.apply_endtime,fmt)
+            this.targetRun1.initial_amt=tar_1.initial_amt
+            this.targetRun1.fee_ratio=tar_1.fee_ratio>0?(targetRun1.fee_ratio*100).toFixed(2):0
           }
           // else{
           //     AlertModule.show({

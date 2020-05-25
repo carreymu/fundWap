@@ -17,7 +17,7 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
       return {
         uid:1,
         orderInfo:{},
-        demo2: true,
+        isChecked: true,
         amount:'',
         iconType:''
       }
@@ -92,8 +92,9 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
         console.log('on change', this.amount)
       },
       loadOrder(){
-        let tid=this.$route.params.tid;
-        if(tid == undefined){
+        let tid=this.$route.query.tid
+        let fid=this.$route.query.fid
+        if(tid == undefined && fid == undefined){
           AlertModule.show({
               title: '亲~~',
               content: '请勿瞎搞.',
@@ -102,28 +103,35 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
               }
           })
         }
-        let dt = {
-          "req": {"uid":this.uid,"tid":tid},
-          "event_names": ["user_bank_wapper","user_card_cnt_uid","targets_by_tid"]
+        if(tid!= undefined){
+          this.orderInfo['is_show_card']=true
+          this.orderInfo['is_show_value']=true
+          let dt = {
+            "req": {"uid":this.uid,"tid":tid},
+            "event_names": ["user_bank_wapper","user_card_cnt_uid","targets_by_tid"]
+          }
+          this.$api.fetchPost('/sanic-api', dt).then(r=>{
+            if(r.user_bank_wapper!=undefined && r.user_bank_wapper.length > 0){
+              this.orderInfo = r.user_bank_wapper[0]
+            }
+            if(r.user_card_cnt_uid!=undefined && r.user_card_cnt_uid.length>0){
+              let cnt = r.user_card_cnt_uid[0]['cnt']
+              this.orderInfo['card_cnt'] = cnt-1<0?0:cnt-1
+            }
+            if(r.targets_by_tid!=undefined && r.targets_by_tid.length>0){
+              this.orderInfo['fee_ratio']=(r.targets_by_tid[0]['fee_ratio']*100).toFixed(2)
+              this.orderInfo['target_name']=r.targets_by_tid[0]['name']
+              this.orderInfo['initial_amt']=r.targets_by_tid[0]['initial_amt']
+            }
+            this.initDates()
+            // console.log(this.orderInfo)
+          })
         }
-        this.$api.fetchPost('/sanic-api', dt).then(r=>{
-          if(r.user_bank_wapper!=undefined && r.user_bank_wapper.length > 0){
-            this.orderInfo = r.user_bank_wapper[0]
-          }
-          if(r.user_card_cnt_uid!=undefined && r.user_card_cnt_uid.length>0){
-            let cnt = r.user_card_cnt_uid[0]['cnt']
-            this.orderInfo['card_cnt'] = cnt-1<0?0:cnt-1
-          }
-          if(r.targets_by_tid!=undefined && r.targets_by_tid.length>0){
-            this.orderInfo['fee_ratio']=(r.targets_by_tid[0]['fee_ratio']*100).toFixed(2)
-            this.orderInfo['target_name']=r.targets_by_tid[0]['name']
-          }
-          // if(r.system_info_by_id!=undefined&&r.system_info_by_id.length>0){
-          //   this.funcInfo['notice']=r.system_info_by_id[0].content
-          // }
-          this.initDates()
-          // console.log(this.orderInfo)
-        })
+        if(fid!=undefined){
+          this.orderInfo['is_show_card']=false
+          this.orderInfo['is_show_value']=true
+          console.log(fid)
+        }
       },
       processButton001 () {
         console.log('click me')

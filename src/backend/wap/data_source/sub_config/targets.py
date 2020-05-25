@@ -9,7 +9,7 @@ config = dict(
         "engine_name": "db_fund_wap_mysql",
         "sql": {
           "mysql": "select tid,ft_id,name,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime,"
-                   "fee_ratio from targets where tid={tid}",
+                   "initial_amt,fee_ratio from targets where tid={tid}",
           "sqlite3": "",
           "mssql": ""
         }
@@ -24,7 +24,8 @@ config = dict(
             "engine_name": "db_fund_wap_mysql",
             "sql": {
                 "mysql": "select tid,ft_id,name,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime,"
-                         "fee_ratio from targets where run_status in ({run_status}) order by inserttime desc "
+                         "fee_ratio,initial_amt from targets where run_status in ({run_status}) "
+                         "order by inserttime desc "
                          "limit {topx}",
                 "sqlite3": "",
                 "mssql": ""
@@ -40,7 +41,8 @@ config = dict(
             "engine_name": "db_fund_wap_mysql",
             "sql": {
                 "mysql": "select tid,ft_id,name,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime,"
-                         "fee_ratio from targets where run_status in ({run_status}) order by run_days desc limit {topx}",
+                         "fee_ratio initial_amt from targets where run_status in ({run_status}) "
+                         "order by run_days desc limit {topx}",
                 "sqlite3": "",
                 "mssql": ""
             }
@@ -68,7 +70,7 @@ config = dict(
       "sql_info": {
         "engine_name": "db_fund_wap_mysql",
         "sql": {
-          "mysql": "select tid,ft_id,name,target_ratio,run_status,run_days,apply_endtime from targets "
+          "mysql": "select tid,ft_id,name,target_ratio,run_status,run_days,apply_endtime,initial_amt from targets "
                    "where run_status in ({run_status}) order by inserttime desc",
           "sqlite3": "",
           "mssql": ""

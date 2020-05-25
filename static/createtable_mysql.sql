@@ -123,7 +123,7 @@ INSERT INTO fund_customized_category(name,ico_color) values('主题型','#707DDE
 INSERT INTO fund_customized_category(name,ico_color) values('成长型','#3BA4FF');
 
 /*--9.fund details share_bonus_type:0-现金分红,1-红利再投*/
-CREATE TABLE fund_info(fid int(11) primary key AUTO_INCREMENT,
+CREATE TABLE fund_info(fid int primary key AUTO_INCREMENT,
 fc_id int not null comment '基金风险类型',
 fcc_id int not null comment '自定义基金类型',
 fund_name varchar(50) not null comment '名称', 
@@ -424,15 +424,17 @@ run_status int not null comment '运行状态',
 run_days int not null comment '运行天数',
 pre_run varchar(20) not null comment '预计运行时间',
 fee_ratio float not null comment '买入费率' default 0,
+initial_amt float not null comment '最少购买金额',
 inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime) values('2006',1,0.08,0,0, '6-12',0.00,'2020-04-07 10:10:00','2020-04-13 10:10:00');-- 2006,2006聚能环01
-INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime) values('2005',2,0.08,1,0, '6-12',0.00,'2020-04-01 10:10:00','2020-04-06 10:10:00');-- 2005,2006聚能环02
-INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime) values('2004',3,0.05,2,10,'5-12',0.00,'2020-03-24 10:10:00','2020-03-31 10:10:00');-- 2004,钻石王老五01
-INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime) values('2003',1,0.08,3,17,'5-12',0.00,'2020-03-16 10:10:00','2020-03-23 10:10:00');
-INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime) values('2002',2,0.07,4,40,'5-12',0.00,'2020-03-16 10:10:00','2020-03-23 10:10:00');
-INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime) values('2001',1,0.06,4,25,'5-12',0.00,'2020-03-16 10:10:00','2020-03-23 10:10:00');
-INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime) values('2000',2,0.05,4,34,'5-12',0.00,'2020-03-16 10:10:00','2020-03-23 10:10:00');
-INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime) values('1999',3,0.08,5,50,'5-12',0.00,'2020-03-16 10:10:00','2020-03-23 10:10:00');
+INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime,initial_amt) values('2006',1,0.08,0,0, '6-12',0.00,'2020-04-07 10:10:00','2020-04-13 10:10:00',2000);-- 2006,2006聚能环01
+INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime,initial_amt) values('2005',2,0.08,1,0, '6-12',0.00,'2020-04-01 10:10:00','2020-04-06 10:10:00',2100);-- 2005,2006聚能环02
+INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime,initial_amt) values('2004',3,0.05,2,10,'5-12',0.00,'2020-03-24 10:10:00','2020-03-31 10:10:00',2200);-- 2004,钻石王老五01
+INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime,initial_amt) values('2003',1,0.08,3,17,'5-12',0.00,'2020-03-16 10:10:00','2020-03-23 10:10:00',2300);
+INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime,initial_amt) values('2002',2,0.07,4,40,'5-12',0.00,'2020-03-16 10:10:00','2020-03-23 10:10:00',2400);
+INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime,initial_amt) values('2001',1,0.06,4,25,'5-12',0.00,'2020-03-16 10:10:00','2020-03-23 10:10:00',2500);
+INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime,initial_amt) values('2000',2,0.05,4,34,'5-12',0.00,'2020-03-16 10:10:00','2020-03-23 10:10:00',2600);
+INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime,initial_amt) values('1999',3,0.08,5,50,'5-12',0.00,'2020-03-16 10:10:00','2020-03-23 10:10:00',2700);
+
 
 /*--33.history of daily target news,status:0-show,1-not show*/
 CREATE TABLE target_history(th_id int(11) primary key AUTO_INCREMENT,tid int,title varchar(50), content varchar(1000),status int,inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
