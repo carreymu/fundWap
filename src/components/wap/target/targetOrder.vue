@@ -1,7 +1,7 @@
 <template>
   <div class="targetOrder">
     <div class="topcontext">
-		<div style="padding:10px;">大目标{{orderInfo.target_name}}</div>
+		<div style="padding:10px;">{{orderInfo.target_name}}</div>
       <div class="aimRate">
         <group>
           <x-input title="￥" type="number" :icon-type="iconType" required v-model="amount"  

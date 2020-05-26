@@ -113,6 +113,7 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
           this.$api.fetchPost('/sanic-api', dt).then(r=>{
             if(r.user_bank_wapper!=undefined && r.user_bank_wapper.length > 0){
               this.orderInfo = r.user_bank_wapper[0]
+              this.orderInfo['target_name']='大目标'+this.orderInfo['target_name']
             }
             if(r.user_card_cnt_uid!=undefined && r.user_card_cnt_uid.length>0){
               let cnt = r.user_card_cnt_uid[0]['cnt']
@@ -130,7 +131,31 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
         if(fid!=undefined){
           this.orderInfo['is_show_card']=false
           this.orderInfo['is_show_value']=true
-          console.log(fid)
+          console.log(orderInfo)
+          let dt = {
+            "req": {"fid":fid},
+            "event_names": ["fund_info"]
+          }
+          this.$api.fetchPost('/sanic-api', dt).then(r=>{
+            if(r.fund_info!=undefined && r.fund_info.length > 0){
+              let f = r.fund_info[0]
+              this.orderInfo['target_name']=f.fund_name
+              this.orderInfo['initial_amt']=f.initial_amt
+              // this.orderInfo['initial_amt']=f.initial_amt
+
+            }
+            // if(r.user_card_cnt_uid!=undefined && r.user_card_cnt_uid.length>0){
+            //   let cnt = r.user_card_cnt_uid[0]['cnt']
+            //   this.orderInfo['card_cnt'] = cnt-1<0?0:cnt-1
+            // }
+            // if(r.targets_by_tid!=undefined && r.targets_by_tid.length>0){
+            //   this.orderInfo['fee_ratio']=(r.targets_by_tid[0]['fee_ratio']*100).toFixed(2)
+            //   this.orderInfo['target_name']=r.targets_by_tid[0]['name']
+            //   this.orderInfo['initial_amt']=r.targets_by_tid[0]['initial_amt']
+            // }
+            this.initDates()
+            // console.log(this.orderInfo)
+          })
         }
       },
       processButton001 () {
