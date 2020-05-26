@@ -10,6 +10,7 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
      *  ******/
     mounted() {
       this.$store.commit('UPDATE_PAGE_TITLE', '申购基金')
+      this.initDate()
       this.loadOrder()
       
     },
@@ -55,7 +56,18 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
     //     }
     // },
     methods:{
-      initDates(){
+      initDate(){
+        let dt = {
+          "req": {"uid":this.uid},
+          "event_names": ["user_bank_wapper"]
+        }
+        this.$api.fetchPost('/sanic-api', dt).then(r=>{
+          if(r.user_bank_wapper!=undefined && r.user_bank_wapper.length > 0){
+            this.orderInfo = r.user_bank_wapper[0]
+          }
+          // console.log(this.orderInfo)
+        })
+
         var startDate = new Date()
         var day = startDate.getDay()
         // 0-周日，6-周六
@@ -94,44 +106,46 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
       loadOrder(){
         let tid=this.$route.query.tid
         let fid=this.$route.query.fid
-        if(tid == undefined && fid == undefined){
-          AlertModule.show({
-              title: '亲~~',
-              content: '请勿瞎搞.',
-              onHide () {
-                  window.location.replace(document.referrer)
-              }
-          })
-        }
+        let sid=this.$route.query.sid
+        let sch=this.$route.query.sch
+        let pid=this.$route.query.pid
+        // if(tid == undefined && fid == undefined){
+        //   AlertModule.show({
+        //       title: '亲~~',
+        //       content: '请勿瞎搞.',
+        //       onHide () {
+        //           window.location.replace(document.referrer)
+        //       }
+        //   })
+        // }
         if(tid!= undefined){
           this.orderInfo['is_show_card']=true
           this.orderInfo['is_show_value']=true
           let dt = {
             "req": {"uid":this.uid,"tid":tid},
-            "event_names": ["user_bank_wapper","user_card_cnt_uid","targets_by_tid"]
+            "event_names": ["user_card_cnt_uid","targets_by_tid"]
           }
           this.$api.fetchPost('/sanic-api', dt).then(r=>{
-            if(r.user_bank_wapper!=undefined && r.user_bank_wapper.length > 0){
-              this.orderInfo = r.user_bank_wapper[0]
-              this.orderInfo['target_name']='大目标'+this.orderInfo['target_name']
-            }
+            // if(r.user_bank_wapper!=undefined && r.user_bank_wapper.length > 0){
+            //   this.orderInfo = r.user_bank_wapper[0]
+            // }
             if(r.user_card_cnt_uid!=undefined && r.user_card_cnt_uid.length>0){
               let cnt = r.user_card_cnt_uid[0]['cnt']
               this.orderInfo['card_cnt'] = cnt-1<0?0:cnt-1
             }
             if(r.targets_by_tid!=undefined && r.targets_by_tid.length>0){
               this.orderInfo['fee_ratio']=(r.targets_by_tid[0]['fee_ratio']*100).toFixed(2)
-              this.orderInfo['target_name']=r.targets_by_tid[0]['name']
+              this.orderInfo['target_name']='大目标'+r.targets_by_tid[0]['name']
               this.orderInfo['initial_amt']=r.targets_by_tid[0]['initial_amt']
             }
-            this.initDates()
             // console.log(this.orderInfo)
           })
         }
         if(fid!=undefined){
           this.orderInfo['is_show_card']=false
-          this.orderInfo['is_show_value']=true
-          console.log(orderInfo)
+          this.orderInfo['is_show_value']=false
+          this.orderInfo['is_show_short_value']=true          
+          console.log(this.orderInfo)
           let dt = {
             "req": {"fid":fid},
             "event_names": ["fund_info"]
@@ -141,8 +155,7 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
               let f = r.fund_info[0]
               this.orderInfo['target_name']=f.fund_name
               this.orderInfo['initial_amt']=f.initial_amt
-              // this.orderInfo['initial_amt']=f.initial_amt
-
+              this.orderInfo['fee_ratio']=f.purchase_rate_new
             }
             // if(r.user_card_cnt_uid!=undefined && r.user_card_cnt_uid.length>0){
             //   let cnt = r.user_card_cnt_uid[0]['cnt']
@@ -153,8 +166,8 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
             //   this.orderInfo['target_name']=r.targets_by_tid[0]['name']
             //   this.orderInfo['initial_amt']=r.targets_by_tid[0]['initial_amt']
             // }
-            this.initDates()
-            // console.log(this.orderInfo)
+            // this.initDates()
+            console.log(this.orderInfo)
           })
         }
       },

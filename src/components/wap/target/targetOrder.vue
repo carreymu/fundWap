@@ -30,6 +30,19 @@
           </tr>
         </x-table>
       </div>
+      <div v-if="orderInfo.is_show_short_value">
+        <x-table :cell-bordered="false" :content-bordered="false" class="aimRmkSub">
+          <tr>
+            <td>买入费率</td>
+            <td style="font-weight:bold;font-size:14px;">{{orderInfo.fee_ratio}}%&nbsp;</td>
+          </tr>
+          <tr>
+            <td>确认日期</td>
+            <td>{{orderInfo.endDate}}{{orderInfo.weekday}}(预计)</td>
+            <td></td>
+          </tr>
+        </x-table>
+      </div>
       <div v-if="orderInfo.is_show_card">
         <router-link :to="'/fundWap/myCards'">
           <flexbox style="padding:10px 5px;">
