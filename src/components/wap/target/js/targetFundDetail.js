@@ -25,11 +25,11 @@ export default {
       let tid=this.$route.params.tid;
       if(tid == undefined){
         AlertModule.show({
-            title: '亲~~',
-            content: '请勿瞎搞.',
-            onHide () {
-                window.location.replace(document.referrer)
-            }
+          title: '亲~~',
+          content: '请勿瞎搞.',
+          onHide () {
+              window.location.replace(document.referrer)
+          }
         })
       }
       let dt = {

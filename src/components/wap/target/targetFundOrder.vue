@@ -66,7 +66,7 @@
     </div>
   </div>
   <div class="tarfooterFix">
-    <x-button type="warn"  :link="{path:'/fundWap/targetOrder',query:{fid:funcInfo.fid}}">申购</x-button>
+    <x-button type="warn"  :link="{path:'/fundWap/targetFOrder',query:{fid:funcInfo.fid}}">申购</x-button>
   </div>
 </div>
 </template>

@@ -12,23 +12,38 @@
     </div>
 
     <div>
-      <x-table :cell-bordered="false" :content-bordered="false" class="aimRmkSub">
-        <tr>
-          <td>买入费率</td>
-          <td style="font-weight:bold;font-size:14px;">{{orderInfo.fee_ratio}}%&nbsp;</td>
-          <td>费率说明 <x-icon type="ios-help-outline" size="15"></x-icon></td>
-        </tr>
-        <tr>
-          <td>确认净值</td>
-          <td colspan="2">15:00之前提交将按{{orderInfo.startDate}}日净值确认份额</td>
-        </tr>
-        <tr>
-          <td>确认日期</td>
-          <td>{{orderInfo.endDate}}{{orderInfo.weekday}}(预计)</td>
-          <td></td>
-        </tr>
-      </x-table>
       <div>
+        <x-table :cell-bordered="false" :content-bordered="false" class="aimRmkSub">
+          <tr>
+            <td>买入费率</td>
+            <td style="font-weight:bold;font-size:14px;">{{orderInfo.fee_ratio}}%&nbsp;</td>
+            <td>费率说明 <x-icon type="ios-help-outline" size="15"></x-icon></td>
+          </tr>
+          <tr>
+            <td>确认净值</td>
+            <td colspan="2">15:00之前提交将按{{schedInfo.startDate}}日净值确认份额</td>
+          </tr>
+          <tr>
+            <td>确认日期</td>
+            <td>{{schedInfo.endDate}}{{schedInfo.weekday}}(预计)</td>
+            <td></td>
+          </tr>
+        </x-table>
+      </div>
+      <div v-if="orderInfo.is_show_short_value">
+        <x-table :cell-bordered="false" :content-bordered="false" class="aimRmkSub">
+          <tr>
+            <td>买入费率</td>
+            <td style="font-weight:bold;font-size:14px;">{{orderInfo.fee_ratio}}%&nbsp;</td>
+          </tr>
+          <tr>
+            <td>确认日期</td>
+            <td>{{schedInfo.endDate}}{{schedInfo.weekday}}(预计)</td>
+            <td></td>
+          </tr>
+        </x-table>
+      </div>
+      <div v-if="orderInfo.is_show_card">
         <router-link :to="'/fundWap/myCards'">
           <flexbox style="padding:10px 5px;">
             <flexbox-item >服务卡使用</flexbox-item>
@@ -39,15 +54,16 @@
       </div>
 
       <div class="linefd"></div>
-      <popover placement="bottom">
+      <div>{{bankInfo}}</div>
+      <popover placement="bottom" v-if="JSON.stringify(bankInfo)!='{}'">
         <div slot="content" style="font-size:12px;">
           本次就到这吧,下回分解。
         </div>
         <flexbox style="padding:10px 5px;">
           <flexbox-item :span="1/6">资金来源</flexbox-item>
           <flexbox-item :span="0.7">
-            <div style="font-weight:bold;">{{orderInfo.bank_name}}<span style="font-size:10px;">({{orderInfo.card_tail}})</span></div>
-            <div>{{orderInfo.policy}}</div>
+            <div style="font-weight:bold;">{{bankInfo.bank_name}}<span style="font-size:10px;">({{bankInfo.card_tail}})</span></div>
+            <div>{{bankInfo.policy}}</div>
           </flexbox-item>
           <flexbox-item style="text-align:right;padding-right:10px;">></flexbox-item>
         </flexbox>

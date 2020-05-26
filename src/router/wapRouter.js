@@ -7,6 +7,7 @@ import targetFundDetail from '@/components/wap/target/targetFundDetail'
 import targetList from '@/components/wap/target/targetList'
 import targetNews from '@/components/wap/target/targetNews'
 import targetOrder from '@/components/wap/target/targetOrder'
+import targetFOrder from '@/components/wap/target/targetFOrder'
 import targetFundOrder from '@/components/wap/target/targetFundOrder'
 import targetStockOrder from '@/components/wap/target/targetStockOrder'
 import drumstick from '@/components/wap/drumstick/drumstick'
@@ -64,6 +65,11 @@ const router = new VueRouter({
 				path: '/fundWap/targetOrder',
 				name: 'targetOrder',
 				component: targetOrder
+			},
+			{
+				path: '/fundWap/targetFOrder/',
+				name: 'targetFOrder',
+				component: targetFOrder
 			},
 			{
 				path: '/fundWap/targetFundOrder/:fid',

@@ -64,4 +64,27 @@ export function addDate(date,days){
     return d.getFullYear()+'-'+m+'-'+dd; 
   }
 
-export default { dateFmt, getDays, addDate, getDaysLong}
+export function workdays(fmt){
+    var startDate = new Date()
+    var day = startDate.getDay()
+    // 0-周日，6-周六
+    let sdate = startDate
+    let edate = startDate
+    switch(day){
+        case 0:
+            sdate=addDate(startDate,1)
+            edate=addDate(startDate,2)
+            break
+        case 6:
+            sdate=addDate(startDate,2)
+            edate=addDate(startDate,3)
+            break
+        default:
+            sdate=startDate
+            edate=addDate(startDate,1)
+            break
+    }
+    var weekday=["星期日","星期一","星期二","星期三","星期四","星期五","星期六"]
+    return {'startDate':dateFmt(sdate,fmt), 'endDate':dateFmt(edate,fmt), 'weekday':weekday[(new Date(edate)).getDay()]}
+}
+export default { dateFmt, getDays, addDate, getDaysLong, workdays}

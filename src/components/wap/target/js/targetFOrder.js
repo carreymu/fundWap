@@ -16,7 +16,6 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
       return {
         uid:1,
         orderInfo:{},
-        isChecked: true,
         amount:'',
         iconType:''
       }
@@ -54,31 +53,6 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
     //     }
     // },
     methods:{
-      initSched(){
-        var startDate = new Date()
-        var day = startDate.getDay()
-        // 0-周日，6-周六
-        let sdate = startDate
-        let edate = startDate
-        switch(day){
-          case 0:
-            sdate=this.$utdate.addDate(startDate,1)
-            edate=this.$utdate.addDate(startDate,2)
-            break
-          case 6:
-            sdate=this.$utdate.addDate(startDate,2)
-            edate=this.$utdate.addDate(startDate,3)
-            break
-          default:
-            sdate=startDate
-            edate=this.$utdate.addDate(startDate,1)
-            break
-        }
-        var weekday=["星期日","星期一","星期二","星期三","星期四","星期五","星期六"]
-        this.orderInfo['startDate']=this.$utdate.dateFmt(sdate,"MM-dd")
-        this.orderInfo['endDate']=this.$utdate.dateFmt(edate,"MM-dd")
-        this.orderInfo['weekday']=weekday[(new Date(edate)).getDay()]
-      },
       change (val) {
         var reg = /^(\d+|\d+\.\d{1,2})$/
         if(reg.test(val)){
@@ -91,8 +65,8 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
         console.log('on change', this.amount)
       },
       loadOrder(){
-        let tid=this.$route.query.tid
-        if(tid == undefined){
+        let fid=this.$route.query.fid
+        if(fid == undefined){
           AlertModule.show({
               title: '亲~~',
               content: '请勿瞎搞.',
@@ -102,8 +76,8 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
           })
         }
         let dt = {
-          "req": {"uid":this.uid,"tid":tid},
-          "event_names": ["user_bank_wapper","user_card_cnt_uid","targets_by_tid"]
+          "req": {"uid":this.uid,"fid":fid},
+          "event_names": ["user_bank_wapper","user_card_cnt_uid","fund_info"]
         }
         this.$api.fetchPost('/sanic-api', dt).then(r=>{
           if(r.user_bank_wapper!=undefined && r.user_bank_wapper.length > 0){
@@ -113,12 +87,16 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
             let cnt = r.user_card_cnt_uid[0]['cnt']
             this.orderInfo['card_cnt'] = cnt-1<0?0:cnt-1
           }
-          if(r.targets_by_tid!=undefined && r.targets_by_tid.length>0){
-            this.orderInfo['fee_ratio']=(r.targets_by_tid[0]['fee_ratio']*100).toFixed(2)
-            this.orderInfo['target_name']='大目标'+r.targets_by_tid[0]['name']
-            this.orderInfo['initial_amt']=r.targets_by_tid[0]['initial_amt']
+          if(r.fund_info!=undefined && r.fund_info.length > 0){
+            let f = r.fund_info[0]
+            this.orderInfo['target_name']=f.fund_name
+            this.orderInfo['initial_amt']=f.initial_amt
+            this.orderInfo['fee_ratio']=f.purchase_rate_new>0?(f.purchase_rate_new*100).toFixed(2):0
           }
-          this.initSched()
+          let d=this.$utdate.workdays("MM-dd")
+          this.orderInfo['startDate']=d.startDate
+          this.orderInfo['endDate']=d.endDate
+          this.orderInfo['weekday']=d.weekday
           console.log(this.orderInfo)
         })
       },
