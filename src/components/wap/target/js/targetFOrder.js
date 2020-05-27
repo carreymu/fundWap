@@ -89,7 +89,7 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
           }
           if(r.fund_info!=undefined && r.fund_info.length > 0){
             let f = r.fund_info[0]
-            this.orderInfo['target_name']=f.fund_name
+            this.orderInfo['target_name']=f.fund_name+"("+f.fund_code+")"
             this.orderInfo['initial_amt']=f.initial_amt
             this.orderInfo['fee_ratio']=f.purchase_rate_new>0?(f.purchase_rate_new*100).toFixed(2):0
           }

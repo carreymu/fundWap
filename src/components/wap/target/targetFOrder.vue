@@ -12,8 +12,8 @@
     </div>
 
     <div style="padding: 15px; line-height: 30px;text-align:left;">
-        <div>买入费率<span style="font-weight:bold;font-size:14px;">{{orderInfo.fee_ratio}}%&nbsp;</span></div>
-        <div>确认日期<span>{{orderInfo.endDate}}{{orderInfo.weekday}}(预计)</span></div>
+        <div>买入费率<span style="font-weight:bold;font-size:14px;padding-left:15px;">{{orderInfo.fee_ratio}}%&nbsp;</span></div>
+        <div>确认日期<span style="padding-left:15px;">{{orderInfo.endDate}}{{orderInfo.weekday}}(预计)</span></div>
     </div>
 
     <div class="linefd"></div>

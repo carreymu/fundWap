@@ -54,31 +54,6 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
     //     }
     // },
     methods:{
-      initSched(){
-        var startDate = new Date()
-        var day = startDate.getDay()
-        // 0-周日，6-周六
-        let sdate = startDate
-        let edate = startDate
-        switch(day){
-          case 0:
-            sdate=this.$utdate.addDate(startDate,1)
-            edate=this.$utdate.addDate(startDate,2)
-            break
-          case 6:
-            sdate=this.$utdate.addDate(startDate,2)
-            edate=this.$utdate.addDate(startDate,3)
-            break
-          default:
-            sdate=startDate
-            edate=this.$utdate.addDate(startDate,1)
-            break
-        }
-        var weekday=["星期日","星期一","星期二","星期三","星期四","星期五","星期六"]
-        this.orderInfo['startDate']=this.$utdate.dateFmt(sdate,"MM-dd")
-        this.orderInfo['endDate']=this.$utdate.dateFmt(edate,"MM-dd")
-        this.orderInfo['weekday']=weekday[(new Date(edate)).getDay()]
-      },
       change (val) {
         var reg = /^(\d+|\d+\.\d{1,2})$/
         if(reg.test(val)){
@@ -109,16 +84,20 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
           if(r.user_bank_wapper!=undefined && r.user_bank_wapper.length > 0){
             this.orderInfo=r.user_bank_wapper[0]
           }
-          if(r.user_card_cnt_uid!=undefined && r.user_card_cnt_uid.length>0){
-            let cnt = r.user_card_cnt_uid[0]['cnt']
-            this.orderInfo['card_cnt'] = cnt-1<0?0:cnt-1
-          }
           if(r.targets_by_tid!=undefined && r.targets_by_tid.length>0){
+            console.log(r.targets_by_tid[0].apply_endtime)
             this.orderInfo['fee_ratio']=(r.targets_by_tid[0]['fee_ratio']*100).toFixed(2)
             this.orderInfo['target_name']='大目标'+r.targets_by_tid[0]['name']
             this.orderInfo['initial_amt']=r.targets_by_tid[0]['initial_amt']
           }
-          this.initSched()
+          if(r.user_card_cnt_uid!=undefined && r.user_card_cnt_uid.length>0){
+            let cnt = r.user_card_cnt_uid[0]['cnt']
+            this.orderInfo['card_cnt'] = cnt-1<0?0:cnt-1
+          }
+          let d=this.$utdate.workdays("MM-dd")
+          this.orderInfo['startDate']=d.startDate
+          this.orderInfo['endDate']=d.endDate
+          this.orderInfo['weekday']=d.weekday
           console.log(this.orderInfo)
         })
       },
