@@ -85,7 +85,12 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
             this.orderInfo=r.user_bank_wapper[0]
           }
           if(r.targets_by_tid!=undefined && r.targets_by_tid.length>0){
-            console.log(r.targets_by_tid[0].apply_endtime)
+            // console.log(this.$utdate.dateFmt(r.targets_by_tid[0].apply_endtime,'yyyy-MM-dd'))
+            let overdate = this.$utdate.getDaysLong(r.targets_by_tid[0].apply_endtime,(new Date()).getTime(),false)
+            console.log(overdate)
+            if(overdate>0){
+              console.log('过期了要写提示>>>>>>>>>>>>>>>>>>>>')
+            }
             this.orderInfo['fee_ratio']=(r.targets_by_tid[0]['fee_ratio']*100).toFixed(2)
             this.orderInfo['target_name']='大目标'+r.targets_by_tid[0]['name']
             this.orderInfo['initial_amt']=r.targets_by_tid[0]['initial_amt']
