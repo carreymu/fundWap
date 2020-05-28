@@ -12,22 +12,41 @@
     </div>
 
     <div>
-      <x-table :cell-bordered="false" :content-bordered="false" class="aimRmkSub">
-        <tr>
-          <td>买入费率</td>
-          <td style="font-weight:bold;font-size:14px;">{{orderInfo.fee_ratio}}%&nbsp;</td>
-          <td>费率说明 <x-icon type="ios-help-outline" size="15"></x-icon></td>
-        </tr>
-        <tr>
-          <td>确认净值</td>
-          <td colspan="2">15:00之前提交将按{{orderInfo.startDate}}日净值确认份额</td>
-        </tr>
-        <tr>
-          <td>确认日期</td>
-          <td>{{orderInfo.endDate}}{{orderInfo.weekday}}(预计)</td>
-          <td></td>
-        </tr>
-      </x-table>
+      <div v-if="sched">
+        <div class="linefd"></div>
+        <div>sfsf</div>
+        <x-table :cell-bordered="false" :content-bordered="false" class="aimRmkSub">
+          <tr>
+            <td>买入费率</td>
+            <td style="font-weight:bold;font-size:14px;">{{orderInfo.fee_ratio}}%&nbsp;</td>
+            <td>费率说明 <x-icon type="ios-help-outline" size="15"></x-icon></td>
+          </tr>
+          <tr>
+            <td>首笔扣款日</td>
+            <td>{{orderInfo.endDate}}&nbsp;&nbsp;{{orderInfo.weekday}}</td>
+            <td></td>
+          </tr>
+        </x-table>
+      </div>
+      <div v-else>
+        <x-table :cell-bordered="false" :content-bordered="false" class="aimRmkSub">
+          <tr>
+            <td>买入费率</td>
+            <td style="font-weight:bold;font-size:14px;">{{orderInfo.fee_ratio}}%&nbsp;</td>
+            <td>费率说明 <x-icon type="ios-help-outline" size="15"></x-icon></td>
+          </tr>
+          <tr>
+            <td>确认净值</td>
+            <td colspan="2">15:00之前提交将按{{orderInfo.startDate}}日净值确认份额</td>
+          </tr>
+          <tr>
+            <td>确认日期</td>
+            <td>{{orderInfo.endDate}}{{orderInfo.weekday}}(预计)</td>
+            <td></td>
+          </tr>
+        </x-table>
+      </div>
+
 
       <div class="linefd"></div>
       <popover placement="bottom">
@@ -44,10 +63,17 @@
         </flexbox>
       </popover>
       <div class="linefd"></div>
+
+      <div class="contract" v-if="sched">
+        <check-icon :value.sync="isChecked" type="plain"> 
+          <router-link :to="{path:'/fundWap/systemInfoDetail',query:{sid:20}}">已认真阅读并同意《金金豆大目标产品管理协议》</router-link>
+        </check-icon>
+      </div>
     </div>
+
     <div class="footerFix">
       <div class="butt">
-        <x-button type="warn" @click.native="processButton001">提交</x-button>
+        <x-button :disabled="!isChecked" type="warn" @click.native="processButton001">提交</x-button>
       </div>
     </div>
   </div>

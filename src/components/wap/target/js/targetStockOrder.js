@@ -6,7 +6,7 @@ export default {
       this.loadLatest()
       // this.getTags()
     //   this.loadDetail()
-      this.$store.commit('UPDATE_PAGE_TITLE', '汇添富中证主要消费ETF连接(000248)') 
+      this.$store.commit('UPDATE_PAGE_TITLE', '数据载入中...') 
   },
   data(){      
       return {
@@ -31,7 +31,8 @@ export default {
         // 1 - 建仓中, 2 - 盈利中, 3 - 浮亏中, 4 - 已达标
         runStatus:{1:"建仓中",2 :"盈利中",3:"浮亏中", 4:"已达标"},
         targetListData:[],
-        summary:"共发车{0}期,{1}期已达标5%~8%,平均运行{2}个月.投资年化回报18.49%.跑赢大盘19.66%以上。"
+        summary:"共发车{0}期,{1}期已达标5%~8%,平均运行{2}个月.投资年化回报18.49%.跑赢大盘19.66%以上。",
+        fid:0,
       }
   },
   methods:{
@@ -97,6 +98,7 @@ export default {
               this.$store.commit('UPDATE_PAGE_TITLE', this.funcInfo.fund_name+"("+ this.funcInfo.fund_code +")")
             }
           }
+          // console.log(this.funcInfo)
           if(r.fund_category!=undefined && r.fund_category.length>0){
             let flt = r.fund_category.filter(x=>x.fc_id ==fc_id)
             if(flt.length>0){

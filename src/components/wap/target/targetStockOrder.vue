@@ -93,11 +93,6 @@
               <span class="fntGreen" v-else>-{{it.daily_change}}%</span>
               </td>
           </tr>
-          <!-- <tr>
-            <td>2020-04-29</td>
-            <td>1.25</td>
-            <td class="fntGreen">-0.43%</td>
-          </tr> -->
         </tbody>
       </x-table>
       <div class="seeMore">
@@ -132,10 +127,10 @@
         <div class="fnt11"> 申购费率:<span style="color:brown;"> 1折起</span></div>
         </flexbox-item>
       <flexbox-item>
-        <x-button :gradients="['#A644FF', '#FC5BC4']" class="fnt13" :link="{path:'/fundWap/targetOrder',query:{sid:funcInfo.fid,sch:true}}">定投</x-button>
+        <x-button :gradients="['#A644FF', '#FC5BC4']" class="fnt13" :link="{path:'/fundWap/targetSOrder',query:{fid:funcInfo.fid,sch:true}}">定投</x-button>
       </flexbox-item>
       <flexbox-item>
-        <x-button :gradients="['#FF2719', '#FF61AD']" class="fnt13" :link="{path:'/fundWap/targetOrder',query:{sid:funcInfo.fid}}">申购</x-button>
+        <x-button :gradients="['#FF2719', '#FF61AD']" class="fnt13" :link="{path:'/fundWap/targetSOrder',query:{fid:funcInfo.fid}}">申购</x-button>
       </flexbox-item>
     </flexbox>
     </div>

@@ -17,7 +17,9 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
         uid:1,
         orderInfo:{},
         amount:'',
-        iconType:''
+        iconType:'',
+        sched:false,
+        isChecked: true,
       }
     },
     methods:{
@@ -34,6 +36,7 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
       },
       loadOrder(){
         let fid=this.$route.query.fid
+        this.sched=this.$route.query.sch || false
         if(fid == undefined){
           AlertModule.show({
               title: '亲~~',
@@ -44,7 +47,7 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
           })
         }
         let dt = {
-          "req": {"uid":this.uid,"fid":fid},
+          "req": {"uid":this.uid,"fid":fid,"sch":this.sched},
           "event_names": ["user_bank_wapper","fund_info"]
         }
         console.log(dt)
