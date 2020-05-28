@@ -13,8 +13,21 @@
 
     <div>
       <div v-if="sched">
-        <div class="linefd"></div>
-        <div>sfsf</div>
+        <!-- <div class="linefd"></div> -->
+        <div>
+          <router-link @click.native="showPopupPicker = true">
+            <flexbox style="padding:10px 5px;">
+              <flexbox-item >定投频率</flexbox-item>
+              <flexbox-item :span="1/2">333</flexbox-item>
+              <flexbox-item style="text-align:right;padding-right:10px;">></flexbox-item>
+            </flexbox>
+          </router-link>
+
+          <group>
+            <popup-picker title="时间" :show.sync="showPopupPicker" :inline-desc="`当前值[${value}]` " 
+            v-model="value" :show-cell="false" :data="dateRange" :display-format="format"></popup-picker>
+          </group>
+        </div>
         <x-table :cell-bordered="false" :content-bordered="false" class="aimRmkSub">
           <tr>
             <td>买入费率</td>

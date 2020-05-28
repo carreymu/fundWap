@@ -1,4 +1,4 @@
-import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Popover } from 'vux'
+import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Popover,PopupPicker } from 'vux'
   export default {
     /****** to do
      * 1. userid from storage
@@ -9,6 +9,7 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
      * 6. purchase threshold input box, float value only
      *  ******/
     mounted() {
+      this.initDateList();
       this.$store.commit('UPDATE_PAGE_TITLE', '申购基金')
       this.loadOrder()
     },
@@ -20,9 +21,34 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
         iconType:'',
         sched:false,
         isChecked: true,
+
+        showPopupPicker:true,
+        value: [],
+        dateRange:[],
+        format: function (value, name) {return `${value[0]} ${value[0]} ${value[1]}`}
       }
     },
     methods:{
+      initDateList () {
+        var myDate = new Date()
+        let curDay = myDate.getFullYear()+"-"+myDate.getMonth()+"-"+myDate.getDay()
+        let lastDay = myDate.getFullYear()+"-12-31"
+        let days = this.$utdate.getDays(curDay,lastDay)
+        let arr0 = []
+        for(var j=1;j<days;j++){
+          arr0.push(this.$utdate.addDate(myDate,j))
+        }
+        // console.log(arr0)
+        let hours=[]
+        let mints = []
+        for(var i=0;i<24;i++){
+          hours.push(i)
+        }
+        for(var i=0;i<60;i++){
+          mints.push(i)
+        }
+        this.dateRange = [arr0,hours,mints]
+      },
       change (val) {
         var reg = /^(\d+|\d+\.\d{1,2})$/
         if(reg.test(val)){
@@ -81,6 +107,7 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
       XInput,
       CheckIcon,
       XTable,
-      Popover
+      Popover,
+      PopupPicker
     }
   }
