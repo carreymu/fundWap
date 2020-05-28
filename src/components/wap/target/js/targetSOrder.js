@@ -47,6 +47,7 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
           "req": {"uid":this.uid,"fid":fid},
           "event_names": ["user_bank_wapper","fund_info"]
         }
+        console.log(dt)
         this.$api.fetchPost('/sanic-api', dt).then(r=>{
           if(r.user_bank_wapper!=undefined && r.user_bank_wapper.length > 0){
             this.orderInfo=r.user_bank_wapper[0]

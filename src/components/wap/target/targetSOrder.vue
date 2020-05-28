@@ -53,8 +53,8 @@
   </div>
 </template>
 <script>
-  import targetOrder  from  "./js/targetOrder.js"
-  export default targetOrder
+  import targetSOrder  from  "./js/targetSOrder.js"
+  export default targetSOrder
 </script>
 
 <style>
