@@ -16,8 +16,9 @@
         <!-- <div class="linefd"></div> -->
         <div>
           <group>
-            <popup-picker title="定投频率" :data="freqList" :columns="2" v-model="freqVal" ref="picker3"></popup-picker>
-             <cell title="获取值对应的文字" :value="$refs.picker3&&$refs.picker3.getNameValues()"></cell>
+            <popup-picker title="定投频率" :data="freqList" :columns="2" v-model="freqVal" show-name></popup-picker>
+            <!--  <cell @cell-font-size="12" title="获取值对应的文字" :value="$refs.picker3&&$refs.picker3.getNameValues()"></cell> -->
+              <!-- <popup-picker title="定投频率" :data="list3" :columns="2" v-model="value4" show-name></popup-picker> -->
           </group>
         </div>
         <x-table :cell-bordered="false" :content-bordered="false" class="aimRmkSub">

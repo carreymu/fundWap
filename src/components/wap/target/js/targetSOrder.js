@@ -23,7 +23,8 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
         isChecked: true,
 
         freqVal: [],
-        freqList: [{
+        freqList: [],
+        list3: [{
           name: '中国',
           value: 'china',
           parent: 0
@@ -48,25 +49,28 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
           value: 'usa002',
           parent: 'USA'
         }],
+        value4: [],
       }
     },
     methods:{
       initDateList () {
-        var myDate = new Date()
-        let curDay = myDate.getFullYear()+"-"+myDate.getMonth()+"-"+myDate.getDay()
-        let lastDay = myDate.getFullYear()+"-12-31"
-        let days = this.$utdate.getDays(curDay,lastDay)
-        let arr0 = []
-        for(var j=1;j<days;j++){
-          arr0.push(this.$utdate.addDate(myDate,j))
+        let parents = {'每周':'1','每两周':'2','每月':'3'}
+        let rang1={'周一':'1','周二':'2','周三':'3','周四':'4','周五':'5'}
+        var msg = ""; 
+        for(var key in parents) {
+          if(key.indexOf('周')>0){
+            this.freqList.push({name: key,value: parents[key],parent: 0})
+            for(var k in rang1){
+              this.freqList.push({name: k,value: rang1[k],parent: parents[key]})
+            }
+          }else{
+            this.freqList.push({name: key,value: parents[key],parent: 0})
+            for(var i=1;i<29;i++){
+              this.freqList.push({name: i+'日',value: i,parent: parents[key]})
+            }
+          }
         }
-        // console.log(arr0)
-        let hours=[]
-        let mints = []
-        for(var i=0;i<24;i++){
-          hours.push(i)
-        }
-        this.dateRange = [arr0,hours]
+        console.log(this.freqList)
       },
       change (val) {
         var reg = /^(\d+|\d+\.\d{1,2})$/
