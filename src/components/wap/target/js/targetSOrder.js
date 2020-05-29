@@ -22,10 +22,32 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
         sched:false,
         isChecked: true,
 
-        showPopupPicker:true,
-        value: [],
-        dateRange:[],
-        format: function (value, name) {return `${value[0]} ${value[0]} ${value[1]}`}
+        freqVal: [],
+        freqList: [{
+          name: '中国',
+          value: 'china',
+          parent: 0
+        }, {
+          name: '美国',
+          value: 'USA',
+          parent: 0
+        }, {
+          name: '广东',
+          value: 'china001',
+          parent: 'china'
+        }, {
+          name: '广西',
+          value: 'china002',
+          parent: 'china'
+        }, {
+          name: '美国001',
+          value: 'usa001',
+          parent: 'USA'
+        }, {
+          name: '美国002',
+          value: 'usa002',
+          parent: 'USA'
+        }],
       }
     },
     methods:{
@@ -44,10 +66,7 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
         for(var i=0;i<24;i++){
           hours.push(i)
         }
-        for(var i=0;i<60;i++){
-          mints.push(i)
-        }
-        this.dateRange = [arr0,hours,mints]
+        this.dateRange = [arr0,hours]
       },
       change (val) {
         var reg = /^(\d+|\d+\.\d{1,2})$/
