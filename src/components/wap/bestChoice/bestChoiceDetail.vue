@@ -51,19 +51,31 @@
           </v-chart>
         </swiper-item>
       </swiper>
+      <!-- <tab :line-width=2 active-color='#fc378c' v-model="index">
+        <tab-item class="vux-center" :selected="demo2 === item" v-for="(item, index) in list2" @on-item-click="onItemClick"
+        @click="demo2 = item" :key="index">{{item}}</tab-item>
+      </tab> -->
       <flexbox>
         <flexbox-item>
-          <x-button @click.native="index=0" mini v-if="index===0" plain type="warn" class="timeBtn">近1月</x-button>
-          <x-button @click.native="index=0" mini v-else  class="timeBtn">近1月</x-button>
+          <x-button @click.native="fltIdx(index,1)" mini v-if="month===1" plain type="warn" class="timeBtn">近1月</x-button>
+          <x-button @click.native="fltIdx(index,1)" mini v-else  class="timeBtn">近1月</x-button>
         </flexbox-item>
         <flexbox-item>
-          <x-button @click.native="index=1" mini v-if="index===1" plain type="warn"  class="timeBtn">近3月</x-button>
-          <x-button @click.native="index=1" mini v-else  class="timeBtn">近3月</x-button>
+          <x-button @click.native="fltIdx(index,3)" mini v-if="month===3" plain type="warn"  class="timeBtn">近3月</x-button>
+          <x-button @click.native="fltIdx(index,3)" mini v-else  class="timeBtn">近3月</x-button>
         </flexbox-item>
-        <!-- to do, add event -->
-        <flexbox-item><x-button @click.native="next" mini class="timeBtn">近6月</x-button></flexbox-item>
-        <flexbox-item><x-button @click.native="next" mini class="timeBtn">近1年</x-button></flexbox-item>
-        <flexbox-item><x-button @click.native="prev" mini class="timeBtn">近3年</x-button></flexbox-item>
+        <flexbox-item>
+          <x-button @click.native="fltIdx(index,6)" mini v-if="month===6" plain type="warn"  class="timeBtn">近6月</x-button>
+          <x-button @click.native="fltIdx(index,6)" mini v-else  class="timeBtn">近6月</x-button>
+        </flexbox-item>
+        <flexbox-item>
+          <x-button @click.native="fltIdx(index,12)" mini v-if="month===12" plain type="warn"  class="timeBtn">近1年</x-button>
+          <x-button @click.native="fltIdx(index,12)" mini v-else  class="timeBtn">近1年</x-button>
+        </flexbox-item>
+        <flexbox-item>
+          <x-button @click.native="fltIdx(index,36)" mini v-if="month===36" plain type="warn"  class="timeBtn">近3年</x-button>
+          <x-button @click.native="fltIdx(index,36)" mini v-else  class="timeBtn">近3年</x-button>
+        </flexbox-item>
       </flexbox>
 
     </div>

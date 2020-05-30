@@ -24,6 +24,7 @@ export default {
 			map,
 			mainData:{},
 			fTypeList:[],
+			// dtmap:{1,3,6,12,36},
 			/*init vchart first or data???*/
 			chartData: [
 				{
@@ -201,6 +202,7 @@ export default {
 				}
 			],
 			index: 0,
+			month: 0,
 			htmlOptions: {
 				position: [ '50%', '45%' ],
 				html: `
@@ -308,6 +310,15 @@ export default {
 		};
 	},
 	methods:{
+		fltIdx(idx,month){
+			this.index=idx
+			this.month=month
+			console.log('month:'+month)
+			console.log('tab:'+this.index)
+		},
+		onItemClick (index) {
+			console.log('on item click:', index)
+		},
 		loadDetail(){
 			let self=this;
 			let cid=this.$route.params.choiceId;

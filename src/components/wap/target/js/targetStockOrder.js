@@ -1,4 +1,4 @@
-import {VChart, VLine, VTooltip, VGuide, VScale, Spinner,VAxis,Flexbox, FlexboxItem,
+import {VChart, VLine, VTooltip, VGuide, VScale, Spinner,VAxis,Flexbox, FlexboxItem,AlertModule,
   Tab, TabItem, Swiper, SwiperItem, dateFormat, numberRandom,Card,XTable,Group,Cell, XButton} from 'vux'
 // import formatStr from '@/utils/utstring'
 export default {
@@ -109,6 +109,15 @@ export default {
           if(r.fund_manangers_list!=undefined && r.fund_manangers_list.length>0){
             this.funcInfo['managers']=r.fund_manangers_list.map(x=>x.name).join()
           }
+          else {
+            AlertModule.show({
+              title: '亲~~',
+              content: '木有找到你要的信息.',
+              onHide () {
+                  window.location.replace(document.referrer)
+              }
+            })
+          }
           if(r.fund_worth_history_by_fid!=undefined && r.fund_worth_history_by_fid.length>0){
             for(var i=0;i<r.fund_worth_history_by_fid.length;i++){
               let dt = this.$utdate.dateFmt(r.fund_worth_history_by_fid[i].inserttime,"yyyy-MM-dd")
@@ -123,6 +132,15 @@ export default {
             }
             this.loadDailyData()
           }
+          else {
+            AlertModule.show({
+              title: '亲~~',
+              content: '木有找到你要的信息.',
+              onHide () {
+                  window.location.replace(document.referrer)
+              }
+            })
+          }
           if(r.fund_worth_history_stage_by_fid!=undefined && r.fund_worth_history_stage_by_fid.length>0){
             //one week,three months,one year
             this.fundWorthStage = r.fund_worth_history_stage_by_fid.filter(x=>[7,90,365].includes(x.stage))
@@ -133,8 +151,26 @@ export default {
             }
             // console.log(this.fundWorthStage)
           }
+          else {
+            AlertModule.show({
+              title: '亲~~',
+              content: '木有找到你要的信息.',
+              onHide () {
+                  window.location.replace(document.referrer)
+              }
+            })
+          }
           if(r.system_info_by_id!=undefined&&r.system_info_by_id.length>0){
             this.funcInfo['notice']=r.system_info_by_id[0].content
+          }
+          else {
+            AlertModule.show({
+              title: '亲~~',
+              content: '木有找到你要的信息.',
+              onHide () {
+                  window.location.replace(document.referrer)
+              }
+            })
           }
           // console.log(this.fundList)
         })
@@ -223,7 +259,11 @@ export default {
       Spinner,
       VChart,
       VLine,
-      Tab, TabItem, Swiper, SwiperItem ,Card,
+      Tab, 
+      TabItem, 
+      Swiper, 
+      SwiperItem,
+      Card,
       VTooltip,
       VGuide,
       VScale,
@@ -231,6 +271,7 @@ export default {
       XTable,
       Group,
       Cell,
-      XButton
+      XButton,
+      AlertModule
   }
 }
