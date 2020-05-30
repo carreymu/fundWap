@@ -13,29 +13,37 @@
 
     <div>
       <div v-if="sched">
+        <group>
+          <popup-picker style="font-size:12px;" title="定投频率" :data="freqList" :columns="2" v-model="freqVal" show-name></popup-picker>
+        </group>
         <!-- <div class="linefd"></div> -->
-        <div>
-          <group>
-            <popup-picker title="定投频率" :data="freqList" :columns="2" v-model="freqVal" show-name></popup-picker>
-            <!--  <cell @cell-font-size="12" title="获取值对应的文字" :value="$refs.picker3&&$refs.picker3.getNameValues()"></cell> -->
-              <!-- <popup-picker title="定投频率" :data="list3" :columns="2" v-model="value4" show-name></popup-picker> -->
-          </group>
+        <div class="invIntro">
+          <div style="text-align:left;">买入费率</div>
+          <div style="font-weight:bold;font-size:14px;">{{orderInfo.fee_ratio}}%&nbsp;&nbsp;</div>
+          <div>费率说明 <x-icon type="ios-help-outline" size="15"></x-icon></div>
         </div>
-        <x-table :cell-bordered="false" :content-bordered="false" class="aimRmkSub">
-          <tr>
-            <td>买入费率</td>
-            <td style="font-weight:bold;font-size:14px;">{{orderInfo.fee_ratio}}%&nbsp;</td>
-            <td>费率说明 <x-icon type="ios-help-outline" size="15"></x-icon></td>
-          </tr>
-          <tr>
-            <td>首笔扣款日</td>
-            <td>{{orderInfo.endDate}}&nbsp;&nbsp;{{orderInfo.weekday}}</td>
-            <td></td>
-          </tr>
-        </x-table>
+        <div class="invIntro">
+          <div style="text-align:left;">首笔扣款日</div>
+          <div>{{orderInfo.endDate}}&nbsp;&nbsp;{{orderInfo.weekday}}</div>
+          <div style="width:40px;"></div>
+        </div>
       </div>
       <div v-else>
-        <x-table :cell-bordered="false" :content-bordered="false" class="aimRmkSub">
+        <div class="invIntro">
+          <div style="text-align:left;width:50px;">买入费率</div>
+          <div style="font-weight:bold;font-size:14px;">{{orderInfo.fee_ratio}}%</div>
+          <div>费率说明 <x-icon type="ios-help-outline" size="15"></x-icon></div>
+        </div>
+        <div style="padding-left:30px;font-size:11px;color:#999999;line-height:25px;">
+          <div style="float:left;">确认净值</div>
+          <div style="float:right;width:70%;">15:00之前提交将按{{orderInfo.startDate}}日净值确认份额.</div>
+        </div>
+        <div class="invIntro">
+          <div style="text-align:left;width:50px;">&nbsp;确认日期</div>
+          <div>{{orderInfo.endDate}}{{orderInfo.weekday}}(预计)</div>
+          <div style="width:40px;"></div>
+        </div>
+        <!-- <x-table :cell-bordered="false" :content-bordered="false" class="aimRmkSub">
           <tr>
             <td>买入费率</td>
             <td style="font-weight:bold;font-size:14px;">{{orderInfo.fee_ratio}}%&nbsp;</td>
@@ -50,7 +58,7 @@
             <td>{{orderInfo.endDate}}{{orderInfo.weekday}}(预计)</td>
             <td></td>
           </tr>
-        </x-table>
+        </x-table> -->
       </div>
 
 
@@ -124,6 +132,16 @@
     font-size:11px;
     margin-top: 10px;
   }
+  .targetOrder .invIntro{
+    line-height: 35px;
+    clear: both;
+    color:#999999;
+    font-size:11px;
+    /* margin-top:10px; */
+    display:-webkit-flex;
+    display: flex;
+    justify-content: space-around;
+  }
   .footerFix{
     font-size:12px;
     position:absolute;
@@ -132,4 +150,24 @@
     height:125px;
     background:#F7F7F7;
   }
+
+  .targetOrder .tryitbtn {
+    display: inline-block;
+    color: #FFF;
+    background-color: #8ac007;
+    font-weight: 700;
+    font-size: 12px;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 3px;
+    padding-bottom: 4px;
+    text-decoration: none;
+    margin-left: 5px;
+    margin-top: 0;
+    margin-bottom: 5px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    white-space: nowrap;
+}
 </style>
