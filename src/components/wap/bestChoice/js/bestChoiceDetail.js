@@ -24,7 +24,7 @@ export default {
 			map,
 			mainData:{},
 			fTypeList:[],
-			// dtmap:{1,3,6,12,36},
+			dtmap:{1:1,3:3,6:6,12:12,36:36},//month:step
 			/*init vchart first or data???*/
 			chartData: [
 				{
@@ -349,22 +349,6 @@ export default {
 				}
 			})
 		},
-		/*.........to do .........*/
-		next () {
-			if (this.index === this.chartData.length - 1) {
-				this.index = 0
-			} else {
-				++this.index
-			}
-			},
-		prev () {
-			if (this.index === 0) {
-				this.index = this.chartData.length - 1
-			} else {
-				--this.index
-			}
-		},
-		/*.........to do .........*/
 	},
 	components:{
 		Tab, TabItem,XImg,XButton,Swiper, SwiperItem,Flexbox, FlexboxItem,XDialog,Group,Cell,

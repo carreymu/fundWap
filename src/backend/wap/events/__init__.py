@@ -4,6 +4,7 @@ from wap.events.targets_event.config import config as targets_event
 from wap.events.fund_templates_event.config import config as fund_templates_event
 from wap.events.fund_manangers_event.config import config as fund_manangers_event
 from wap.events.user_bank_event.config import config as user_bank_event
+from wap.events.fund_plan_event.config import config as fund_plan_event
 
 # information from joined DB
 events_config = dict(
@@ -11,5 +12,6 @@ events_config = dict(
     targets_event=targets_event,
     fund_templates_event=fund_templates_event,
     fund_manangers_event=fund_manangers_event,
-    user_bank_event=user_bank_event
+    user_bank_event=user_bank_event,
+    fund_plan_event=fund_plan_event,
 )

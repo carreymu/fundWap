@@ -263,20 +263,24 @@ INSERT INTO fund_worth_history_stage(fid,stage,worth,topn,his_tot) values(1,365,
 /*------------------------------------fund plans--biz:target,drumstick and best choice------------------------------------------------
 --19.fund plan (returns_type:1-七日年化收益,2-近六月历史收益,3-近三年历史收益|page_type:1-only text or image,2-including FOFs etc.)*/
 CREATE TABLE fund_plan(fpl_id int(11) primary key AUTO_INCREMENT,
-name varchar(20) not null comment '基金计划id',
-returns float not null comment '汇报',
+fpc_id int not null comment '基金类型id',
+name varchar(20) not null comment '基金计划名',
+profit float not null comment '近3年历史收益',
 loss float not null comment '历史最大亏损',
-returns_type int comment '返回类型',
+profit_type int comment '收益类型',
 threshold float not null comment '起投金额',
 sched_threshold float not null comment '定投起始金额',
 img_url varchar(200) not null comment '图片地址',
-page_type int not nul comment '图片or普通页面',
+page_type int not null comment '图片or普通页面',
 details varchar(500) not null comment '详细',
 short_intro varchar(30) not null comment '简介',
 remark varchar(200),inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO fund_plan(name,returns,loss,returns_type,threshold,sched_threshold,img_url,page_type,details,short_intro,remark) values('超级现金宝',2.8,0,1,100,0,'//images_url',1,'','','仅一张图片的页面');
-INSERT INTO fund_plan(name,returns,loss,returns_type,threshold,sched_threshold,img_url,page_type,details,short_intro,remark) values('全明星计划',35.57,43.11,3,1000,500,'//images_url',2,'组合详情:','跟对人买对基,实力派经理一网打尽','有基列表');
-INSERT INTO fund_plan(name,returns,loss,returns_type,threshold,sched_threshold,img_url,page_type,details,short_intro,remark) values('海投计划',30.63,18.24,3,1000,100,'//images_url',2,'组合详情:','全球资产配置,把握更多投资机会','高尔基');
+INSERT INTO fund_plan(fpc_id,name,profit,loss,profit_type,threshold,sched_threshold,img_url,page_type,details,short_intro,remark) values(1,'超级现金宝',2.8,0,1,100,0,'//images_url',1,'','','仅一张图片的页面');
+INSERT INTO fund_plan(fpc_id,name,profit,loss,profit_type,threshold,sched_threshold,img_url,page_type,details,short_intro,remark) values(2,'全明星计划1',35.57,43.11,3,1000,500,'//images_url',2,'组合详情:','跟对人买对基,实力派经理一网打尽','有基列表');
+INSERT INTO fund_plan(fpc_id,name,profit,loss,profit_type,threshold,sched_threshold,img_url,page_type,details,short_intro,remark) values(2,'全明星计划2',35.57,43.11,3,1000,500,'//images_url',2,'组合详情:','跟对人买对基,实力派经理一网打尽','有基列表');
+INSERT INTO fund_plan(fpc_id,name,profit,loss,profit_type,threshold,sched_threshold,img_url,page_type,details,short_intro,remark) values(3,'小确幸计划1',30.63,18.24,3,1000,100,'//images_url',2,'组合详情:','精选债基组合,收益长赢','高尔基');
+INSERT INTO fund_plan(fpc_id,name,profit,loss,profit_type,threshold,sched_threshold,img_url,page_type,details,short_intro,remark) values(3,'小确幸计划2',30.63,18.24,3,1000,100,'//images_url',2,'组合详情:','精选债基组合,收益长赢','高尔基');
+INSERT INTO fund_plan(fpc_id,name,profit,loss,profit_type,threshold,sched_threshold,img_url,page_type,details,short_intro,remark) values(4,'稳拿计划',30.63,18.24,3,1000,100,'//images_url',2,'组合详情:','股债动态平衡,文件投资典范','高尔基');
 
 /*--20.fund plan details*/
 CREATE TABLE fund_plan_details(fpd_id int(11) primary key AUTO_INCREMENT,
@@ -287,15 +291,19 @@ INSERT INTO fund_plan_details(fpl_id,fid) values(2,1); /*--全明星计划-景�
 INSERT INTO fund_plan_details(fpl_id,fid) values(2,2); /*--全明星计划-富国新动力A,fpid_id=2*/
 INSERT INTO fund_plan_details(fpl_id,fid) values(3,2); /*--海投计划-富国新动力A,fpid_id=3*/
 
-/*--21.combining plan*/
-CREATE TABLE plan_combin(pc_id int(11) primary key AUTO_INCREMENT,name varchar(20),remark varchar(50)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO plan_combin(name,remark) values('活期理财','选哪个火鸡呢?天鸿?');
-INSERT INTO plan_combin(name,remark) values('高成长股基组合','高高尔基');
+/*--21.plan category*/
+CREATE TABLE fund_plan_category(fpc_id int(11) primary key AUTO_INCREMENT,
+name varchar(20) not null comment '基金类型名称',
+remark varchar(50)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO fund_plan_category(name,remark) values('活期理财','选哪个火鸡呢?天鸿?');
+INSERT INTO fund_plan_category(name,remark) values('高成长股基组合','高高尔基');
+INSERT INTO fund_plan_category(name,remark) values('稳健债基组合','稳健债基组合');
+INSERT INTO fund_plan_category(name,remark) values('平衡性股基组合','平衡性股基组合');
 
 /*--22.fund plans match combining plans  N:N, status:0-useless,1-using*/
-CREATE TABLE fund_plan_combin(fpc_id int(11) primary key AUTO_INCREMENT,pc_id int,fpd_id int,status int,inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO fund_plan_combin(pc_id,fpd_id,status) values(2,1,1); /*--高成长股基组合-全明星计划*/
-INSERT INTO fund_plan_combin(pc_id,fpd_id,status) values(2,3,1); /*--高成长股基组合-海投计划*/
+-- CREATE TABLE fund_plan_combin(fpc_id int(11) primary key AUTO_INCREMENT,pc_id int,fpd_id int,status int,inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- INSERT INTO fund_plan_combin(pc_id,fpd_id,status) values(2,1,1); /*--高成长股基组合-全明星计划*/
+-- INSERT INTO fund_plan_combin(pc_id,fpd_id,status) values(2,3,1); /*--高成长股基组合-海投计划*/
 
 /*------------------------------------mine--biz:target and best choice------------------------------------------------
 --23.user details*/
