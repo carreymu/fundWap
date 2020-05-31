@@ -25,7 +25,7 @@ import { Tab, TabItem,XImg,XButton,Flexbox, FlexboxItem,Toast} from 'vux';
                 this.choiceList[i]['fund_plans']=r.fund_plans.filter(x=>x['fpc_id']==this.choiceList[i]['fpc_id'])
               }
           }
-          console.log(JSON.stringify(this.choiceList))
+          // console.log(JSON.stringify(this.choiceList))
         }).catch(err=>{
           console.log(err)
         })

@@ -128,12 +128,12 @@ const router = new VueRouter({
 				component: bestChoice
 			},
 			{
-				path: '/fundWap/bestChoiceDetail/:choiceId',
+				path: '/fundWap/bestChoiceDetail/:cid',
 				name: 'bestChoiceDetail',
 				component: bestChoiceDetail
 			},
 			{
-				path: '/fundWap/bestChoiceSingle/:choiceId',
+				path: '/fundWap/bestChoiceSingle/:cid',
 				name: 'bestChoiceSingle',
 				component: bestChoiceSingle
 			},

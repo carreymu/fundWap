@@ -13,7 +13,7 @@ data.map(obj => {
 export default {
 	mounted(){
 		this.loadDetail();
-		this.loadChartData();
+		// this.loadChartData();
 		this.$store.commit('UPDATE_PAGE_TITLE', '全明星计划');
 	},
 	computed:{
@@ -321,7 +321,7 @@ export default {
 		},
 		loadDetail(){
 			let self=this;
-			let cid=this.$route.params.choiceId;
+			let cid=this.$route.params.cid;
 			this.baseAjax({
 				url:'../../../static/basicData/choiceDetail.json',
 				showLoading:true,
@@ -333,22 +333,35 @@ export default {
 					self.fTypeList=self.mainData.funds
 				}
 			})
+			
+			// let dt = {
+			// 	"req": {"fpl_id":cid},
+			// 	"event_names": ["fund_plan_by_fplid"]
+			//   }
+			//   this.$api.fetchPost('/sanic-api', dt).then(r=>{
+			// 	if(r.fund_plan_by_fplid!=undefined && r.fund_plan_by_fplid.length > 0){
+			// 		this.mainData=r.fund_plan_by_fplid[0]
+			// 	}
+			// 	// console.log(JSON.stringify(this.choiceList))
+			//   }).catch(err=>{
+			// 	console.log(err)
+			//   })
 		},
-		loadChartData(){
-			let cid=this.$route.params.choiceId;
-			this.baseAjax({
-				url:'../../../static/basicData/bestChoiceDetailChart.json',
-				showLoading:true,
-				params:{
-					cid:cid,
-				},
-				success:function(data){
-					// console.log(Array.isArray(data.returnObject))
-					// console.log(typeof(this.chartMap))
-					this.chartData=data.returnObject;
-				}
-			})
-		},
+		// loadChartData(){
+		// 	let cid=this.$route.params.choiceId;
+		// 	this.baseAjax({
+		// 		url:'../../../static/basicData/bestChoiceDetailChart.json',
+		// 		showLoading:true,
+		// 		params:{
+		// 			cid:cid,
+		// 		},
+		// 		success:function(data){
+		// 			// console.log(Array.isArray(data.returnObject))
+		// 			// console.log(typeof(this.chartMap))
+		// 			this.chartData=data.returnObject;
+		// 		}
+		// 	})
+		// },
 	},
 	components:{
 		Tab, TabItem,XImg,XButton,Swiper, SwiperItem,Flexbox, FlexboxItem,XDialog,Group,Cell,

@@ -2,14 +2,14 @@
 <div>
   <div class="bestChoiceDetail">
     <div class="topImg">
-      <div class="topTxt"><span style="color:brown">{{mainData.joinNums}}</span>人已购买</div>
+      <div class="topTxt"><span style="color:brown">{{mainData.join_num}}</span>人已购买</div>
     </div>
     <div class="txt">
       <flexbox class="aim">
         <flexbox-item>
           <flexbox orient="vertical">
-            <flexbox-item class="rmk">{{mainData.annEarnLong}}</flexbox-item>
-            <flexbox-item class="rateIn">+{{mainData.rateProfit}}%</flexbox-item>          
+            <flexbox-item class="rmk">{{mainData.profit_txt}}</flexbox-item>
+            <flexbox-item class="rateIn">+{{mainData.profit_ratio}}%</flexbox-item>          
           </flexbox>
         </flexbox-item>
         <!-- <flexbox-item>
@@ -18,15 +18,15 @@
         <flexbox-item>
           <flexbox orient="vertical">
             <flexbox-item class="rmk">历史最大亏损</flexbox-item>
-            <flexbox-item class="rateOut">{{mainData.rateLoss}}%</flexbox-item>         
+            <flexbox-item class="rateOut">{{mainData.loss_ratio}}%</flexbox-item>         
           </flexbox>
         </flexbox-item>
       </flexbox>
       <div class="midBox">
         <flexbox>
           <flexbox-item>
-          <div  class="itemDesc">
-            {{mainData.description}}
+          <div class="itemDesc">
+            {{mainData.details}}
           </div>
           </flexbox-item>
         </flexbox>

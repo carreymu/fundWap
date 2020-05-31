@@ -267,7 +267,7 @@ fpc_id int not null comment '基金类型id',
 name varchar(20) not null comment '基金计划名',
 profit_ratio float not null comment '收益率',
 profit_txt varchar(50) not null comment '收益描述',
-loss float not null comment '历史最大亏损',
+loss_ratio float not null comment '历史最大亏损',
 profit_type int comment '收益类型',
 threshold float not null comment '起投金额',
 sched_threshold float not null comment '定投起始金额',
@@ -275,14 +275,15 @@ img_url varchar(200) not null comment '图片地址',
 page_type int not null comment '图片or普通页面',
 details varchar(500) not null comment '详细',
 short_intro varchar(30) not null comment '简介',
+is_sellout bool not null comment '是否售完',
+join_num int not null comment '加入人数',
 remark varchar(200),inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO fund_plan(fpc_id,name,profit_ratio,profit_txt,loss,profit_type,threshold,sched_threshold,img_url,page_type,details,short_intro,remark) values(1,'超级现金宝',2.8,'七日年化收益',0,1,100,0,'//images_url',1,'','','仅一张图片的页面');
-INSERT INTO fund_plan(fpc_id,name,profit_ratio,profit_txt,loss,profit_type,threshold,sched_threshold,img_url,page_type,details,short_intro,remark) values(2,'全明星计划1',35.57,'七日年化收益',43.11,3,1000,500,'//images_url',2,'组合详情:','跟对人买对基,实力派经理一网打尽','有基列表');
-INSERT INTO fund_plan(fpc_id,name,profit_ratio,profit_txt,profit_type,loss,threshold,sched_threshold,img_url,page_type,details,short_intro,remark) values(2,'全明星计划2',31.57,'七日年化收益',43.11,3,1000,500,'//images_url',2,'组合详情:','跟对人买对基,实力派经理一网打尽','有基列表');
-INSERT INTO fund_plan(fpc_id,name,profit_ratio,profit_txt,profit_type,loss,threshold,sched_threshold,img_url,page_type,details,short_intro,remark) values(3,'小确幸计划1',30.63,'近三年历史收益',18.24,3,1000,100,'//images_url',2,'组合详情:','精选债基组合,收益长赢','高尔基');
-INSERT INTO fund_plan(fpc_id,name,profit_ratio,profit_txt,profit_type,loss,threshold,sched_threshold,img_url,page_type,details,short_intro,remark) values(3,'小确幸计划2',31.63,'近三年历史收益',18.24,3,1000,100,'//images_url',2,'组合详情:','精选债基组合,收益长赢','高尔基');
-INSERT INTO fund_plan(fpc_id,name,profit_ratio,profit_txt,profit_type,loss,threshold,sched_threshold,img_url,page_type,details,short_intro,remark) values(4,'稳拿计划',30.63,'近三年历史收益',18.24,3,1000,100,'//images_url',2,'组合详情:','股债动态平衡,文件投资典范','高尔基');
-
+INSERT INTO fund_plan(fpc_id,name,profit_ratio,profit_txt,loss_ratio,profit_type,threshold,sched_threshold,img_url,page_type,details,short_intro,remark,is_sellout,join_num) values(1,'超级现金宝',2.8,'七日年化收益',0,1,100,0,'//images_url',1,'','','仅一张图片的页面',false,188);
+INSERT INTO fund_plan(fpc_id,name,profit_ratio,profit_txt,loss_ratio,profit_type,threshold,sched_threshold,img_url,page_type,details,short_intro,remark,is_sellout,join_num) values(2,'全明星计划1',35.57,'七日年化收益',43.11,3,1000,500,'//images_url',2,'组合详情:','跟对人买对基,实力派经理一网打尽','有基列表',false,1088);
+INSERT INTO fund_plan(fpc_id,name,profit_ratio,profit_txt,loss_ratio,profit_type,threshold,sched_threshold,img_url,page_type,details,short_intro,remark,is_sellout,join_num) values(2,'全明星计划2',31.57,'七日年化收益',43.11,3,1000,500,'//images_url',2,'组合详情:','跟对人买对基,实力派经理一网打尽','有基列表',false,1808);
+INSERT INTO fund_plan(fpc_id,name,profit_ratio,profit_txt,loss_ratio,profit_type,threshold,sched_threshold,img_url,page_type,details,short_intro,remark,is_sellout,join_num) values(3,'小确幸计划1',30.63,'近三年历史收益',18.24,3,1000,100,'//images_url',2,'组合详情:','精选债基组合,收益长赢','高尔基',false,1008);
+INSERT INTO fund_plan(fpc_id,name,profit_ratio,profit_txt,loss_ratio,profit_type,threshold,sched_threshold,img_url,page_type,details,short_intro,remark,is_sellout,join_num) values(3,'小确幸计划2',31.63,'近三年历史收益',18.24,3,1000,100,'//images_url',2,'组合详情:','精选债基组合,收益长赢','高尔基',true,1080);
+INSERT INTO fund_plan(fpc_id,name,profit_ratio,profit_txt,loss_ratio,profit_type,threshold,sched_threshold,img_url,page_type,details,short_intro,remark,is_sellout,join_num) values(4,'稳拿计划',30.63,'近三年历史收益',18.24,3,1000,100,'//images_url',2,'组合详情:','股债动态平衡,文件投资典范','高尔基',false,1808);
 
 /*--20.fund plan details*/
 CREATE TABLE fund_plan_details(fpd_id int(11) primary key AUTO_INCREMENT,
