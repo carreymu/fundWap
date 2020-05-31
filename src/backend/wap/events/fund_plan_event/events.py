@@ -11,17 +11,13 @@ class FundPlans(DataSource):
     async def compute(self):
         result = self.dependence_source
         if result:
-            fund_plan_cat = result["fund_plan_category"]
-            fpcid = [x['fpc_id'] for x in fund_plan_cat]
-            # if len(fpcid) > 0:
-            #     sql_params = str(fmids[0]) if len(fmids) == 1 else sql_in(fmids)
-            #     fund_managers_list = await exec_base.exec_sql_key(event_names='fund_manager_by_fmids',
-            #                                                       **{'fm_ids': sql_params})
-            #     if fund_managers_list:
-            #         fund_man_dict = {x['fm_id']: (x['name'], x['remark']) for x in fund_managers_list
-            #                          if x['status'] == 1}
-            #     for x in fund_managers:
-            #         if x['fm_id'] in fund_man_dict.keys():
-            #             (x['name'], x['remark']) = fund_man_dict[x['fm_id']]
-            #     return fund_managers
+            result = result["fund_plan_category"]
+            fp_list = result["fund_plans"]
+            import pdb;pdb.set_trace()
+            if result and fp_list:
+                for r in result:
+                    r['fund_plans']=[x for x in fp_list if x['fpc_id']==r['fpc_id']]
+                # [c['fund_plans'].append(p for p in fp_list if p['fpc_id'] == c['fpc_id']) for c in result]
+                print(result)
+                return result
         return self.event_default

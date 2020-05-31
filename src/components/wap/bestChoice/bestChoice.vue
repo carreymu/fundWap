@@ -7,28 +7,28 @@
       <flexbox-item><x-button :gradients="['#1D62F0', '#19D5FD']" @click.native="fundInvest"><div class="top3UpTxt">定投助手</div><div class="top3DownTxt">定投好坏我清楚</div></x-button></flexbox-item>
     </flexbox>
     <div class="fundItems">
-    	<div class="itemBox" v-for="(it,idx) in fundList" :key="idx">
+    	<div class="itemBox" v-for="(it,idx) in choiceList" :key="idx">
     		 <flexbox orient="vertical">
-           <flexbox-item class ="waitInvokeTxtPre">|| <span class="waitInvokeTxtTail">{{it.categoryName}}</span></flexbox-item> 
+           <flexbox-item class ="waitInvokeTxtPre">|| <span class="waitInvokeTxtTail">{{it.name}}</span></flexbox-item> 
           <flexbox-item>
-            <div class="itemContent" v-for="(item,index) in it.funds" :key="index">
+            <div class="itemContent" v-for="(item,index) in it.fund_plans" :key="index">
                 <flexbox orient="vertical">
                   <flexbox-item class="cont">
                     <div class="name">{{item.name}}</div>
-                    <p class="itemDesc">{{item.shortDesc}}</p>
-                    <div class="rate">+{{item.rateProfit}}%</div>
-                    <p class="itemDesc">{{item.annEarnLong}}</p>
+                    <p class="itemDesc">{{item.short_intro}}</p>
+                    <div class="rate">+{{item.profit_ratio}}%</div>
+                    <p class="itemDesc">{{item.profit_txt}}</p>
                   </flexbox-item>
                   <flexbox-item>
-                    <div v-if="item.isSingle">
+                    <div v-if="item.page_type==1">
                       <x-button class="redBtn" type="warn" action-type='button' 
-                      :link="'/fundWap/bestChoiceSingle/'+item.fid" v-show="item.status==1">{{item.minInvest}}起投</x-button>
-                      <x-button class="redBtn" type="default" v-show="item.status==2" action-type='button' >已售完</x-button>
+                      :link="'/fundWap/bestChoiceSingle/'+item.fpl_id" v-show="item.is_sellout==0">{{item.threshold}}起投</x-button>
+                      <x-button class="redBtn" type="default" v-show="item.is_sellout==1" action-type='button' >已售完</x-button>
                     </div>
                     <div v-else>
                       <x-button class="redBtn" type="warn" action-type='button' 
-                      :link="'/fundWap/bestChoiceDetail/'+item.fid" v-show="item.status==1">{{item.minInvest}}起投</x-button>
-                      <x-button class="redBtn" type="default" v-show="item.status==2" action-type='button' >已售完</x-button>
+                      :link="'/fundWap/bestChoiceDetail/'+item.fpl_id" v-show="item.is_sellout==0">{{item.threshold}}起投</x-button>
+                      <x-button class="redBtn" type="default" v-show="item.is_sellout==1" action-type='button' >已售完</x-button>
                     </div>
                   </flexbox-item>
                 </flexbox>

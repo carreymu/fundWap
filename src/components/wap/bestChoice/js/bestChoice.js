@@ -7,45 +7,25 @@ import { Tab, TabItem,XImg,XButton,Flexbox, FlexboxItem,Toast} from 'vux';
     },
     data(){
       return{
-        fundList:[],
         choiceList:[],
-        fundCategoryList:[],
         showMsg:false,
        }
     },
     methods:{
       loadChoices(){
-        let self=this;
-        this.baseAjax({
-          url:'../../../static/basicData/bestChoice.json',
-          showLoading:true,
-          success:function(data){
-            self.fundList=data.returnObject;
-          }
-        })
-
         let dt = {
-          "req": {"scids":"7,8","topx":2,"nc_id":2},
-          "event_names": ["fund_plan_category","fund_plan_by_fpcid"]
+          "req": {},
+          "event_names": ["fund_plan_category","fund_plans"]
         }
         this.$api.fetchPost('/sanic-api', dt).then(r=>{
-          if(r.news_info_topx_by_ncid.length > 0){
-            let news_list = r.news_info_topx_by_ncid
-            for(var i = 0 ;i<news_list.length; i++){
-              news_list[i].inserttime = dateFormat(news_list[i].inserttime,"MM-DD HH:mm:ss")
-              this.newsList.push(news_list[i])
-            }
+          if(r.fund_plan_category!=undefined && r.fund_plan_category.length > 0
+            && r.fund_plans!=undefined && r.fund_plans.length>0){
+              this.choiceList=r.fund_plan_category
+              for(var i=0;i<this.choiceList.length;i++){
+                this.choiceList[i]['fund_plans']=r.fund_plans.filter(x=>x['fpc_id']==this.choiceList[i]['fpc_id'])
+              }
           }
-          if(r.system_info.length > 0){
-            this.drumstickList = r.system_info.filter(x=>x.scid==this.sysFlag.drumstick && x.status == 1)
-            let sy = r.system_info.filter(x=>x.scid==this.sysFlag.drumstickInfo)
-            if(sy.length > 0){
-              this.drumstickInfo = sy[0]
-              let sbt =eval("(" + this.drumstickInfo.subtitle + ")")
-              this.drumstickInfoSub = sbt
-            }
-          }
-          // console.log(this.news2List)
+          console.log(JSON.stringify(this.choiceList))
         }).catch(err=>{
           console.log(err)
         })
