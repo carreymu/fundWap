@@ -10,14 +10,33 @@ class FundPlans(DataSource):
 
     async def compute(self):
         result = self.dependence_source
+        # 1.fund_plan_by_fplid.fplid->fund_plan_by_fplid.fpl_id
+        # 2.fund_plan_by_fplid.fpl_id->fund_plan_details.fpl_id->fund_plan_details.fid
+        # 3.fund_plan_details.fid->fund_info.fid->fund_info.fcc_id
+        # 4.fund_info.fcc_id->fund_customized_category.fcc_id
         if result:
-            result = result["fund_plan_category"]
-            fp_list = result["fund_plans"]
-            import pdb;pdb.set_trace()
-            if result and fp_list:
-                for r in result:
-                    r['fund_plans']=[x for x in fp_list if x['fpc_id']==r['fpc_id']]
-                # [c['fund_plans'].append(p for p in fp_list if p['fpc_id'] == c['fpc_id']) for c in result]
+            fp_list = result["fund_plan_by_fplid"]
+            # import pdb;pdb.set_trace()
+            if fp_list:
+                plan_details_list = await exec_base.exec_sql_key(event_names='fund_plan_details',
+                                                                 **{'fpl_id': fp_list[0]['fpl_id']})
+                if plan_details_list:
+                    fids = [x['fid'] for x in plan_details_list]
+                    if len(fids) == 0:
+                        return result
+                    fids = ','.join('%s' % f for f in fids)
+                    funds = await exec_base.exec_sql_key(event_names='fund_info_short', **{'fids': fids})
+                    if funds:
+                        fccids = [x['fcc_id'] for x in funds]
+                        cats = await exec_base.exec_sql_key(event_names='fund_customized_category', **{})
+                        if len(fccids) == 0 or len(cats) == 0:
+                            return result
+                        matched_cat = [x for x in cats if x['fcc_id'] in fccids]
+                        for r in matched_cat:
+                            fnd_list = [x for x in funds if x['fcc_id'] == r['fcc_id']]
+                            if fnd_list:
+                                r['fundsList'] = fnd_list
+                        result = matched_cat
                 print(result)
                 return result
         return self.event_default

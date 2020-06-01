@@ -5,7 +5,8 @@ config = dict(
       "name": "fund plan list",
       "author": "root",
       "event_default": [],
-      "dependence_source": [{"fund_plan_category": "", "fund_plans": ""}],
+      "dependence_source": [{"fund_plan_by_fplid": "fpl_id", "fund_plan_details": "",
+                             "fund_customized_category": "", "fund_info_short": ""}],
       "dependence": events.FundPlans,
     },
 )

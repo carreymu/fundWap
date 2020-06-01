@@ -334,7 +334,12 @@ export default {
 					self.fTypeList=self.mainData.funds
 				}
 			})
-			
+			/*
+			1.fund_plan_by_fplid.fplid->fund_plan_by_fplid.fpl_id
+			2.fund_plan_by_fplid.fpl_id->fund_plan_details.fpl_id->fund_plan_details.fid
+			3.fund_plan_details.fid->fund_info.fid->fund_info.fcc_id
+			4.fund_info.fcc_id->fund_customized_category.fcc_id
+			*/
 			let dt = {
 				"req": {"fpl_id":cid},
 				"event_names": ["fund_plan_by_fplid","fund_plan_details","fund_customized_category"]
