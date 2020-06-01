@@ -23,6 +23,7 @@ export default {
 		return {
 			map,
 			mainData:{},
+			cusFunds:[],
 			fTypeList:[],
 			dtmap:{1:1,3:3,6:6,12:12,36:36},//month:step
 			/*init vchart first or data???*/
@@ -334,18 +335,26 @@ export default {
 				}
 			})
 			
-			// let dt = {
-			// 	"req": {"fpl_id":cid},
-			// 	"event_names": ["fund_plan_by_fplid"]
-			//   }
-			//   this.$api.fetchPost('/sanic-api', dt).then(r=>{
-			// 	if(r.fund_plan_by_fplid!=undefined && r.fund_plan_by_fplid.length > 0){
-			// 		this.mainData=r.fund_plan_by_fplid[0]
-			// 	}
-			// 	// console.log(JSON.stringify(this.choiceList))
-			//   }).catch(err=>{
-			// 	console.log(err)
-			//   })
+			let dt = {
+				"req": {"fpl_id":cid},
+				"event_names": ["fund_plan_by_fplid","fund_plan_details","fund_customized_category"]
+			  }
+			  this.$api.fetchPost('/sanic-api', dt).then(r=>{
+				if(r.fund_plan_by_fplid!=undefined && r.fund_plan_by_fplid.length > 0){
+					this.mainData=r.fund_plan_by_fplid[0]
+				}
+				if(r.fund_customized_category!=undefined && r.fund_customized_category.length>0){
+					this.cusFunds=r.fund_customized_category
+				}
+				if(r.fund_plan_detaills!=undefined && r.fund_plan_detaills.length>0){
+					// this.cusFunds.forEach(element => {
+						
+					// });
+				}
+				// console.log(JSON.stringify(this.choiceList))
+			  }).catch(err=>{
+				console.log(err)
+			  })
 		},
 		// loadChartData(){
 		// 	let cid=this.$route.params.choiceId;

@@ -165,6 +165,12 @@ purchase_process,redemption_fee_remark,redemption_process,redemption_position,ag
 INSERT INTO fund_info(fc_id,fcc_id,fund_name,fund_code,fund_company,fund_assets,start_date,management_fee,custody_fee,purchase_rate_old,purchase_rate_new,purchase_rate_discount,topn,sched_invest_remark,
 purchase_process,redemption_fee_remark,redemption_process,redemption_position,agreement,share_bonus_type,status,initial_amt,remark,sched_invest_init_amt,sched_invest_freq_pre,sched_invest_freq_tail) values(8,1,'天弘鸿运宝','001386','天弘','190亿','2015-10-01',0.3,0.08,0.012,0.0012,1,80,'定投规则:遇到节假日自动延迟到下一个交易日扣款',
 'T日/T+1日/T+1当日净值更新后','赎回费率如下:','赎回流程','赎回份额','天弘鸿运宝的协议',0,1,2500,'天弘鸿运宝备注',51.00,3,25); /*-- fid=5*/
+INSERT INTO fund_info(fc_id,fcc_id,fund_name,fund_code,fund_company,fund_assets,start_date,management_fee,custody_fee,purchase_rate_old,purchase_rate_new,purchase_rate_discount,topn,sched_invest_remark,
+purchase_process,redemption_fee_remark,redemption_process,redemption_position,agreement,share_bonus_type,status,initial_amt,remark,sched_invest_init_amt,sched_invest_freq_pre,sched_invest_freq_tail) values(1,3,'景顺长城沪深200增强','000313','景顺长城基金','100亿','2016-10-01',0.3,0.08,0.012,0.0012,1,50,'定投规则:遇到节假日自动延迟到下一个交易日扣款',
+'T日/T+1日/T+1当日净值更新后','赎回费率如下:','赎回流程','赎回份额','景顺长城的协议',0,1,2000,'景顺长城沪深200增强备注',10.00,1,4); /*-- fid=6*/
+INSERT INTO fund_info(fc_id,fcc_id,fund_name,fund_code,fund_company,fund_assets,start_date,management_fee,custody_fee,purchase_rate_old,purchase_rate_new,purchase_rate_discount,topn,sched_invest_remark,
+purchase_process,redemption_fee_remark,redemption_process,redemption_position,agreement,share_bonus_type,status,initial_amt,remark,sched_invest_init_amt,sched_invest_freq_pre,sched_invest_freq_tail) values(1,4,'景顺长城沪深100增强','000312','景顺长城基金','100亿','2016-10-01',0.3,0.08,0.012,0.0012,1,50,'定投规则:遇到节假日自动延迟到下一个交易日扣款',
+'T日/T+1日/T+1当日净值更新后','赎回费率如下:','赎回流程','赎回份额','景顺长城的协议',0,1,2000,'景顺长城沪深100增强备注',10.00,1,4); /*-- fid=7*/
 
 /*--10.fund bonus and split (bonus.type=0,split.type=1)*/
 CREATE TABLE fund_bonus_split(fbs_id int(11) primary key AUTO_INCREMENT,
@@ -287,8 +293,9 @@ INSERT INTO fund_plan(fpc_id,name,profit_ratio,profit_txt,loss_ratio,profit_type
 
 /*--20.fund plan details*/
 CREATE TABLE fund_plan_details(fpd_id int(11) primary key AUTO_INCREMENT,
-fpl_id int not null comment '基金详细id',
+fpl_id int not null comment '基金计划id',
 fid int not null comment '基金id',
+hold_num float not null comment '持有百分比',
 inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO fund_plan_details(fpl_id,fid) values(2,1); /*--全明星计划-景顺长城沪深300增强,fpid_id=1*/
 INSERT INTO fund_plan_details(fpl_id,fid) values(2,2); /*--全明星计划-富国新动力A,fpid_id=2*/
