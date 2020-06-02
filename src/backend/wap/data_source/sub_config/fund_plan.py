@@ -9,7 +9,7 @@ config = dict(
         "engine_name": "db_fund_wap_mysql",
         "sql": {
           "mysql": "select fpl_id,fpc_id,name,profit_ratio,loss_ratio,profit_type,threshold,sched_threshold,profit_txt,"
-                   "img_url,page_type,details,short_intro,remark,is_sellout,join_num from fund_plan ",
+                   "img_url,page_type,details,short_intro,remark,is_sellout,join_num,status from fund_plan ",
           "sqlite3": "",
           "mssql": ""
         }
@@ -24,8 +24,8 @@ config = dict(
             "engine_name": "db_fund_wap_mysql",
             "sql": {
                 "mysql": "select fpl_id,fpc_id,name,profit_ratio,loss_ratio,profit_type,threshold,sched_threshold,"
-                         "profit_txt,img_url,page_type,details,short_intro,remark,is_sellout,join_num from fund_plan "
-                         "where fpl_id={fpl_id}",
+                         "profit_txt,img_url,page_type,details,short_intro,remark,is_sellout,join_num,status"
+                         " from fund_plan where fpl_id={fpl_id}",
                 "sqlite3": "",
                 "mssql": ""
             }

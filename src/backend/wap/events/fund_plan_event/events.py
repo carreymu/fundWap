@@ -16,12 +16,11 @@ class FundPlans(DataSource):
         # 4.fund_info.fcc_id->fund_customized_category.fcc_id
         if result:
             fp_list = result["fund_plan_by_fplid"]
-            # import pdb;pdb.set_trace()
             if fp_list:
                 plan_details_list = await exec_base.exec_sql_key(event_names='fund_plan_details',
                                                                  **{'fpl_id': fp_list[0]['fpl_id']})
                 if plan_details_list:
-                    fids = [x['fid'] for x in plan_details_list]
+                    fids = [x['fid'] for x in plan_details_list if x['status'] == 1]
                     if len(fids) == 0:
                         return result
                     fids = ','.join('%s' % f for f in fids)

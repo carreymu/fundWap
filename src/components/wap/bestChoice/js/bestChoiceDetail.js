@@ -342,19 +342,11 @@ export default {
 			*/
 			let dt = {
 				"req": {"fpl_id":cid},
-				"event_names": ["fund_plan_by_fplid","fund_plan_details","fund_customized_category"]
+				"event_names": ["fund_plan_list"]
 			  }
 			  this.$api.fetchPost('/sanic-api', dt).then(r=>{
-				if(r.fund_plan_by_fplid!=undefined && r.fund_plan_by_fplid.length > 0){
+				if(r.fund_plan_list!=undefined && r.fund_plan_list.length > 0){
 					this.mainData=r.fund_plan_by_fplid[0]
-				}
-				if(r.fund_customized_category!=undefined && r.fund_customized_category.length>0){
-					this.cusFunds=r.fund_customized_category
-				}
-				if(r.fund_plan_detaills!=undefined && r.fund_plan_detaills.length>0){
-					// this.cusFunds.forEach(element => {
-						
-					// });
 				}
 				// console.log(JSON.stringify(this.choiceList))
 			  }).catch(err=>{
