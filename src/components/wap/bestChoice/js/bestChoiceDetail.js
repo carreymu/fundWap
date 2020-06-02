@@ -321,19 +321,18 @@ export default {
 			console.log('on item click:', index)
 		},
 		loadDetail(){
-			let self=this;
 			let cid=this.$route.params.cid;
-			this.baseAjax({
-				url:'../../../static/basicData/choiceDetail.json',
-				showLoading:true,
-				params:{
-					cid:cid,
-				},
-				success:function(data){
-					self.mainData=data.returnObject[0];
-					self.fTypeList=self.mainData.funds
-				}
-			})
+			// this.baseAjax({
+			// 	url:'../../../static/basicData/choiceDetail.json',
+			// 	showLoading:true,
+			// 	params:{
+			// 		cid:cid,
+			// 	},
+			// 	success:function(data){
+			// 		self.mainData=data.returnObject[0];
+			// 		self.fTypeList=self.mainData.funds
+			// 	}
+			// })
 			/*
 			1.fund_plan_by_fplid.fplid->fund_plan_by_fplid.fpl_id
 			2.fund_plan_by_fplid.fpl_id->fund_plan_details.fpl_id->fund_plan_details.fid
@@ -346,7 +345,7 @@ export default {
 			  }
 			  this.$api.fetchPost('/sanic-api', dt).then(r=>{
 				if(r.fund_plan_list!=undefined && r.fund_plan_list.length > 0){
-					this.mainData=r.fund_plan_by_fplid[0]
+					this.mainData=r.fund_plan_list[0]
 				}
 				// console.log(JSON.stringify(this.choiceList))
 			  }).catch(err=>{

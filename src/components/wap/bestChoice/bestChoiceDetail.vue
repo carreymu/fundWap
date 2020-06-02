@@ -24,11 +24,7 @@
       </flexbox>
       <div class="midBox">
         <flexbox>
-          <flexbox-item>
-          <div class="itemDesc">
-            {{mainData.details}}
-          </div>
-          </flexbox-item>
+          <flexbox-item class="itemDesc">{{mainData.details}}</flexbox-item>
         </flexbox>
       </div>
     </div>
@@ -88,13 +84,13 @@
     </group>
     </div>
     
-    <div v-for="(item,index) in fTypeList" :key="index">
-        <div class="funds"><span :style="'color:'+item.color">■</span> {{item.name}}</div>
+    <div v-for="(item,index) in mainData.funds" :key="index">
+        <div class="funds"><span :style="'color:'+item.ico_color">■</span> {{item.name}}</div>
         <div class="fundsDetail">
           <flexbox orient="vertical">
             <flexbox-item v-for="(it,idx) in item.fundsList" :key="idx">
-              <div style="float: left;">{{it.fundName}}({{it.fundCode}})</div>
-              <div style="float: right;">{{it.percent}}%</div>
+              <div style="float: left;">{{it.fund_name}}({{it.fund_code}})</div>
+              <div style="float: right;">{{it.hold_num}}%</div>
             </flexbox-item>
           </flexbox>
         </div>

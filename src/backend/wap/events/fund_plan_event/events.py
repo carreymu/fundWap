@@ -17,10 +17,11 @@ class FundPlans(DataSource):
         if result:
             fp_list = result["fund_plan_by_fplid"]
             if fp_list:
+                result = [x for x in fp_list if x['status'] == 1]
                 plan_details_list = await exec_base.exec_sql_key(event_names='fund_plan_details',
-                                                                 **{'fpl_id': fp_list[0]['fpl_id']})
+                                                                 **{'fpl_id': result[0]['fpl_id']})
                 if plan_details_list:
-                    fids = [x['fid'] for x in plan_details_list if x['status'] == 1]
+                    fids = [x['fid'] for x in plan_details_list]
                     if len(fids) == 0:
                         return result
                     fids = ','.join('%s' % f for f in fids)
@@ -34,8 +35,11 @@ class FundPlans(DataSource):
                         for r in matched_cat:
                             fnd_list = [x for x in funds if x['fcc_id'] == r['fcc_id']]
                             if fnd_list:
+                                # add hold num
+                                for x in fnd_list:
+                                    x['hold_num'] = [y for y in plan_details_list if x['fid'] == y['fid']][0]['hold_num']
                                 r['fundsList'] = fnd_list
-                        result = matched_cat
+                        result[0]['funds'] = matched_cat
                 print(result)
                 return result
         return self.event_default
