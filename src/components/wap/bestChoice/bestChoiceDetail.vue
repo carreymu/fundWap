@@ -101,7 +101,7 @@
         :padding="[20, 'auto']">
         <v-tooltip disabled />
         <v-scale y :options="yOptions" />
-        <v-pie :radius="0.85" :inner-radius="0.7" series-field="name" :colors="['#FE5D4D','#3BA4FF','#737DDE']" />
+        <v-pie :radius="0.85" :inner-radius="0.7" series-field="name" :colors="mainData.circleColors" />
         <v-legend :options="legendOptions" />
         <v-guide type="html" :options="htmlOptions" />
       </v-chart>

@@ -5,7 +5,6 @@ const map = {}
 export default {
 	mounted(){
 		this.loadDetail();
-		this.getData();
 		this.$store.commit('UPDATE_PAGE_TITLE', '全明星计划');
 	},
 	computed:{
@@ -214,21 +213,14 @@ export default {
 				}
 			},
 			
-			data:[],
+			data:[{ name: "量化派", percent: 56.59 },
+				{ name: "成长型", percent: 20.17},
+				{ name: "价值型", percent: 23.24}
+			],
 			circleColors:[]
 		};
 	},
 	methods:{
-		getData(){
-			this.data=[
-				{ name: "量化派", percent: 56.59 },
-				{ name: "成长型", percent: 20.17},
-				{ name: "价值型", percent: 23.24}
-			]
-			this.data.map(obj => {
-				this.map[obj.name] = obj.percent + '%'
-			})
-		},
 		fltIdx(idx,month){
 			this.index=idx
 			this.month=month
@@ -239,6 +231,10 @@ export default {
 			console.log('on item click:', index)
 		},
 		loadDetail(){
+			this.data.map(obj => {
+				this.map[obj.name] = obj.percent + '%'
+			})
+
 			let cid=this.$route.params.cid;
 			/*
 			1.fund_plan_by_fplid.fplid->fund_plan_by_fplid.fpl_id
@@ -253,6 +249,8 @@ export default {
 			  this.$api.fetchPost('/sanic-api', dt).then(r=>{
 				if(r.fund_plan_list!=undefined && r.fund_plan_list.length > 0){
 					this.mainData=r.fund_plan_list[0]
+					this.data=this.mainData.holds
+					this.data.map(obj => {this.map[obj.name] = obj.percent + '%'})
 				}
 				// console.log(JSON.stringify(this.choiceList))
 			  }).catch(err=>{

@@ -32,6 +32,7 @@ class FundPlans(DataSource):
                             return result
                         matched_cat = [x for x in cats if x['fcc_id'] in fccids]
                         holds = []
+                        colors = []
                         for r in matched_cat:
                             fnd_list = [x for x in funds if x['fcc_id'] == r['fcc_id']]
                             if fnd_list:
@@ -41,9 +42,11 @@ class FundPlans(DataSource):
                                     x['hold_num'] = [y for y in plan_details_list if x['fid'] == y['fid']][0]['hold_num']
                                     cat_hold_num += x['hold_num']
                                 holds.append({"name": r['name'], "percent": cat_hold_num})
+                                colors.append(r['ico_color'])
                                 r['fundsList'] = fnd_list
                         result[0]['funds'] = matched_cat
                         result[0]['holds'] = holds
+                        result[0]['circleColors'] = colors
                 # print(result)
                 return result
         return self.event_default
