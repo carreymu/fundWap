@@ -1,7 +1,6 @@
 from typing import Any
 from wap.base import DataSource
 from wap.data_source import exec_base
-from wap.utils.sql_handler import sql_in
 
 
 class FundPlans(DataSource):
@@ -32,14 +31,19 @@ class FundPlans(DataSource):
                         if len(fccids) == 0 or len(cats) == 0:
                             return result
                         matched_cat = [x for x in cats if x['fcc_id'] in fccids]
+                        holds = []
                         for r in matched_cat:
                             fnd_list = [x for x in funds if x['fcc_id'] == r['fcc_id']]
                             if fnd_list:
+                                cat_hold_num = 0
                                 # add hold num
                                 for x in fnd_list:
                                     x['hold_num'] = [y for y in plan_details_list if x['fid'] == y['fid']][0]['hold_num']
+                                    cat_hold_num += x['hold_num']
+                                holds.append({"name": r['name'], "percent": cat_hold_num})
                                 r['fundsList'] = fnd_list
                         result[0]['funds'] = matched_cat
-                print(result)
+                        result[0]['holds'] = holds
+                # print(result)
                 return result
         return self.event_default

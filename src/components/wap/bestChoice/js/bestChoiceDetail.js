@@ -1,19 +1,11 @@
 
 import { Tab,TabItem,XImg,XButton,Swiper,SwiperItem,Flexbox,FlexboxItem,XDialog,Group,Cell,VChart, VLine, VAxis, 
 	VTooltip,VArea,VLegend, VBar, VPie, VGuide, VScale} from 'vux';
-const data = [
-	{ name: "量化派", percent: 56.59, a: '1' },
-	{ name: "成长型", percent: 20.17, a: '1' },
-	{ name: "价值型", percent: 23.24, a: '1' }
-]
 const map = {}
-data.map(obj => {
-  map[obj.name] = obj.percent + '%'
-})
 export default {
 	mounted(){
 		this.loadDetail();
-		// this.loadChartData();
+		this.getData();
 		this.$store.commit('UPDATE_PAGE_TITLE', '全明星计划');
 	},
 	computed:{
@@ -206,10 +198,8 @@ export default {
 			month: 0,
 			htmlOptions: {
 				position: [ '50%', '45%' ],
-				html: `
-				  <div style="width: 250px;height: 40px;text-align: center;">
-					<div style="font-size: 16px">总资产</div>
-					<div style="font-size: 24px">133.08 亿</div>
+				html: `<div style="width: 250px;height: 40px;text-align: center;">
+				  <div style="font-size: 16px">投资组合</div>
 				  </div>`
 			},
 			legendOptions: {
@@ -224,93 +214,21 @@ export default {
 				}
 			},
 			
-			data,
-			vchartData:[
-				{"date":"2010/01/10","type":"全明星计划: +17.27%","value":69.9},
-				{"date":"2010/01/11","type":"全明星计划: +17.27%","value":69.10},
-				{"date":"2010/01/12","type":"全明星计划: +17.27%","value":69.11},
-				{"date":"2010/01/13","type":"全明星计划: +17.27%","value":69.12},
-				{"date":"2010/01/14","type":"全明星计划: +17.27%","value":70.13},
-				{"date":"2010/01/15","type":"全明星计划: +17.27%","value":70.14},
-				{"date":"2010/01/16","type":"全明星计划: +17.27%","value":70.15},
-				{"date":"2010/01/17","type":"全明星计划: +17.27%","value":70.16},
-				{"date":"2010/01/18","type":"全明星计划: +17.27%","value":70.17},
-				{"date":"2010/01/19","type":"全明星计划: +17.27%","value":71.18},
-				{"date":"2010/01/20","type":"全明星计划: +17.27%","value":71.19},
-				{"date":"2010/01/21","type":"全明星计划: +17.27%","value":71.20},
-				{"date":"2010/01/22","type":"全明星计划: +17.27%","value":72.21},
-				{"date":"2010/01/23","type":"全明星计划: +17.27%","value":72.22},
-				{"date":"2010/01/24","type":"全明星计划: +17.27%","value":72.23},
-				{"date":"2010/01/25","type":"全明星计划: +17.27%","value":72.24},
-				{"date":"2010/01/26","type":"全明星计划: +17.27%","value":73.25},
-				{"date":"2010/01/27","type":"全明星计划: +17.27%","value":73.26},
-				{"date":"2010/01/28","type":"全明星计划: +17.27%","value":73.27},
-				{"date":"2010/01/29","type":"全明星计划: +17.27%","value":73.28},
-				{"date":"2010/01/30","type":"全明星计划: +17.27%","value":74.29},
-				{"date":"2010/01/31","type":"全明星计划: +17.27%","value":74.30},
-				{"date":"2010/02/01","type":"全明星计划: +17.27%","value":74.31},
-				{"date":"2010/02/02","type":"全明星计划: +17.27%","value":75.32},
-				{"date":"2010/02/03","type":"全明星计划: +17.27%","value":75.33},
-				{"date":"2010/02/04","type":"全明星计划: +17.27%","value":75.34},
-				{"date":"2010/02/05","type":"全明星计划: +17.27%","value":75.35},
-				{"date":"2010/02/06","type":"全明星计划: +17.27%","value":76.36},
-				{"date":"2010/02/07","type":"全明星计划: +17.27%","value":76.37},
-				{"date":"2010/02/08","type":"全明星计划: +17.27%","value":76.38},
-				{"date":"2010/02/09","type":"全明星计划: +17.27%","value":77.39},
-				{"date":"2010/02/10","type":"全明星计划: +17.27%","value":77.40},
-				{"date":"2010/02/11","type":"全明星计划: +17.27%","value":77.41},
-				{"date":"2010/02/12","type":"全明星计划: +17.27%","value":77.42},
-				{"date":"2010/02/13","type":"全明星计划: +17.27%","value":78.43},
-				{"date":"2010/02/14","type":"全明星计划: +17.27%","value":78.44},
-				{"date":"2010/02/15","type":"全明星计划: +17.27%","value":79.45},
-				{"date":"2010/02/16","type":"全明星计划: +17.27%","value":80.46},
-				{"date":"2010/02/17","type":"全明星计划: +17.27%","value":78.44},
-				{"date":"2010/02/18","type":"全明星计划: +17.27%","value":79.45},
-				{"date":"2010/02/19","type":"全明星计划: +17.27%","value":80.46},
-				{"date":"2010/02/20","type":"全明星计划: +17.27%","value":85.45},
-				{"date":"2010/02/21","type":"全明星计划: +17.27%","value":99.46},
-				{"date":"2010/01/10","type":"沪深300: +8.71%","value":79.9},
-				{"date":"2010/01/11","type":"沪深300: +8.71%","value":79.10},
-				{"date":"2010/01/12","type":"沪深300: +8.71%","value":79.11},
-				{"date":"2010/01/13","type":"沪深300: +8.71%","value":76.12},
-				{"date":"2010/01/14","type":"沪深300: +8.71%","value":76.13},
-				{"date":"2010/01/15","type":"沪深300: +8.71%","value":76.14},
-				{"date":"2010/01/16","type":"沪深300: +8.71%","value":76.15},
-				{"date":"2010/01/17","type":"沪深300: +8.71%","value":76.16},
-				{"date":"2010/01/18","type":"沪深300: +8.71%","value":77.17},
-				{"date":"2010/01/19","type":"沪深300: +8.71%","value":77.18},
-				{"date":"2010/01/20","type":"沪深300: +8.71%","value":77.19},
-				{"date":"2010/01/21","type":"沪深300: +8.71%","value":77.20},
-				{"date":"2010/01/22","type":"沪深300: +8.71%","value":77.21},
-				{"date":"2010/01/23","type":"沪深300: +8.71%","value":79.22},
-				{"date":"2010/01/24","type":"沪深300: +8.71%","value":78.23},
-				{"date":"2010/01/25","type":"沪深300: +8.71%","value":78.24},
-				{"date":"2010/01/26","type":"沪深300: +8.71%","value":78.25},
-				{"date":"2010/01/27","type":"沪深300: +8.71%","value":78.26},
-				{"date":"2010/01/28","type":"沪深300: +8.71%","value":79.27},
-				{"date":"2010/01/29","type":"沪深300: +8.71%","value":80.28},
-				{"date":"2010/01/30","type":"沪深300: +8.71%","value":80.29},
-				{"date":"2010/01/31","type":"沪深300: +8.71%","value":80.30},
-				{"date":"2010/02/01","type":"沪深300: +8.71%","value":80.31},
-				{"date":"2010/02/02","type":"沪深300: +8.71%","value":81.32},
-				{"date":"2010/02/03","type":"沪深300: +8.71%","value":81.33},
-				{"date":"2010/02/04","type":"沪深300: +8.71%","value":81.34},
-				{"date":"2010/02/05","type":"沪深300: +8.71%","value":81.35},
-				{"date":"2010/02/06","type":"沪深300: +8.71%","value":82.36},
-				{"date":"2010/02/07","type":"沪深300: +8.71%","value":82.37},
-				{"date":"2010/02/08","type":"沪深300: +8.71%","value":82.38},
-				{"date":"2010/02/09","type":"沪深300: +8.71%","value":82.39},
-				{"date":"2010/02/10","type":"沪深300: +8.71%","value":86.40},
-				{"date":"2010/02/11","type":"沪深300: +8.71%","value":86.41},
-				{"date":"2010/02/12","type":"沪深300: +8.71%","value":88.42},
-				{"date":"2010/02/13","type":"沪深300: +8.71%","value":88.43},
-				{"date":"2010/02/14","type":"沪深300: +8.71%","value":88.44},
-				{"date":"2010/02/15","type":"沪深300: +8.71%","value":89.45},
-				{"date":"2010/02/16","type":"沪深300: +8.71%","value":89.46}
-			]
+			data:[],
+			circleColors:[]
 		};
 	},
 	methods:{
+		getData(){
+			this.data=[
+				{ name: "量化派", percent: 56.59 },
+				{ name: "成长型", percent: 20.17},
+				{ name: "价值型", percent: 23.24}
+			]
+			this.data.map(obj => {
+				this.map[obj.name] = obj.percent + '%'
+			})
+		},
 		fltIdx(idx,month){
 			this.index=idx
 			this.month=month
@@ -322,17 +240,6 @@ export default {
 		},
 		loadDetail(){
 			let cid=this.$route.params.cid;
-			// this.baseAjax({
-			// 	url:'../../../static/basicData/choiceDetail.json',
-			// 	showLoading:true,
-			// 	params:{
-			// 		cid:cid,
-			// 	},
-			// 	success:function(data){
-			// 		self.mainData=data.returnObject[0];
-			// 		self.fTypeList=self.mainData.funds
-			// 	}
-			// })
 			/*
 			1.fund_plan_by_fplid.fplid->fund_plan_by_fplid.fpl_id
 			2.fund_plan_by_fplid.fpl_id->fund_plan_details.fpl_id->fund_plan_details.fid
