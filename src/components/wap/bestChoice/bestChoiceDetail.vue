@@ -43,14 +43,14 @@
       <swiper v-model="index" height="260px" :show-dots="false">
         <swiper-item v-for="(item, index) in chartData" :key="index">
           <v-chart :data="item.data">
-            <v-line series-field="type" />
+            <v-scale x field="date" type="timeCat" mask="YY-MM-DD" />
+            <v-tooltip show-crosshairs show-value-in-legend />
+            <v-area series-field="type" shape="smooth" adjust="stack" />
+            <v-line series-field="type" shape="smooth" adjust="stack" />
+             <v-axis y :label="lblFy"/>
           </v-chart>
         </swiper-item>
       </swiper>
-      <!-- <tab :line-width=2 active-color='#fc378c' v-model="index">
-        <tab-item class="vux-center" :selected="demo2 === item" v-for="(item, index) in list2" @on-item-click="onItemClick"
-        @click="demo2 = item" :key="index">{{item}}</tab-item>
-      </tab> -->
       <flexbox>
         <flexbox-item>
           <x-button @click.native="fltIdx(index,1)" mini v-if="month===1" plain type="warn" class="timeBtn">近1月</x-button>
