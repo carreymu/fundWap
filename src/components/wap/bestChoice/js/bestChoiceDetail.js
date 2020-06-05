@@ -4,21 +4,21 @@ import { Tab,TabItem,XImg,XButton,Swiper,SwiperItem,Flexbox,FlexboxItem,XDialog,
 const map = {}
 export default {
 	mounted(){
-		this.loadDetail();
-		
-		this.$store.commit('UPDATE_PAGE_TITLE', '全明星计划');
+		this.loadDetail()
+		this.$store.commit('UPDATE_PAGE_TITLE', '数据传输中');
 	},
 	computed:{
 		/*init vchart data*/
 	},
 	data(){		
 		return {
+			cid:0,
 			map,
 			mainData:{},
 			dtmap:{1:1,3:3,6:6,12:12,36:36},//month:dot step
 			chartData:[],
 			index: 0,
-			month: 0,
+			month: 1,
 			htmlOptions: {
 				position: [ '50%', '45%' ],
 				html: `<div style="width: 250px;height: 40px;text-align: center;">
@@ -32,7 +32,6 @@ export default {
 				}
 			},
 			yOptions: {formatter (val) {return val * 100 + '%'}},
-			
 			data:[{ name: "量化派", percent: 56.59 },
 				{ name: "成长型", percent: 20.17},
 				{ name: "价值型", percent: 23.24}
@@ -41,7 +40,6 @@ export default {
 		};
 	},
 	methods:{
-		// lblFx(text) {return {text: dateFormat(text,'MM-DD')}},
 		lblFy(text) {return {text: text + '%'}},
 		fltIdx(idx,month){
 			this.index=idx
@@ -55,18 +53,16 @@ export default {
 		},
 		loadDetail(){
 			//init map
-			this.data.map(obj => {
-				this.map[obj.name] = obj.percent + '%'
-			})			
+			this.data.map(obj => {this.map[obj.name] = obj.percent + '%'})			
 			/*
-			1.fund_plan_by_fplid.fplid->fund_plan_by_fplid.fpl_id
-			2.fund_plan_by_fplid.fpl_id->fund_plan_details.fpl_id->fund_plan_details.fid
-			3.fund_plan_details.fid->fund_info.fid->fund_info.fcc_id
-			4.fund_info.fcc_id->fund_customized_category.fcc_id
+				1.fund_plan_by_fplid.fplid->fund_plan_by_fplid.fpl_id
+				2.fund_plan_by_fplid.fpl_id->fund_plan_details.fpl_id->fund_plan_details.fid
+				3.fund_plan_details.fid->fund_info.fid->fund_info.fcc_id
+				4.fund_info.fcc_id->fund_customized_category.fcc_id
 			*/
-			let cid=this.$route.params.cid;
+			this.cid=this.$route.params.cid;
 			let dt = {
-				"req": {"fpl_id":cid},
+				"req": {"fpl_id":this.cid},
 				"event_names": ["fund_plan_list"]
 			  }
 			this.$api.fetchPost('/sanic-api', dt).then(r=>{
@@ -75,7 +71,6 @@ export default {
 				this.data=this.mainData.holds
 				this.data.map(obj => {this.map[obj.name] = obj.percent + '%'})
 				this.$store.commit('UPDATE_PAGE_TITLE', this.mainData.name);
-
 				this.loadChartData(1);
 			}
 			// console.log(JSON.stringify(this.choiceList))
@@ -117,7 +112,7 @@ export default {
 			loss.filter(x=>x["type"]==this.mainData.name).map(x=>x["type"]=this.mainData.name + ": "+ (avg_l2/dots).toFixed(2))
 			this.chartData.push({"chid": 1, "name": "组合收益走势","data": prifit})
 			this.chartData.push({"chid": 2, "name": "最大亏损走势","data": loss})
-			console.log(JSON.stringify(this.chartData))
+			// console.log(JSON.stringify(this.chartData))
 		},
 	},
 	components:{

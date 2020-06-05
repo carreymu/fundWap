@@ -12,9 +12,6 @@
             <flexbox-item class="rateIn">+{{mainData.profit_ratio}}%</flexbox-item>          
           </flexbox>
         </flexbox-item>
-        <!-- <flexbox-item>
-          //////////
-        </flexbox-item> -->
         <flexbox-item>
           <flexbox orient="vertical">
             <flexbox-item class="rmk">历史最大亏损</flexbox-item>
@@ -73,7 +70,6 @@
           <x-button @click.native="fltIdx(index,36)" mini v-else  class="timeBtn">近3年</x-button>
         </flexbox-item>
       </flexbox>
-
     </div>
 
     <div>
@@ -89,8 +85,10 @@
         <div class="fundsDetail">
           <flexbox orient="vertical">
             <flexbox-item v-for="(it,idx) in item.fundsList" :key="idx">
+              <router-link :to="'/fundWap/targetStockOrder/'+it.fid">
               <div style="float: left;">{{it.fund_name}}({{it.fund_code}})</div>
               <div style="float: right;">{{it.hold_num}}%</div>
+              </router-link>
             </flexbox-item>
           </flexbox>
         </div>
@@ -120,13 +118,13 @@
   <div class="bstfooterFix">
     <flexbox style="text-align:center;padding-top:3px;">
       <flexbox-item >
-        <x-button type="default"><div style="font-size:13px;">定投</div>
-        <div style="font-size:10px;">500元起投(费率1折起)</div>
+        <x-button type="default" class="fnt12" :link="{path:'/fundWap/targetSOrder',query:{cid:cid,sch:true}}">定投
+        <div style="font-size:10px;">{{mainData.sched_threshold}}元起投(费率1折起)</div>
         </x-button>
         </flexbox-item>
       <flexbox-item >
-        <x-button type="warn" :link="{path:'/fundWap/targetOrder',query:{tid:2}}">
-        <div style="font-size:13px">申购</div><div style="font-size:10px;">1000元起(费率1折起)</div>
+        <x-button type="warn" class="fnt12" :link="{path:'/fundWap/targetSOrder',query:{cid:cid}}">申购
+        <div style="font-size:10px;">{{mainData.threshold}}元起(费率1折起)</div>
         </x-button>
       </flexbox-item>
     </flexbox>
@@ -219,7 +217,6 @@
     background-color:rgb(240, 240, 240);
     line-height: 22px;
    }
-   
   .bestChoiceDetail .timeBtn {
     margin: 0 5px 0 5px;
     padding:0 5px;
@@ -232,7 +229,12 @@
       background-color: transparent;
     }
   }
-
+  .bestChoiceDetail .fnt12{
+    font-size:12px;
+  }
+  .bestChoiceDetail .fnt10{
+    font-size:10px;
+  }
   .bstfooterFix{
     font-size:12px;
     position:absolute;
@@ -252,7 +254,6 @@
     color:#666;
   }
   .tradeCon{
-    
     font-size: 10px;
     padding:5px 0 5px 5px;
     color:#666;

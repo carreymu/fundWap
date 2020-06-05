@@ -213,7 +213,7 @@ a:hover {
   font-size:25px;
 }
 .tarstkord .fnt13{
-  font-size:12px;
+  font-size:13px;
 }
 .tarstkord .fnt12{
   font-size:12px;
