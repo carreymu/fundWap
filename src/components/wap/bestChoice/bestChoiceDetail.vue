@@ -109,14 +109,13 @@
           <div class="tradeFont" style="float: right;"> > &nbsp;</div>
         </div>
       <div class="linefd"></div>
-      <div class="tradeCon">交易规则交易规则交易规则交易规则交易规则交易规则交易规则交易规则交易规则交易规则交易规则交易规
-        则交易规则交易规则交易规则交易规则交易规则交易规则交易规则交易规则交易规则</div>
+      <div class="tradeCon">{{mainData.notice}}</div>
     </div>
 
   </div>
 
   <div class="bstfooterFix">
-    <flexbox style="text-align:center;padding-top:3px;">
+    <flexbox style="text-align:center;">
       <flexbox-item >
         <x-button type="default" class="fnt12" :link="{path:'/fundWap/targetSOrder',query:{cid:cid,sch:true}}">定投
         <div style="font-size:10px;">{{mainData.sched_threshold}}元起投(费率1折起)</div>
@@ -240,7 +239,7 @@
     position:absolute;
     bottom:0;
     width:100%;
-    height:111px;
+    height:120px;
     background:#F7F7F7;
     // padding:0 3px 0 3px;
   }

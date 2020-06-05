@@ -48,9 +48,6 @@ export default {
 			console.log('tab:'+this.index)
 			this.loadChartData(month)
 		},
-		onItemClick (index) {
-			console.log('on item click:', index)
-		},
 		loadDetail(){
 			//init map
 			this.data.map(obj => {this.map[obj.name] = obj.percent + '%'})			
@@ -62,8 +59,8 @@ export default {
 			*/
 			this.cid=this.$route.params.cid;
 			let dt = {
-				"req": {"fpl_id":this.cid},
-				"event_names": ["fund_plan_list"]
+				"req": {"fpl_id":this.cid,"sid":19},
+				"event_names": ["fund_plan_list","system_info_by_id"]
 			  }
 			this.$api.fetchPost('/sanic-api', dt).then(r=>{
 			if(r.fund_plan_list!=undefined && r.fund_plan_list.length > 0){
@@ -73,6 +70,9 @@ export default {
 				this.$store.commit('UPDATE_PAGE_TITLE', this.mainData.name);
 				this.loadChartData(1);
 			}
+			if(r.system_info_by_id!=undefined&&r.system_info_by_id.length>0){
+				this.mainData['notice']=r.system_info_by_id[0].content
+			  }
 			// console.log(JSON.stringify(this.choiceList))
 			}).catch(err=>{
 				console.log(err)

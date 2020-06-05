@@ -57,7 +57,10 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
         console.log('on change', this.amount)
       },
       loadOrder(){
+        //single stock
         let fid=this.$route.query.fid
+        //every choice(every fund plan)
+        let cid = this.$route.query.cid
         this.sched=this.$route.query.sch || false
         if(fid == undefined){
           AlertModule.show({

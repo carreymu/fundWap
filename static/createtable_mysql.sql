@@ -138,7 +138,7 @@ purchase_rate_new float not null comment '新申购费率',
 purchase_rate_discount float not null comment '购买折扣率',
 topn int(8) not null comment '排名',
 sched_invest_init_amt float not null comment '定投最少购买金额',
-sched_invest_remark varchar(500) not null comment '定投备注',
+sched_invest_remark varchar(500) not null comment '定投备注', /*定投不应该放这里,应该有个个人定投信息表,每个人关联的个人信息都不一样*/
 sched_invest_freq_pre int(1) comment '定投频率,1-每周/2-每2周/3-每月',
 sched_invest_freq_tail int(2) comment '定投频率,1或2,值7内;3值31内',
 purchase_process varchar(500) not null comment '申购进度',
