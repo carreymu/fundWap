@@ -118,12 +118,12 @@
     <flexbox style="text-align:center;">
       <flexbox-item >
         <x-button type="default" class="fnt12" :link="{path:'/fundWap/targetSOrder',query:{cid:cid,sch:true}}">定投
-        <div style="font-size:10px;">{{mainData.sched_threshold}}元起投(费率1折起)</div>
+        <div style="font-size:10px;">{{mainData.sched_init_amt}}元起投(费率1折起)</div>
         </x-button>
         </flexbox-item>
       <flexbox-item >
         <x-button type="warn" class="fnt12" :link="{path:'/fundWap/targetSOrder',query:{cid:cid}}">申购
-        <div style="font-size:10px;">{{mainData.threshold}}元起(费率1折起)</div>
+        <div style="font-size:10px;">{{mainData.init_amt}}元起(费率1折起)</div>
         </x-button>
       </flexbox-item>
     </flexbox>
