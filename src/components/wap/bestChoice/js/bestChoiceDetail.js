@@ -1,5 +1,5 @@
 
-import { Tab,TabItem,XImg,XButton,Swiper,SwiperItem,Flexbox,FlexboxItem,XDialog,Group,Cell,VChart, VLine, VAxis, 
+import { Tab,TabItem,XButton,Swiper,SwiperItem,Flexbox,FlexboxItem,XDialog,Group,Cell,VChart, VLine, VAxis, 
 	VTooltip,VArea,VLegend, VBar, VPie, VGuide, VScale} from 'vux';
 const map = {}
 export default {
@@ -116,7 +116,7 @@ export default {
 		},
 	},
 	components:{
-		Tab, TabItem,XImg,XButton,Swiper, SwiperItem,Flexbox, FlexboxItem,XDialog,Group,Cell,
+		Tab, TabItem,XButton,Swiper, SwiperItem,Flexbox, FlexboxItem,XDialog,Group,Cell,
 		VChart, VLine, VAxis, VTooltip,VArea,VLegend, VBar, VPie, VGuide, VScale
 	}
 }

@@ -1,4 +1,4 @@
-import {Spinner} from 'vux'
+import {Spinner,Flexbox,FlexboxItem,XButton,AlertModule} from 'vux'
 export default{
     mounted() {
         this.$store.commit('UPDATE_PAGE_TITLE', '优选-单页详情');
@@ -6,22 +6,29 @@ export default{
     },
     data(){
         return {
-        mainData:{}
+            cid:0,
+            mainData:{}
         }
     },
     methods:{
         loadDetail(){
-            let id=this.$route.params.choiceId;
-            if(id == undefined){
-                //alter and back to pre page
+            this.cid=this.$route.params.cid;
+            if(this.cid == undefined){
+                AlertModule.show({
+                    title: '亲~~',
+                    content: '请勿瞎搞.',
+                    onHide () {
+                        window.location.replace(document.referrer)
+                    }
+                })
             }
             let dt = {
-                "req": {"nid":id},
-                "event_names": ["news_info_by_nid"]
+                "req": {"fpl_id":this.cid},
+                "event_names": ["fund_plan_by_fplid"]
             }
             this.$api.fetchPost('/sanic-api', dt).then(r=>{
-                if(r.news_info_by_nid.length > 0){
-                    this.mainData = r.news_info_by_nid[0]
+                if(r.fund_plan_by_fplid.length > 0){
+                    this.mainData = r.fund_plan_by_fplid[0]
                 }
                 // console.log(this.mainData)
             }).catch(err=>{
@@ -30,5 +37,5 @@ export default{
         }	
     },
 
-    components:{Spinner}
+    components:{Spinner,Flexbox,FlexboxItem,XButton,AlertModule}
 }
