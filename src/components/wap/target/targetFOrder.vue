@@ -5,7 +5,7 @@
       <div class="aimRate">
         <group>
           <x-input title="￥" type="number" :icon-type="iconType" required v-model="amount"  
-          :placeholder="'最低买入'+orderInfo.initial_amt+'元'" @on-change="change"></x-input>
+          :placeholder="'最低买入'+orderInfo.init_amt+'元'" @on-change="change"></x-input>
           <!-- @keyup.enter.native="f" -->
         </group>
       </div>

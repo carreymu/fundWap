@@ -87,7 +87,7 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
             if(r.fund_info!=undefined && r.fund_info.length > 0){
               let f = r.fund_info[0]
               this.orderInfo['target_name']=f.fund_name+"("+f.fund_code+")"
-              this.orderInfo['init_amt']=this.sched?f.sched_invest_init_amt:f.initial_amt
+              this.orderInfo['init_amt']=this.sched?f.sched_init_amt:f.init_amt
               this.orderInfo['fee_ratio']=f.purchase_rate_new>0?(f.purchase_rate_new*100).toFixed(2):0
             }
             let d=this.$utdate.workdays("MM-dd")
@@ -109,7 +109,7 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
             if(r.fund_plan_by_fplid!=undefined && r.fund_plan_by_fplid.length > 0){
               let f = r.fund_plan_by_fplid[0]
               this.orderInfo['target_name']=f.name
-              this.orderInfo['init_amt']=this.sched?f.init_amt:f.sched_init_amt
+              this.orderInfo['init_amt']=this.sched?f.sched_init_amt:f.init_amt
               this.orderInfo['fee_ratio']=f.purchase_rate_new>0?(f.purchase_rate_new*100).toFixed(2):0
             }
             let d=this.$utdate.workdays("MM-dd")

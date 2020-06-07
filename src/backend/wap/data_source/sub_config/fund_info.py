@@ -11,8 +11,7 @@ config = dict(
                 "mysql": "select fc_id,fcc_id,fund_name,fund_code,fund_company,fund_assets,start_date,management_fee,"
                          "custody_fee,purchase_rate_old,purchase_rate_new,purchase_rate_discount,sched_invest_remark,"
                          "purchase_process,redemption_fee_remark,redemption_process,redemption_position,agreement,"
-                         "share_bonus_type,remark,topn,initial_amt,sched_invest_init_amt,sched_invest_freq_pre,"
-                         "sched_invest_freq_tail "
+                         "share_bonus_type,remark,topn,init_amt,sched_init_amt "
                          "from fund_info where fid={fid}",
                 "sqlite3": "",
                 "mssql": ""
@@ -28,8 +27,7 @@ config = dict(
         "engine_name": "db_fund_wap_mysql",
         "sql": {
           "mysql": "select fid,fc_id,fcc_id,fund_name,fund_code,fund_company,topn,purchase_rate_new,status,agreement,"
-                   "initial_amt,sched_invest_init_amt,sched_invest_freq_pre,sched_invest_freq_tail "
-                   " from fund_info where fid in ({fids})",
+                   "init_amt,sched_init_amt from fund_info where fid in ({fids})",
           "sqlite3": "",
           "mssql": ""
         }

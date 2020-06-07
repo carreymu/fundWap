@@ -137,11 +137,11 @@ purchase_rate_old float comment'老申购费率',
 purchase_rate_new float not null comment '新申购费率',
 purchase_rate_discount float comment '购买折扣率',
 topn int(8) not null comment '排名',
-initial_amt float not null comment '最少购买金额',
-sched_invest_init_amt float not null comment '定投最少购买金额',
+init_amt float not null comment '最少购买金额',
+sched_init_amt float not null comment '定投最少购买金额',
 sched_invest_remark varchar(500) not null comment '定投备注', 
-sched_invest_freq_pre int(1) comment '定投频率,1-每周/2-每2周/3-每月',/*定投不应该放这里,应该有个个人定投信息表,每个人关联的个人信息都不一样*/
-sched_invest_freq_tail int(2) comment '定投频率,1或2,值7内;3值31内',
+--sched_invest_freq_pre int(1) comment '定投频率,1-每周/2-每2周/3-每月',/*定投不应该放这里,应该有个个人定投信息表,每个人关联的个人信息都不一样*/
+--sched_invest_freq_tail int(2) comment '定投频率,1或2,值7内;3值31内',
 purchase_process varchar(500) not null comment '申购进度',
 redemption_fee_remark varchar(500) not null comment '赎回费说明',
 redemption_process varchar(500) not null comment '赎回进度',
@@ -151,26 +151,26 @@ share_bonus_type int not null comment '分红类型',
 status int,
 remark varchar(500),inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO fund_info(fc_id,fcc_id,fund_name,fund_code,fund_company,fund_assets,start_date,management_fee,custody_fee,purchase_rate_old,purchase_rate_new,purchase_rate_discount,topn,sched_invest_remark,
-purchase_process,redemption_fee_remark,redemption_process,redemption_position,agreement,share_bonus_type,status,initial_amt,remark,sched_invest_init_amt,sched_invest_freq_pre,sched_invest_freq_tail) values(1,1,'景顺长城沪深300增强','000311','景顺长城基金','100亿','2016-10-01',0.3,0.08,0.012,0.0012,1,50,'定投规则:遇到节假日自动延迟到下一个交易日扣款',
-'T日/T+1日/T+1当日净值更新后','赎回费率如下:','赎回流程','赎回份额','景顺长城的协议',0,1,2000,'景顺长城沪深300增强备注',10.00,1,4); /*-- fid=1*/
+purchase_process,redemption_fee_remark,redemption_process,redemption_position,agreement,share_bonus_type,status,init_amt,remark,sched_init_amt) values(1,1,'景顺长城沪深300增强','000311','景顺长城基金','100亿','2016-10-01',0.3,0.08,0.012,0.0012,1,50,'定投规则:遇到节假日自动延迟到下一个交易日扣款',
+'T日/T+1日/T+1当日净值更新后','赎回费率如下:','赎回流程','赎回份额','景顺长城的协议',0,1,2000,'景顺长城沪深300增强备注',10.00); /*-- fid=1*/
 INSERT INTO fund_info(fc_id,fcc_id,fund_name,fund_code,fund_company,fund_assets,start_date,management_fee,custody_fee,purchase_rate_old,purchase_rate_new,purchase_rate_discount,topn,sched_invest_remark,
-purchase_process,redemption_fee_remark,redemption_process,redemption_position,agreement,share_bonus_type,status,initial_amt,remark,sched_invest_init_amt,sched_invest_freq_pre,sched_invest_freq_tail) values(1,2,'富国新动力A','001508','富国','130亿','2016-10-01',0.26,0.07,0.01,0.001,1,60,'定投规则:遇到节假日自动延迟到下一个交易日扣款',
-'T日/T+1日/T+1当日净值更新后','赎回费率如下:','赎回流程','赎回份额','景顺长城的协议',0,1,2200,'富国新动力A备注',11.00,2,5); /*-- fid=2*/
+purchase_process,redemption_fee_remark,redemption_process,redemption_position,agreement,share_bonus_type,status,init_amt,remark,sched_init_amt) values(1,2,'富国新动力A','001508','富国','130亿','2016-10-01',0.26,0.07,0.01,0.001,1,60,'定投规则:遇到节假日自动延迟到下一个交易日扣款',
+'T日/T+1日/T+1当日净值更新后','赎回费率如下:','赎回流程','赎回份额','景顺长城的协议',0,1,2200,'富国新动力A备注',11.00); /*-- fid=2*/
 INSERT INTO fund_info(fc_id,fcc_id,fund_name,fund_code,fund_company,fund_assets,start_date,management_fee,custody_fee,purchase_rate_old,purchase_rate_new,purchase_rate_discount,topn,sched_invest_remark,
-purchase_process,redemption_fee_remark,redemption_process,redemption_position,agreement,share_bonus_type,status,initial_amt,remark,sched_invest_init_amt,sched_invest_freq_pre,sched_invest_freq_tail) values(1,2,'富国新动力B','001507','富国','131亿','2016-10-11',0.26,0.07,0.01,0.001,1,57,'定投规则:遇到节假日自动延迟到下一个交易日扣款',
-'T日/T+1日/T+1当日净值更新后','赎回费率如下:','赎回流程','赎回份额','景顺长城的协议',0,1,2300,'富国新动力B备注',11.00,3,15); /*-- fid=3*/
+purchase_process,redemption_fee_remark,redemption_process,redemption_position,agreement,share_bonus_type,status,init_amt,remark,sched_init_amt) values(1,2,'富国新动力B','001507','富国','131亿','2016-10-11',0.26,0.07,0.01,0.001,1,57,'定投规则:遇到节假日自动延迟到下一个交易日扣款',
+'T日/T+1日/T+1当日净值更新后','赎回费率如下:','赎回流程','赎回份额','景顺长城的协议',0,1,2300,'富国新动力B备注',11.00); /*-- fid=3*/
 INSERT INTO fund_info(fc_id,fcc_id,fund_name,fund_code,fund_company,fund_assets,start_date,management_fee,custody_fee,purchase_rate_old,purchase_rate_new,purchase_rate_discount,topn,sched_invest_remark,
-purchase_process,redemption_fee_remark,redemption_process,redemption_position,agreement,share_bonus_type,status,initial_amt,remark,sched_invest_init_amt,sched_invest_freq_pre,sched_invest_freq_tail) values(1,2,'富国新动力C','001507','富国','132亿','2016-10-12',0.26,0.07,0.01,0.001,1,52,'定投规则:遇到节假日自动延迟到下一个交易日扣款',
-'T日/T+1日/T+1当日净值更新后','赎回费率如下:','赎回流程','赎回份额','景顺长城的协议',0,0,2400,'富国新动力C备注',31.00,3,30); /*-- fid=4*/
+purchase_process,redemption_fee_remark,redemption_process,redemption_position,agreement,share_bonus_type,status,init_amt,remark,sched_init_amt) values(1,2,'富国新动力C','001507','富国','132亿','2016-10-12',0.26,0.07,0.01,0.001,1,52,'定投规则:遇到节假日自动延迟到下一个交易日扣款',
+'T日/T+1日/T+1当日净值更新后','赎回费率如下:','赎回流程','赎回份额','景顺长城的协议',0,0,2400,'富国新动力C备注',31.00); /*-- fid=4*/
 INSERT INTO fund_info(fc_id,fcc_id,fund_name,fund_code,fund_company,fund_assets,start_date,management_fee,custody_fee,purchase_rate_old,purchase_rate_new,purchase_rate_discount,topn,sched_invest_remark,
-purchase_process,redemption_fee_remark,redemption_process,redemption_position,agreement,share_bonus_type,status,initial_amt,remark,sched_invest_init_amt,sched_invest_freq_pre,sched_invest_freq_tail) values(8,1,'天弘鸿运宝','001386','天弘','190亿','2015-10-01',0.3,0.08,0.012,0.0012,1,80,'定投规则:遇到节假日自动延迟到下一个交易日扣款',
-'T日/T+1日/T+1当日净值更新后','赎回费率如下:','赎回流程','赎回份额','天弘鸿运宝的协议',0,1,2500,'天弘鸿运宝备注',51.00,3,25); /*-- fid=5*/
+purchase_process,redemption_fee_remark,redemption_process,redemption_position,agreement,share_bonus_type,status,init_amt,remark,sched_init_amt) values(8,1,'天弘鸿运宝','001386','天弘','190亿','2015-10-01',0.3,0.08,0.012,0.0012,1,80,'定投规则:遇到节假日自动延迟到下一个交易日扣款',
+'T日/T+1日/T+1当日净值更新后','赎回费率如下:','赎回流程','赎回份额','天弘鸿运宝的协议',0,1,2500,'天弘鸿运宝备注',51.00); /*-- fid=5*/
 INSERT INTO fund_info(fc_id,fcc_id,fund_name,fund_code,fund_company,fund_assets,start_date,management_fee,custody_fee,purchase_rate_old,purchase_rate_new,purchase_rate_discount,topn,sched_invest_remark,
-purchase_process,redemption_fee_remark,redemption_process,redemption_position,agreement,share_bonus_type,status,initial_amt,remark,sched_invest_init_amt,sched_invest_freq_pre,sched_invest_freq_tail) values(1,3,'景顺长城沪深200增强','000313','景顺长城基金','100亿','2016-10-01',0.3,0.08,0.012,0.0012,1,50,'定投规则:遇到节假日自动延迟到下一个交易日扣款',
-'T日/T+1日/T+1当日净值更新后','赎回费率如下:','赎回流程','赎回份额','景顺长城的协议',0,1,2000,'景顺长城沪深200增强备注',10.00,1,4); /*-- fid=6*/
+purchase_process,redemption_fee_remark,redemption_process,redemption_position,agreement,share_bonus_type,status,init_amt,remark,sched_init_amt) values(1,3,'景顺长城沪深200增强','000313','景顺长城基金','100亿','2016-10-01',0.3,0.08,0.012,0.0012,1,50,'定投规则:遇到节假日自动延迟到下一个交易日扣款',
+'T日/T+1日/T+1当日净值更新后','赎回费率如下:','赎回流程','赎回份额','景顺长城的协议',0,1,2000,'景顺长城沪深200增强备注',10.00); /*-- fid=6*/
 INSERT INTO fund_info(fc_id,fcc_id,fund_name,fund_code,fund_company,fund_assets,start_date,management_fee,custody_fee,purchase_rate_old,purchase_rate_new,purchase_rate_discount,topn,sched_invest_remark,
-purchase_process,redemption_fee_remark,redemption_process,redemption_position,agreement,share_bonus_type,status,initial_amt,remark,sched_invest_init_amt,sched_invest_freq_pre,sched_invest_freq_tail) values(1,4,'景顺长城沪深100增强','000312','景顺长城基金','100亿','2016-10-01',0.3,0.08,0.012,0.0012,1,50,'定投规则:遇到节假日自动延迟到下一个交易日扣款',
-'T日/T+1日/T+1当日净值更新后','赎回费率如下:','赎回流程','赎回份额','景顺长城的协议',0,1,2000,'景顺长城沪深100增强备注',10.00,1,4); /*-- fid=7*/
+purchase_process,redemption_fee_remark,redemption_process,redemption_position,agreement,share_bonus_type,status,init_amt,remark,sched_init_amt) values(1,4,'景顺长城沪深100增强','000312','景顺长城基金','100亿','2016-10-01',0.3,0.08,0.012,0.0012,1,50,'定投规则:遇到节假日自动延迟到下一个交易日扣款',
+'T日/T+1日/T+1当日净值更新后','赎回费率如下:','赎回流程','赎回份额','景顺长城的协议',0,1,2000,'景顺长城沪深100增强备注',10.00); /*-- fid=7*/
 
 /*--10.fund bonus and split (bonus.type=0,split.type=1)*/
 CREATE TABLE fund_bonus_split(fbs_id int(11) primary key AUTO_INCREMENT,
