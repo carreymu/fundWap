@@ -17,10 +17,10 @@
     
     <group>
       <div v-for="(it,idx) in menuList" :key="idx">
-        <cell class="msg" :title="it.title" v-if="it.isWithTail" :link="{path:it.url+'/'+it.id}">
+        <!-- <cell class="msg" :title="it.title" v-if="it.isWithTail" :link="{path:it.url+'/'+it.id}">
           <badge v-if="it.newsCnt!=undefined & it.newsCnt>0" :text="it.newsCnt"></badge>
-        </cell>
-        <cell class="msg" :title="it.title" v-else-if="it.url.length>0" :link="it.url">
+        </cell> -->
+        <cell class="msg" :title="it.title" v-if="it.url.length>0" :link="it.url">
           <badge v-if="it.newsCnt!=undefined & it.newsCnt>0" :text="it.newsCnt"></badge>
         </cell>
         <span v-else >

@@ -27,11 +27,11 @@ export default {
 
       let dt = {
         "req": {"uid":1,"sid":13},
-        "event_names": ["system_info_by_id"]
+        "event_names": ["system_info"]
       }
       this.$api.fetchPost('/sanic-api', dt).then(r=>{
-        if(r.system_info_by_id!=undefined && r.system_info_by_id.length>0){
-          this.menuList=r.system_info_by_id
+        if(r.system_info!=undefined && r.system_info.length>0){
+          this.menuList=r.system_info
           // console.log(exps)
         }
         console.log(this.menuList)

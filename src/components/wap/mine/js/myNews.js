@@ -8,7 +8,6 @@ import { Tabbar, TabbarItem ,XHeader,XButton,XDialog,Flexbox,FlexboxItem } from 
       return {
         dialogContent: '',
         showDialogStyle: false,
-
         newsList:[
           {
             id:1,

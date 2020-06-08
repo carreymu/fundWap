@@ -52,12 +52,17 @@ INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(1
 INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(10,'常见问题','常见问题','各常见问题HTML', '','',1);
 INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(11,'股票型基金购买说明','','基金行情数据及基金交易服务由川大爷的公司提供,基金销售服务资格暂时不告诉你.本页非任何法律文件,投资前请认真阅读基金合同.市场有风险,投资需谨慎。', '','',1);
 INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(12,'投资协议','','甲方:投资者<br/>乙方:帝都金金豆****有限公司<br/>下面是投资协议内容...', '','',1);
+INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(13,'■ 消息中心','消息中心','消息,请列出最近10条', '/fundWap/myNews','',1);
+INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(13,'✿ 新人指南','','', '/fundWap/systemInfoDetail/9','',1);
+INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(13,'● 我的大目标卡','','', '/fundWap/myCards','',1);
+INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(13,'◕ 推荐好友','','', '','',1);
 
 /*--2.news type*/
 CREATE TABLE news_category(nc_id int(11) primary key AUTO_INCREMENT,
 category_name varchar(50) not null comment '新闻类型名',
 status int) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO news_category(category_name, status) values('投资面对面',1);
+INSERT INTO news_category(category_name, status) values('鸡腿计划动态',1);
 
 /*--3.news details invester face to face/drumstick news*/
 CREATE TABLE news_info(nid int(11) primary key AUTO_INCREMENT,
