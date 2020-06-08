@@ -24,6 +24,18 @@ export default {
             self.menuList=data.returnObject
         }
       })
+
+      let dt = {
+        "req": {"uid":1,"sid":13},
+        "event_names": ["system_info_by_id"]
+      }
+      this.$api.fetchPost('/sanic-api', dt).then(r=>{
+        if(r.system_info_by_id!=undefined && r.system_info_by_id.length>0){
+          this.menuList=r.system_info_by_id
+          // console.log(exps)
+        }
+        console.log(this.menuList)
+      })
     },
     console (msg) {
       console.log(msg)

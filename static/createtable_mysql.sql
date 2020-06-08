@@ -20,6 +20,7 @@ INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(
 INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(0,'target service content','- 持续升级的基金投资策略<br/> - 智能调仓止盈的全程服务<br/> - 每季度"大目标面对面投资"<br/> - 每月"市场行情报告" <br/> - 每日"大目标投资播报" <br/> - 大目标专属服务群','','content',1);
 INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(0,'股票型基金购买说明','','','content',1);
 INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(0,'投资协议','','','content',1);
+INSERT INTO system_info_category(pscid,title,subtitle,url,remark,status) values(0,'我的理财菜单','','','我的理财菜单,可根据实际需要自定义',1);
 
 /*--1.system info like 1-banners/2-company introduction/3-about target/4-introduction of selecting funds etc.*/
 -- drop table system_info;

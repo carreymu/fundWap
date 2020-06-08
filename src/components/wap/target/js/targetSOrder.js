@@ -43,7 +43,7 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
             }
           }
         }
-        console.log(JSON.stringify(this.freqList))
+        // console.log(JSON.stringify(this.freqList))
       },
       change (val) {
         var reg = /^(\d+|\d+\.\d{1,2})$/
