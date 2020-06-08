@@ -89,6 +89,7 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
               this.orderInfo['target_name']=f.fund_name+"("+f.fund_code+")"
               this.orderInfo['init_amt']=this.sched?f.sched_init_amt:f.init_amt
               this.orderInfo['fee_ratio']=f.purchase_rate_new>0?(f.purchase_rate_new*100).toFixed(2):0
+              this.$store.commit('UPDATE_PAGE_TITLE', this.orderInfo['target_name'])
             }
             let d=this.$utdate.workdays("MM-dd")
             this.orderInfo['startDate']=d.startDate
@@ -111,6 +112,7 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
               this.orderInfo['target_name']=f.name
               this.orderInfo['init_amt']=this.sched?f.sched_init_amt:f.init_amt
               this.orderInfo['fee_ratio']=f.purchase_rate_new>0?(f.purchase_rate_new*100).toFixed(2):0
+              this.$store.commit('UPDATE_PAGE_TITLE', f.name)
             }
             let d=this.$utdate.workdays("MM-dd")
             this.orderInfo['startDate']=d.startDate

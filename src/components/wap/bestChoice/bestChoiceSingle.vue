@@ -7,7 +7,7 @@
 			<div class="detail-text">
 				<!-- <p v-html="mainData.content" style="line-height:35px;"></p> -->
 				<img :src="mainData.img_url" />
-                <div style="font-size:15px;">醒醒,你不是分析君啊,你是优选基金页面，单个页面!!</div>
+                <div style="font-size:15px;">恭喜你来到了,单个页面,这个页面是一张海报。【干脆面君】简单代表.</div>
 			</div>
 		</div>
 
