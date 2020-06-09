@@ -48,7 +48,7 @@ export default {
           cnt = cnt-1<0?0:cnt-1
           for(var x of this.menus){
             if(x.title.indexOf("目标卡")>0){
-              x['card_cnt']=cnt
+              x.title=x.title+'(剩余'+cnt+'次)'
               break;
             }
           }

@@ -20,10 +20,11 @@
         <!-- <cell class="msg" :title="it.title" v-if="it.isWithTail" :link="{path:it.url+'/'+it.id}">
           <badge v-if="it.newsCnt!=undefined & it.newsCnt>0" :text="it.newsCnt"></badge>
         </cell> -->
+        <!-- <cell class="msg" v-if="it.title.indexOf('目标卡')>0" :title="it.title" :value="'剩余'+it.card_cnt+'次'" ></cell> -->
         <cell class="msg" :title="it.title" v-if="it.url.length>0" :link="it.url+'?sid='+it.sid">
           <badge v-if="it.cnt!=undefined & it.cnt>0" :text="it.cnt"></badge>
         </cell>
-        <cell v-else-if="it.title.indexOf('目标卡')>0" :title="it.title" :value="'剩余'+it.card_cnt+'次'" ></cell>
+        
         <span v-else >
         <cell class="msg" is-link :title="it.title" :border-intent="false" :arrow-direction="showContent004 ? 'down' : ''"
         @click.native="showContent004 = !showContent004"></cell>
