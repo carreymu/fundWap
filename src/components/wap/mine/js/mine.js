@@ -55,7 +55,7 @@ export default {
           console.log(this.menus)
         }
       })
-      console.log(this.menus)
+      // console.log(this.menus)
     },
     console (msg) {
       console.log(msg)
