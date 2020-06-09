@@ -21,6 +21,7 @@ from wap.data_source.sub_config import (
     fund_plan_category,
     fund_customized_category,
     fund_plan_details,
+    user_news_info,
 )
 # only original information from DB
 data_source_config = dict(
@@ -45,4 +46,5 @@ data_source_config = dict(
     fund_plan_category=fund_plan_category.config,
     fund_customized_category=fund_customized_category.config,
     fund_plan_details=fund_plan_details.config,
+    user_news_info=user_news_info.config,
 )

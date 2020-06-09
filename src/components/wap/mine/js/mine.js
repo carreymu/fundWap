@@ -6,6 +6,7 @@ export default {
   },
   data(){
     return {
+      menus:[],
       menuList:[],
       showContent004: false,
       menus1: {
@@ -16,26 +17,45 @@ export default {
   },
   methods:{
     menuLists(){
-      let self=this;
-      this.baseAjax({
-        url:'../../../static/basicData/mineMenu.json',
-        showLoading:true,
-        success:function(data){
-            self.menuList=data.returnObject
-        }
-      })
+      // let self=this;
+      // this.baseAjax({
+      //   url:'../../../static/basicData/mineMenu.json',
+      //   showLoading:true,
+      //   success:function(data){
+      //       self.menuList=data.returnObject
+      //   }
+      // })
 
       let dt = {
-        "req": {"uid":1,"sid":13},
-        "event_names": ["system_info"]
+        "req": {"uid":1,"scids":13},
+        "event_names": ["system_info","user_news_info_not_read_by_uid","user_card_cnt_uid"]
       }
       this.$api.fetchPost('/sanic-api', dt).then(r=>{
         if(r.system_info!=undefined && r.system_info.length>0){
-          this.menuList=r.system_info
-          // console.log(exps)
+          this.menus=r.system_info
+          // console.log(this.menus)
         }
-        console.log(this.menuList)
+        if(r.user_news_info_not_read_by_uid!=undefined && r.user_news_info_not_read_by_uid.length>0){
+          for(var x of this.menus){
+            if(x.title.indexOf("消息中心")>0){
+              x['cnt']=r.user_news_info_not_read_by_uid[0].cnt
+              break;
+            }
+          }
+        }
+        if(r.user_card_cnt_uid!=undefined && r.user_card_cnt_uid.length>0){
+          let cnt = r.user_card_cnt_uid[0]['cnt']
+          cnt = cnt-1<0?0:cnt-1
+          for(var x of this.menus){
+            if(x.title.indexOf("目标卡")>0){
+              x['card_cnt']=cnt
+              break;
+            }
+          }
+          console.log(this.menus)
+        }
       })
+      console.log(this.menus)
     },
     console (msg) {
       console.log(msg)

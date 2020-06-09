@@ -1,28 +1,28 @@
 from wap.data_source import exec_base
 
 config = dict(
-    news_category={
-        "name": "news category",
+    user_news_info_by_uid={
+        "name": "user news",
         "author": "root",
         "event_default": {},
         "sql_info": {
             "engine_name": "db_fund_wap_mysql",
             "sql": {
-                "mysql": "select nc_id,category_name,is_broadcast from news_category where nc_id={nc_id} ",
+                "mysql": "select uid,nc_id,nid,is_read from user_news_info where uid={uid} order by inserttime desc",
                 "sqlite3": "",
                 "mssql": ""
             }
         },
         "dependence": exec_base.DBInfo,
     },
-    news_category_broadcast={
-        "name": "news category",
+    user_news_info_not_read_by_uid={
+        "name": "user news",
         "author": "root",
         "event_default": {},
         "sql_info": {
             "engine_name": "db_fund_wap_mysql",
             "sql": {
-                "mysql": "select nc_id,category_name,is_broadcast from news_category where is_broadcast=1 ",
+                "mysql": "select count(*) as cnt from user_news_info where uid={uid} and is_read=0",
                 "sqlite3": "",
                 "mssql": ""
             }

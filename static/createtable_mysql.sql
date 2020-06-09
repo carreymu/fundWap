@@ -53,16 +53,20 @@ INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(1
 INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(11,'股票型基金购买说明','','基金行情数据及基金交易服务由川大爷的公司提供,基金销售服务资格暂时不告诉你.本页非任何法律文件,投资前请认真阅读基金合同.市场有风险,投资需谨慎。', '','',1);
 INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(12,'投资协议','','甲方:投资者<br/>乙方:帝都金金豆****有限公司<br/>下面是投资协议内容...', '','',1);
 INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(13,'■ 消息中心','消息中心','消息,请列出最近10条', '/fundWap/myNews','',1);
-INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(13,'✿ 新人指南','','', '/fundWap/systemInfoDetail/9','',1);
+INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(13,'✿ 新人指南','<b>新人指指南</b>','新人指南是多个问题的链接页面,只要html排好版,即可贴来.', '/fundWap/systemInfoDetail','',1);
 INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(13,'● 我的大目标卡','','', '/fundWap/myCards','',1);
 INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(13,'◕ 推荐好友','','', '','',1);
 
 /*--2.news type*/
 CREATE TABLE news_category(nc_id int(11) primary key AUTO_INCREMENT,
 category_name varchar(50) not null comment '新闻类型名',
-status int) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO news_category(category_name, status) values('投资面对面',1);
-INSERT INTO news_category(category_name, status) values('鸡腿计划动态',1);
+status int,
+is_broadcast int not null comment '是否广播,发送给每人,0-不发送,1-发送') ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO news_category(category_name, status, is_broadcast) values('投资面对面',1,0);
+INSERT INTO news_category(category_name, status, is_broadcast) values('鸡腿计划动态',1,0);
+INSERT INTO news_category(category_name, status, is_broadcast) values('鸡腿计划发车提醒',1,1);
+INSERT INTO news_category(category_name, status, is_broadcast) values('止盈赎回提醒',1,1);
+INSERT INTO news_category(category_name, status, is_broadcast) values('[豆妹专栏]',1,1);
 
 /*--3.news details invester face to face/drumstick news*/
 CREATE TABLE news_info(nid int(11) primary key AUTO_INCREMENT,
@@ -71,7 +75,18 @@ title varchar(50) not null comment '新闻标题',
 img_url varchar(200) comment '图片地址',
 content varchar(1000) not null comment '内容',
 status int, inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO news_info(title,nc_id,img_url, content, status) values('[大目标]2周年运行情况和当前市场分析',1,'/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png','我是分析君...哈哈哈',1);
+INSERT INTO news_info(title,nc_id,img_url, content, status) values('[大目标]2周年运行情况和当前市场分析',1,'https://image.talicai.com/MGZjODAyMzU3Zjc4MjA4Y2RkZDQ0MWYzYTU3ZGQ3Mzc-sq200','我是分析君...哈哈哈',1);
+INSERT INTO news_info(title,nc_id,img_url, content, status) values('新的一年,[大目标]新的变化',1,'https://image.talicai.com/Y2M1OTk2YTEzNzIzZGFkODhkZWJkOTYwZWE4NmU3NWM-sq200','<div style="font-size:15px;">新的一年,[大目标]新的变化.<br/>小朋友你是不是有很多疑问?</div>',1);
+INSERT INTO news_info(title,nc_id,img_url, content, status) values('[大目标]1.5周年运行情况和当前市场分析',1,'https://image.talicai.com/MGZjODAyMzU3Zjc4MjA4Y2RkZDQ0MWYzYTU3ZGQ3Mzc-sq200','我是分析君...哈哈哈',1);
+INSERT INTO news_info(title,nc_id,img_url, content, status) values('[鸡腿计划]2周年运行情况和当前市场分析',2,'https://image.talicai.com/MGZjODAyMzU3Zjc4MjA4Y2RkZDQ0MWYzYTU3ZGQ3Mzc-sq200','我是分析君...哈哈哈',1);
+INSERT INTO news_info(title,nc_id,img_url, content, status) values('新的一年,[鸡腿计划]新的变化',2,'https://image.talicai.com/MGZjODAyMzU3Zjc4MjA4Y2RkZDQ0MWYzYTU3ZGQ3Mzc-sq200','我是鸡腿计划....哈哈哈',1);
+INSERT INTO news_info(title,nc_id,img_url, content, status) values('[鸡腿计划]2周年运行情况和当前市场分析',2,'https://image.talicai.com/MGZjODAyMzU3Zjc4MjA4Y2RkZDQ0MWYzYTU3ZGQ3Mzc-sq200','我是鸡腿计划....哈哈哈',1);
+INSERT INTO news_info(title,nc_id,img_url, content, status) values('[鸡腿计划]2周年发车',4,'','我是鸡腿计划,开车是我的一大爱好....哈哈哈',1);
+INSERT INTO news_info(title,nc_id,img_url, content, status) values('[止盈赎回提醒]2010止盈赎回提醒',4,'','我是鸡腿计划,开车是我的一大爱好....哈哈哈',1);
+INSERT INTO news_info(title,nc_id,img_url, content, status) values('[豆妹专栏]今天大目标大涨',4,'','2009~2011涨1%,其他暂涨2%吧,具体问建国同志',1);
+INSERT INTO news_info(title,nc_id,img_url, content, status) values('[鸡腿计划]2周年发车',4,'','我是鸡腿计划,开车是我的一大爱好....哈哈哈',1);
+INSERT INTO news_info(title,nc_id,img_url, content, status) values('[止盈赎回提醒]2010止盈赎回提醒',4,'','我是鸡腿计划,开车是我的一大爱好....哈哈哈',1);
+INSERT INTO news_info(title,nc_id,img_url, content, status) values('[豆妹专栏]今天大目标大涨',4,'','2009~2011涨1%,其他暂涨2%吧,具体问建国同志',1);
 
 /*----------------------------------fund details--biz:target,drumstick and best choice--------------------------------------------------
 --4.fund category  like ETF/LOF/QDFII etc.*/
@@ -322,12 +337,20 @@ INSERT INTO fund_plan_category(name,remark) values('高成长股基组合','高�
 INSERT INTO fund_plan_category(name,remark) values('稳健债基组合','稳健债基组合');
 INSERT INTO fund_plan_category(name,remark) values('平衡性股基组合','平衡性股基组合');
 
-/*--22.fund plans match combining plans  N:N, status:0-useless,1-using*/
--- CREATE TABLE fund_plan_combin(fpc_id int(11) primary key AUTO_INCREMENT,pc_id int,fpd_id int,status int,inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
--- INSERT INTO fund_plan_combin(pc_id,fpd_id,status) values(2,1,1); /*--高成长股基组合-全明星计划*/
--- INSERT INTO fund_plan_combin(pc_id,fpd_id,status) values(2,3,1); /*--高成长股基组合-海投计划*/
 
 /*------------------------------------mine--biz:target and best choice------------------------------------------------
+/*--22.user news*/
+CREATE TABLE user_news_info(uni_id int(11) primary key AUTO_INCREMENT,
+uid int not null comment '用户id',
+nc_id int not null comment '新闻分类',
+nid int not null comment '新闻id', 
+is_read int not null comment '是否已读,0-否,1-是'
+inserttime timestamp default CURRENT_TIMESTAMP,
+updatetime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO user_news_info(uid,nc_id,nid,is_read) values(1,3,7,0);
+INSERT INTO user_news_info(uid,nc_id,nid,is_read) values(1,4,8,0);
+INSERT INTO user_news_info(uid,nc_id,nid,is_read) values(1,5,9,0);
+
 --23.user details*/
 CREATE TABLE userdetail(uid int(11) primary key AUTO_INCREMENT,
 username varchar(30) not null comment '用户名',
