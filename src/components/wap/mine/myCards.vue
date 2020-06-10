@@ -3,7 +3,7 @@
         <flexbox style="margin:20px 0px;font-size:14px;font-weight:bold;">
             <flexbox-item>大目标服务卡</flexbox-item>
             <flexbox-item :span="2/3" style="text-align:right;">
-            喵了个咪~ 剩余{{cards.length}}张&nbsp;&nbsp;&nbsp;<x-button mini type="warn">购买</x-button></flexbox-item>
+            喵了个咪~ 剩余{{unexps.length}}张&nbsp;&nbsp;&nbsp;<x-button mini type="warn">购买</x-button></flexbox-item>
         </flexbox>
         <div v-for="(it,idx) in cards" :key="idx">
           <flexbox class="rectAgl">

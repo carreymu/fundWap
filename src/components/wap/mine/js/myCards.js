@@ -11,6 +11,7 @@ import { Tabbar, TabbarItem ,XHeader,XButton, Flexbox, FlexboxItem } from 'vux'
       return {
         uid:1,
         cards:[],
+        unexps: [],
         sc:{0:"分享积得",1:"购买",2:"赠送",3:"免费领取",4:"友情援助"}
       }
     },
@@ -23,7 +24,6 @@ import { Tabbar, TabbarItem ,XHeader,XButton, Flexbox, FlexboxItem } from 'vux'
         this.$api.fetchPost('/sanic-api', dt).then(r=>{
           if(r.user_card_by_uid!=undefined && r.user_card_by_uid.length>0){
             let exps = []
-            let unexps = []
             r.user_card_by_uid.forEach(x=>{
               let days = this.$utdate.getDaysLong(new Date().getTime(),x['exp_date_end'],false)
               // console.log(days)
@@ -34,11 +34,11 @@ import { Tabbar, TabbarItem ,XHeader,XButton, Flexbox, FlexboxItem } from 'vux'
               if(days<0){
                 exps.push(x)
               }else{
-                unexps.push(x)
+                this.unexps.push(x)
               }
             })
             // console.log(exps)
-            this.cards= unexps.concat(exps)
+            this.cards= this.unexps.concat(exps)
           }
           console.log(this.cards)
         })
