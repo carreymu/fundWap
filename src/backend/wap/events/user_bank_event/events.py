@@ -24,5 +24,3 @@ class UserbankWapper(DataSource):
                 card_tail = result[0]['card_number'][-4:]
                 return [{"bank_name": bank_name, "policy": policy, "card_tail": card_tail}]
         return self.event_default
-
-

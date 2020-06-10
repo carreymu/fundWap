@@ -8,7 +8,7 @@ config = dict(
         "sql_info": {
             "engine_name": "db_fund_wap_mysql",
             "sql": {
-                "mysql": "select nid,title,nc_id,img_url,content,inserttime from news_info where status={status} and "
+                "mysql": "select nid,title,nc_id,img_url,content,inserttime from news_info where "
                          "nc_id={nc_id} order by inserttime desc limit {topx}",
                 "sqlite3": "",
                 "mssql": ""
@@ -23,8 +23,21 @@ config = dict(
         "sql_info": {
             "engine_name": "db_fund_wap_mysql",
             "sql": {
-                "mysql": "select nid,title,img_url,content,inserttime from news_info where status={status} and "
-                         "nid={nid}",
+                "mysql": "select nid,title,img_url,content,inserttime from news_info where nid={nid}",
+                "sqlite3": "",
+                "mssql": ""
+            }
+        },
+        "dependence": exec_base.DBInfo,
+    },
+    news_info_by_nids={
+        "name": "detail news",
+        "author": "root",
+        "event_default": {},
+        "sql_info": {
+            "engine_name": "db_fund_wap_mysql",
+            "sql": {
+                "mysql": "select nid,title,img_url,content,inserttime from news_info where nid in({nids})",
                 "sqlite3": "",
                 "mssql": ""
             }

@@ -8,7 +8,8 @@ config = dict(
         "sql_info": {
             "engine_name": "db_fund_wap_mysql",
             "sql": {
-                "mysql": "select uid,nc_id,nid,is_read from user_news_info where uid={uid} order by inserttime desc",
+                "mysql": "select uni_id,uid,nc_id,nid,is_read from user_news_info where uid={uid} "
+                         "order by inserttime desc",
                 "sqlite3": "",
                 "mssql": ""
             }
