@@ -339,7 +339,7 @@ INSERT INTO fund_plan_category(name,remark) values('平衡性股基组合','平�
 
 
 /*------------------------------------mine--biz:target and best choice------------------------------------------------
-/*--22.user news*/
+/*--22.user news info*/
 CREATE TABLE user_news_info(uni_id int(11) primary key AUTO_INCREMENT,
 uid int not null comment '用户id',
 nc_id int not null comment '新闻分类',
