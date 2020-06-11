@@ -352,7 +352,7 @@ INSERT INTO user_news_info(uid,nc_id,nid,is_read) values(1,4,8,0);
 INSERT INTO user_news_info(uid,nc_id,nid,is_read) values(1,5,9,0);
 
 --23.user details*/
-CREATE TABLE userdetail(uid int(11) primary key AUTO_INCREMENT,
+CREATE TABLE user_detail(uid int(11) primary key AUTO_INCREMENT,
 username varchar(30) not null comment '用户名',
 nickname varchar(30) comment '昵称',
 phonenumber varchar(30) not null comment '手机号',
@@ -360,9 +360,9 @@ password varchar(100) not null comment '密码',
 is_fingerprint boolean comment '是否开启指纹解锁',
 is_posture boolean comment '是否开启图形解锁',
 is_fund_account boolean not null comment '是否开启了基金账户',
-target_bouns_amt float not null '总资产',
+target_bouns_amt float not null comment '总资产',
 inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO userdetail(username,nickname,phonenumber,password,is_fingerprint,is_posture,is_fund_account,target_bouns_amt) values('Lady Gaga','GAGA','18808988989','YadnSEWOdwO09uwFepOe====',true,false,false,385.95);
+INSERT INTO user_detail(username,nickname,phonenumber,password,is_fingerprint,is_posture,is_fund_account,target_bouns_amt) values('Lady Gaga','GAGA','18808988989','YadnSEWOdwO09uwFepOe====',true,false,false,385.95);
 
 /*--24.fund account (risk_level:1-稳健,2-保守...;tax_id:1-仅为中国税收居民,2-仅为非中国税收居民,3-既是中国税收居民也是其他国家(地区)税收居民);occupation:1-科研人员*/
 CREATE TABLE user_fund_account(ufa_id int(11) primary key AUTO_INCREMENT,real_name varchar(30),risk_level int,tax_id int,trade_password varchar(50),idcard_num varchar(20),

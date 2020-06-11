@@ -2,9 +2,9 @@
   <div class="mine">
     <flexbox class="rectAgl">
       <flexbox-item :span="0.15">
-        <router-link :to="'/fundWap/myAccount'"><img src="../../../assets/images/biz/avastar.jpg" class="avastar"/></router-link>
+        <router-link :to="'/fundWap/myAccount'"><img :src="myInfo.avastar" class="avastar"/></router-link>
       </flexbox-item>
-      <flexbox-item ><router-link :to="'/fundWap/myAccount'" style="color:white;"> 总有刁民想害朕</router-link></flexbox-item> 
+      <flexbox-item ><router-link :to="'/fundWap/myAccount'" style="color:white;"> {{myInfo.username}}</router-link></flexbox-item> 
       <flexbox-item :span="0.45">
         <router-link :to="'/fundWap/myPositions'">
         <flexbox orient="vertical">

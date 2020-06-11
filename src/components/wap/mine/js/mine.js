@@ -7,7 +7,7 @@ export default {
   data(){
     return {
       menus:[],
-      menuList:[],
+      myInfo:{},
       showContent004: false,
       menus1: {
         menu1: '分享给朋友',
@@ -19,7 +19,7 @@ export default {
     menuLists(){
       let dt = {
         "req": {"uid":1,"scids":13},
-        "event_names": ["system_info","user_news_info_not_read_by_uid","user_card_cnt_uid"]
+        "event_names": ["system_info","user_news_info_not_read_by_uid","user_card_cnt_uid","user_detail_by_uid"]
       }
       this.$api.fetchPost('/sanic-api', dt).then(r=>{
         if(r.system_info!=undefined && r.system_info.length>0){
@@ -44,6 +44,9 @@ export default {
             }
           }
           console.log(this.menus)
+        }
+        if(r.user_detail_by_uid!=undefined && r.user_detail_by_uid.length>0){
+          this.myInfo=r.user_detail_by_uid[0]
         }
       })
       // console.log(this.menus)
