@@ -16,6 +16,18 @@ import { Tabbar, TabbarItem ,XHeader,XButton,XDialog,Flexbox,FlexboxItem } from 
         let flt = this.newsList.filter(x=>x.uni_id==id)
         if(flt.length>0){          
           this.dialogContent = flt[0].content
+          // to do
+          // let dt = {
+          //   "req": {"uid":1,"uni_id":id},
+          //   "event_names": ["update_user_news_info_read"]
+          // }
+          // this.$api.fetchPost('/sanic-api', dt).then(r=>{
+          //   if(r.user_news_info_list!=undefined && r.user_news_info_list.length>0){
+          //     this.newsList=r.user_news_info_list
+          //     this.newsList.map(x=>x.inserttime=this.$utdate.dateFmt(x.inserttime,"yy/MM/dd"))
+          //     console.log(this.newsList)
+          //   }
+          // })
         } else{
           this.dialogContent = '暂无信息'
           console.log('alter....')

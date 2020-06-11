@@ -30,4 +30,18 @@ config = dict(
         },
         "dependence": exec_base.DBInfo,
     },
+    update_user_news_info_read={
+      "name": "user news",
+      "author": "root",
+      "event_default": {},
+      "sql_info": {
+        "engine_name": "db_fund_wap_mysql",
+        "sql": {
+          "mysql": "update user_news_info set is_read=1 where uni_id={uni_id} and is_read=0",
+          "sqlite3": "",
+          "mssql": ""
+        }
+      },
+      "dependence": exec_base.DBInfo,
+    },
 )
