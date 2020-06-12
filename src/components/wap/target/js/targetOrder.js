@@ -93,7 +93,7 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
             }
             this.orderInfo['fee_ratio']=(r.targets_by_tid[0]['fee_ratio']*100).toFixed(2)
             this.orderInfo['target_name']='大目标'+r.targets_by_tid[0]['name']
-            this.orderInfo['initial_amt']=r.targets_by_tid[0]['initial_amt']
+            this.orderInfo['init_amt']=r.targets_by_tid[0]['init_amt']
           }
           if(r.user_card_cnt_uid!=undefined && r.user_card_cnt_uid.length>0){
             let cnt = r.user_card_cnt_uid[0]['cnt']

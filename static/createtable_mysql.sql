@@ -81,7 +81,7 @@ INSERT INTO news_info(title,nc_id,img_url, content, status) values('[大目标]1
 INSERT INTO news_info(title,nc_id,img_url, content, status) values('[鸡腿计划]2周年运行情况和当前市场分析',2,'https://image.talicai.com/MGZjODAyMzU3Zjc4MjA4Y2RkZDQ0MWYzYTU3ZGQ3Mzc-sq200','我是分析君...哈哈哈',1);
 INSERT INTO news_info(title,nc_id,img_url, content, status) values('新的一年,[鸡腿计划]新的变化',2,'https://image.talicai.com/MGZjODAyMzU3Zjc4MjA4Y2RkZDQ0MWYzYTU3ZGQ3Mzc-sq200','我是鸡腿计划....哈哈哈',1);
 INSERT INTO news_info(title,nc_id,img_url, content, status) values('[鸡腿计划]2周年运行情况和当前市场分析',2,'https://image.talicai.com/MGZjODAyMzU3Zjc4MjA4Y2RkZDQ0MWYzYTU3ZGQ3Mzc-sq200','我是鸡腿计划....哈哈哈',1);
-INSERT INTO news_info(title,nc_id,img_url, content, status) values('[鸡腿计划]2周年发车',4,'','我是鸡腿计划,开车是我的一大爱好....哈哈哈',1);
+INSERT INTO news_info(title,nc_id,img_url, content, status) values('[鸡腿计划]2周年发车',4,'','满足周五送卡条件,免费送您一张服务卡,有效期截止:2020-05-11。下周五满足条件将继续送卡,建议您低位跟投,规律跟投。满足周五送卡条件,免费送您一张服务卡,有效期截止:2020-05-11。下周五满足条件将继续送卡,建议您低位跟投,规律跟投。',1);
 INSERT INTO news_info(title,nc_id,img_url, content, status) values('[止盈赎回提醒]2010止盈赎回提醒',4,'','我是鸡腿计划,开车是我的一大爱好....哈哈哈',1);
 INSERT INTO news_info(title,nc_id,img_url, content, status) values('[豆妹专栏]今天大目标大涨',4,'','2009~2011涨1%,其他暂涨2%吧,具体问建国同志',1);
 INSERT INTO news_info(title,nc_id,img_url, content, status) values('[鸡腿计划]2周年发车',4,'','我是鸡腿计划,开车是我的一大爱好....哈哈哈',1);
@@ -364,10 +364,27 @@ target_bouns_amt float not null comment '总资产',
 inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO user_detail(username,nickname,phonenumber,password,is_fingerprint,is_posture,is_fund_account,target_bouns_amt) values('Lady Gaga','GAGA','18808988989','YadnSEWOdwO09uwFepOe====',true,false,false,385.95);
 
-/*--24.fund account (risk_level:1-稳健,2-保守...;tax_id:1-仅为中国税收居民,2-仅为非中国税收居民,3-既是中国税收居民也是其他国家(地区)税收居民);occupation:1-科研人员*/
+/*--24.fund trade account (risk_level:1-稳健,2-保守...;tax_id:1-仅为中国税收居民,2-仅为非中国税收居民,3-既是中国税收居民也是其他国家(地区)税收居民);occupation:1-科研人员*/
 CREATE TABLE user_fund_account(ufa_id int(11) primary key AUTO_INCREMENT,real_name varchar(30),risk_level int,tax_id int,trade_password varchar(50),idcard_num varchar(20),
 idcard_expdate datetime,address varchar(100),occupation int,inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO user_fund_account(real_name,risk_level,tax_id,trade_password,idcard_num,idcard_expdate,address,occupation) values('张翠花',1,1,'YadnSEWOdwO09uwFepOe====','110221199202235460','2033-12-02','上海市南京东西路xxx号',1);
+
+/*--25.user investion account*/
+CREATE TABLE user_invest_account(
+uia_id int primary key AUTO_INCREMENT,
+uid int not null comment '用户id',
+type varchar(20) not null comment '类型',
+iv_id int not null comment '投资的id',
+init_amt float not null comment '初始投资金额',
+daily_profit float not null comment '每日涨/跌幅,根据每个基金每日涨跌计算得到',
+inserttime timestamp default CURRENT_TIMESTAMP,
+updatetime timestamp default CURRENT_TIMESTAMP,
+)
+INSERT INTO user_invest_account(uid,type,iv_id,init_amt,daily_profit) values(1,'fpl_id',2,3500,-23.3)/*Bestchoice-全明星计划1*/
+INSERT INTO user_invest_account(uid,type,iv_id,init_amt,daily_profit) values(1,'tid',1,3200,33.3)/*大目标-2006*/
+INSERT INTO user_invest_account(uid,type,iv_id,init_amt,daily_profit) values(1,'fid',1,5000,33.3)/*基金-景顺长城沪深300增强*/
+-- INSERT INTO user_invest_account(uid,type,iv_id,init_amt,daily_profit) values(1,'did',1,5000,33.3)/*鸡腿计划-???*/
+
 
 /*--25.service card (source:0-分享积得,1-购买,2-赠送,3-免费领取,4-友情援助;status:1-未使用,0-已使用;type:0-大目标服务卡,1-鸡腿券,2-高尔基)*/
 CREATE TABLE user_card(uc_id int(11) primary key AUTO_INCREMENT,
@@ -481,16 +498,16 @@ run_status int not null comment '运行状态',
 run_days int not null comment '运行天数',
 pre_run varchar(20) not null comment '预计运行时间',
 fee_ratio float not null comment '买入费率' default 0,
-initial_amt float not null comment '最少购买金额',
+init_amt float not null comment '最少购买金额',
 inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime,initial_amt) values('2006',1,0.08,0,0, '6-12',0.00,'2020-04-07 10:10:00','2020-04-13 10:10:00',2000);-- 2006,2006聚能环01
-INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime,initial_amt) values('2005',2,0.08,1,0, '6-12',0.00,'2020-04-01 10:10:00','2020-04-06 10:10:00',2100);-- 2005,2006聚能环02
-INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime,initial_amt) values('2004',3,0.05,2,10,'5-12',0.00,'2020-03-24 10:10:00','2020-03-31 10:10:00',2200);-- 2004,钻石王老五01
-INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime,initial_amt) values('2003',1,0.08,3,17,'5-12',0.00,'2020-03-16 10:10:00','2020-03-23 10:10:00',2300);
-INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime,initial_amt) values('2002',2,0.07,4,40,'5-12',0.00,'2020-03-16 10:10:00','2020-03-23 10:10:00',2400);
-INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime,initial_amt) values('2001',1,0.06,4,25,'5-12',0.00,'2020-03-16 10:10:00','2020-03-23 10:10:00',2500);
-INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime,initial_amt) values('2000',2,0.05,4,34,'5-12',0.00,'2020-03-16 10:10:00','2020-03-23 10:10:00',2600);
-INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime,initial_amt) values('1999',3,0.08,5,50,'5-12',0.00,'2020-03-16 10:10:00','2020-03-23 10:10:00',2700);
+INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime,init_amt) values('2006',1,0.08,0,0, '6-12',0.00,'2020-04-07 10:10:00','2020-04-13 10:10:00',2000);-- 2006,2006聚能环01
+INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime,init_amt) values('2005',2,0.08,1,0, '6-12',0.00,'2020-04-01 10:10:00','2020-04-06 10:10:00',2100);-- 2005,2006聚能环02
+INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime,init_amt) values('2004',3,0.05,2,10,'5-12',0.00,'2020-03-24 10:10:00','2020-03-31 10:10:00',2200);-- 2004,钻石王老五01
+INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime,init_amt) values('2003',1,0.08,3,17,'5-12',0.00,'2020-03-16 10:10:00','2020-03-23 10:10:00',2300);
+INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime,init_amt) values('2002',2,0.07,4,40,'5-12',0.00,'2020-03-16 10:10:00','2020-03-23 10:10:00',2400);
+INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime,init_amt) values('2001',1,0.06,4,25,'5-12',0.00,'2020-03-16 10:10:00','2020-03-23 10:10:00',2500);
+INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime,init_amt) values('2000',2,0.05,4,34,'5-12',0.00,'2020-03-16 10:10:00','2020-03-23 10:10:00',2600);
+INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime,init_amt) values('1999',3,0.08,5,50,'5-12',0.00,'2020-03-16 10:10:00','2020-03-23 10:10:00',2700);
 
 
 /*--33.history of daily target news,status:0-show,1-not show*/
