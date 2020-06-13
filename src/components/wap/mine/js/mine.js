@@ -50,8 +50,11 @@ export default {
           this.myInfo=r.user_detail_by_uid[0]
         }
         if(r.user_invest_account_by_uid!=undefined && r.user_invest_account_by_uid.length>0){
-          this.myInfo["init_amt"]=eval(r.user_invest_account_by_uid.map(x=>x.init_amt).join("+"))
-          this.myInfo["daily_profit"]=eval(r.user_invest_account_by_uid.map(x=>x.daily_profit).join("+"))
+          let init_amt = eval(r.user_invest_account_by_uid.map(x=>x.init_amt).join("+"))
+          let day_profit = eval(r.user_invest_account_by_uid.map(x=>x.daily_profit).join("+"))
+          let hold_profit = eval(r.user_invest_account_by_uid.map(x=>x.hold_profit).join("+"))
+          this.myInfo["init_amt"]= (init_amt + hold_profit).toFixed(2)
+          this.myInfo["daily_profit"]=day_profit.toFixed(2)
         }
       })
       // console.log(this.menus)

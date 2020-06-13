@@ -2,7 +2,7 @@
   <div class="mypo">
     <div>
     <div class="topRmk">总资产(元)</div>
-    <div class="top">2,100,200.01</div>
+    <div class="top">{{myInfo.init_amt+myInfo.daily_profit}}</div>
     </div>
 
     <div style="padding:0 10px 0 20px;">
@@ -11,15 +11,15 @@
             <div >04月30日 
                 <span class="aimRmkMoney"><img src="../../../assets/images/update_done.png" width="48" height="18"/></span>
             </div>
-            <div>10200.36</div>
+            <div>{{myInfo.daily_profit}}</div>
         </flexbox-item>
         <flexbox-item class="topInfo">
             <div>持仓盈亏</div>
-            <div>-150200.36</div>
+            <div>{{myInfo.hold_profit}}</div>
         </flexbox-item>
         <flexbox-item class="topInfo">
             <div>累计盈亏</div>
-            <div>-30200.39</div>
+            <div>{{myInfo.hold_profit+myInfo.daily_profit}}</div>
         </flexbox-item>
     </flexbox>
     </div>

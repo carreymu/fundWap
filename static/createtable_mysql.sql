@@ -376,18 +376,22 @@ uid int not null comment '用户id',
 type varchar(20) not null comment '类型',
 iv_id int not null comment '投资的id',
 init_amt float not null comment '初始投资金额',
+hold_profit float not null comment '持仓盈亏',
+is_hold tinyint(1) not null comment '是否持有0-否,1-是,2-赎回中',
 is_sched tinyint(1) not null comment '是否定投,0-非,1-是',
 daily_profit float not null comment '每日涨/跌幅,根据每个基金每日涨跌计算得到',
 inserttime timestamp default CURRENT_TIMESTAMP,
 updatetime timestamp default CURRENT_TIMESTAMP
 );
-INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit) values(1,'fpl_id',2,3500,0,-23.3);/*Bestchoice-全明星计划1*/
-INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit) values(1,'fpl_id',2,500,1,-13.3);/*Bestchoice-全明星计划1-定投*/
-INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit) values(1,'tid',1,3200,0,33.3);/*大目标-2006*/
-INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit) values(1,'fid',1,5000,0,33.3);/*基金-景顺长城沪深300增强*/
-INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit) values(1,'fid',1,5000,1,33.3);/*基金-景顺长城沪深300增强-定投*/
-INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit) values(1,'fid',1,5000,1,3.3);/*基金-景顺长城沪深300增强-定投*/
-INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit) values(1,'did',1,5000,1,33.3);/*鸡腿计划-???-定投*/
+INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit,hold_profit,is_hold) values(1,'fpl_id',2,3500,0,-23.3,201,1);/*Bestchoice-全明星计划1*/
+INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit,hold_profit,is_hold) values(1,'fpl_id',2,500,1,-13.3,201.1,1);/*Bestchoice-全明星计划1-定投*/
+INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit,hold_profit,is_hold) values(1,'tid',1,3200,0,33.3,231,1);/*大目标-2006*/
+INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit,hold_profit,is_hold) values(1,'tid',2,3100,0,33.3,231,2);/*大目标-2005*/
+INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit,hold_profit,is_hold) values(1,'fid',1,5000,0,33.3,421,1);/*基金-景顺长城沪深300增强*/
+INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit,hold_profit,is_hold) values(1,'fid',1,5500,0,33.3,261,2);/*基金-景顺长城沪深300增强*/
+INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit,hold_profit,is_hold) values(1,'fid',1,5000,1,33.3,221,1);/*基金-景顺长城沪深300增强-定投*/
+INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit,hold_profit,is_hold) values(1,'did',1,5000,1,33.3,201,0);/*鸡腿计划-???-定投*/
+
 
 /*--26.user investion account*/
 CREATE TABLE user_invest_account_log(

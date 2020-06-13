@@ -8,8 +8,8 @@
       <flexbox-item :span="0.45">
         <router-link :to="'/fundWap/myPositions'">
         <flexbox orient="vertical">
-          <flexbox-item class="aimRmk">总资产: <span class="aimRmkMoney">2,100,200.00</span></flexbox-item>
-          <flexbox-item class="aimRmk">最新收益: <span class="aimRmkMoney">+8,000.01</span></flexbox-item>
+          <flexbox-item class="aimRmk">总资产: <span class="aimRmkMoney">{{myInfo.init_amt}}</span></flexbox-item>
+          <flexbox-item class="aimRmk">最新收益: <span class="aimRmkMoney">{{myInfo.daily_profit}}</span></flexbox-item>
         </flexbox>
         </router-link>
       </flexbox-item>
