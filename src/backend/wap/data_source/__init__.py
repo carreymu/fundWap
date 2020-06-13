@@ -23,6 +23,7 @@ from wap.data_source.sub_config import (
     fund_plan_details,
     user_news_info,
     user_detail,
+    user_invest_account,
 )
 # only original information from DB
 data_source_config = dict(
@@ -49,4 +50,5 @@ data_source_config = dict(
     fund_plan_details=fund_plan_details.config,
     user_news_info=user_news_info.config,
     user_detail=user_detail.config,
+    user_invest_account=user_invest_account.config,
 )
