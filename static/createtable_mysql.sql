@@ -385,7 +385,7 @@ updatetime timestamp default CURRENT_TIMESTAMP
 );
 INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit,hold_profit,is_hold) values(1,'fpl_id',2,3500,0,-23.3,201,1);/*Bestchoice-全明星计划1*/
 INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit,hold_profit,is_hold) values(1,'fpl_id',2,500,1,-13.3,201.1,1);/*Bestchoice-全明星计划1-定投*/
-INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit,hold_profit,is_hold) values(1,'tid',1,3200,0,33.3,231,1);/*大目标-2006*/
+INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit,hold_profit,is_hold) values(1,'tid',1,3200,0,33.3,-231,1);/*大目标-2006*/
 INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit,hold_profit,is_hold) values(1,'tid',2,3100,0,33.3,231,2);/*大目标-2005*/
 INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit,hold_profit,is_hold) values(1,'fid',1,5000,0,33.3,421,1);/*基金-景顺长城沪深300增强*/
 INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit,hold_profit,is_hold) values(1,'fid',1,5500,0,33.3,261,2);/*基金-景顺长城沪深300增强*/

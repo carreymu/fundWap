@@ -2,7 +2,7 @@
   <div class="mypo">
     <div>
     <div class="topRmk">总资产(元)</div>
-    <div class="top">{{myInfo.init_amt+myInfo.daily_profit}}</div>
+    <div class="top">{{myInfo.all_amt}}</div>
     </div>
 
     <div style="padding:0 10px 0 20px;">
@@ -19,7 +19,7 @@
         </flexbox-item>
         <flexbox-item class="topInfo">
             <div>累计盈亏</div>
-            <div>{{myInfo.hold_profit+myInfo.daily_profit}}</div>
+            <div>{{myInfo.all_profit}}</div>
         </flexbox-item>
     </flexbox>
     </div>
@@ -42,19 +42,23 @@
       <div style="padding:15px 0 5px 0;">
         <flexbox>
           <flexbox-item><div class ="waitInvokeTxtPre">|||| <span class="waitInvokeTxtTail">大目标</span></div></flexbox-item>
-          <flexbox-item><div style="text-align:right;"><router-link :to="'/fundWap/myTargets'">持有3期&nbsp;> </router-link></div></flexbox-item>
+          <flexbox-item><div style="text-align:right;"><router-link :to="'/fundWap/myTargets'">持有{{myTargets.length}}期&nbsp;> </router-link></div></flexbox-item>
         </flexbox>
       </div>
-      <div class="rectAgl">
-        <div class="invIntro">
-          <div style="padding-top:12px;">
-            <div>04月30日+2.88%</div>
-            <div style="color:#d95353;">+9500.02</div>
-          </div>
-          <div class="linkRight"></div>
-          <div style="padding-top:12px;">
-            <div>持仓盈亏 -2.88%</div>
-            <div style="color:green;">-10035.54</div>
+      <div v-for="(it,idx) in myTargets" :key="idx" style="padding:5px;">
+        <div class="rectAgl">
+          <div class="invIntro">
+            <div style="padding-top:12px;">
+              <div>{{it.inserttime}}+2.88%</div>
+              <div v-if="it.daily_profit>0" style="color:#d95353;">+{{it.daily_profit}}</div>
+              <div v-if="it.daily_profit<0" style="color:green;">-{{it.daily_profit}}</div>
+            </div>
+            <div class="linkRight"></div>
+            <div style="padding-top:12px;">
+              <div>持仓盈亏 -2.88%</div>
+              <div v-if="it.hold_profit>0" style="color:#d95353;">+{{it.hold_profit}}</div>
+              <div v-if="it.hold_profit<0" style="color:green;">-{{it.hold_profit}}</div>
+            </div>
           </div>
         </div>
       </div>
