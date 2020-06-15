@@ -7,13 +7,13 @@
         <div class="invIntro">
           <div class="ptop">
             <div class="inhdTxt">{{myInfo.inserttime}}收益</div>
-            <div class="inbotTxt" v-if="myInfo.day_profit>0">+{{myInfo.day_profit}}</div>
+            <div class="inbotTxt" v-if="myInfo.day_profit>=0">+{{myInfo.day_profit}}</div>
             <div class="inbotTxt" v-else>-{{myInfo.day_profit}}</div>
           </div>
           <div class="linkRight"></div>
           <div class="ptop">
             <div class="inhdTxt">持仓盈亏</div>
-            <div class="inbotTxt" v-if="myInfo.all_profit>0">{{myInfo.all_profit}}</div>
+            <div class="inbotTxt" v-if="myInfo.all_profit>0">+{{myInfo.all_profit}}</div>
             <div class="inbotTxt" v-else>-{{myInfo.all_profit}}</div>
           </div>
         </div>

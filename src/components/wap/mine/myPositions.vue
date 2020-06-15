@@ -8,7 +8,7 @@
     <div style="padding:0 10px 0 20px;">
         <flexbox>
         <flexbox-item :span="0.38">
-            <div >04月30日 
+            <div >{{myInfo.now}}
                 <span class="aimRmkMoney"><img src="../../../assets/images/update_done.png" width="48" height="18"/></span>
             </div>
             <div>{{myInfo.daily_profit}}</div>
@@ -38,70 +38,30 @@
     </div>
     <div class="line"/>
     
-    <div>
+    <div v-for="(it,idx) in myInvest" :key="idx" style="padding:5px;">
       <div style="padding:15px 0 5px 0;">
         <flexbox>
-          <flexbox-item><div class ="waitInvokeTxtPre">|||| <span class="waitInvokeTxtTail">大目标</span></div></flexbox-item>
-          <flexbox-item><div style="text-align:right;"><router-link :to="'/fundWap/myTargets'">持有{{myTargets.length}}期&nbsp;> </router-link></div></flexbox-item>
+          <flexbox-item><div class ="waitInvokeTxtPre">|||| <span class="waitInvokeTxtTail">{{it.name}}</span></div></flexbox-item>
+          <flexbox-item><div style="text-align:right;" v-if="it.hold_cnt>0"><router-link :to="'/fundWap/myTargets'">持有{{it.hold_cnt}}期&nbsp;> </router-link></div></flexbox-item>
         </flexbox>
       </div>
-      <div v-for="(it,idx) in myTargets" :key="idx" style="padding:5px;">
-        <div class="rectAgl">
-          <div class="invIntro">
-            <div style="padding-top:12px;">
-              <div>{{it.inserttime}}  {{daily_profit_ratio}}%</div>
-              <div v-if="it.daily_profit>0" style="color:#d95353;">+{{it.daily_profit}}</div>
-              <div v-if="it.daily_profit<0" style="color:green;">-{{it.daily_profit}}</div>
-            </div>
-            <div class="linkRight"></div>
-            <div style="padding-top:12px;">
-              <div>持仓盈亏 {{it.hold_profit_ratio}}%</div>
-              <div v-if="it.hold_profit>0" style="color:#d95353;">+{{it.hold_profit}}</div>
-              <div v-if="it.hold_profit<0" style="color:green;">-{{it.hold_profit}}</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div>
-      <div style="padding:15px 0 5px 0;">
-        <div class ="waitInvokeTxtPre">|||| <span class="waitInvokeTxtTail">鸡腿计划</span></div>
-      </div>
+      
       <div class="rectAgl">
         <div class="invIntro">
           <div style="padding-top:12px;">
-            <div>04月30日+2.88%</div>
-            <div style="color:#d95353;">+9500.02</div>
+            <div>{{it.dt}}  {{it.daily_ratio}}%</div>
+            <div v-if="it.daily_profit>=0" style="color:#d95353;">+{{it.daily_profit}}</div>
+            <div v-else style="color:green;">{{it.daily_profit}}</div>
           </div>
           <div class="linkRight"></div>
           <div style="padding-top:12px;">
-            <div>持仓盈亏 -2.88%</div>
-            <div style="color:green;">-10035.54</div>
+            <div>持仓盈亏 {{it.hold_ratio}}%</div>
+            <div v-if="it.hold_profit>=0" style="color:#d95353;">+{{it.hold_profit}}</div>
+            <div v-else style="color:green;">{{it.hold_profit}}</div>
           </div>
         </div>
       </div>
     </div>
-
-    <div>
-      <div style="padding:15px 0 5px 0;">
-        <div class ="waitInvokeTxtPre">|||| <span class="waitInvokeTxtTail">活期理财</span></div>
-      </div>
-      <div class="rectAgl">
-        <div class="invIntro">
-          <div style="padding-top:12px;">
-            <div>04月30日+2.88%</div>
-            <div style="color:#d95353;">+9500.02</div>
-          </div>
-          <div class="linkRight"></div>
-          <div style="padding-top:12px;">
-            <div>持仓盈亏 -2.88%</div>
-            <div style="color:green;">-10035.54</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <div class="line"/>
     <div style="padding-top:12px;">
       <div style="float: left;">已清仓</div>
