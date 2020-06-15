@@ -49,13 +49,13 @@
         <div class="rectAgl">
           <div class="invIntro">
             <div style="padding-top:12px;">
-              <div>{{it.inserttime}}+2.88%</div>
+              <div>{{it.inserttime}}  {{daily_profit_ratio}}%</div>
               <div v-if="it.daily_profit>0" style="color:#d95353;">+{{it.daily_profit}}</div>
               <div v-if="it.daily_profit<0" style="color:green;">-{{it.daily_profit}}</div>
             </div>
             <div class="linkRight"></div>
             <div style="padding-top:12px;">
-              <div>持仓盈亏 -2.88%</div>
+              <div>持仓盈亏 {{it.hold_profit_ratio}}%</div>
               <div v-if="it.hold_profit>0" style="color:#d95353;">+{{it.hold_profit}}</div>
               <div v-if="it.hold_profit<0" style="color:green;">-{{it.hold_profit}}</div>
             </div>

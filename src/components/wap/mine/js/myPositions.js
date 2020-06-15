@@ -30,10 +30,12 @@ export default {
           let init_amt = eval(lst.map(x=>x.init_amt).join("+"))
           let day_profit = eval(lst.map(x=>x.daily_profit).join("+"))
           let hold_profit = eval(lst.map(x=>x.hold_profit).join("+"))
-          this.myInfo["all_amt"] = init_amt+day_profit.toFixed(2)
-          this.myInfo["all_profit"] = hold_profit.toFixed(2)+day_profit.toFixed(2)
+          this.myInfo["all_amt"] = (init_amt+day_profit).toFixed(2)
+          this.myInfo["all_profit"] = (hold_profit+day_profit).toFixed(2)
           for(var x of lst){
             x.inserttime = this.$utdate.dateFmt(x.inserttime,"MM月dd日")
+            x.hold_profit_ratio = (x.hold_profit_ratio*100).toFixed(2)
+            x.daily_profit_ratio = (x.daily_profit_ratio*100).toFixed(2)
           }
 
           //target
