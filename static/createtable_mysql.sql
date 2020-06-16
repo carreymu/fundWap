@@ -369,7 +369,11 @@ CREATE TABLE user_fund_account(ufa_id int(11) primary key AUTO_INCREMENT,real_na
 idcard_expdate datetime,address varchar(100),occupation int,inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO user_fund_account(real_name,risk_level,tax_id,trade_password,idcard_num,idcard_expdate,address,occupation) values('张翠花',1,1,'YadnSEWOdwO09uwFepOe====','110221199202235460','2033-12-02','上海市南京东西路xxx号',1);
 
-/*--25.user investion account*/
+/*--25.user investion account
+持仓盈亏=历史持仓盈亏+当日开仓持仓盈亏
+持仓盈亏率=持仓盈亏/(初始投资金额+持仓盈亏)
+每日涨跌幅=每日涨跌/(初始投资金额+持仓盈亏)
+*/
 CREATE TABLE user_invest_account(
 uia_id int primary key AUTO_INCREMENT,
 uid int not null comment '用户id',

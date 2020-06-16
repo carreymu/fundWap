@@ -11,15 +11,18 @@
             <div >{{myInfo.now}}
                 <span class="aimRmkMoney"><img src="../../../assets/images/update_done.png" width="48" height="18"/></span>
             </div>
-            <div>{{myInfo.daily_profit}}</div>
+            <div v-if="myInfo.daily_profit>=0" style="color:#d95353;">+{{myInfo.daily_profit}}</div>
+            <div v-else style="color:green;">{{myInfo.daily_profit}}</div>
         </flexbox-item>
         <flexbox-item class="topInfo">
             <div>持仓盈亏</div>
-            <div>{{myInfo.hold_profit}}</div>
+            <div v-if="myInfo.hold_profit>=0" style="color:#d95353;">+{{myInfo.hold_profit}}</div>
+            <div v-else style="color:green;">{{myInfo.hold_profit}}</div>
         </flexbox-item>
         <flexbox-item class="topInfo">
             <div>累计盈亏</div>
-            <div>{{myInfo.all_profit}}</div>
+            <div v-if="myInfo.all_profit>=0" style="color:#d95353;">+{{myInfo.all_profit}}</div>
+            <div v-else style="color:green;">{{myInfo.all_profit}}</div>
         </flexbox-item>
     </flexbox>
     </div>
