@@ -387,14 +387,45 @@ daily_profit float not null comment '每日涨/跌幅,根据每个基金每日�
 inserttime timestamp default CURRENT_TIMESTAMP,
 updatetime timestamp default CURRENT_TIMESTAMP
 );
-INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit,hold_profit,is_hold) values(1,'fpl_id',2,3500,0,-23.3,201,1);/*Bestchoice-全明星计划1*/
-INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit,hold_profit,is_hold) values(1,'fpl_id',2,500,1,-13.3,201.1,1);/*Bestchoice-全明星计划1-定投*/
+INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit,hold_profit,is_hold) values(2,'fpl_id',2,3500,0,-23.3,201,1);/*Bestchoice-全明星计划1*/
+INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit,hold_profit,is_hold) values(2,'fpl_id',2,500,1,-13.3,201.1,1);/*Bestchoice-全明星计划1-定投*/
 INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit,hold_profit,is_hold) values(1,'tid',1,3200,0,33.3,-231,1);/*大目标-2006*/
-INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit,hold_profit,is_hold) values(1,'tid',2,3100,0,33.3,231,2);/*大目标-2005*/
+INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit,hold_profit,is_hold) values(2,'tid',2,3100,0,33.3,231,2);/*大目标-2005*/
 INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit,hold_profit,is_hold) values(1,'fid',1,5000,0,33.3,421,1);/*基金-景顺长城沪深300增强*/
 INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit,hold_profit,is_hold) values(1,'fid',1,5500,0,33.3,261,2);/*基金-景顺长城沪深300增强*/
 INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit,hold_profit,is_hold) values(1,'fid',1,5000,1,33.3,221,1);/*基金-景顺长城沪深300增强-定投*/
 INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit,hold_profit,is_hold) values(1,'did',1,5000,1,33.3,201,0);/*鸡腿计划-???-定投*/
+
+/*--26.user investion account detail*/
+CREATE TABLE user_invest_account_detail(
+uiad_id int primary key AUTO_INCREMENT,
+uia_id int not null comment 'user_invest_account.uia_id',
+uid int not null comment '用户id',
+fid varchar(20) not null comment '基金id',
+hold_share float not null comment '持有份额,通过fund_plan_details.hold_num算出',
+is_hold tinyint(1) not null comment '是否持有0-否,1-是,2-全部赎回中,3-部分赎回',
+is_sched tinyint(1) not null comment '是否定投,0-非,1-是',
+daily_profit float not null comment '每日涨/跌幅,根据每个基金每日涨跌计算得到',
+redeem_share float comment '赎回份额',
+redeem_amt float comment '赎回金额',
+redeem_date datetime comment '赎回时间',
+pay_date datetime comment '支付时间',
+inserttime timestamp default CURRENT_TIMESTAMP,
+updatetime timestamp default CURRENT_TIMESTAMP
+);
+INSERT INTO user_invest_account_detail(uia_id,uid,fid,hold_share,is_hold,is_sched,daily_profit,redeem_share,redeem_amt,redeem_date,pay_date) 
+values(2,1,1,2000,1,0,-21.3,0,0,null,null) /*Bestchoice-全明星计划1,朕,景顺长城沪深300增强,2000份,持有,非定投,今日跌21.3元,赎回0份,赎回0元,null,null*/
+INSERT INTO user_invest_account_detail(uia_id,uid,fid,hold_share,is_hold,is_sched,daily_profit,redeem_share,redeem_amt,redeem_date,pay_date) 
+values(2,1,2,2000,1,0,-21.3,0,0,null,null) /*Bestchoice-全明星计划1,朕,富国新动力A,2000份,持有,非定投,今日跌21.3元,赎回0份,赎回0元,null,null*/
+INSERT INTO user_invest_account_detail(uia_id,uid,fid,hold_share,is_hold,is_sched,daily_profit,redeem_share,redeem_amt,redeem_date,pay_date) 
+values(2,1,3,2000,1,0,-21.3,0,0,null,null) /*Bestchoice-全明星计划1,朕,富国新动力B,2000份,持有,非定投,今日跌21.3元,赎回0份,赎回0元,null,null*/
+INSERT INTO user_invest_account_detail(uia_id,uid,fid,hold_share,is_hold,is_sched,daily_profit,redeem_share,redeem_amt,redeem_date,pay_date) 
+values(2,2,301,1,1,-21.3,0,0,null,null) /*Bestchoice-全明星计划1,朕,景顺长城沪深300增强,301份,持有,定投,今日跌21.3元,赎回0份,赎回0元,null,null*/
+INSERT INTO user_invest_account_detail(uia_id,uid,fid,hold_share,is_hold,is_sched,daily_profit,redeem_share,redeem_amt,redeem_date,pay_date) 
+values(2,2,3,200,1,1,-21.3,0,0,null,null) /*Bestchoice-全明星计划1,朕,景顺长城沪深300增强,200份,持有,定投,今日跌21.3元,赎回0份,赎回0元,null,null*/
+
+
+
 
 
 /*--26.user investion account*/
@@ -546,11 +577,15 @@ CREATE TABLE target_history(th_id int(11) primary key AUTO_INCREMENT,tid int,tit
 INSERT INTO target_history(tid,title,content,status) values(1,'2月23日[大目标]投资播报','萌新们吓被股市吓坏了吧.',1);
 
 /*--34.fund trade summery status:0-提前赎回,1-到期赎回*/
-CREATE TABLE target_trade_summery(tts_id int(11) primary key AUTO_INCREMENT,uid int,tid int,bc_id int,invest_amt float,bonus_amt float,status int,inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE target_trade_summery(tts_id int(11) primary key AUTO_INCREMENT,uid int,
+tid int,bc_id int,invest_amt float,bonus_amt float,status int,inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO target_trade_summery(uid,tid,bc_id,invest_amt,bonus_amt,status) values(1,1,1,3000,242.08,1);/*--Lady Gaga-2006期大目标-使用银行卡0005回款账号-投资3000-收益242.08-到期赎回*/
 
 /*--35.fund trade body status:0-赎回中,1-已到账*/
-CREATE TABLE target_trade_process(ttp_id int(11) primary key AUTO_INCREMENT,uid int,fid int,tt_id int,tid int,status int,confirm_fund_amt float,confirm_date datetime,pay_date datetime,inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE target_trade_process(ttp_id int(11) primary key AUTO_INCREMENT,
+uid int,fid int,tt_id int,tid int,status int,
+confirm_fund_amt float,confirm_date datetime,
+pay_date datetime,inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO target_trade_process(uid,fid,tt_id,tid,status,confirm_fund_amt,confirm_date,pay_date) values(1,2,1,1,2,340.85,'2020-02-21','2020-02-25');/*--Lady Gaga-景顺长城沪深300增强-天弘弘运宝A-1-[大目标]1902-转换-转入237.36-转出*/
 
 /*--36.fund trade history details  status:0-申购,1-分红,2-赎回; trade_status:1-已确认*/

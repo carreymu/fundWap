@@ -32,8 +32,10 @@ export default {
           //let day_profit = eval(lst.map(x=>x.daily_profit).join("+"))
           let hold_profit = eval(lst.map(x=>x.hold_profit).join("+"))
           this.myInfo["all_amt"] = (init_amt+hold_profit).toFixed(2)
-          this.myInfo["all_profit"] = hold_profit.toFixed(2)//??????????????
-          this.myInfo["now"] = this.$utdate.dateFmt(new Date(),"MM月dd日") 
+          // todo 赎回+持有 如何判断赎回或部分赎回基金？
+          this.myInfo["all_profit"] = hold_profit.toFixed(2)//contains all of historical funds profit
+          this.myInfo["now"] = this.$utdate.dateFmt(new Date(),"MM月dd日")
+          // todo 持有
           this.myInfo["hold_profit"] = hold_profit.toFixed(2)
 
           //hold_profit = hold_profit_yesterday+daily_profit
