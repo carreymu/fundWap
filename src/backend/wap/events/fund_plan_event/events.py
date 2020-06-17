@@ -39,8 +39,8 @@ class FundPlans(DataSource):
                                 cat_hold_num = 0
                                 # add hold num
                                 for x in fnd_list:
-                                    x['hold_num'] = [y for y in plan_details_list if x['fid'] == y['fid']][0]['hold_num']
-                                    cat_hold_num += x['hold_num']
+                                    x['hold_percentage'] = [y for y in plan_details_list if x['fid'] == y['fid']][0]['hold_percentage']
+                                    cat_hold_num += x['hold_percentage']
                                 holds.append({"name": r['name'], "percent": cat_hold_num})
                                 colors.append(r['ico_color'])
                                 r['fundsList'] = fnd_list

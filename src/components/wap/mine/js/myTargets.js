@@ -18,7 +18,7 @@ export default {
     myTargets(){
       let dt = {
         "req": {"uid":1},
-        "event_names": ["user_invest_account_by_uid"]
+        "event_names": ["user_invest_account_by_uid","user_detail_by_uid"]
       }
       this.$api.fetchPost('/sanic-api', dt).then(r=>{
         if(r.user_invest_account_by_uid!=undefined && r.user_invest_account_by_uid.length>0){
@@ -39,6 +39,10 @@ export default {
           this.myTarget = lst.filter(x=>x.type=="tid")
           this.myChoice = lst.filter(x=>x.type=="fpl_id" && x.is_sched==0)
           this.myDrumstick = lst.filter(x=>x.type=="fpl_id")
+        }
+
+        if(r.user_detail_by_uid!=undefined && r.user_detail_by_uid.length>0){
+          this.myInfo["reg_days"] =this.$utdate.getDaysLong(r.user_detail_by_uid,(new Date()).getTime())
         }
       })
     },

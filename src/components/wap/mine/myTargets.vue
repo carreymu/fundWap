@@ -24,7 +24,7 @@
             <div class="invIntro">
             <div style="padding-top:12px;">
                 <div style="font-size:10px;">加入大目标(天)</div>
-                <div style="text-align:center;">185</div>
+                <div style="text-align:center;">{{myInfo.reg_days}}</div>
             </div>
             <div class="linkRight"></div>
             <div style="padding-top:12px;">

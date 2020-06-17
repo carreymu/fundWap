@@ -319,14 +319,14 @@ INSERT INTO fund_plan(fpc_id,name,profit_ratio,profit_txt,loss_ratio,profit_type
 CREATE TABLE fund_plan_details(fpd_id int(11) primary key AUTO_INCREMENT,
 fpl_id int not null comment '基金计划id',
 fid int not null comment '基金id',
-hold_num float not null comment '持有百分比',
+hold_percentage float not null comment '持有百分比',
 inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO fund_plan_details(fpl_id,hold_num,fid) values(2,30.8,1); /*--全明星计划1-景顺长城沪深300增强,fid=12*/
-INSERT INTO fund_plan_details(fpl_id,hold_num,fid) values(2,14.2,4); /*--全明星计划1-富国新动力A,fid=4*/
-INSERT INTO fund_plan_details(fpl_id,hold_num,fid) values(2,15,5); /*--全明星计划1-富国新动力B,fid=5*/
-INSERT INTO fund_plan_details(fpl_id,hold_num,fid) values(2,30,6); /*--全明星计划1-富国新动力C,fid=6*/
-INSERT INTO fund_plan_details(fpl_id,hold_num,fid) values(2,10,7); /*--全明星计划1-天弘鸿运宝,fid=7*/
-INSERT INTO fund_plan_details(fpl_id,hold_num,fid) values(3,100,3); /*--全明星计划2-景顺长城沪深200增强,fid=3*/
+INSERT INTO fund_plan_details(fpl_id,hold_percentage,fid) values(2,30.8,1); /*--全明星计划1-景顺长城沪深300增强,fid=12*/
+INSERT INTO fund_plan_details(fpl_id,hold_percentage,fid) values(2,14.2,4); /*--全明星计划1-富国新动力A,fid=4*/
+INSERT INTO fund_plan_details(fpl_id,hold_percentage,fid) values(2,15,5); /*--全明星计划1-富国新动力B,fid=5*/
+INSERT INTO fund_plan_details(fpl_id,hold_percentage,fid) values(2,30,6); /*--全明星计划1-富国新动力C,fid=6*/
+INSERT INTO fund_plan_details(fpl_id,hold_percentage,fid) values(2,10,7); /*--全明星计划1-天弘鸿运宝,fid=7*/
+INSERT INTO fund_plan_details(fpl_id,hold_percentage,fid) values(3,100,3); /*--全明星计划2-景顺长城沪深200增强,fid=3*/
 
 /*--21.plan category*/
 CREATE TABLE fund_plan_category(fpc_id int(11) primary key AUTO_INCREMENT,

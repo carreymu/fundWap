@@ -87,7 +87,7 @@
             <flexbox-item v-for="(it,idx) in item.fundsList" :key="idx">
               <router-link :to="'/fundWap/targetStockOrder/'+it.fid">
               <div style="float: left;">{{it.fund_name}}({{it.fund_code}})</div>
-              <div style="float: right;">{{it.hold_num}}%</div>
+              <div style="float: right;">{{it.hold_percentage}}%</div>
               </router-link>
             </flexbox-item>
           </flexbox>
