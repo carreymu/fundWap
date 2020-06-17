@@ -48,7 +48,7 @@ const router = new VueRouter({
 				component: targetDetail
 			},
 			{
-				path: '/fundWap/targetFundDetail/:tid',
+				path: '/fundWap/targetFundDetail/:ft_id',
 				name: 'targetFundDetail',
 				component: targetFundDetail
 			},

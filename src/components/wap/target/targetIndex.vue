@@ -34,7 +34,7 @@
           </div>
         </div>
         <div style="text-align:center; padding:12px 50px;">
-          <x-button type="warn" :link="'/fundWap/targetFundDetail/'+targetRun1.id">立即申购</x-button>
+          <x-button type="warn" :link="'/fundWap/targetFundDetail/'+targetRun1.ft_id">立即申购</x-button>
         </div>
         <div v-if="JSON.stringify(top1TargetRct20d)!='{}'">
           <div class="line"/>

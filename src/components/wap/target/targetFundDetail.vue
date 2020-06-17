@@ -74,7 +74,7 @@
     <div class="linefd"></div>
     <flexbox style="text-align:center;">
       <flexbox-item ><div style="font-weight:bold;">{{targetRun1.init_amt}}元起投 {{targetRun1.fee_ratio}}申购费</div><div style="font-size:10px;">需使用服务卡</div></flexbox-item>
-      <flexbox-item ><x-button type="warn" :link="{path:'/fundWap/targetOrder',query:{tid:targetRun1.id}}">申购</x-button></flexbox-item>
+      <flexbox-item ><x-button type="warn" :link="{path:'/fundWap/targetOrder',query:{tid:targetRun1.tid}}">申购</x-button></flexbox-item>
     </flexbox>
   </div>
 </div>

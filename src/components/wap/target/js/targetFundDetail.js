@@ -22,7 +22,7 @@ export default {
   },
   methods:{
     loadFundDetail(){
-      let tid=this.$route.params.tid;
+      let ft_id=this.$route.params.ft_id;
       if(tid == undefined){
         AlertModule.show({
           title: '亲~~',
@@ -33,7 +33,7 @@ export default {
         })
       }
       let dt = {
-        "req": {"ft_id":tid},
+        "req": {"ft_id":ft_id},
         "event_names": ["fund_templates_short_list"]
       }
       this.$api.fetchPost('/sanic-api', dt).then(r=>{
@@ -67,7 +67,7 @@ export default {
             this.targetRun1.name = tar_1.name
             this.targetRun1.target_ratio=(tar_1.target_ratio*100).toFixed(2)
             this.targetRun1.pre_run=tar_1.pre_run
-            this.targetRun1.id=tar_1.tid
+            this.targetRun1.tid=tar_1.tid
             this.targetRun1.money = tar_1.target_ratio*10000
             let fmt = 'yy年MM月dd日'
             this.targetRun1.appStart = this.$utdate.dateFmt(tar_1.apply_starttime,fmt)

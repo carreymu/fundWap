@@ -9,7 +9,7 @@ export default {
   data(){      
     return {
       notification:"",
-      targetRun1:{id:0,name:'2001',target_ratio:8.00,pre_run:'1-12'},
+      targetRun1:{ft_id:0,name:'2001',target_ratio:8.00,pre_run:'1-12'},
       news2List:[],
       top3FundList:[],
       bannerList:[],
@@ -56,7 +56,7 @@ export default {
           this.targetRun1.name = tar_1.name
           this.targetRun1.target_ratio=(tar_1.target_ratio*100).toFixed(2)
           this.targetRun1.pre_run=tar_1.pre_run
-          this.targetRun1.id=tar_1.tid
+          this.targetRun1.ft_id=tar_1.ft_id
         }
         //console.log(this.targetRun1)
         //console.log(this.urlList)
