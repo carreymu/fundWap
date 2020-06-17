@@ -414,17 +414,28 @@ inserttime timestamp default CURRENT_TIMESTAMP,
 updatetime timestamp default CURRENT_TIMESTAMP
 );
 INSERT INTO user_invest_account_detail(uia_id,uid,fid,hold_share,is_hold,is_sched,daily_profit,redeem_share,redeem_amt,redeem_date,pay_date) 
-values(2,1,1,2000,1,0,-21.3,0,0,null,null) /*Bestchoice-全明星计划1,朕,景顺长城沪深300增强,2000份,持有,非定投,今日跌21.3元,赎回0份,赎回0元,null,null*/
+values(1,1,1,2000,1,0,-21.3,0,0,null,null) /*Bestchoice-全明星计划1,朕,景顺长城沪深300增强,2000份,持有,非定投,今日跌21.3元,赎回0份,赎回0元,null,null*/
 INSERT INTO user_invest_account_detail(uia_id,uid,fid,hold_share,is_hold,is_sched,daily_profit,redeem_share,redeem_amt,redeem_date,pay_date) 
-values(2,1,2,2000,1,0,-21.3,0,0,null,null) /*Bestchoice-全明星计划1,朕,富国新动力A,2000份,持有,非定投,今日跌21.3元,赎回0份,赎回0元,null,null*/
+values(1,1,2,2000,1,0,-21.3,0,0,null,null) /*Bestchoice-全明星计划1,朕,富国新动力A,2000份,持有,非定投,今日跌21.3元,赎回0份,赎回0元,null,null*/
 INSERT INTO user_invest_account_detail(uia_id,uid,fid,hold_share,is_hold,is_sched,daily_profit,redeem_share,redeem_amt,redeem_date,pay_date) 
-values(2,1,3,2000,1,0,-21.3,0,0,null,null) /*Bestchoice-全明星计划1,朕,富国新动力B,2000份,持有,非定投,今日跌21.3元,赎回0份,赎回0元,null,null*/
+values(1,1,3,2000,1,0,-21.3,0,0,null,null) /*Bestchoice-全明星计划1,朕,富国新动力B,2000份,持有,非定投,今日跌21.3元,赎回0份,赎回0元,null,null*/
 INSERT INTO user_invest_account_detail(uia_id,uid,fid,hold_share,is_hold,is_sched,daily_profit,redeem_share,redeem_amt,redeem_date,pay_date) 
-values(2,2,301,1,1,-21.3,0,0,null,null) /*Bestchoice-全明星计划1,朕,景顺长城沪深300增强,301份,持有,定投,今日跌21.3元,赎回0份,赎回0元,null,null*/
+values(2,1,3,301,1,1,-21.3,0,0,null,null) /*Bestchoice-全明星计划1,朕,富国新动力B,301份,持有,定投,今日跌21.3元,赎回0份,赎回0元,null,null*/
 INSERT INTO user_invest_account_detail(uia_id,uid,fid,hold_share,is_hold,is_sched,daily_profit,redeem_share,redeem_amt,redeem_date,pay_date) 
-values(2,2,3,200,1,1,-21.3,0,0,null,null) /*Bestchoice-全明星计划1,朕,景顺长城沪深300增强,200份,持有,定投,今日跌21.3元,赎回0份,赎回0元,null,null*/
-
-
+values(2,1,4,119,1,1,-21.3,0,0,null,null) /*Bestchoice-全明星计划1,朕,富国新动力C,200份,持有,定投,今日跌21.3元,赎回0份,赎回0元,null,null*/
+INSERT INTO user_invest_account_detail(uia_id,uid,fid,hold_share,is_hold,is_sched,daily_profit,redeem_share,redeem_amt,redeem_date,pay_date) 
+--tid->ft_id->fid
+values(3,1,3,200,1,0,-21.3,0,0,null,null) /*大目标-2006,朕,富国新动力B,200份,持有,非定投,今日跌11.3元,赎回0份,赎回0元,null,null*/
+INSERT INTO user_invest_account_detail(uia_id,uid,fid,hold_share,is_hold,is_sched,daily_profit,redeem_share,redeem_amt,redeem_date,pay_date) 
+values(3,1,2,201,1,0,-21.3,0,0,null,null) /*大目标-2006,朕,富国新动力A,201份,持有,非定投,今日跌20.3元,赎回0份,赎回0元,null,null*/
+INSERT INTO user_invest_account_detail(uia_id,uid,fid,hold_share,is_hold,is_sched,daily_profit,redeem_share,redeem_amt,redeem_date,pay_date) 
+values(3,1,2,202,1,0,-21.3,0,0,null,null) /*大目标-2006,朕,富国新动力A,202份,持有,非定投,今日跌25.3元,赎回0份,赎回0元,null,null*/
+INSERT INTO user_invest_account_detail(uia_id,uid,fid,hold_share,is_hold,is_sched,daily_profit,redeem_share,redeem_amt,redeem_date,pay_date) 
+values(3,1,2,203,1,0,-21.3,0,0,null,null) /*大目标-2006,朕,富国新动力A,203份,持有,非定投,今日跌18.3元,赎回0份,赎回0元,null,null*/
+INSERT INTO user_invest_account_detail(uia_id,uid,fid,hold_share,is_hold,is_sched,daily_profit,redeem_share,redeem_amt,redeem_date,pay_date) 
+values(3,1,1,204,3,0,-21.3,0,0,'2020-03-20 10:20:22','2020-03-23 10:20:22') /*大目标-2006,朕,景顺长城沪深300增强,204份,部分赎回,非定投,今日跌22.3元,赎回20份,赎回230元,'2020-03-20 10:20:22','2020-03-20 10:20:22'*/
+INSERT INTO user_invest_account_detail(uia_id,uid,fid,hold_share,is_hold,is_sched,daily_profit,redeem_share,redeem_amt,redeem_date,pay_date) 
+values(4,1,1,205,2,0,0,0,0,'2020-03-22 10:20:22','2020-03-25 10:20:22') /*大目标-2005,朕,景顺长城沪深300增强,205份,全部赎回中,非定投,今日跌22.13元,赎回20份,赎回230元,'2020-03-20 10:20:22','2020-03-20 10:20:22'*/
 
 
 
