@@ -4,8 +4,9 @@ config = dict(
     user_invest_account_joined_by_uid={
       "name": "show user bank info",
       "author": "root",
-      "event_default": [{"bank_name": '', "policy": '', "card_tail": ''}],
-      "dependence_source": [{"user_bank_by_uid": "uid", "branch_bank_by_bbid": "", "bank_by_bid": ""}],
+      "event_default": [],
+      "dependence_source": [{"user_invest_account_by_uid": "uid", "targets_by_tids": "",
+                             "user_invest_account_details_by_ids": ""}],
       "dependence": events.UserInvestAccountJoined,
     },
 )

@@ -12,5 +12,6 @@ class UserInvestAccountJoined(DataSource):
     async def compute(self):
         result = self.dependence_source
         if result:
+
             return {}
         return self.event_default

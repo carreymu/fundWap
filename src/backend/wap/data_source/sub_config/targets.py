@@ -16,6 +16,21 @@ config = dict(
       },
       "dependence": exec_base.DBInfo,
     },
+    targets_by_tids={
+      "name": "targets",
+      "author": "root",
+      "event_default": {},
+      "sql_info": {
+        "engine_name": "db_fund_wap_mysql",
+        "sql": {
+          "mysql": "select tid,ft_id,name,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime,"
+                   "init_amt,fee_ratio from targets where tid in({tids})",
+          "sqlite3": "",
+          "mssql": ""
+        }
+      },
+      "dependence": exec_base.DBInfo,
+    },
     targets_status_topx={
         "name": "top {x} targets which status is {run_status}",
         "author": "root",
