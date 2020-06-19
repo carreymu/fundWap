@@ -397,13 +397,13 @@ INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit,ho
 INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit,hold_profit,hold_status) values(1,'did',1,5000,1,33.3,201,0);/*鸡腿计划-???-定投*/
 
 
-/*--26.user investion account detail*/
+/*--26.user investion account detail - 大目标模板、鸡腿计划、优选最终拆为原子基*/
 CREATE TABLE user_invest_account_detail(uiad_id int primary key AUTO_INCREMENT,
 uia_id int not null comment 'user_invest_account.uia_id',
 uid int not null comment '用户id',
 fid varchar(20) not null comment '基金id',
 hold_share float not null comment '持有份额,通过fund_plan_details.hold_percentage算出',
-hold_status tinyint(1) not null comment '是否持有0-否,1-是,2-全部赎回中,3-部分赎回,4-已赎回部分到帐,5-已赎回全部到帐(已清仓)',
+hold_status tinyint(1) not null comment '持有状态,0-赎回到帐(已清仓),1-持仓,2-赎回中',
 is_sched tinyint(1) not null comment '是否定投,0-非,1-是',
 daily_profit float not null comment '每日涨/跌幅,根据每个基金每日涨跌计算得到',
 redeem_share float comment '赎回份额',
@@ -433,7 +433,7 @@ values(3,1,2,202,1,0,-21.3,0,0,null,null); /*大目标-2006,朕,富国新动力A
 INSERT INTO user_invest_account_detail(uia_id,uid,fid,hold_share,hold_status,is_sched,daily_profit,redeem_share,redeem_amt,redeem_date,pay_date)
 values(3,1,2,202,1,0,-21.3,0,0,null,null); /*大目标-2006,朕,富国新动力A,202份,持有,非定投,今日跌18.3元,赎回0份,赎回0元,null,null*/
 INSERT INTO user_invest_account_detail(uia_id,uid,fid,hold_share,hold_status,is_sched,daily_profit,redeem_share,redeem_amt,redeem_date,pay_date)
-values(3,1,1,203,3,0,-21.3,0,0,'2020-03-20 10:20:22','2020-03-20 10:20:22'); /*大目标-2006,朕,景顺长城沪深300增强,203份,部分赎回,非定投,今日跌22.3元,赎回20份,赎回230元,'2020-03-20 10:20:22','2020-03-20 10:20:22'*/
+values(3,1,1,203,0,0,-21.3,0,0,'2020-03-20 10:20:22','2020-03-20 10:20:22'); /*大目标-2006,朕,景顺长城沪深300增强,203份,部分赎回,非定投,今日跌22.3元,赎回20份,赎回230元,'2020-03-20 10:20:22','2020-03-20 10:20:22'*/
 INSERT INTO user_invest_account_detail(uia_id,uid,fid,hold_share,hold_status,is_sched,daily_profit,redeem_share,redeem_amt,redeem_date,pay_date)
 values(4,1,1,203,2,0,0,0,0,'2020-03-20 10:20:22','2020-03-20 10:20:22'); /*大目标-2005,朕,景顺长城沪深300增强,203份,全部赎回中,非定投,今日跌22.13元,赎回20份,赎回230元,'2020-03-20 10:20:22','2020-03-20 10:20:22'*/
 
