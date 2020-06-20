@@ -6,13 +6,12 @@ export default {
   },
   data(){
     return {
-      // showMsg:false,
       myInfo:{},
       myInvest:[],
-      myTargets:[],
-      myChoice:[],
-      myDrumstick:[],
-      redemption: '有9笔赎回记录即将到帐,最早预计05-07到帐',
+      // myTargets:[],
+      // myChoice:[],
+      // myDrumstick:[],
+      redemption: '',
     }
   },
   methods:{
@@ -28,11 +27,8 @@ export default {
         if(r.user_invest_account_joined_by_uid!=undefined){
           let res = r.user_invest_account_joined_by_uid
           this.myInfo=res['my_info']
-
+          this.redemption = '有'+this.myInfo.redeem_cnt+'笔赎回记录即将到帐,最早预计'+this.myInfo.pay_date+'到帐'
           this.myInvest = res['my_invests']
-
-
-
 
           // let lst = r.user_invest_account_by_uid
           // let init_amt = eval(lst.map(x=>x.init_amt).join("+"))

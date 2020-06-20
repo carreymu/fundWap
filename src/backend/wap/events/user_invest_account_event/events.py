@@ -3,7 +3,8 @@ from typing import Any
 from wap.base import DataSource
 from wap.data_source import exec_base
 import time
-
+from datetime import datetime
+from wap.utils.sql_handler import sql_in
 
 class UserInvestAccountJoined(DataSource):
     # req: dict
@@ -34,31 +35,31 @@ class UserInvestAccountJoined(DataSource):
                 best_choices = self.json_convert(user_iv_acc, 'fpl_id', '优选', dt)
                 if best_choices:
                     my_invests.append(best_choices)
-                drumbs = self.json_convert(user_iv_acc, 'did', '鸡腿计划', dt)
-                if drumbs:
-                    my_invests.append(drumbs)
+                drumsticks = self.json_convert(user_iv_acc, 'did', '鸡腿计划', dt)
+                if drumsticks:
+                    my_invests.append(drumsticks)
                 funds = self.json_convert(user_iv_acc, 'fid', '基金', dt)
                 if funds:
                     my_invests.append(funds)
             user_invest["my_invests"] = my_invests
 
             # tid->ft_id->fid 有9笔赎回记录即将到帐,最早预计05-07到帐
-            tids = ','.join(['%s' % x['iv_id'] for x in user_iv_acc_list if x['type'] == 'tid'])
+            tids = sql_in([x['iv_id'] for x in user_iv_acc_list if x['type'] == 'tid'])
             tars_list = await exec_base.exec_sql_key(event_names='targets_by_tids', **{'tids': tids})
-            fids = ','.join(['%s' % x['ft_id'] for x in tars_list])
+            fids = sql_in([x['ft_id'] for x in tars_list])
 
-            uia_ids = '\',\''.join(['%s' % x['uia_id'] for x in user_iv_acc_list if x['type'] == 'tid'])
+            uia_ids = sql_in([x['uia_id'] for x in user_iv_acc_list if x['type'] == 'tid'])
             uid = user_iv_acc_list[0]['uid']
-            # import pdb;pdb.set_trace()
-            # user_iv_acc_detail_list = await exec_base.exec_sql_key(event_names='user_invest_account_details_by_ids',
-            #                                                        **{'uid': uid, 'uia_ids': uia_ids, 'fids': fids})
-            # if user_iv_acc_detail_list:
-            #     # hold_status 0-赎回到帐(已清仓),1-持仓,2-赎回中
-            #     hd_user_iv_acc = [x for x in user_iv_acc_detail_list if x['hold_status'] == 2]
-            #     if hd_user_iv_acc:
-            #         ft_hd_user_iv_acc = sorted(hd_user_iv_acc, key=lambda x: x['pay_date'], reverse=False)
-            #         my_info['pay_date'] = ft_hd_user_iv_acc[0]['pay_date']
-            #         my_info['redeem_cnt'] = len(ft_hd_user_iv_acc)
+            user_iv_acc_detail_list = await exec_base.exec_sql_key(event_names='user_invest_account_details_by_ids',
+                                                                   **{'uid': uid, 'uia_ids': uia_ids, 'fids': fids})
+            if user_iv_acc_detail_list:
+                # hold_status 0-赎回到帐(已清仓),1-持仓,2-赎回中
+                hd_user_iv_acc = [x for x in user_iv_acc_detail_list if x['hold_status'] == 2]
+                if hd_user_iv_acc:
+                    ft_hd_user_iv_acc = sorted(hd_user_iv_acc, key=lambda x: x['pay_date'], reverse=False)
+                    pay_dt = datetime.utcfromtimestamp(ft_hd_user_iv_acc[0]['pay_date'] / 1e3)
+                    my_info['pay_date'] = '{:02d}-{:02d}'.format(pay_dt.month, pay_dt.day)
+                    my_info['redeem_cnt'] = len(ft_hd_user_iv_acc)
             user_invest["my_info"] = my_info
             return user_invest
         return self.event_default

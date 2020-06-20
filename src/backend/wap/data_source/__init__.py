@@ -24,6 +24,7 @@ from wap.data_source.sub_config import (
     user_news_info,
     user_detail,
     user_invest_account,
+    user_invest_account_detail,
 )
 # only original information from DB
 data_source_config = dict(
@@ -51,4 +52,5 @@ data_source_config = dict(
     user_news_info=user_news_info.config,
     user_detail=user_detail.config,
     user_invest_account=user_invest_account.config,
+    user_invest_account_detail=user_invest_account_detail.config,
 )

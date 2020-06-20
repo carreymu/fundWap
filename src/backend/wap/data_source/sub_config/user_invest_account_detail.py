@@ -10,7 +10,7 @@ config = dict(
             "sql": {
                 "mysql": "select uiad_id,uia_id,uid,fid,hold_share,hold_status,is_sched,daily_profit,redeem_share,"
                          "redeem_amt,redeem_date,pay_date from user_invest_account_detail where uid={uid} and "
-                         "fid in ({fids}) and uia_id in({uia_ids})",
+                         "fid in ({fids}) and uia_id in ({uia_ids})",
                 "sqlite3": "",
                 "mssql": ""
             }
