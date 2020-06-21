@@ -5,6 +5,8 @@ from wap.data_source import exec_base
 import time
 from datetime import datetime
 from wap.utils.sql_handler import sql_in
+from wap.utils.datetime_handler import datediff_timestamp
+
 
 class UserInvestAccountJoined(DataSource):
     # req: dict
@@ -75,3 +77,44 @@ class UserInvestAccountJoined(DataSource):
             t_ratio = round((hold_profit + day_profit) / t_amt, 2)
             return {"name": name, "dt": date, "daily_ratio": td_ratio, "daily_profit": round(day_profit, 2),
                     "hold_ratio": t_ratio, "hold_profit": round(hold_profit, 2), "hold_cnt": len(lst)}
+
+
+class UserInvestAccountTargets(DataSource):
+    event_default: Any
+    dependence_source: dict
+
+    async def compute(self):
+        user_iv_acc_list = self.dependence_source
+        if user_iv_acc_list:
+            my_info = {}
+            user_iv_acc = [x for x in user_iv_acc_list['user_invest_account_by_uid'] if x['type'] == 'tid']
+            if user_iv_acc:
+                dt = time.strftime('%m月%d日', time.localtime(time.time()))
+                all_hold_profit = sum([x['hold_profit'] for x in user_iv_acc])
+                init_amt = sum([x['init_amt'] for x in user_iv_acc])
+                my_info['all_amt'] = round((all_hold_profit + init_amt), 2)
+                my_info["hold_profit"] = round(sum([x['hold_profit'] for x in user_iv_acc if x['hold_status'] != 0]), 2)
+                my_info["daily_profit"] = round(sum([x['daily_profit'] for x in user_iv_acc]), 2)
+                my_info["now"] = dt
+
+                tids = sql_in([x['iv_id'] for x in user_iv_acc])
+                tars_list = await exec_base.exec_sql_key(event_names='targets_by_tids', **{'tids': tids})
+                tars_ach = [x for x in tars_list if x['run_status'] > 3]
+                my_info["target_achivement"] = len(tars_ach)
+
+                # 达标盈利=user_invest_account_detail.hold_status==0
+                my_info["target_profit"] = sum([x['redeem_amt'] for x in user_iv_acc if x['hold_status'] == 0])
+                # hold targets + N笔交易确认中
+                import pdb;
+                pdb.set_trace()
+                hold_targets = [x for x in tars_list if x['run_status'] in [0, 1, 2, 3]]
+                for h in hold_targets:
+                    trade_cnt = len([x for x in user_iv_acc if x['iv_id'] == h['tid'] and x['hold_status'] == 2])
+                    h['trade_msg'] = '' if trade_cnt == 0 else f'{trade_cnt}笔交易确认中'
+                my_info['hold_targets'] = hold_targets
+
+                uid = user_iv_acc[0]['uid']
+                user_details = await exec_base.exec_sql_key(event_names='user_detail_by_uid', **{'uid': uid})
+                my_info["joined_days"] = datediff_timestamp(user_details[0]['inserttime'])
+            return my_info
+        return self.event_default
