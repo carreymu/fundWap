@@ -6,15 +6,15 @@
       <div class="botTxt">
         <div class="invIntro">
           <div class="ptop">
-            <div class="inhdTxt">{{myInfo.inserttime}}收益</div>
-            <div class="inbotTxt" v-if="myInfo.day_profit>=0">+{{myInfo.day_profit}}</div>
-            <div class="inbotTxt" v-else>-{{myInfo.day_profit}}</div>
+            <div class="inhdTxt">{{myInfo.now}}收益</div>
+            <div class="inbotTxt" v-if="myInfo.daily_profit>=0">+{{myInfo.daily_profit}}</div>
+            <div class="inbotTxt" v-else>-{{myInfo.daily_profit}}</div>
           </div>
           <div class="linkRight"></div>
           <div class="ptop">
             <div class="inhdTxt">持仓盈亏</div>
-            <div class="inbotTxt" v-if="myInfo.all_profit>0">+{{myInfo.all_profit}}</div>
-            <div class="inbotTxt" v-else>-{{myInfo.all_profit}}</div>
+            <div class="inbotTxt" v-if="myInfo.hold_profit>0">+{{myInfo.hold_profit}}</div>
+            <div class="inbotTxt" v-else>-{{myInfo.hold_profit}}</div>
           </div>
         </div>
        </div>
@@ -24,43 +24,47 @@
             <div class="invIntro">
             <div style="padding-top:12px;">
                 <div style="font-size:10px;">加入大目标(天)</div>
-                <div style="text-align:center;">{{myInfo.reg_days}}</div>
+                <div style="text-align:center;">{{myInfo.joined_days}}</div>
             </div>
             <div class="linkRight"></div>
             <div style="padding-top:12px;">
                 <div style="font-size:10px;">共达标</div>
-                <div style="color:brown;font-size:13px;">5期</div>
+                <div style="color:brown;font-size:13px;">{{myInfo.target_achivement}}期</div>
             </div>
             <div class="linkRight"></div>
             <div style="padding-top:12px;">
                 <div style="font-size:10px;">达标盈利(元)</div>
-                <div style="color:brown;font-size:13px;">65981.76</div>
+                <div style="color:brown;font-size:13px;">{{myInfo.hold_profit}}</div>
             </div>
             </div>
         </div>
 
         <div class="line"/>
         
-        <div class="conTop">
-            <div class="conTop">
-                <flexbox>
-                    <flexbox-item><div class ="waitInvokeTxtPre">|||| <span class="waitInvokeTxtTail">大目标2003</span></div></flexbox-item>
-                    <flexbox-item><div style="text-align:right;font-size:11px;">9笔交易确认中 </div></flexbox-item>
-                </flexbox>
-            </div>
-            <div class="rectAgl">
-                <div class="invIntro">
-                <div style="padding-top:12px;">
-                    <div>04月30日+2.88%</div>
-                    <div style="color:#d95353;font-size:13px;">+9500.02</div>
-                </div>
-                <div class="linkRight"></div>
-                <div style="padding-top:12px;">
-                    <div>持仓盈亏 +8.88%</div>
-                    <div style="color:#d95353;font-size:13px;">10035.54</div>
-                </div>
-                </div>
-            </div>
+        <div v-for="(it,idx) in myInfo.hold_targets" :key="idx">
+          <div class="conTop">
+              <div class="conTop">
+                  <flexbox>
+                      <flexbox-item><div class ="waitInvokeTxtPre">|||| <span class="waitInvokeTxtTail">大目标{{it.name}}</span></div></flexbox-item>
+                      <flexbox-item>
+                        <div style="text-align:right;font-size:11px;" v-if="it.trade_msg.length>0">{{it.trade_msg}}</div>
+                        </flexbox-item>
+                  </flexbox>
+              </div>
+              <div class="rectAgl">
+                  <div class="invIntro">
+                  <div style="padding-top:12px;">
+                      <div>04月30日+2.88%</div>
+                      <div style="color:#d95353;font-size:13px;">+9500.02</div>
+                  </div>
+                  <div class="linkRight"></div>
+                  <div style="padding-top:12px;">
+                      <div>持仓盈亏 +8.88%</div>
+                      <div style="color:#d95353;font-size:13px;">10035.54</div>
+                  </div>
+                  </div>
+              </div>
+          </div>
         </div>
 
         <div class="conTop">

@@ -97,24 +97,30 @@ class UserInvestAccountTargets(DataSource):
                 my_info["daily_profit"] = round(sum([x['daily_profit'] for x in user_iv_acc]), 2)
                 my_info["now"] = dt
 
+                uid = user_iv_acc[0]['uid']
+                user_details = await exec_base.exec_sql_key(event_names='user_detail_by_uid', **{'uid': uid})
+                my_info["joined_days"] = datediff_timestamp(user_details[0]['inserttime'])
+
                 tids = sql_in([x['iv_id'] for x in user_iv_acc])
                 tars_list = await exec_base.exec_sql_key(event_names='targets_by_tids', **{'tids': tids})
                 tars_ach = [x for x in tars_list if x['run_status'] > 3]
                 my_info["target_achivement"] = len(tars_ach)
-
-                # 达标盈利=user_invest_account_detail.hold_status==0
                 my_info["target_profit"] = sum([x['redeem_amt'] for x in user_iv_acc if x['hold_status'] == 0])
-                # hold targets + N笔交易确认中
-                import pdb;
-                pdb.set_trace()
-                hold_targets = [x for x in tars_list if x['run_status'] in [0, 1, 2, 3]]
-                for h in hold_targets:
-                    trade_cnt = len([x for x in user_iv_acc if x['iv_id'] == h['tid'] and x['hold_status'] == 2])
-                    h['trade_msg'] = '' if trade_cnt == 0 else f'{trade_cnt}笔交易确认中'
-                my_info['hold_targets'] = hold_targets
 
-                uid = user_iv_acc[0]['uid']
-                user_details = await exec_base.exec_sql_key(event_names='user_detail_by_uid', **{'uid': uid})
-                my_info["joined_days"] = datediff_timestamp(user_details[0]['inserttime'])
+                fids = sql_in([x['ft_id'] for x in tars_list])
+                uia_ids = sql_in([x['uia_id'] for x in user_iv_acc])
+                user_iv_acc_detail_list = await exec_base.exec_sql_key(event_names='user_invest_account_details_by_ids',
+                                                                       **{'uid': uid, 'uia_ids': uia_ids, 'fids': fids})
+                # 达标盈利=user_invest_account_detail.hold_status==0
+                # hold targets + N笔交易确认中
+                # import pdb;
+                # pdb.set_trace()
+                targets_dict = dict([(x['tid'], x['name']) for x in tars_list if x['run_status'] in [0, 1, 2, 3]])
+                for h in user_iv_acc:
+                    trade_cnt = len([x for x in user_iv_acc_detail_list if x['uia_id'] == h['uia_id'] and x['hold_status'] == 2])
+                    h['trade_msg'] = '' if trade_cnt == 0 else f'{trade_cnt}笔交易确认中'
+                    h['name'] = f"大目标{targets_dict[h['iv_id']]}"
+                my_info['hold_targets'] = user_iv_acc
+
             return my_info
         return self.event_default
