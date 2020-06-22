@@ -54,13 +54,15 @@
               <div class="rectAgl">
                   <div class="invIntro">
                   <div style="padding-top:12px;">
-                      <div>04月30日+2.88%</div>
-                      <div style="color:#d95353;font-size:13px;">+9500.02</div>
+                      <div>{{it.inserttime}} &nbsp;&nbsp;<span v-if="it.daily_profit_ratio>=0">+</span>{{it.daily_profit_ratio}}%</div>
+                      <div v-if="it.daily_profit>=0" style="color:#d95353;font-size:13px;">+{{it.daily_profit}}</div>
+                      <div v-else style="color:green;">{{it.daily_profit}}</div>
                   </div>
                   <div class="linkRight"></div>
                   <div style="padding-top:12px;">
-                      <div>持仓盈亏 +8.88%</div>
-                      <div style="color:#d95353;font-size:13px;">10035.54</div>
+                      <div>持仓盈亏 &nbsp;&nbsp;<span v-if="it.hold_profit_ratio>=0">+</span>{{it.hold_profit_ratio}}%</div>
+                      <div v-if="it.hold_profit>=0" style="color:#d95353;font-size:13px;">+{{it.hold_profit}}</div>
+                      <div v-else style="color:green;">{{it.hold_profit}}</div>
                   </div>
                   </div>
               </div>

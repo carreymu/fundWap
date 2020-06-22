@@ -117,9 +117,13 @@ class UserInvestAccountTargets(DataSource):
                 # pdb.set_trace()
                 targets_dict = dict([(x['tid'], x['name']) for x in tars_list if x['run_status'] in [0, 1, 2, 3]])
                 for h in user_iv_acc:
-                    trade_cnt = len([x for x in user_iv_acc_detail_list if x['uia_id'] == h['uia_id'] and x['hold_status'] == 2])
+                    trade_cnt = len([x for x in user_iv_acc_detail_list if x['uia_id'] == h['uia_id']
+                                     and x['hold_status'] == 2])
+                    h['hold_profit_ratio'] = round((h['hold_profit'] / (h['hold_profit']+h['init_amt']))*100, 2)
+                    h['daily_profit_ratio'] = round((h['daily_profit'] / (h['hold_profit'] + h['init_amt'])) * 100, 2)
                     h['trade_msg'] = '' if trade_cnt == 0 else f'{trade_cnt}笔交易确认中'
                     h['name'] = f"大目标{targets_dict[h['iv_id']]}"
+                    h['inserttime'] = time.strftime('%m月%d日', time.localtime(h['inserttime']))
                 my_info['hold_targets'] = user_iv_acc
 
             return my_info
