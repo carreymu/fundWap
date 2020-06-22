@@ -13,7 +13,7 @@
           <div class="linkRight"></div>
           <div class="ptop">
             <div class="inhdTxt">持仓盈亏</div>
-            <div class="inbotTxt" v-if="myInfo.hold_profit>0">+{{myInfo.hold_profit}}</div>
+            <div class="inbotTxt" v-if="myInfo.hold_profit>=0">+{{myInfo.hold_profit}}</div>
             <div class="inbotTxt" v-else>-{{myInfo.hold_profit}}</div>
           </div>
         </div>
@@ -41,76 +41,33 @@
 
         <div class="line"/>
         
-        <div v-for="(it,idx) in myInfo.hold_targets" :key="idx">
-          <div class="conTop">
-              <div class="conTop">
-                  <flexbox>
-                      <flexbox-item><div class ="waitInvokeTxtPre">|||| <span class="waitInvokeTxtTail">大目标{{it.name}}</span></div></flexbox-item>
-                      <flexbox-item>
-                        <div style="text-align:right;font-size:11px;" v-if="it.trade_msg.length>0">{{it.trade_msg}}</div>
-                        </flexbox-item>
-                  </flexbox>
-              </div>
-              <div class="rectAgl">
-                  <div class="invIntro">
-                  <div style="padding-top:12px;">
-                      <div>{{it.inserttime}} &nbsp;&nbsp;<span v-if="it.daily_profit_ratio>=0">+</span>{{it.daily_profit_ratio}}%</div>
-                      <div v-if="it.daily_profit>=0" style="color:#d95353;font-size:13px;">+{{it.daily_profit}}</div>
-                      <div v-else style="color:green;">{{it.daily_profit}}</div>
-                  </div>
-                  <div class="linkRight"></div>
-                  <div style="padding-top:12px;">
-                      <div>持仓盈亏 &nbsp;&nbsp;<span v-if="it.hold_profit_ratio>=0">+</span>{{it.hold_profit_ratio}}%</div>
-                      <div v-if="it.hold_profit>=0" style="color:#d95353;font-size:13px;">+{{it.hold_profit}}</div>
-                      <div v-else style="color:green;">{{it.hold_profit}}</div>
-                  </div>
-                  </div>
-              </div>
-          </div>
-        </div>
-
+      <div v-for="(it,idx) in myInfo.hold_targets" :key="idx">
         <div class="conTop">
-        <div class="conTop">
-            <flexbox>
-                <flexbox-item><div class ="waitInvokeTxtPre">|||| <span class="waitInvokeTxtTail">大目标2004</span></div></flexbox-item>
-            </flexbox>
-        </div>
-        <div class="rectAgl">
-            <div class="invIntro">
-            <div style="padding-top:12px;">
-                <div>04月30日+2.88%</div>
-                <div style="color:#d95353;font-size:13px;">+9500.02</div>
+            <div class="conTop">
+                <flexbox>
+                    <flexbox-item><div class ="waitInvokeTxtPre">|||| <span class="waitInvokeTxtTail">{{it.name}}</span></div></flexbox-item>
+                    <flexbox-item>
+                      <div style="text-align:right;font-size:11px;" v-if="it.trade_msg.length>0">{{it.trade_msg}}</div>
+                    </flexbox-item>
+                </flexbox>
             </div>
-            <div class="linkRight"></div>
-            <div style="padding-top:12px;">
-                <div>持仓盈亏 -2.88%</div>
-                <div style="color:green;font-size:13px;">-10035.54</div>
-            </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="conTop">
-        <div class="conTop">
-            <flexbox>
-                <flexbox-item><div class ="waitInvokeTxtPre">|||| <span class="waitInvokeTxtTail">大目标2005</span></div></flexbox-item>
-                <flexbox-item><div style="text-align:right;font-size:11px;">1笔交易确认中 </div></flexbox-item>
-            </flexbox>
-        </div>
-        <div class="rectAgl">
-            <div class="invIntro">
-            <div style="padding-top:12px;">
-                <div>04月30日+2.88%</div>
-                <div style="color:#d95353;font-size:13px;">+9500.02</div>
-            </div>
-            <div class="linkRight"></div>
-            <div style="padding-top:12px;">
-                <div>持仓盈亏 -2.88%</div>
-                <div style="color:green;font-size:13px;">-10035.54</div>
-            </div>
+            <div class="rectAgl">
+                <div class="invIntro">
+                <div style="padding-top:12px;">
+                    <div>{{it.inserttime}} &nbsp;&nbsp;<span v-if="it.daily_profit_ratio>=0">+</span>{{it.daily_profit_ratio}}%</div>
+                    <div v-if="it.daily_profit>=0" style="color:#d95353;font-size:13px;">+{{it.daily_profit_str}}</div>
+                    <div v-else style="color:green;">{{it.daily_profit_str}}</div>
+                </div>
+                <div class="linkRight"></div>
+                <div style="padding-top:12px;">
+                    <div>持仓盈亏 &nbsp;&nbsp;<span v-if="it.hold_profit_ratio>=0">+</span>{{it.hold_profit_ratio}}%</div>
+                    <div v-if="it.hold_profit>=0" style="color:#d95353;font-size:13px;">+{{it.hold_profit_str}}</div>
+                    <div v-else style="color:green;">{{it.hold_profit_str}}</div>
+                </div>
+                </div>
             </div>
         </div>
-    </div>
+      </div>
   </div>
 </div>
   

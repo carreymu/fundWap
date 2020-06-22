@@ -92,9 +92,9 @@ class UserInvestAccountTargets(DataSource):
                 dt = time.strftime('%m月%d日', time.localtime(time.time()))
                 all_hold_profit = sum([x['hold_profit'] for x in user_iv_acc])
                 init_amt = sum([x['init_amt'] for x in user_iv_acc])
-                my_info['all_amt'] = round((all_hold_profit + init_amt), 2)
-                my_info["hold_profit"] = round(sum([x['hold_profit'] for x in user_iv_acc if x['hold_status'] != 0]), 2)
-                my_info["daily_profit"] = round(sum([x['daily_profit'] for x in user_iv_acc]), 2)
+                my_info['all_amt'] = format((all_hold_profit + init_amt), '.2f')
+                my_info["hold_profit"] = format(sum([x['hold_profit'] for x in user_iv_acc if x['hold_status'] != 0]), '.2f')
+                my_info["daily_profit"] = format(sum([x['daily_profit'] for x in user_iv_acc]), '.2f')
                 my_info["now"] = dt
 
                 uid = user_iv_acc[0]['uid']
@@ -105,26 +105,25 @@ class UserInvestAccountTargets(DataSource):
                 tars_list = await exec_base.exec_sql_key(event_names='targets_by_tids', **{'tids': tids})
                 tars_ach = [x for x in tars_list if x['run_status'] > 3]
                 my_info["target_achivement"] = len(tars_ach)
-                my_info["target_profit"] = sum([x['redeem_amt'] for x in user_iv_acc if x['hold_status'] == 0])
-
                 fids = sql_in([x['ft_id'] for x in tars_list])
                 uia_ids = sql_in([x['uia_id'] for x in user_iv_acc])
                 user_iv_acc_detail_list = await exec_base.exec_sql_key(event_names='user_invest_account_details_by_ids',
                                                                        **{'uid': uid, 'uia_ids': uia_ids, 'fids': fids})
+                my_info["target_profit"] = sum([x['redeem_amt'] for x in user_iv_acc_detail_list if x['hold_status'] == 0])
                 # 达标盈利=user_invest_account_detail.hold_status==0
                 # hold targets + N笔交易确认中
-                # import pdb;
-                # pdb.set_trace()
-                targets_dict = dict([(x['tid'], x['name']) for x in tars_list if x['run_status'] in [0, 1, 2, 3]])
-                for h in user_iv_acc:
-                    trade_cnt = len([x for x in user_iv_acc_detail_list if x['uia_id'] == h['uia_id']
-                                     and x['hold_status'] == 2])
-                    h['hold_profit_ratio'] = round((h['hold_profit'] / (h['hold_profit']+h['init_amt']))*100, 2)
-                    h['daily_profit_ratio'] = round((h['daily_profit'] / (h['hold_profit'] + h['init_amt'])) * 100, 2)
-                    h['trade_msg'] = '' if trade_cnt == 0 else f'{trade_cnt}笔交易确认中'
-                    h['name'] = f"大目标{targets_dict[h['iv_id']]}"
-                    h['inserttime'] = time.strftime('%m月%d日', time.localtime(h['inserttime']))
-                my_info['hold_targets'] = user_iv_acc
 
+                targets_dict = dict([(x['tid'], x['name']) for x in tars_list]) #if x['run_status'] in [0, 1, 2, 3]
+                for ui in user_iv_acc:
+                    trade_cnt = len([x for x in user_iv_acc_detail_list if x['uia_id'] == ui['uia_id']
+                                     and x['hold_status'] == 2])
+                    ui['daily_profit_str'] = format(ui['daily_profit'], '.2f')
+                    ui['hold_profit_str'] = format(ui['hold_profit'], '.2f')
+                    ui['hold_profit_ratio'] = format((ui['hold_profit'] / (ui['hold_profit']+ui['init_amt']))*100, '.2f')
+                    ui['daily_profit_ratio'] = format((ui['daily_profit'] / (ui['hold_profit'] + ui['init_amt']))*100, '.2f')
+                    ui['trade_msg'] = '' if trade_cnt == 0 else f'{trade_cnt}笔交易确认中'
+                    ui['name'] = f"大目标{targets_dict[ui['iv_id']]}"
+                    ui['inserttime'] = time.strftime('%m月%d日', time.localtime(ui['inserttime']))
+                my_info['hold_targets'] = user_iv_acc
             return my_info
         return self.event_default

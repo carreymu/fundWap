@@ -390,7 +390,7 @@ INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit,ho
 INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit,hold_profit,hold_status) values(1,'fpl_id',2,500,1,-13.3,201.1,1);/*Bestchoice-全明星计划1-定投*/
 INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit,hold_profit,hold_status) values(1,'tid',1,3200,0,33.3,-231,1);/*大目标-2006*/
 INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit,hold_profit,hold_status) values(1,'tid',2,3100,0,33.3,231,2);/*大目标-2005*/
-INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit,hold_profit,hold_status) values(1,'tid',3,3100,0,33.3,231,2);/*大目标-2004*/
+INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit,hold_profit,hold_status) values(1,'tid',3,3100,0,33.3,231,0);/*大目标-2004*/
 INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit,hold_profit,hold_status) values(1,'fid',1,5000,0,33.3,421,1);/*基金-景顺长城沪深300增强*/
 INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit,hold_profit,hold_status) values(1,'fid',1,5500,0,33.3,261,2);/*基金-景顺长城沪深300增强*/
 INSERT INTO user_invest_account(uid,type,iv_id,init_amt,is_sched,daily_profit,hold_profit,hold_status) values(1,'fid',1,5000,1,33.3,221,1);/*基金-景顺长城沪深300增强-定投*/
@@ -436,6 +436,8 @@ INSERT INTO user_invest_account_detail(uia_id,uid,fid,hold_share,hold_status,is_
 values(3,1,1,203,0,0,-21.3,0,0,'2020-03-20 10:20:22','2020-03-20 10:20:22'); /*大目标-2006,朕,景顺长城沪深300增强,203份,已清仓,非定投,今日跌22.3元,赎回20份,赎回230元,'2020-03-20 10:20:22','2020-03-20 10:20:22'*/
 INSERT INTO user_invest_account_detail(uia_id,uid,fid,hold_share,hold_status,is_sched,daily_profit,redeem_share,redeem_amt,redeem_date,pay_date)
 values(4,1,1,203,2,0,0,0,0,'2020-03-20 10:20:22','2020-03-20 10:20:22'); /*大目标-2005,朕,景顺长城沪深300增强,203份,赎回中,非定投,今日跌22.13元,赎回20份,赎回230元,'2020-03-20 10:20:22','2020-03-20 10:20:22'*/
+INSERT INTO user_invest_account_detail(uia_id,uid,fid,hold_share,hold_status,is_sched,daily_profit,redeem_share,redeem_amt,redeem_date,pay_date)
+values(5,1,1,203,0,0,0,0,0,'2020-03-20 10:20:22','2020-03-20 10:20:22'); /*大目标-2004,朕,景顺长城沪深300增强,203份,已清仓,非定投,今日跌22.13元,赎回20份,赎回230元,'2020-03-20 10:20:22','2020-03-20 10:20:22'*/
 
 
 
@@ -575,7 +577,7 @@ init_amt float not null comment '最少购买金额',
 inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime,init_amt) values('2006',1,0.08,0,0, '6-12',0.00,'2020-04-07 10:10:00','2020-04-13 10:10:00',2000);-- 2006,2006聚能环01
 INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime,init_amt) values('2005',2,0.08,1,0, '6-12',0.00,'2020-04-01 10:10:00','2020-04-06 10:10:00',2100);-- 2005,2006聚能环02
-INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime,init_amt) values('2004',3,0.05,2,10,'5-12',0.00,'2020-03-24 10:10:00','2020-03-31 10:10:00',2200);-- 2004,钻石王老五01
+INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime,init_amt) values('2004',3,0.05,4,10,'5-12',0.00,'2020-03-24 10:10:00','2020-03-31 10:10:00',2200);-- 2004,钻石王老五01
 INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime,init_amt) values('2003',1,0.08,3,17,'5-12',0.00,'2020-03-16 10:10:00','2020-03-23 10:10:00',2300);
 INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime,init_amt) values('2002',2,0.07,4,40,'5-12',0.00,'2020-03-16 10:10:00','2020-03-23 10:10:00',2400);
 INSERT INTO targets(name,ft_id,target_ratio,run_status,run_days,pre_run,fee_ratio,apply_starttime,apply_endtime,init_amt) values('2001',1,0.06,4,25,'5-12',0.00,'2020-03-16 10:10:00','2020-03-23 10:10:00',2500);
