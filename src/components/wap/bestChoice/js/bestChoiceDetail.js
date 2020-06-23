@@ -91,6 +91,10 @@ export default {
 			var avg_l2=0
 			for(var j=0;j<=dots;j++){
 				let dt = this.$utdate.addDate(startDate,j*step)
+				var day = new Date(dt).getDay()
+				if(day==0 || day==6) {
+					continue
+				}
 				//good
 				var gd1 = parseFloat(this.$utrandom.randomFullOpen(-10,40).toFixed(2))
 				avg_p1 += gd1

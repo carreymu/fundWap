@@ -72,7 +72,7 @@
           </swiper-item>
         </swiper>
         <tab :scroll-threshold="5" :line-width=3 active-color='#db5361' bar-position="top" v-model="selectIdx">
-          <tab-item @on-item-click="onItemClick"  class="fnt12" v-for="(item, index) in timeRange" :key="index">{{item}}</tab-item>
+          <tab-item @on-item-click="onItemClick(index,it)" v-for="(it,index) in timeRange" :key="index" class="fnt12">{{Object.keys(it)[0]}}</tab-item>
         </tab>
       </div>
       <div>
@@ -85,7 +85,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(it,idx) in chartData.daily" :key="idx">
+          <tr v-for="(it,idx) in chartData.alldata" :key="idx">
             <td>{{it.date}}</td>
             <td>{{it.value}}</td>
             <td>

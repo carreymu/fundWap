@@ -10,15 +10,16 @@ export default {
   },
   data(){      
       return {
-        tabMap:[30,90,180,360,1080],
+        // tabMap:[30,90,180,360,1080],
+        dtmap:{1:1,3:3,6:6,12:12,36:36},//month:dot step
         stockList:["大目标收益率","大目标达标","上证综指涨跌幅"],
         funcInfo:{},
         fundDailyData:[],
         index: 0,
         fundWorthStage:[],
         stageMap:{7:'近一周',90:'近三月',365:'近一年'},
-        // timeRange:[{'近1月':0}, {'近3月':3}, {'近6月':6}, {'近1年':12}, {'近3年':36}],
-        timeRange:['近1月','近3月','近6月','近1年','近3年'],
+        timeRange:[{'近1月':1}, {'近3月':3}, {'近6月':6}, {'近1年':12}, {'近3年':36}],
+        // timeRange:['近1月','近3月','近6月','近1年','近3年'],
         selectIdx: 0,
         autoHeight:[420,420,420],
         itemList:[],
@@ -130,7 +131,8 @@ export default {
               }
               this.fundDailyData.push({date:dt, value: v,daily_change:cg})
             }
-            this.loadDailyData()
+            // this.loadDailyData()
+            this.loadingDailyData(1)
           }
           else {
             AlertModule.show({
@@ -175,15 +177,15 @@ export default {
           // console.log(this.fundList)
         })
       },
-      loadDailyData(){
-        //todo:----------------->前端算力有限,数据后端直接提供,否则慢的要骂娘
+      loadingDailyData(month){
         let threshold = 200
+        var dots = 30
+        var step = this.dtmap[month||1]
         let ht = '<div style="border:1px solid #c32c1c;background-color:#fff;width:3px;height:3px;border-radius:50%;font-size:10px"></div>'
-        var days = 1095
-        var startDate = this.$utdate.addDate(new Date(),-days)
+        var startDate = this.$utdate.addDate(new Date(),-(dots*step))
         var rndEnd = this.$utrandom.randomFullClose(0,4)
-        for(var j=1;j<days;j++){
-          let dt = this.$utdate.addDate(startDate,j)
+        for(var j=0;j<=dots;j++){
+          let dt = this.$utdate.addDate(startDate,j*step)
           //周六周日赌场不开门 0-周日，6-周六
           var day = new Date(dt).getDay()
           if(day==0 || day==6) {
@@ -199,48 +201,70 @@ export default {
               rnd = parseFloat(this.$utrandom.randomFullOpen(0,rndEnd).toFixed(2))
             }
             let d = {date: dt,stock_name: this.stockList[i],value: rnd, daily_change: rnd}//-rndDaily
-            if(this.chartData.alldata.length == 0){
-              this.chartData.alldata.push(d)
+            if(this.chartData.data.length == 0){
+              this.chartData.data.push(d)
             }else{
               if(numberRandom(0,300)>threshold){
                 this.chartData.tag.push({position:[dt, rnd],html:ht})
                 this.chartData.alldata.push({date:dt,stock_name:"大目标达标",value:rnd, daily_change: rnd})
                 i++
               }
-              this.chartData.alldata.push(d)
-            }
-            //Display data for the last 30 days,for the first chart
-            if(days-j<this.tabMap[0]){
               this.chartData.data.push(d)
-              //the last 10 days for the table
-              if(this.stockList[i]=="大目标收益率" && days-j<10){
-                this.chartData.daily.push(d)
-              }
             }
           }
         }
-        // console.log(this.chartData.data)
       },
-      onItemClick (index) {
+      // loadDailyData(){
+      //   //todo:----------------->前端算力有限,数据后端直接提供,否则慢的要骂娘
+      //   let threshold = 200
+      //   let ht = '<div style="border:1px solid #c32c1c;background-color:#fff;width:3px;height:3px;border-radius:50%;font-size:10px"></div>'
+      //   var days = 1095
+      //   var startDate = this.$utdate.addDate(new Date(),-days)
+      //   var rndEnd = this.$utrandom.randomFullClose(0,4)
+      //   for(var j=1;j<days;j++){
+      //     let dt = this.$utdate.addDate(startDate,j)
+      //     //周六周日赌场不开门 0-周日，6-周六
+      //     var day = new Date(dt).getDay()
+      //     if(day==0 || day==6) {
+      //         continue
+      //     }
+      //     let fDate = this.fundDailyData.filter(x=>x.date==dt)
+      //     let rnd = 0
+      //     if(fDate!=null && fDate.length>0){
+      //       rnd = fDate[0].value
+      //     }
+      //     for(var i=0;i<this.stockList.length;i++){
+      //       if(this.stockList[i]!="大目标达标"){
+      //         rnd = parseFloat(this.$utrandom.randomFullOpen(0,rndEnd).toFixed(2))
+      //       }
+      //       let d = {date: dt,stock_name: this.stockList[i],value: rnd, daily_change: rnd}//-rndDaily
+      //       if(this.chartData.alldata.length == 0){
+      //         this.chartData.alldata.push(d)
+      //       }else{
+      //         if(numberRandom(0,300)>threshold){
+      //           this.chartData.tag.push({position:[dt, rnd],html:ht})
+      //           this.chartData.alldata.push({date:dt,stock_name:"大目标达标",value:rnd, daily_change: rnd})
+      //           i++
+      //         }
+      //         this.chartData.alldata.push(d)
+      //       }
+      //       //Display data for the last 30 days,for the first chart
+      //       if(days-j<this.tabMap[0]){
+      //         this.chartData.data.push(d)
+      //         //the last 10 days for the table
+      //         if(this.stockList[i]=="大目标收益率" && days-j<10){
+      //           this.chartData.daily.push(d)
+      //         }
+      //       }
+      //     }
+      //   }
+      //   // console.log(this.chartData.data)
+      // },
+      onItemClick (index,it) {
           this.selectIdx = index
-          // this.autoHeight = 120 * 3
-          // console.log('on item click:', this.autoHeight)
-          /*
-          * 下面逻辑不对,不过,我不想努力了~~~
-          * 不在前台有重逻辑处理,比较慢,后台应处理好数据,直接提供给前台
-          * 正常逻辑：按照日期切成30份,没个日期取一个点,再从chardata.data里取这些日期的数据,取一定数量的点方便加载
-          */
-          let sDate = this.$utdate.addDate(new Date(),-this.tabMap[index])
-          // this.chartData.data = this.chartData.alldata.filter(x=>x.date > sDate)
-          let topn = this.chartData.alldata.filter(x=>x.date > sDate)
-          let step = this.tabMap[index]/30
-          this.chartData.data=[]
-          for(var i=0;i<this.tabMap[index] && step*i< topn.length;i++){
-            this.chartData.data.push(topn[step*i])
-          }
-          // this.chartData.data = this.chartData.alldata.filter(x=>x.date > sDate)
-          // console.log('on item click:', this.selectIdx)
-          // console.log('chartData.daily:', this.chartData.data)
+          //败在了我的进取心之下
+          //console.log(Object.values(it)[0]+"--=="+index)
+          this.loadingDailyData(Object.values(it)[0])
       },
       lblFx(text) {
         return {
