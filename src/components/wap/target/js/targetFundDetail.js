@@ -16,7 +16,7 @@ export default {
       hour: '00',
       min: '00',
       second: '00',
-      targetRun1:{id:0,name:'2001',targetRatio:8.00,pre_run:'1-12',money:811,appStart:'20年04月20日',appEnd:'20年04月20日'},
+      targetRun1:{id:0,name:'2001',target_ratio:8.00,pre_run:'1-12',money:811,app_start:'20年04月20日',app_end:'20年04月20日'},
       sysInfos:[]
     }
   },
@@ -48,44 +48,45 @@ export default {
     },
     loadLatest(){
       let scid=10
+      let ft_id=this.$route.params.ft_id;
       let dt = {
-        "req": {"scid":scid,"scids":scid,"run_status":0,"topx":1},
-        "event_names": ["system_info_category_by_scid","system_info","targets_status_topx"]
+        "req": {"scid":scid,"scids":scid,"run_status":0,"tid":ft_id},
+        "event_names": ["system_info_category_by_scid","system_info","targets_by_tid"]
       }
       this.$api.fetchPost('/sanic-api', dt).then(r=>{
-          if(r.system_info_category_by_scid!=undefined && r.system_info_category_by_scid.length > 0){
-            let sub = r.system_info_category_by_scid[0].subtitle
-            if(sub.length>0){
-              this.serviceInfo = r.system_info_category_by_scid[0].subtitle
-            }
+        if(r.system_info_category_by_scid!=undefined && r.system_info_category_by_scid.length > 0){
+          let sub = r.system_info_category_by_scid[0].subtitle
+          if(sub.length>0){
+            this.serviceInfo = r.system_info_category_by_scid[0].subtitle
           }
-          if(r.system_info!=undefined && r.system_info.length >0){
-            this.sysInfos=r.system_info
-          }
-          if(r.targets_status_topx!=undefined && r.targets_status_topx.length > 0){
-            let tar_1 = r.targets_status_topx[0]
-            this.targetRun1.name = tar_1.name
-            this.targetRun1.target_ratio=(tar_1.target_ratio*100).toFixed(2)
-            this.targetRun1.pre_run=tar_1.pre_run
-            this.targetRun1.tid=tar_1.tid
-            this.targetRun1.money = tar_1.target_ratio*10000
-            let fmt = 'yy年MM月dd日'
-            this.targetRun1.appStart = this.$utdate.dateFmt(tar_1.apply_starttime,fmt)
-            this.targetRun1.appEnd = this.$utdate.dateFmt(tar_1.apply_endtime,fmt)
-            this.targetRun1.init_amt=tar_1.init_amt
-            this.targetRun1.fee_ratio=tar_1.fee_ratio>0?(targetRun1.fee_ratio*100).toFixed(2):0
-            this.$store.commit('UPDATE_PAGE_TITLE', '大目标'+tar_1.name) 
-          }
-          // else{
-          //     AlertModule.show({
-          //         title: '不好意思~~',
-          //         content: '没找到你要的信息.',
-          //         onHide () {
-          //           window.history.go(-1)
-          //         }
-          //     })
-          // }
-          // console.log(this.mainData)
+        }
+        if(r.system_info!=undefined && r.system_info.length >0){
+          this.sysInfos=r.system_info
+        }
+        if(r.targets_by_tid!=undefined && r.targets_by_tid.length > 0){
+          let tar_1 = r.targets_by_tid[0]
+          this.targetRun1.name = tar_1.name
+          this.targetRun1.target_ratio=(tar_1.target_ratio*100).toFixed(2)
+          this.targetRun1.pre_run=tar_1.pre_run
+          this.targetRun1.tid=tar_1.tid
+          this.targetRun1.money = tar_1.target_ratio*10000
+          let fmt = 'yy年MM月dd日'
+          this.targetRun1.app_start = this.$utdate.dateFmt(tar_1.apply_starttime,fmt)
+          this.targetRun1.app_end = this.$utdate.dateFmt(tar_1.apply_endtime,fmt)
+          this.targetRun1.init_amt=tar_1.init_amt
+          this.targetRun1.fee_ratio=tar_1.fee_ratio>0?(targetRun1.fee_ratio*100).toFixed(2):0
+          this.$store.commit('UPDATE_PAGE_TITLE', '大目标'+tar_1.name) 
+        }
+        // else{
+        //     AlertModule.show({
+        //         title: '不好意思~~',
+        //         content: '没找到你要的信息.',
+        //         onHide () {
+        //           window.history.go(-1)
+        //         }
+        //     })
+        // }
+        // console.log(this.mainData)
       }).catch(err=>{
           console.log(err)
       })

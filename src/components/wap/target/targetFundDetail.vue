@@ -7,7 +7,7 @@
     <div v-else>
       <div class="topcontext">
         <div>
-          <div class="aimRate">+{{targetRun1.targetRatio}}<span style="font-size:large;">%</span></div>
+          <div class="aimRate">+{{targetRun1.target_ratio}}<span style="font-size:large;">%</span></div>
           <div class="aimRmk">目标收益率</div>
         </div>
         <div class="slopingside"></div>
@@ -20,7 +20,7 @@
       <div>
         <div class="aimRmkSub">-- 目标收益为绝对收益,买入1万元,达标收益{{targetRun1.money}}元 --</div>
         <div class="linefd"></div>
-          <div style="padding:5px 0;text-align:center;">申购日: {{targetRun1.appStart}}~{{targetRun1.appEnd}}</div>
+          <div style="padding:5px 0;text-align:center;">申购日: {{targetRun1.app_start}}~{{targetRun1.app_end}}</div>
         <div class="linefd"></div>
         <div style="padding: 5px 0;"><img src="../../../../static/img/funddetail_banner.png" width="340" height="80"/></div>
       </div>
