@@ -43,7 +43,7 @@ import { Tabbar, TabbarItem ,XHeader,XButton,XDialog,Flexbox,FlexboxItem } from 
           if(r.user_news_info_list!=undefined && r.user_news_info_list.length>0){
             this.newsList=r.user_news_info_list
             this.newsList.map(x=>x.inserttime=this.$utdate.dateFmt(x.inserttime,"yy/MM/dd"))
-            console.log(this.newsList)
+            // console.log(this.newsList)
           }
         })
       },

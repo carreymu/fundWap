@@ -4,7 +4,7 @@ export default {
     this.countTime()
     this.loadFundDetail()
     this.loadLatest()
-    this.$store.commit('UPDATE_PAGE_TITLE', '大目标2006') 
+    this.$store.commit('UPDATE_PAGE_TITLE', '大目标') 
   },
   data(){
     return {
@@ -23,7 +23,7 @@ export default {
   methods:{
     loadFundDetail(){
       let ft_id=this.$route.params.ft_id;
-      if(tid == undefined){
+      if(ft_id == undefined){
         AlertModule.show({
           title: '亲~~',
           content: '请勿瞎搞.',
@@ -74,6 +74,7 @@ export default {
             this.targetRun1.appEnd = this.$utdate.dateFmt(tar_1.apply_endtime,fmt)
             this.targetRun1.init_amt=tar_1.init_amt
             this.targetRun1.fee_ratio=tar_1.fee_ratio>0?(targetRun1.fee_ratio*100).toFixed(2):0
+            this.$store.commit('UPDATE_PAGE_TITLE', '大目标'+tar_1.name) 
           }
           // else{
           //     AlertModule.show({
