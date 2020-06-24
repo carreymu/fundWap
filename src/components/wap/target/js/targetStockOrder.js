@@ -132,7 +132,7 @@ export default {
               this.fundDailyData.push({date:dt, value: v,daily_change:cg})
             }
             // this.loadDailyData()
-            this.loadingDailyData(1)
+            this.loadingDailyData(1,1)
           }
           else {
             AlertModule.show({
@@ -177,17 +177,20 @@ export default {
           // console.log(this.fundList)
         })
       },
-      loadingDailyData(month){
+      loadingDailyData(month,idx){
         this.chartData.data = []
         this.chartData.alldata = []
         this.chartData.tag = []
         let threshold = 200
         var dots = 30
         var step = this.dtmap[month||1]
+        //dtmap:{1:1,3:3,6:6,12:12,36:36}
+        // let dotmap = {1:30,3:60,6:90,12:120,36:5}
+        // var dots = dotmap[step]
         let ht = '<div style="border:1px solid #c32c1c;background-color:#fff;width:3px;height:3px;border-radius:50%;font-size:10px"></div>'
         var startDate = this.$utdate.addDate(new Date(),-(dots*step))
         var rndEnd = this.$utrandom.randomFullClose(0,4)
-        for(var j=0;j<=dots;j++){
+        for(var j=0;j<= dots * (idx+1);j++){
           let dt = this.$utdate.addDate(startDate,j*step)
           //周六周日赌场不开门 0-周日，6-周六
           var day = new Date(dt).getDay()
@@ -266,8 +269,8 @@ export default {
       onItemClick (index,it) {
           this.selectIdx = index
           //败在了我的进取心之下
-          //console.log(Object.values(it)[0]+"--=="+index)
-          this.loadingDailyData(Object.values(it)[0])
+          console.log(Object.values(it)[0]+"--=="+index)
+          this.loadingDailyData(Object.values(it)[0], index)
       },
       lblFx(text) {
         return {
