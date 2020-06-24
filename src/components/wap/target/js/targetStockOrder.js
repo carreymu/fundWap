@@ -132,7 +132,7 @@ export default {
               this.fundDailyData.push({date:dt, value: v,daily_change:cg})
             }
             // this.loadDailyData()
-            this.loadingDailyData(1,1)
+            this.loadingDailyData(1,0)
           }
           else {
             AlertModule.show({
@@ -184,9 +184,6 @@ export default {
         let threshold = 200
         var dots = 30
         var step = this.dtmap[month||1]
-        //dtmap:{1:1,3:3,6:6,12:12,36:36}
-        // let dotmap = {1:30,3:60,6:90,12:120,36:5}
-        // var dots = dotmap[step]
         let ht = '<div style="border:1px solid #c32c1c;background-color:#fff;width:3px;height:3px;border-radius:50%;font-size:10px"></div>'
         var startDate = this.$utdate.addDate(new Date(),-(dots*step))
         var rndEnd = this.$utrandom.randomFullClose(0,4)
