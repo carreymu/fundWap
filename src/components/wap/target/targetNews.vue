@@ -7,14 +7,8 @@
       <router-link :to="'/fundWap/targetDetail/'+item.nid">
       <flexbox>
         <flexbox-item>
-          <flexbox orient="vertical">
-            <flexbox-item>
-                <flexbox orient="vertical">
-                  <flexbox-item class="title">{{item.title}}</flexbox-item>                  
-                  <flexbox-item style="font-size:12px;">{{item.inserttime}}</flexbox-item>
-                </flexbox>
-            </flexbox-item>          
-          </flexbox>
+          <div style="height:60px;">{{item.title}}</div>
+          <div style="height:20px;">{{item.inserttime}}</div>
         </flexbox-item>
         <flexbox-item class="postListImg"><img :src="item.img_url"></flexbox-item>      
       </flexbox>      
@@ -56,7 +50,7 @@ a:hover {
 .targetIndex .newsItem{
   margin:5px 10px 0 10px;
   position: relative;
-  height: 126px;
+  height: 116px;
   overflow: hidden;
   border-radius: 5px
 }

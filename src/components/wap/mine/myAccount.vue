@@ -1,19 +1,19 @@
 <template>
   <div class="myAcc">
     <group>
-      <cell class="msg"  :title="'头像'" is-link><img src="../../../assets/images/biz/avastar.jpg" class="avastar"/></cell>
-      <cell class="msg" :title="'昵称'" :value="'总有刁民想害朕'" is-link></cell>
-      <cell class="msg" :title="'手机号码'" :value="'18888888888'" is-link></cell>
+      <cell class="msg"  :title="'头像'" is-link><img :src="myInfo.avastar" class="avastar"/></cell>
+      <cell class="msg" :title="'昵称'" :value="myInfo.nickname" is-link></cell>
+      <cell class="msg" :title="'手机号码'" :value="myInfo.phonenumber" is-link></cell>
     </group>
 
     <group>
-      <cell class="msg" :title="'基金交易账户'" :value="'已开通'" is-link></cell>
+      <cell class="msg" :title="'基金交易账户'" :value="myInfo.is_fund_account" is-link></cell>
     </group>
 
     <group>
       <cell class="msg" :title="'修改登录密码'" is-link></cell>
-      <x-switch class="msg" title="手势密码" v-model="show16"></x-switch>
-      <x-switch class="msg" title="指纹密码" v-model="show16"></x-switch>
+      <x-switch class="msg" title="手势密码" v-model="showGesture"></x-switch>
+      <x-switch class="msg" title="指纹密码" v-model="showHandpring"></x-switch>
     </group>
 
     <group>

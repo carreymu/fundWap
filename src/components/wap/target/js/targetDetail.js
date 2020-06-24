@@ -1,4 +1,4 @@
-import {Flexbox, FlexboxItem, XImg, dateFormat,Spinner} from 'vux'
+import {Flexbox, FlexboxItem, AlertModule, dateFormat,Spinner} from 'vux'
 export default{
     mounted() {
         this.$store.commit('UPDATE_PAGE_TITLE', '详情');
@@ -13,7 +13,13 @@ export default{
         loadDetail(){
             let id=this.$route.params.targetId;
             if(id == undefined){
-                //alter and back to pre page
+                AlertModule.show({
+                    title: '亲~~',
+                    content: '请勿瞎搞.',
+                    onHide () {
+                        window.location.replace(document.referrer)
+                    }
+                })
             }
             let dt = {
                 "req": {"nid":id},
@@ -23,6 +29,14 @@ export default{
                 if(r.news_info_by_nid.length > 0){
                     this.mainData = r.news_info_by_nid[0]
                     this.mainData.inserttime = dateFormat(this.mainData.inserttime,'MM-DD HH:mm:ss')
+                }else{
+                    AlertModule.show({
+                        title: '不好意思~~',
+                        content: '没找到你要的信息.',
+                        onHide () {
+                          window.history.go(-1)
+                        }
+                    })
                 }
                 // console.log(this.mainData)
             }).catch(err=>{
@@ -32,6 +46,6 @@ export default{
     },
 
     components:{
-        Flexbox, FlexboxItem,XImg,Spinner
+        Flexbox, FlexboxItem,AlertModule,Spinner
     }
 }

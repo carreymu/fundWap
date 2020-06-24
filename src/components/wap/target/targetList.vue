@@ -1,6 +1,6 @@
 <template>
   <div class="targetList">
-    <div class="load" v-if="itemList.length==0">
+    <div class="load" v-if="targetListData.length==0">
         <spinner type="lines"/>
     </div>
     <div v-else>

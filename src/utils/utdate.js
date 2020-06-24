@@ -44,9 +44,13 @@ export function getDays(date1 , date2){
     var date2Obj = new Date(date2Str[0],(date2Str[1]-1),date2Str[2]);
     var t1 = date1Obj.getTime();
     var t2 = date2Obj.getTime();
+    return getDaysLong(t1,t2)
+}
+
+export function getDaysLong(t1, t2,isAbs=true){
     var dateTime = 1000*60*60*24; //每一天的毫秒数
     var minusDays = Math.floor(((t2-t1)/dateTime));//计算出两个日期的天数差
-    var days = Math.abs(minusDays);//取绝对值
+    var days = isAbs? Math.abs(minusDays) : minusDays;//是否取绝对值
     return days;
 }
 
@@ -60,4 +64,27 @@ export function addDate(date,days){
     return d.getFullYear()+'-'+m+'-'+dd; 
   }
 
-export default { dateFmt, getDays, addDate }
+export function workdays(fmt){
+    var startDate = new Date()
+    var day = startDate.getDay()
+    // 0-周日，6-周六
+    let sdate = startDate
+    let edate = startDate
+    switch(day){
+        case 0:
+            sdate=addDate(startDate,1)
+            edate=addDate(startDate,2)
+            break
+        case 6:
+            sdate=addDate(startDate,2)
+            edate=addDate(startDate,3)
+            break
+        default:
+            sdate=startDate
+            edate=addDate(startDate,1)
+            break
+    }
+    var weekday=["星期日","星期一","星期二","星期三","星期四","星期五","星期六"]
+    return {'startDate':dateFmt(sdate,fmt), 'endDate':dateFmt(edate,fmt), 'weekday':weekday[(new Date(edate)).getDay()]}
+}
+export default { dateFmt, getDays, addDate, getDaysLong, workdays}

@@ -5,7 +5,7 @@ from operator import itemgetter
 
 
 class TargetsAggList(DataSource):
-    req: dict
+    # req: dict
     event_default: Any
     dependence_source: dict
 
@@ -23,5 +23,3 @@ class TargetsAggList(DataSource):
                     res.append({"name": k.format(cnt=len(itm)), "cnt": len(itm), "items": itm})
                 return res
         return self.event_default
-
-

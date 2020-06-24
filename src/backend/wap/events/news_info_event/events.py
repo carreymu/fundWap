@@ -3,7 +3,7 @@ from wap.base import DataSource
 
 
 class NewsInfoTop100(DataSource):
-    req: dict
+    # req: dict
     event_default: Any
     dependence_source: dict
 

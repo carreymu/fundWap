@@ -1,53 +1,52 @@
 import { Tabbar, TabbarItem ,XHeader,XButton,XDialog,Flexbox,FlexboxItem } from 'vux'
   export default {
     mounted() {
-        this.$store.commit('UPDATE_PAGE_TITLE', '消息中心') 
-    //   this.menuLists();
+      this.$store.commit('UPDATE_PAGE_TITLE', '消息中心') 
+      this.newsLists()
     },
     data(){
       return {
         dialogContent: '',
         showDialogStyle: false,
-
-        newsList:[
-          {
-            id:1,
-            title:"免费送您一张服务卡",
-            dateTime:'04-30 18:30:01',
-            content:'满足周五送卡条件,免费送您一张服务卡,有效期截止:2020-05-11。下周五满足条件将继续送卡,建议您低位跟投,规律跟投。满足周五送卡条件,免费送您一张服务卡,有效期截止:2020-05-11。下周五满足条件将继续送卡,建议您低位跟投,规律跟投。'
-          },
-          {
-            id:2,
-            title:"[大目标2018]达标止盈",
-            dateTime:'04-29 18:30:01',
-            content:'[大目标2018]今日(4月29日)达标止盈,运行46天,收益8.2%。这是上线以来帮大家赚到的第43个大目标。'
-          },
-        ],
+        newsList:[],
       }
     },
     methods:{
       doShowToast (id) {
-        let flt = this.newsList.filter(x=>x.id==id)
+        let flt = this.newsList.filter(x=>x.uni_id==id)
         if(flt.length>0){          
           this.dialogContent = flt[0].content
+          // to do
+          // let dt = {
+          //   "req": {"uid":1,"uni_id":id},
+          //   "event_names": ["update_user_news_info_read"]
+          // }
+          // this.$api.fetchPost('/sanic-api', dt).then(r=>{
+          //   if(r.user_news_info_list!=undefined && r.user_news_info_list.length>0){
+          //     this.newsList=r.user_news_info_list
+          //     this.newsList.map(x=>x.inserttime=this.$utdate.dateFmt(x.inserttime,"yy/MM/dd"))
+          //     console.log(this.newsList)
+          //   }
+          // })
         } else{
           this.dialogContent = '暂无信息'
           console.log('alter....')
         }
         this.showDialogStyle=true
-      }
-    //   menuLists(){
-    //     let self=this;
-    //     this.baseAjax({
-    //       url:'../../../static/basicData/mineMenu.json',
-    //       showLoading:true,
-    //       success:function(data){
-    //           console.log(data)
-    //           self.menuList=data.returnObject
-    //           // console.log(self.urlList)
-    //       }
-    //     })
-    //   },
+      },
+      newsLists(){
+        let dt = {
+          "req": {"uid":1},
+          "event_names": ["user_news_info_list"]
+        }
+        this.$api.fetchPost('/sanic-api', dt).then(r=>{
+          if(r.user_news_info_list!=undefined && r.user_news_info_list.length>0){
+            this.newsList=r.user_news_info_list
+            this.newsList.map(x=>x.inserttime=this.$utdate.dateFmt(x.inserttime,"yy/MM/dd"))
+            // console.log(this.newsList)
+          }
+        })
+      },
     },
     components: {
       Tabbar,

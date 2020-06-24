@@ -2,33 +2,26 @@
 <div>
   <div class="bestChoiceDetail">
     <div class="topImg">
-      <div class="topTxt"><span style="color:brown">{{mainData.joinNums}}</span>人已购买</div>
+      <div class="topTxt"><span style="color:brown">{{mainData.join_num}}</span>人已购买</div>
     </div>
     <div class="txt">
       <flexbox class="aim">
         <flexbox-item>
           <flexbox orient="vertical">
-            <flexbox-item class="rmk">{{mainData.annEarnLong}}</flexbox-item>
-            <flexbox-item class="rateIn">+{{mainData.rateProfit}}%</flexbox-item>          
+            <flexbox-item class="rmk">{{mainData.profit_txt}}</flexbox-item>
+            <flexbox-item class="rateIn">+{{mainData.profit_ratio}}%</flexbox-item>          
           </flexbox>
         </flexbox-item>
-        <!-- <flexbox-item>
-          //////////
-        </flexbox-item> -->
         <flexbox-item>
           <flexbox orient="vertical">
             <flexbox-item class="rmk">历史最大亏损</flexbox-item>
-            <flexbox-item class="rateOut">{{mainData.rateLoss}}%</flexbox-item>         
+            <flexbox-item class="rateOut">{{mainData.loss_ratio}}%</flexbox-item>         
           </flexbox>
         </flexbox-item>
       </flexbox>
       <div class="midBox">
         <flexbox>
-          <flexbox-item>
-          <div  class="itemDesc">
-            {{mainData.description}}
-          </div>
-          </flexbox-item>
+          <flexbox-item class="itemDesc">{{mainData.details}}</flexbox-item>
         </flexbox>
       </div>
     </div>
@@ -47,25 +40,36 @@
       <swiper v-model="index" height="260px" :show-dots="false">
         <swiper-item v-for="(item, index) in chartData" :key="index">
           <v-chart :data="item.data">
-            <v-line series-field="type" />
+            <v-scale x field="date" type="timeCat" mask="YY-MM-DD" />
+            <v-tooltip show-crosshairs show-value-in-legend />
+            <v-area series-field="type" shape="smooth" adjust="stack" />
+            <v-line series-field="type" shape="smooth" adjust="stack" />
+             <v-axis y :label="lblFy"/>
           </v-chart>
         </swiper-item>
       </swiper>
       <flexbox>
         <flexbox-item>
-          <x-button @click.native="index=0" mini v-if="index===0" plain type="warn" class="timeBtn">近1月</x-button>
-          <x-button @click.native="index=0" mini v-else  class="timeBtn">近1月</x-button>
+          <x-button @click.native="fltIdx(index,1)" mini v-if="month===1" plain type="warn" class="timeBtn">近1月</x-button>
+          <x-button @click.native="fltIdx(index,1)" mini v-else  class="timeBtn">近1月</x-button>
         </flexbox-item>
         <flexbox-item>
-          <x-button @click.native="index=1" mini v-if="index===1" plain type="warn"  class="timeBtn">近3月</x-button>
-          <x-button @click.native="index=1" mini v-else  class="timeBtn">近3月</x-button>
+          <x-button @click.native="fltIdx(index,3)" mini v-if="month===3" plain type="warn"  class="timeBtn">近3月</x-button>
+          <x-button @click.native="fltIdx(index,3)" mini v-else  class="timeBtn">近3月</x-button>
         </flexbox-item>
-        <!-- to do, add event -->
-        <flexbox-item><x-button @click.native="next" mini class="timeBtn">近6月</x-button></flexbox-item>
-        <flexbox-item><x-button @click.native="next" mini class="timeBtn">近1年</x-button></flexbox-item>
-        <flexbox-item><x-button @click.native="prev" mini class="timeBtn">近3年</x-button></flexbox-item>
+        <flexbox-item>
+          <x-button @click.native="fltIdx(index,6)" mini v-if="month===6" plain type="warn"  class="timeBtn">近6月</x-button>
+          <x-button @click.native="fltIdx(index,6)" mini v-else  class="timeBtn">近6月</x-button>
+        </flexbox-item>
+        <flexbox-item>
+          <x-button @click.native="fltIdx(index,12)" mini v-if="month===12" plain type="warn"  class="timeBtn">近1年</x-button>
+          <x-button @click.native="fltIdx(index,12)" mini v-else  class="timeBtn">近1年</x-button>
+        </flexbox-item>
+        <flexbox-item>
+          <x-button @click.native="fltIdx(index,36)" mini v-if="month===36" plain type="warn"  class="timeBtn">近3年</x-button>
+          <x-button @click.native="fltIdx(index,36)" mini v-else  class="timeBtn">近3年</x-button>
+        </flexbox-item>
       </flexbox>
-
     </div>
 
     <div>
@@ -76,13 +80,15 @@
     </group>
     </div>
     
-    <div v-for="(item,index) in fTypeList" :key="index">
-        <div class="funds"><span :style="'color:'+item.color">■</span> {{item.name}}</div>
+    <div v-for="(item,index) in mainData.funds" :key="index">
+        <div class="funds"><span :style="'color:'+item.ico_color">■</span> {{item.name}}</div>
         <div class="fundsDetail">
           <flexbox orient="vertical">
             <flexbox-item v-for="(it,idx) in item.fundsList" :key="idx">
-              <div style="float: left;">{{it.fundName}}({{it.fundCode}})</div>
-              <div style="float: right;">{{it.percent}}%</div>
+              <router-link :to="'/fundWap/targetStockOrder/'+it.fid">
+              <div style="float: left;">{{it.fund_name}}({{it.fund_code}})</div>
+              <div style="float: right;">{{it.hold_percentage}}%</div>
+              </router-link>
             </flexbox-item>
           </flexbox>
         </div>
@@ -93,7 +99,7 @@
         :padding="[20, 'auto']">
         <v-tooltip disabled />
         <v-scale y :options="yOptions" />
-        <v-pie :radius="0.85" :inner-radius="0.7" series-field="name" :colors="['#FE5D4D','#3BA4FF','#737DDE']" />
+        <v-pie :radius="0.85" :inner-radius="0.7" series-field="name" :colors="mainData.circleColors" />
         <v-legend :options="legendOptions" />
         <v-guide type="html" :options="htmlOptions" />
       </v-chart>
@@ -103,22 +109,21 @@
           <div class="tradeFont" style="float: right;"> > &nbsp;</div>
         </div>
       <div class="linefd"></div>
-      <div class="tradeCon">交易规则交易规则交易规则交易规则交易规则交易规则交易规则交易规则交易规则交易规则交易规则交易规
-        则交易规则交易规则交易规则交易规则交易规则交易规则交易规则交易规则交易规则</div>
+      <div class="tradeCon">{{mainData.notice}}</div>
     </div>
 
   </div>
 
   <div class="bstfooterFix">
-    <flexbox style="text-align:center;padding-top:3px;">
+    <flexbox style="text-align:center;">
       <flexbox-item >
-        <x-button type="default"><div style="font-size:13px;">定投</div>
-        <div style="font-size:10px;">500元起投(费率1折起)</div>
+        <x-button type="default" class="fnt12" :link="{path:'/fundWap/targetSOrder',query:{cid:cid,sch:true}}">定投
+        <div style="font-size:10px;">{{mainData.sched_init_amt}}元起投(费率1折起)</div>
         </x-button>
         </flexbox-item>
       <flexbox-item >
-        <x-button type="warn" link="/fundWap/targetOrder/2">
-        <div style="font-size:13px">申购</div><div style="font-size:10px;">1000元起(费率1折起)</div>
+        <x-button type="warn" class="fnt12" :link="{path:'/fundWap/targetSOrder',query:{cid:cid}}">申购
+        <div style="font-size:10px;">{{mainData.init_amt}}元起(费率1折起)</div>
         </x-button>
       </flexbox-item>
     </flexbox>
@@ -211,7 +216,6 @@
     background-color:rgb(240, 240, 240);
     line-height: 22px;
    }
-   
   .bestChoiceDetail .timeBtn {
     margin: 0 5px 0 5px;
     padding:0 5px;
@@ -224,13 +228,18 @@
       background-color: transparent;
     }
   }
-
+  .bestChoiceDetail .fnt12{
+    font-size:12px;
+  }
+  .bestChoiceDetail .fnt10{
+    font-size:10px;
+  }
   .bstfooterFix{
     font-size:12px;
     position:absolute;
     bottom:0;
     width:100%;
-    height:111px;
+    height:120px;
     background:#F7F7F7;
     // padding:0 3px 0 3px;
   }
@@ -244,7 +253,6 @@
     color:#666;
   }
   .tradeCon{
-    
     font-size: 10px;
     padding:5px 0 5px 5px;
     color:#666;

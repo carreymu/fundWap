@@ -2,38 +2,24 @@
     <div class="myCards">
         <flexbox style="margin:20px 0px;font-size:14px;font-weight:bold;">
             <flexbox-item>大目标服务卡</flexbox-item>
-            <flexbox-item :span="2/3" style="text-align:right;">喵了个咪~ 剩余3张&nbsp;&nbsp;&nbsp;<x-button mini type="warn">购买</x-button></flexbox-item>
+            <flexbox-item :span="2/3" style="text-align:right;">
+            喵了个咪~ 剩余{{unexps.length}}张&nbsp;&nbsp;&nbsp;<x-button mini type="warn">购买</x-button></flexbox-item>
         </flexbox>
-        <flexbox class="rectAgl">
-        <flexbox-item :span="0.55">
-            <flexbox orient="vertical">
-            <flexbox-item class="aimRmkMoney">大目标服务卡</flexbox-item>
-            <flexbox-item>来源:赠送 </flexbox-item>
-            <flexbox-item>有效期:20年4月24日-20年5月4日</flexbox-item>
-            </flexbox>
-        </flexbox-item>
-        <flexbox-item><x-button mini type="warn">临期卡,尽快使用</x-button></flexbox-item> 
-        </flexbox>
-        <flexbox class="rectAgl">
-            <flexbox-item :span="0.55">
-                <flexbox orient="vertical">
-                <flexbox-item class="aimRmkMoney">大目标服务卡</flexbox-item>
-                <flexbox-item>来源:购买 </flexbox-item>
-                <flexbox-item>有效期:20年4月24日-21年5月4日</flexbox-item>
-                </flexbox>
-            </flexbox-item>
-            <flexbox-item><x-button mini type="primary"><span style="font-size:11px;">非临期卡,缓慢使用</span></x-button></flexbox-item> 
-        </flexbox>
-        <flexbox class="rectAgl">
-            <flexbox-item :span="0.55">
-                <flexbox orient="vertical">
-                <flexbox-item class="aimRmkMoney">大目标服务卡</flexbox-item>
-                <flexbox-item>来源:购买 </flexbox-item>
-                <flexbox-item>有效期:20年4月24日-22年5月4日</flexbox-item>
-                </flexbox>
-            </flexbox-item>
-            <flexbox-item><x-button mini type="primary"><span style="font-size:11px;">非临期卡,缓慢使用</span></x-button></flexbox-item> 
-        </flexbox>
+        <div v-for="(it,idx) in cards" :key="idx">
+          <flexbox class="rectAgl">
+              <flexbox-item :span="0.6">
+                  <flexbox orient="vertical">
+                    <flexbox-item class="aimRmkMoney">{{it.name}}</flexbox-item>
+                    <flexbox-item>来源:{{it.sources}} </flexbox-item>
+                    <flexbox-item>有效期:{{it.exp_date_start}}-{{it.exp_date_end}}</flexbox-item>
+                  </flexbox>
+              </flexbox-item>
+              <flexbox-item v-if="it.diff_days<=30 && it.diff_days>0"><x-button mini type="warn"><span style="font-size:10px;">临期卡,尽快使用</span></x-button></flexbox-item>
+              <flexbox-item v-else-if="it.diff_days<0" style="text-align:center;"><x-button mini type="default" disabled>
+                <span style="font-size:10px;">已过期</span></x-button></flexbox-item>
+              <flexbox-item v-else><x-button mini type="primary" ><span style="font-size:10px;">非临期卡,缓慢使用</span></x-button></flexbox-item>
+          </flexbox>
+        </div>
         <div style="text-align:center;"> - 已全部加载 -</div>
     </div>
 </template>

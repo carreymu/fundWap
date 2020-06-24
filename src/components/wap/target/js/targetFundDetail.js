@@ -3,11 +3,12 @@ export default {
   mounted() {
     this.countTime()
     this.loadFundDetail()
-    this.$store.commit('UPDATE_PAGE_TITLE', '大目标2006') 
+    this.loadLatest()
+    this.$store.commit('UPDATE_PAGE_TITLE', '大目标') 
   },
   data(){
     return {
-      serviceInfo:"- 操作与费率说明<br/>- 大目标服务费说明<br/>- 大目标是什么<br/>- 常见问题<br/>",
+      serviceInfo:"",
       sysInfo:{url:'systemInfoDetail',sid:7},
       fundList:[],
       curStartTime: '2020-07-31 08:00:00',
@@ -15,50 +16,81 @@ export default {
       hour: '00',
       min: '00',
       second: '00',
+      targetRun1:{id:0,name:'2001',target_ratio:8.00,pre_run:'1-12',money:811,app_start:'20年04月20日',app_end:'20年04月20日'},
+      sysInfos:[]
     }
   },
   methods:{
     loadFundDetail(){
-      let self = this
-      self.fundList=[{id: 1001, fundName: "景顺长城沪深100增强基金", fundCode: "000311", percent: "申购基金"},
-      {id: 1001, fundName: "景顺长城沪深100增强", fundCode: "000311", percent: "36.09"},
-      {id: 1002, fundName: "景顺长城沪深200增强", fundCode: "000312", percent: "20.5"},
-      {id: 1003, fundName: "富国动力A", fundCode: "001508", percent: "10"},
-      {id: 1004, fundName: "富国动力B", fundCode: "001509", percent: "10.17"},
-      {id: 1005, fundName: "前海开源价值成长A", fundCode: "006216", percent: "23.24"},
-      {id: 1006, fundName: "富国动力A", fundCode: "001508", percent: "10"},
-      {id: 1007, fundName: "富国动力B", fundCode: "001509", percent: "10.17"},
-      {id: 1008, fundName: "前海开源价值成长A", fundCode: "006216", percent: "23.24"}]
-      // let cid=this.$route.params.cid;
-      // this.baseAjax({
-      //   url:'../../../static/basicData/choiceDetail.json',
-      //   showLoading:true,
-      //   // params:{cid:cid},
-      //   success:function(data){
-      //     // var myDate = new Date();
-      //     // let mytime=myDate.toLocaleTimeString();
-      //     // console.log(mytime)
-      //     let arr=[]
-      //     let ro = data.returnObject[0].funds
-      //     for(var i=0;i<ro.length;i++){
-      //       arr=arr.concat(ro[i].fundsList)
-      //     }
-      //     this.fundList=arr
-      //     console.log(this.fundList.length)
-      //     console.log(this.fundList)
-      //   }
-      // })
+      let ft_id=this.$route.params.ft_id;
+      if(ft_id == undefined){
+        AlertModule.show({
+          title: '亲~~',
+          content: '请勿瞎搞.',
+          onHide () {
+              window.location.replace(document.referrer)
+          }
+        })
+      }
+      let dt = {
+        "req": {"ft_id":ft_id},
+        "event_names": ["fund_templates_short_list"]
+      }
+      this.$api.fetchPost('/sanic-api', dt).then(r=>{
+        if(r.fund_templates_short_list!=undefined && r.fund_templates_short_list.length > 0){
+          let flt = r.fund_templates_short_list.filter(x=>x.status==1)
+          if(flt.length > 0){
+            this.fundList = flt
+          }
+        }
+        // console.log(this.fundList)
+      })
     },
-    // loadLatest(){
-    //   this.baseAjax({
-    //     url:'../../../static/basicData/latestNews.json',
-    //     showLoading:true,
-    //     success:function(data){              
-    //         this.itemList=data.returnObject
-    //         // console.log(this.itemList)
-    //     }
-    //   })
-    // }
+    loadLatest(){
+      let scid=10
+      let ft_id=this.$route.params.ft_id;
+      let dt = {
+        "req": {"scid":scid,"scids":scid,"run_status":0,"tid":ft_id},
+        "event_names": ["system_info_category_by_scid","system_info","targets_by_tid"]
+      }
+      this.$api.fetchPost('/sanic-api', dt).then(r=>{
+        if(r.system_info_category_by_scid!=undefined && r.system_info_category_by_scid.length > 0){
+          let sub = r.system_info_category_by_scid[0].subtitle
+          if(sub.length>0){
+            this.serviceInfo = r.system_info_category_by_scid[0].subtitle
+          }
+        }
+        if(r.system_info!=undefined && r.system_info.length >0){
+          this.sysInfos=r.system_info
+        }
+        if(r.targets_by_tid!=undefined && r.targets_by_tid.length > 0){
+          let tar_1 = r.targets_by_tid[0]
+          this.targetRun1.name = tar_1.name
+          this.targetRun1.target_ratio=(tar_1.target_ratio*100).toFixed(2)
+          this.targetRun1.pre_run=tar_1.pre_run
+          this.targetRun1.tid=tar_1.tid
+          this.targetRun1.money = tar_1.target_ratio*10000
+          let fmt = 'yy年MM月dd日'
+          this.targetRun1.app_start = this.$utdate.dateFmt(tar_1.apply_starttime,fmt)
+          this.targetRun1.app_end = this.$utdate.dateFmt(tar_1.apply_endtime,fmt)
+          this.targetRun1.init_amt=tar_1.init_amt
+          this.targetRun1.fee_ratio=tar_1.fee_ratio>0?(targetRun1.fee_ratio*100).toFixed(2):0
+          this.$store.commit('UPDATE_PAGE_TITLE', '大目标'+tar_1.name) 
+        }
+        // else{
+        //     AlertModule.show({
+        //         title: '不好意思~~',
+        //         content: '没找到你要的信息.',
+        //         onHide () {
+        //           window.history.go(-1)
+        //         }
+        //     })
+        // }
+        // console.log(this.mainData)
+      }).catch(err=>{
+          console.log(err)
+      })
+    },
     countTime() {  
         //获取当前时间  
         var date = new Date();  

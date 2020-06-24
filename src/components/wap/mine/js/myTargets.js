@@ -1,29 +1,29 @@
-import { Tabbar, TabbarItem ,XHeader,Flexbox, FlexboxItem, XTable} from 'vux'
+import { Tabbar, TabbarItem ,XHeader,Flexbox, FlexboxItem, XTable, numberComma} from 'vux'
 export default {
   mounted() {
-    // this.menuLists();
+    this.myTargets();
     this.$store.commit('UPDATE_PAGE_TITLE', '我的理财') 
   },
   data(){
     return {
-      // showMsg:false,
-    //   redemption: '有9笔赎回记录即将到帐,最早预计05-07到帐',
+      myInfo:{},
     }
   },
   methods:{
     // tradeHis(){
     //   this.showMsg=true;
     // },
-    // menuLists(){
-    //   let self=this;
-    //   this.baseAjax({
-    //     url:'../../../static/basicData/mineMenu.json',
-    //     showLoading:true,
-    //     success:function(data){
-    //         self.menuList=data.returnObject
-    //     }
-    //   })
-    // },
+    myTargets(){
+      let dt = {
+        "req": {"uid":1},
+        "event_names": ["user_invest_account_targets"]
+      }
+      this.$api.fetchPost('/sanic-api', dt).then(r=>{
+        if(r.user_invest_account_targets!=undefined){
+          this.myInfo = r.user_invest_account_targets
+        }
+      })
+    },
   },
   components: {
     Tabbar,

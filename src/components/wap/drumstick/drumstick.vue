@@ -4,38 +4,36 @@
       <div class="top">鸡腿计划</div>
       <div class="topRmk">长期资产配置服务</div>
 
-      <div class="topcontext">
-        <div>          
-          <div >
-            <div class="aimRate">+14.8<span style="font-size:large;">%</span></div>
-            <div class="aimRmk">策略回测年化收益率</div>
-          </div>
+      <div class="topcontext">        
+        <div >
+          <div class="aimRate">{{drumstickInfoSub.ratio}}<span style="font-size:large;">%</span></div>
+          <div class="aimRmk">策略回测年化收益率</div>
         </div>
         <div class="slopingside"></div>
-        <div>          
-          <div>
-            <div class="aimLast">3~5<span style="font-size:large;font-weight:700">年</span></div>
-            <div class="aimRmk">建议投资期限</div>
-          </div>
+        <div>
+          <div class="aimLast">{{drumstickInfoSub.time}}<span style="font-size:large;">年</span></div>
+          <div class="aimRmk">建议投资期限</div>
         </div>
       </div>
-      <div class="aimRmkSub">-- 根据策略信号不定期开车,平均每月1～2次 --</div>
+      <div class="aimRmkSub">{{drumstickInfoSub.remark}}</div>
       <div class ="waitInvokeTxtPre">|||| <span class="waitInvokeTxtTail">等待定投</span></div>
-      <div>
-        <table class="invIntr">
+      <div class="invIntr">
+        <div class="infoLt">{{drumstickInfo.content}}</div>
+        <div class="infoRt"><img :src="drumstickInfo.img_url" width="120px" height="120px"/></div>
+        <!-- <table class="invIntr">
           <tr>
             <td valign="top">长期投资,不能傻傻持有。鸡腿计划，帮你做资产轮动中抓住投资机会,在风险积聚时自动调仓,锁定收益。</td>
             <td style="width:20px;"></td>
             <td><img src="../../../assets/images/stas.png" width="120px" height="120px"/></td>
           </tr>
-        </table>
+        </table> -->
       </div>
       <div style="padding:0 15px;">
         <span v-if="value.length>0">
-          <x-button type="warn" @click.native="showPopupPicker = true">设置提醒{{value}}</x-button>
+          <x-button type="warn" @click.native="showPopupPicker = true" style="font-size:14px;">设置提醒{{value}}</x-button>
         </span>
         <span v-else>
-          <x-button type="warn" @click.native="showPopupPicker = true">设置提醒</x-button>
+          <x-button type="warn" @click.native="showPopupPicker = true" style="font-size:14px;">设置提醒</x-button>
         </span>
         <group>
           <popup-picker title="时间" :show.sync="showPopupPicker" :inline-desc="`当前值[${value}]` " 
@@ -44,37 +42,29 @@
         </group>
       </div>
       
-      <flexbox class="invIntro">
-        <flexbox-item><router-link :to="'/fundWap/targetDetail/1'"><img src="../../../../static/img/intro.png"/><br/>了解[鸡腿计划]</router-link></flexbox-item>
-        <flexbox-item></flexbox-item>
-        <flexbox-item ><router-link :to="'/fundWap/targetDetail/1'"><img src="../../../../static/img/think.png"/><div style="padding-left:10px;">投资理念</div></router-link></flexbox-item>
-        <flexbox-item></flexbox-item>
-        <flexbox-item><router-link :to="'/fundWap/targetDetail/1'"><img src="../../../../static/img/safe.png"/><div style="padding-left:15px;">团队介绍</div></router-link></flexbox-item>
-      </flexbox>
+      <div class="drsinvIntro">
+        <div v-for="(item, index) in drumstickList" :key="index">
+          <router-link :to="item.url+'/'+item.sid"><img :src="item.img_url"/><br/>&nbsp;{{item.title}}</router-link>
+        </div>
+      </div>
       <div class="line"></div> 
 
       <div class="newsTop">鸡腿计划动态</div>        
-      <div class="newsItem" v-for="(item, index) in itemList" :key="index">
-        <router-link :to="'/fundWap/targetDetail/'+item.id">
+      <div class="newsItem" v-for="(item, index) in newsList" :key="index">
+        <router-link :to="'/fundWap/targetDetail/'+item.nid">
         <flexbox>
           <flexbox-item>
-            <flexbox orient="vertical">
-              <flexbox-item>
-                  <flexbox orient="vertical">
-                    <flexbox-item >{{item.title}}</flexbox-item>                  
-                    <flexbox-item>02-10 18:10</flexbox-item>
-                  </flexbox>
-              </flexbox-item>          
-            </flexbox>
+            <div style="height:60px;">{{item.title}}</div>
+            <div style="height:20px;">{{item.inserttime}}</div>
           </flexbox-item>
-          <flexbox-item class="postListImg"><img :src="item.icon"></flexbox-item>      
-        </flexbox>      
+          <flexbox-item class="postListImg"><img :src="item.img_url"></flexbox-item>      
+        </flexbox>
         </router-link>
-        <div style="border-bottom:1px solid rgb(230, 230, 230); padding-top:5px;"></div>           
+        <div class="line0"></div>           
       </div>
       <div class="footer">
-        <div><router-link :to="'/fundWap/targetNews'">更多内容 ></router-link></div>
-        <div style="border-bottom:1px solid rgb(230, 230, 230); padding:0 0 5px 0;"></div>   
+        <div><router-link :to="'/fundWap/targetNews/2'">更多内容 ></router-link></div>
+        <div class="line1"></div>   
         <div class="bot">基金历史收益部代表其未来表现.<br/>【市场有风险,投资需谨慎。】</div>
       </div>
     </div>
@@ -89,6 +79,14 @@
   .line{
     border-bottom:1px solid rgb(230, 230, 230); 
     padding:10px 0 10px 0;
+  }
+  .line0{
+    border-bottom:1px solid rgb(230, 230, 230); 
+    padding-top:5px;
+  }
+  .line1{
+    border-bottom:1px solid rgb(230, 230, 230); 
+    padding:0 0 5px 0;
   }
   .drumstick{
     font-size:12px;
@@ -154,17 +152,16 @@
   }
   
   .drumstick .invIntr{
-    width:100%;
-    font-size:12px;
+    display: inline-block;
     line-height:25px;
     color:dimgray;
-    border:none;
-    padding:0px 5px 0px 5px;
   }
   
- .drumstick .invIntro{
-    padding:10px 20px 0 0;    
-    white-space:nowrap;
+ .drumstick .drsinvIntro{
+    text-align: center;
+    display:-webkit-flex;
+    display: flex;
+    justify-content: space-around;
   }
   .drumstick .newsTop{
     font-size:14px;
@@ -186,11 +183,17 @@
     overflow: hidden;
   }
   .drumstick .footer{
-    text-align:center;color:#666;
+    text-align:center;
+    color:#666;
   }
-
   .drumstick .footer .bot{
-    font-size:11px;padding:10px 0 20px 0;
+    font-size:10px;
+    padding:10px 0 20px 0;
   }
-
+  .drumstick .infoLt {
+    float:left;width:55%;padding:10px;overflow:hidden;height:90px;
+  }
+  .drumstick .infoRt {
+    float:right;overflow:hidden;height:120px;
+  }
 </style>

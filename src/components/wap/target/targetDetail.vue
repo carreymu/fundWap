@@ -1,5 +1,5 @@
 <template>
-	<div class="targetDetail">
+	<div class="sysInfoDtl">
 		<div class="load" v-if="JSON.stringify(mainData)=='{}'">
 			<spinner type="lines"/>
 		</div>
@@ -23,7 +23,7 @@
   export default targetDetail
 </script>
 <style>
-.targetDetail .title{
+.sysInfoDtl .title{
 	font-size: 16px;
 	line-height: 25px;
 	overflow: hidden;
@@ -31,30 +31,30 @@
 	padding: 10px 5px 5px 5px;
 }
 
-.targetDetail .detail-text{
+.sysInfoDtl .detail-text{
 	color: #666;
 	padding:10px 15px;	
 }
 
-.targetDetail .detail-text p{
+.sysInfoDtl .detail-text p{
 	text-indent: 28px;
 	font-size: 14px;
 	line-height: 22px;
 	color: #666
 }
 
-.targetDetail  .sDate{
+.sysInfoDtl  .sDate{
 	margin-top: 10px;
 	font-size: 12px;
 	color: #666
 }
 
-.targetDetail  .text-top{
+.sysInfoDtl  .text-top{
 	border-bottom: 1px solid #eee;
 	padding: 10px 15px 15px 15px; 
  }
 
- .targetDetail .load{
+ .sysInfoDtl .load{
     text-align: center;
     height: 250px;
     margin: auto;

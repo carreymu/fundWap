@@ -2,32 +2,35 @@
   <div class="mine">
     <flexbox class="rectAgl">
       <flexbox-item :span="0.15">
-        <router-link :to="'/fundWap/myAccount'"><img src="../../../assets/images/biz/avastar.jpg" class="avastar"/></router-link>
+        <router-link :to="'/fundWap/myAccount'"><img :src="myInfo.avastar" class="avastar"/></router-link>
       </flexbox-item>
-      <flexbox-item ><router-link :to="'/fundWap/myAccount'" style="color:white;"> 总有刁民想害朕</router-link></flexbox-item> 
+      <flexbox-item ><router-link :to="'/fundWap/myAccount'" style="color:white;"> {{myInfo.username}}</router-link></flexbox-item> 
       <flexbox-item :span="0.45">
         <router-link :to="'/fundWap/myPositions'">
         <flexbox orient="vertical">
-          <flexbox-item class="aimRmk">总资产: <span class="aimRmkMoney">2,100,200.00</span></flexbox-item>
-          <flexbox-item class="aimRmk">最新收益: <span class="aimRmkMoney">+8,000.01</span></flexbox-item>
+          <flexbox-item class="aimRmk">总资产: <span class="aimRmkMoney">{{myInfo.init_amt}}</span></flexbox-item>
+          <flexbox-item class="aimRmk">最新收益: <span class="aimRmkMoney">{{myInfo.daily_profit}}</span></flexbox-item>
         </flexbox>
         </router-link>
       </flexbox-item>
     </flexbox>
     
     <group>
-      <div v-for="(it,idx) in menuList" :key="idx">
-        <cell class="msg" :title="it.title" v-if="it.isWithTail" :link="{path:it.url+'/'+it.id}">
+      <div v-for="(it,idx) in menus" :key="idx">
+        <!-- <cell class="msg" :title="it.title" v-if="it.isWithTail" :link="{path:it.url+'/'+it.id}">
           <badge v-if="it.newsCnt!=undefined & it.newsCnt>0" :text="it.newsCnt"></badge>
+        </cell> -->
+        <cell class="msg" v-if="it.title.indexOf('目标卡')>0" :title="it.title" :link="it.url">
+          {{'剩余'+it.card_cnt+'次'}}
         </cell>
-        <cell class="msg" :title="it.title" v-else-if="it.url.length>0" :link="it.url">
-          <badge v-if="it.newsCnt!=undefined & it.newsCnt>0" :text="it.newsCnt"></badge>
+        <cell class="msg" :title="it.title" v-else-if="it.url.length>0" :link="it.url+'?sid='+it.sid">
+          <badge v-if="it.cnt!=undefined & it.cnt>0" :text="it.cnt"></badge>
         </cell>
-        <span   v-else >
+        <span v-else >
         <cell class="msg" is-link :title="it.title" :border-intent="false" :arrow-direction="showContent004 ? 'down' : ''"
         @click.native="showContent004 = !showContent004"></cell>
-        <actionsheet v-model="showContent004" :menus="menus1" :close-on-clicking-mask="false" show-cancel
-        @on-click-mask="console('on click mask')"></actionsheet>
+        <actionsheet class="msg" v-model="showContent004" :menus="menus1" :close-on-clicking-mask="false" show-cancel
+        @on-click-mask="maskClick('on click mask')"></actionsheet>
         </span>
       </div>
     </group>

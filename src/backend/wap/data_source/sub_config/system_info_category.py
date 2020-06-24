@@ -16,4 +16,19 @@ config = dict(
         },
         "dependence": exec_base.DBInfo,
     },
+    system_info_category_by_scid={
+        "name": "select system category information by scid",
+        "author": "root",
+        "event_default": {},
+        "sql_info": {
+            "engine_name": "db_fund_wap_mysql",
+            "sql": {
+                "mysql": "select scid,pscid,title,subtitle,url from system_info_category where scid={scid} "
+                         "and status={status}",
+                "sqlite3": "",
+                "mssql": ""
+            }
+        },
+        "dependence": exec_base.DBInfo,
+    },
 )

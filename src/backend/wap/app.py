@@ -9,6 +9,8 @@ from wap.controller import Variable, Variables
 from wap import wap_app as app
 from wap.exceptions import GeneralException
 from wap.dependence import dependence_cleanup, dependence_init
+from wap.utils.sql_handler import sql_in
+
 
 @app.get("/ha")
 async def heart_ack(request):
@@ -49,6 +51,10 @@ async def main(request):
     ctx = {"data_source": {}}
 
     # 将 req 塞入 ctx 以便各个地方使用
+    # 遍历参数处理sql的in操作,为了对in (int list)操作
+    for k, v in req["req"].items():
+        if isinstance(v, list):
+            req["req"][k] = sql_in(v)
     ctx["req"] = req["req"]
     ctx["wap_info"] = req["wap_info"]
     ctx_event.set(ctx)
@@ -60,7 +66,7 @@ async def main(request):
     data = {}
     # 这里就已经在并行计算了
     variables = [Variables(ctx, event_names).start() for event_names in events]
-    print(variables)
+    # print(variables)
     try:
         # 将计算完的结果提取
         for future in asyncio.as_completed(variables):

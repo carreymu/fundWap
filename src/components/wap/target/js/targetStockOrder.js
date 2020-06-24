@@ -1,154 +1,39 @@
-import {VChart, VLine, VTooltip, VGuide, VScale, Spinner,VAxis,Flexbox, FlexboxItem,
+import {VChart, VLine, VTooltip, VGuide, VScale, Spinner,VAxis,Flexbox, FlexboxItem,AlertModule,
   Tab, TabItem, Swiper, SwiperItem, dateFormat, numberRandom,Card,XTable,Group,Cell, XButton} from 'vux'
 // import formatStr from '@/utils/utstring'
 export default {
   mounted() {
       this.loadLatest()
-      this.getTags()
+      // this.getTags()
     //   this.loadDetail()
-      this.$store.commit('UPDATE_PAGE_TITLE', '汇添富中证主要消费ETF连接 <br/>000248') 
+      this.$store.commit('UPDATE_PAGE_TITLE', '数据载入中...') 
   },
   data(){      
       return {
-          list2:['近1月', '近3月', '近6月', '近1年', '近3年'],
-          selectIdx: 0,
-          autoHeight:[420,420,420],
-          itemList:[],
-          chartData:{
-              color:["#c32c1c","#ffd700","#99CCFF"],
-      tag: [],
-      data:[
-                  {"date":"2010-01-10","stock_name":"大目标达标","value":96.6},
-                  {"date":"2010-01-10","stock_name":"大目标收益率","value":96.6},
-                  {"date":"2010-01-10","stock_name":"上证综指涨跌幅","value":97.2},
-                  // {"date":"2010-02-10","stock_name":"大目标达标","value":96.7},
-                  {"date":"2010-02-10","stock_name":"大目标收益率","value":91.1},
-                  {"date":"2010-02-10","stock_name":"上证综指涨跌幅","value":93.4},
-                  // {"date":"2010-03-10","stock_name":"大目标达标","value":100.2},
-                  {"date":"2010-03-10","stock_name":"大目标收益率","value":99.4},
-                  {"date":"2010-03-10","stock_name":"上证综指涨跌幅","value":91.7},
-                  // {"date":"2010-04-10","stock_name":"大目标达标","value":104.7},
-                  {"date":"2010-04-10","stock_name":"大目标收益率","value":108.1},
-                  {"date":"2010-04-10","stock_name":"上证综指涨跌幅","value":93.1},
-                  // {"date":"2010-05-10","stock_name":"大目标达标","value":95.6},
-                  {"date":"2010-05-10","stock_name":"大目标收益率","value":96},
-                  {"date":"2010-05-10","stock_name":"上证综指涨跌幅","value":92.3},
-                  // {"date":"2010-06-10","stock_name":"大目标达标","value":95.6},
-                  {"date":"2010-06-10","stock_name":"大目标收益率","value":89.1},
-                  {"date":"2010-06-10","stock_name":"上证综指涨跌幅","value":92.5},
-                  // {"date":"2010-07-10","stock_name":"大目标达标","value":95.3},
-                  {"date":"2010-07-10","stock_name":"大目标收益率","value":89.2},
-                  {"date":"2010-07-10","stock_name":"上证综指涨跌幅","value":95.7},
-                  {"date":"2010-08-10","stock_name":"大目标达标","value":96.1},
-                  {"date":"2010-08-10","stock_name":"大目标收益率","value":97.6},
-                  {"date":"2010-08-10","stock_name":"上证综指涨跌幅","value":99.9},
-                  {"date":"2010-09-10","stock_name":"大目标达标","value":96.1},
-                  {"date":"2010-09-10","stock_name":"大目标收益率","value":100.6},
-                  {"date":"2010-09-10","stock_name":"上证综指涨跌幅","value":103.8},
-                  {"date":"2010-10-10","stock_name":"大目标达标","value":101.6},
-                  {"date":"2010-10-10","stock_name":"大目标收益率","value":108.3},
-                  {"date":"2010-10-10","stock_name":"上证综指涨跌幅","value":108.9},
-                  {"date":"2010-11-10","stock_name":"大目标达标","value":105.6},
-                  {"date":"2010-11-10","stock_name":"大目标收益率","value":109.4},
-                  {"date":"2010-11-10","stock_name":"上证综指涨跌幅","value":113.7},
-                  {"date":"2010-12-10","stock_name":"大目标达标","value":112.7},
-                  {"date":"2010-12-10","stock_name":"大目标收益率","value":114.5},
-                  {"date":"2010-12-10","stock_name":"上证综指涨跌幅","value":118.8},
-                  {"date":"2011-01-11","stock_name":"大目标达标","value":117},
-                  {"date":"2011-01-11","stock_name":"大目标收益率","value":120.8},
-                  {"date":"2011-01-11","stock_name":"上证综指涨跌幅","value":124.3},
-                  {"date":"2011-02-11","stock_name":"大目标达标","value":121.8},
-                  {"date":"2011-02-11","stock_name":"大目标收益率","value":125.8},
-                  {"date":"2011-02-11","stock_name":"上证综指涨跌幅","value":130.1},
-                  {"date":"2011-03-11","stock_name":"大目标达标","value":133.1},
-                  {"date":"2011-03-11","stock_name":"大目标收益率","value":121.4},
-                  {"date":"2011-03-11","stock_name":"上证综指涨跌幅","value":125.8},
-                  {"date":"2011-04-11","stock_name":"大目标达标","value":141.9},
-                  {"date":"2011-04-11","stock_name":"大目标收益率","value":124.3},
-                  {"date":"2011-04-11","stock_name":"上证综指涨跌幅","value":127.4},
-                  // {"date":"2011-05-11","stock_name":"大目标达标","value":133.1},
-                  {"date":"2011-05-11","stock_name":"大目标收益率","value":118.5},
-                  {"date":"2011-05-11","stock_name":"上证综指涨跌幅","value":123.9},
-                  // {"date":"2011-06-11","stock_name":"大目标达标","value":131.2},
-                  {"date":"2011-06-11","stock_name":"大目标收益率","value":117},
-                  {"date":"2011-06-11","stock_name":"上证综指涨跌幅","value":123.2},
-                  // {"date":"2011-07-11","stock_name":"大目标达标","value":133.7},
-                  {"date":"2011-07-11","stock_name":"大目标收益率","value":121},
-                  {"date":"2011-07-11","stock_name":"上证综指涨跌幅","value":122.6},
-                  // {"date":"2011-08-11","stock_name":"大目标达标","value":125.2},
-                  {"date":"2011-08-11","stock_name":"大目标收益率","value":114.8},
-                  {"date":"2011-08-11","stock_name":"上证综指涨跌幅","value":123.2},
-                  // {"date":"2011-09-11","stock_name":"大目标达标","value":125.5},
-                  {"date":"2011-09-11","stock_name":"大目标收益率","value":109.1},
-                  {"date":"2011-09-11","stock_name":"上证综指涨跌幅","value":121.6},
-                  // {"date":"2011-10-11","stock_name":"大目标达标","value":124.2},
-                  {"date":"2011-10-11","stock_name":"大目标收益率","value":98.4},
-                  {"date":"2011-10-11","stock_name":"上证综指涨跌幅","value":115.6},
-                  // {"date":"2011-11-11","stock_name":"大目标达标","value":129.4},
-                  {"date":"2011-11-11","stock_name":"大目标收益率","value":95.8},
-                  {"date":"2011-11-11","stock_name":"上证综指涨跌幅","value":112.2},
-                  // {"date":"2011-12-11","stock_name":"大目标达标","value":128},
-                  {"date":"2011-12-11","stock_name":"大目标收益率","value":95.1},
-                  {"date":"2011-12-11","stock_name":"上证综指涨跌幅","value":109.1},
-                  {"date":"2012-01-12","stock_name":"大目标达标","value":130.6},
-                  {"date":"2012-01-12","stock_name":"大目标收益率","value":100.5},
-                  {"date":"2012-01-12","stock_name":"上证综指涨跌幅","value":111},
-                  // {"date":"2012-02-12","stock_name":"大目标达标","value":136.2},
-                  {"date":"2012-02-12","stock_name":"大目标收益率","value":104},
-                  {"date":"2012-02-12","stock_name":"上证综指涨跌幅","value":113.4},
-                  {"date":"2012-03-12","stock_name":"大目标达标","value":141.2},
-                  {"date":"2012-03-12","stock_name":"大目标收益率","value":103.5},
-                  {"date":"2012-03-12","stock_name":"上证综指涨跌幅","value":114.6},
-                  {"date":"2012-04-12","stock_name":"大目标达标","value":136.1},
-                  {"date":"2012-04-12","stock_name":"大目标收益率","value":101},
-                  {"date":"2012-04-12","stock_name":"上证综指涨跌幅","value":114.8},
-                  {"date":"2012-05-12","stock_name":"大目标达标","value":126.3},
-                  {"date":"2012-05-12","stock_name":"大目标收益率","value":96.6},
-                  {"date":"2012-05-12","stock_name":"上证综指涨跌幅","value":113.1},
-                  {"date":"2012-06-12","stock_name":"大目标达标","value":111.5},
-                  {"date":"2012-06-12","stock_name":"大目标收益率","value":91.6},
-                  {"date":"2012-06-12","stock_name":"上证综指涨跌幅","value":110.7},
-                  {"date":"2012-07-12","stock_name":"大目标达标","value":118.6},
-                  {"date":"2012-07-12","stock_name":"大目标收益率","value":91.2},
-                  {"date":"2012-07-12","stock_name":"上证综指涨跌幅","value":118.7},
-                  {"date":"2012-08-12","stock_name":"大目标达标","value":127.7},
-                  {"date":"2012-08-12","stock_name":"大目标收益率","value":87.7},
-                  {"date":"2012-08-12","stock_name":"上证综指涨跌幅","value":118.6},
-                  {"date":"2012-09-12","stock_name":"大目标达标","value":128.5},
-                  {"date":"2012-09-12","stock_name":"大目标收益率","value":93.6},
-                  {"date":"2012-09-12","stock_name":"上证综指涨跌幅","value":118.5},
-                  {"date":"2012-10-12","stock_name":"大目标达标","value":125.9},
-                  {"date":"2012-10-12","stock_name":"大目标收益率","value":94},
-                  {"date":"2012-10-12","stock_name":"上证综指涨跌幅","value":115.2},
-                  {"date":"2012-11-12","stock_name":"大目标达标","value":124.1},
-                  {"date":"2012-11-12","stock_name":"大目标收益率","value":92.4},
-                  {"date":"2012-11-12","stock_name":"上证综指涨跌幅","value":113},
-                  {"date":"2012-12-12","stock_name":"大目标达标","value":124.2},
-                  {"date":"2012-12-12","stock_name":"大目标收益率","value":97.4},
-                  {"date":"2012-12-12","stock_name":"上证综指涨跌幅","value":112.4},
-                  {"date":"2013-01-13","stock_name":"大目标达标","value":128.4},
-                  {"date":"2013-01-13","stock_name":"大目标收益率","value":100.3},
-                  {"date":"2013-01-13","stock_name":"上证综指涨跌幅","value":111.5},
-                  {"date":"2013-02-13","stock_name":"大目标达标","value":131.2},
-                  {"date":"2013-02-13","stock_name":"大目标收益率","value":101.3},
-                  {"date":"2013-02-13","stock_name":"上证综指涨跌幅","value":110.4},
-                  {"date":"2013-03-13","stock_name":"大目标达标","value":126.2},
-                  {"date":"2013-03-13","stock_name":"大目标收益率","value":94.5},
-                  {"date":"2013-03-13","stock_name":"上证综指涨跌幅","value":108.4},
-                  {"date":"2013-04-13","stock_name":"大目标达标","value":123.1},
-                  {"date":"2013-04-13","stock_name":"大目标收益率","value":90.7},
-                  {"date":"2013-04-13","stock_name":"上证综指涨跌幅","value":106},
-                  {"date":"2013-05-13","stock_name":"大目标达标","value":123.2},
-                  {"date":"2013-05-13","stock_name":"大目标收益率","value":88.3},
-                  {"date":"2013-05-13","stock_name":"上证综指涨跌幅","value":108.1},
-                  {"date":"2013-06-13","stock_name":"大目标达标","value":122.9},
-                  {"date":"2013-06-13","stock_name":"大目标收益率","value":85.4},
-                  {"date":"2013-06-13","stock_name":"上证综指涨跌幅","value":10}
-              ]},
-              // 1 - 建仓中, 2 - 盈利中, 3 - 浮亏中, 4 - 已达标
-          runStatus:{1:"建仓中",2 :"盈利中",3:"浮亏中", 4:"已达标"},
-          targetListData:[],
-          summary:"共发车{0}期,{1}期已达标5%~8%,平均运行{2}个月.投资年化回报18.49%.跑赢大盘19.66%以上。"
+        // tabMap:[30,90,180,360,1080],
+        dtmap:{1:1,3:3,6:6,12:12,36:36},//month:dot step
+        stockList:["大目标收益率","大目标达标","上证综指涨跌幅"],
+        funcInfo:{},
+        fundDailyData:[],
+        index: 0,
+        fundWorthStage:[],
+        stageMap:{7:'近一周',90:'近三月',365:'近一年'},
+        timeRange:[{'近1月':1}, {'近3月':3}, {'近6月':6}, {'近1年':12}, {'近3年':36}],
+        // timeRange:['近1月','近3月','近6月','近1年','近3年'],
+        selectIdx: 0,
+        autoHeight:[420,420,420],
+        itemList:[],
+        chartData:{
+            color:["#c32c1c","#ffd700","#99CCFF"],
+            tag: [],
+            alldata:[],
+            data:[],
+            daily:[]},
+        // 1 - 建仓中, 2 - 盈利中, 3 - 浮亏中, 4 - 已达标
+        runStatus:{1:"建仓中",2 :"盈利中",3:"浮亏中", 4:"已达标"},
+        targetListData:[],
+        summary:"共发车{0}期,{1}期已达标5%~8%,平均运行{2}个月.投资年化回报18.49%.跑赢大盘19.66%以上。",
+        fid:0,
       }
   },
   methods:{
@@ -169,90 +54,230 @@ export default {
               let ht = '<div style="border:1px solid #c32c1c;background-color:#fff;width:3px;height:3px;border-radius:50%;font-size:10px"></div>'
               let cd = this.chartData.data
               for(var i=0;i<cd.length;i++){
-                  //cd[i].value = cd[i].value+'e33'
-                  if(fstDone.length == 0){
-                      fstDone.push({date:cd[i].date,stock_name:"大目标达标",value:cd[i].value})
-                  }
-                  if(cd[i].stock_name=='大目标收益率'){
-                      // console.log(numberRandom(0,300))
-                      if(numberRandom(0,300)>threshold){
-                          this.chartData.tag.push({position:[cd[i].date, cd[i].value],html:ht})
-                          leftStocks.push({date:cd[i].date,stock_name:"大目标达标",value:cd[i].value})
-                      }
-                  }
-                  if(cd[i].stock_name!='大目标达标'){
-                      leftStocks.push(cd[i])
-                  }
+                //cd[i].value = cd[i].value+'e33'
+                if(fstDone.length == 0){
+                    fstDone.push({date:cd[i].date,stock_name:"大目标达标",value:cd[i].value})
+                }
+                if(cd[i].stock_name=='大目标收益率'){
+                    // console.log(numberRandom(0,300))
+                    if(numberRandom(0,300)>threshold){
+                        this.chartData.tag.push({position:[cd[i].date, cd[i].value],html:ht})
+                        leftStocks.push({date:cd[i].date,stock_name:"大目标达标",value:cd[i].value})
+                    }
+                }
+                if(cd[i].stock_name!='大目标达标'){
+                    leftStocks.push(cd[i])
+                }
               }
               this.chartData.data = fstDone.concat(leftStocks)
           }
       },
       loadLatest(){
-          let self=this;
-          this.baseAjax({
-              url:'../../../static/basicData/latestNews.json',
-              showLoading:true,
-              success:function(data){
-                  // console.log(data)
-                  self.itemList=data.returnObject
+        let fid=this.$route.params.fid;
+        if(fid == undefined){
+          AlertModule.show({
+              title: '亲~~',
+              content: '请勿瞎搞.',
+              onHide () {
+                  window.location.replace(document.referrer)
               }
           })
-      },
-      loadDetail(){
-          let dt = {
-              "req": {"run_status":"1,2,4,3"},
-              "event_names": ["targets_agg_list"]
+        }
+        let dt = {
+          "req": {"fids":fid,"fid":fid,"sid":19},
+          "event_names": ["fund_info_short","fund_category","fund_manangers_list",
+          "fund_worth_history_by_fid","fund_worth_history_stage_by_fid","system_info_by_id"]
+        }
+        this.$api.fetchPost('/sanic-api', dt).then(r=>{
+          let fc_id = 0
+          if(r.fund_info_short!=undefined && r.fund_info_short.length > 0){
+            let flt = r.fund_info_short.filter(x=>x.status==1)
+            if(flt.length > 0){
+              this.funcInfo = flt[0]
+              this.funcInfo['purchase_rate_new'] = (this.funcInfo['purchase_rate_new'] *100).toFixed(2)
+              fc_id = this.funcInfo.fc_id
+              this.$store.commit('UPDATE_PAGE_TITLE', this.funcInfo.fund_name+"("+ this.funcInfo.fund_code +")")
             }
-            this.$api.fetchPost('/sanic-api', dt).then(r=>{
-              // if(r.targets_agg_list.length > 0){
-              //   this.targetListData=r.targets_agg_list
-              // }
-              let tot =0
-              let done=0
-              let avem=0
-              if(r.targets_agg_list.length > 0){
-                let tar_list = r.targets_agg_list
-                for(var i = 0 ;i<tar_list.length; i++){
-                  let its = tar_list[i].items
-                  for(var j = 0;j<its.length;j++){
-                      its[j].apply_endtime = dateFormat(its[j].apply_endtime/1000,"YYYY-MM-DD HH:mm:ss")
-                      its[j].target_ratio = (its[j].target_ratio*100).toFixed(2)
-                      its[j]["run_statu"]="运行中"
-                      tot=tot+1
-                      avem=avem+its[j].run_days
-                      if(its[j].run_status==4){
-                          its[j]["run_statu"]="用时"
-                          done=done+1
-                      }
-                      its[j]["run_statu"]=its[j].run_status==4?"用时":"运行中"
-                      its[j].run_status = this.runStatus[its[j].run_status]                        
-                  }
-                  this.targetListData.push(tar_list[i])
-                }
-                //to do: {投资年化回报},{大盘}
-                this.summary=this.$stringFormat(this.summary,[tot,done,(avem/30).toFixed(1)])
+          }
+          // console.log(this.funcInfo)
+          if(r.fund_category!=undefined && r.fund_category.length>0){
+            let flt = r.fund_category.filter(x=>x.fc_id ==fc_id)
+            if(flt.length>0){
+              this.funcInfo['fund_tot'] = flt[0].fund_tot
+              this.funcInfo['cat_name'] = flt[0].name
+            }
+          }
+          if(r.fund_manangers_list!=undefined && r.fund_manangers_list.length>0){
+            this.funcInfo['managers']=r.fund_manangers_list.map(x=>x.name).join()
+          }
+          else {
+            AlertModule.show({
+              title: '亲~~',
+              content: '木有找到你要的信息.',
+              onHide () {
+                  window.location.replace(document.referrer)
               }
-              // console.log(this.targetListData)
-              // console.log(this.summary)
-            }).catch(err=>{
-              console.log(err)
             })
+          }
+          if(r.fund_worth_history_by_fid!=undefined && r.fund_worth_history_by_fid.length>0){
+            for(var i=0;i<r.fund_worth_history_by_fid.length;i++){
+              let dt = this.$utdate.dateFmt(r.fund_worth_history_by_fid[i].inserttime,"yyyy-MM-dd")
+              let v = (r.fund_worth_history_by_fid[i].worth *100).toFixed(4)
+              let cg = r.fund_worth_history_by_fid[0].daily_change
+              if(i == 0){
+                this.funcInfo['date'] = dt
+                this.funcInfo['value']= v
+                this.funcInfo['daily_change']= cg
+              }
+              this.fundDailyData.push({date:dt, value: v,daily_change:cg})
+            }
+            // this.loadDailyData()
+            this.loadingDailyData(1,0)
+          }
+          else {
+            AlertModule.show({
+              title: '亲~~',
+              content: '木有找到你要的信息.',
+              onHide () {
+                  window.location.replace(document.referrer)
+              }
+            })
+          }
+          if(r.fund_worth_history_stage_by_fid!=undefined && r.fund_worth_history_stage_by_fid.length>0){
+            //one week,three months,one year
+            this.fundWorthStage = r.fund_worth_history_stage_by_fid.filter(x=>[7,90,365].includes(x.stage))
+            for(var i=0;i<this.fundWorthStage.length;i++){
+              // console.log(this.fundWorthStage[i])
+              this.fundWorthStage[i]['stages']=this.stageMap[this.fundWorthStage[i].stage]
+              this.fundWorthStage[i]['worth']=(this.fundWorthStage[i].worth *100).toFixed(2)
+            }
+            // console.log(this.fundWorthStage)
+          }
+          else {
+            AlertModule.show({
+              title: '亲~~',
+              content: '木有找到你要的信息.',
+              onHide () {
+                  window.location.replace(document.referrer)
+              }
+            })
+          }
+          if(r.system_info_by_id!=undefined&&r.system_info_by_id.length>0){
+            this.funcInfo['notice']=r.system_info_by_id[0].content
+          }
+          else {
+            AlertModule.show({
+              title: '亲~~',
+              content: '木有找到你要的信息.',
+              onHide () {
+                  window.location.replace(document.referrer)
+              }
+            })
+          }
+          // console.log(this.fundList)
+        })
       },
-      onItemClick (index) {
+      loadingDailyData(month,idx){
+        this.chartData.data = []
+        this.chartData.alldata = []
+        this.chartData.tag = []
+        let threshold = 200
+        var dots = 30
+        var step = this.dtmap[month||1]
+        let ht = '<div style="border:1px solid #c32c1c;background-color:#fff;width:3px;height:3px;border-radius:50%;font-size:10px"></div>'
+        var startDate = this.$utdate.addDate(new Date(),-(dots*step))
+        var rndEnd = this.$utrandom.randomFullClose(0,4)
+        for(var j=0;j<= dots * (idx+1);j++){
+          let dt = this.$utdate.addDate(startDate,j*step)
+          //周六周日赌场不开门 0-周日，6-周六
+          var day = new Date(dt).getDay()
+          if(day==0 || day==6) {
+              continue
+          }
+          let fDate = this.fundDailyData.filter(x=>x.date==dt)
+          let rnd = 0
+          if(fDate!=null && fDate.length>0){
+            rnd = fDate[0].value
+          }
+          for(var i=0;i<this.stockList.length;i++){
+            if(this.stockList[i]!="大目标达标"){
+              rnd = parseFloat(this.$utrandom.randomFullOpen(0,rndEnd).toFixed(2))
+            }
+            let d = {date: dt,stock_name: this.stockList[i],value: rnd, daily_change: rnd}//-rndDaily
+            if(this.chartData.data.length == 0){
+              this.chartData.data.push(d)
+            } else {
+              if(numberRandom(0,300)>threshold){
+                this.chartData.tag.push({position:[dt, rnd],html:ht})
+                this.chartData.alldata.push({date:dt,stock_name:"大目标达标",value:rnd, daily_change: rnd})
+                i++
+              }
+              this.chartData.data.push(d)
+            }
+          }
+        }
+      },
+      // loadDailyData(){
+      //   //todo:----------------->前端算力有限,数据后端直接提供,否则慢的要骂娘
+      //   let threshold = 200
+      //   let ht = '<div style="border:1px solid #c32c1c;background-color:#fff;width:3px;height:3px;border-radius:50%;font-size:10px"></div>'
+      //   var days = 1095
+      //   var startDate = this.$utdate.addDate(new Date(),-days)
+      //   var rndEnd = this.$utrandom.randomFullClose(0,4)
+      //   for(var j=1;j<days;j++){
+      //     let dt = this.$utdate.addDate(startDate,j)
+      //     //周六周日赌场不开门 0-周日，6-周六
+      //     var day = new Date(dt).getDay()
+      //     if(day==0 || day==6) {
+      //         continue
+      //     }
+      //     let fDate = this.fundDailyData.filter(x=>x.date==dt)
+      //     let rnd = 0
+      //     if(fDate!=null && fDate.length>0){
+      //       rnd = fDate[0].value
+      //     }
+      //     for(var i=0;i<this.stockList.length;i++){
+      //       if(this.stockList[i]!="大目标达标"){
+      //         rnd = parseFloat(this.$utrandom.randomFullOpen(0,rndEnd).toFixed(2))
+      //       }
+      //       let d = {date: dt,stock_name: this.stockList[i],value: rnd, daily_change: rnd}//-rndDaily
+      //       if(this.chartData.alldata.length == 0){
+      //         this.chartData.alldata.push(d)
+      //       }else{
+      //         if(numberRandom(0,300)>threshold){
+      //           this.chartData.tag.push({position:[dt, rnd],html:ht})
+      //           this.chartData.alldata.push({date:dt,stock_name:"大目标达标",value:rnd, daily_change: rnd})
+      //           i++
+      //         }
+      //         this.chartData.alldata.push(d)
+      //       }
+      //       //Display data for the last 30 days,for the first chart
+      //       if(days-j<this.tabMap[0]){
+      //         this.chartData.data.push(d)
+      //         //the last 10 days for the table
+      //         if(this.stockList[i]=="大目标收益率" && days-j<10){
+      //           this.chartData.daily.push(d)
+      //         }
+      //       }
+      //     }
+      //   }
+      //   // console.log(this.chartData.data)
+      // },
+      onItemClick (index,it) {
           this.selectIdx = index
-          // this.autoHeight = 120 * 3
-          // console.log('on item click:', this.autoHeight)
-          console.log('on item click:', this.selectIdx)
+          //败在了我的进取心之下
+          console.log(Object.values(it)[0]+"--=="+index)
+          this.loadingDailyData(Object.values(it)[0], index)
       },
       lblFx(text) {
-          return {
-              text: dateFormat(text,'MM-DD')
-          }
+        return {
+          text: dateFormat(text,'MM-DD')
+        }
       },
       lblFy(text) {
-          return {
-              text: text / 100 + '%'
-          }
+        return {
+          text: text + '%'
+        }
       },
   },
   components: {
@@ -261,7 +286,11 @@ export default {
       Spinner,
       VChart,
       VLine,
-      Tab, TabItem, Swiper, SwiperItem ,Card,
+      Tab, 
+      TabItem, 
+      Swiper, 
+      SwiperItem,
+      Card,
       VTooltip,
       VGuide,
       VScale,
@@ -269,6 +298,7 @@ export default {
       XTable,
       Group,
       Cell,
-      XButton
+      XButton,
+      AlertModule
   }
 }

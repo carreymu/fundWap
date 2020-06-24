@@ -1,6 +1,6 @@
 <template>
   <div class="tarstkord">
-    <div class="load" v-if="itemList.length==0">
+    <div class="load" v-if="chartData.data.length==0">
         <spinner type="lines"/>
     </div>
     <div v-else>
@@ -8,10 +8,13 @@
         <flexbox>
           <flexbox-item>
             <div class="fnt10"> 日涨跌幅</div>
-            <div style="color:green;font-size:25px;">-4.03%</div>
+            <div style="font-size:25px;">
+              <span class="fntBrown" v-if="funcInfo.daily_change>0">+{{funcInfo.daily_change}}%</span>
+              <span class="fntGreen" v-else>{{funcInfo.daily_change}}%</span>
+              </div>
             </flexbox-item>
-          <flexbox-item><div class="fnt10">单位净值(04-30)</div>
-          <div class="fnt25">2.1759</div></flexbox-item>
+          <flexbox-item><div class="fnt10">单位净值({{funcInfo.date}})</div>
+          <div class="fnt25">{{funcInfo.value}}</div></flexbox-item>
         </flexbox>
         <div>
           <div class="stkF1">指数型</div> 
@@ -21,26 +24,32 @@
       <div class="line"/>
       <div class="rctCont">
         <div class="dotIntro">
-          <div>
-            <div> 近一周</div>
-            <div class="fntBrown">+0.03%</div>
-            <div>733/944</div>
-          </div>
-          <div>
-            <div> 近三月</div>
-            <div class="fntGreen">-0.01%</div>
-            <div>18/888</div>
-          </div>
-          <div>
-            <div style="float:left;">
-              <div> 近一年</div>
-              <div class="fntBrown">+10.01%</div>
-              <div>118/788</div>
+          <div  v-for="(ite,indx) in fundWorthStage" :key="indx">
+          <div v-if="indx!=fundWorthStage-1">
+            <div> {{ite.stages}}</div>
+            <div>
+              <span class="fntBrown" v-if="ite.worth>0">+{{ite.worth}}%</span>
+              <span class="fntGreen" v-else>{{ite.worth}}%</span>
             </div>
-            <div style="float:right;">
-              <div style="padding-top:10px;"></div>
-              <div class="mor"></div>
+            <div>{{ite.topn}}/{{ite.his_tot}}</div>
+          </div>
+          <div v-else>
+            <!--todo:使用v-else后右箭头没了-->
+            <div>
+              <div style="float:left;">
+                <div> {{ite.stages}}</div>
+                <div>
+                  <span class="fntBrown" v-if="ite.worth>0">+{{ite.worth}}%</span>
+                  <span class="fntGreen" v-else>{{ite.worth}}%</span>
+                </div>
+                <div>{{ite.topn}}/{{ite.his_tot}}</div>
+              </div>
+              <div style="float:right;">
+                <div style="padding-top:10px;"></div>
+                <div class="mor"></div>
+              </div>
             </div>
+          </div>
           </div>
         </div>
       </div>
@@ -48,13 +57,13 @@
       <div>
         <div class="stkPre">基金收益率走势</div>
         <swiper v-model="index" height="260px" :show-dots="false">
-          <swiper-item v-for="(item, index) in list2" :key="index">
+          <swiper-item v-for="(item, index) in timeRange" :key="index">
             <div>
               <v-chart :data="chartData.data">
                 <v-scale x field="date" type="timeCat" mask="MM-DD"/>
                 <v-scale y field="value" :tick-count="5" />
                 <v-axis y :label="lblFy"/>
-                <v-line series-field="stock_name" :colors="chartData.color"/>
+                <v-line series-field="stock_name" shape="smooth" :colors="chartData.color"/>
                 <div v-for="(item, index) in chartData.tag" :key="index">
                   <v-guide type="html" :options="item" />
                 </div>
@@ -63,7 +72,7 @@
           </swiper-item>
         </swiper>
         <tab :scroll-threshold="5" :line-width=3 active-color='#db5361' bar-position="top" v-model="selectIdx">
-          <tab-item @on-item-click="onItemClick"  class="fnt12" v-for="(item, index) in list2" :key="index">{{item}}</tab-item>
+          <tab-item @on-item-click="onItemClick(index,it)" v-for="(it,index) in timeRange" :key="index" class="fnt12">{{Object.keys(it)[0]}}</tab-item>
         </tab>
       </div>
       <div>
@@ -76,15 +85,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>2020-04-30</td>
-            <td>1.25</td>
-            <td class="fntBrown">+1.43%</td>
-          </tr>
-          <tr>
-            <td>2020-04-29</td>
-            <td>1.25</td>
-            <td class="fntGreen">-0.43%</td>
+          <tr v-for="(it,idx) in chartData.alldata" :key="idx">
+            <td>{{it.date}}</td>
+            <td>{{it.value}}</td>
+            <td>
+              <span class="fntBrown" v-if="it.daily_change>0">+{{it.daily_change}}%</span>
+              <span class="fntGreen" v-else>-{{it.daily_change}}%</span>
+            </td>
           </tr>
         </tbody>
       </x-table>
@@ -92,12 +99,16 @@
         查看更多 >
       </div>
       <div>
-      <group>
-        <cell class="fnt12" :border-intent="false" :title="'基金概况'" :value="'天弘基金'" is-link></cell>
-        <cell class="fnt12" :border-intent="false" :title="'基金经理'" :value="'川大爷'" is-link></cell>
-        <cell class="fnt12" :border-intent="false" :title="'基金持仓'" is-link></cell>
-        <cell class="fnt12" :border-intent="false" :title="'分红拆分'" is-link></cell>
-      </group>
+        <!-- <div style="padding-top:12px;">
+          <div style="float: left;">已清仓</div>
+          <div style="float: right;">赎回明细 ></div>
+        </div> -->
+        <group>
+          <cell class="fnt12" :border-intent="false" :title="'基金概况'" :value="funcInfo.fund_name" is-link></cell>
+          <cell class="fnt12" :border-intent="false" :title="'基金经理'" :value="funcInfo.managers" is-link></cell>
+          <cell class="fnt12" :border-intent="false" :title="'基金持仓'" is-link></cell>
+          <cell class="fnt12" :border-intent="false" :title="'分红拆分'" is-link></cell>
+        </group>
       </div>
       <div>
       <group>
@@ -105,21 +116,21 @@
       </group>
       </div>
       <div class="line"/>
-        <div class="summary">基金行情数据及基金交易服务由川大爷的公司提供,基金销售服务资格暂时不告诉你.本页非任何法律文件,投资前请认真阅读基金合同.市场有风险,投资需谨慎。</div>
+        <div class="summary">{{funcInfo.notice}}</div>
         <div class="line"></div>
       </div>
     </div>
-  <div class="tarsofooterFix">
+  <div class="tarsofooterFix" v-if="chartData.data.length>0">
     <div style="padding:0 5px;">
     <flexbox>
       <flexbox-item>
         <div class="fnt11"> 申购费率:<span style="color:brown;"> 1折起</span></div>
         </flexbox-item>
       <flexbox-item>
-        <x-button :gradients="['#A644FF', '#FC5BC4']" class="fnt13" >定投</x-button>
+        <x-button :gradients="['#A644FF', '#FC5BC4']" class="fnt13" :link="{path:'/fundWap/targetSOrder',query:{fid:funcInfo.fid,sch:true}}">定投</x-button>
       </flexbox-item>
       <flexbox-item>
-        <x-button :gradients="['#FF2719', '#FF61AD']" class="fnt13" link="/fundWap/targetOrder/2">申购</x-button>
+        <x-button :gradients="['#FF2719', '#FF61AD']" class="fnt13" :link="{path:'/fundWap/targetSOrder',query:{fid:funcInfo.fid}}">申购</x-button>
       </flexbox-item>
     </flexbox>
     </div>
@@ -199,10 +210,10 @@ a:hover {
   color:green;
 }
 .tarstkord .fnt25{
-  font-size:10px;
+  font-size:25px;
 }
 .tarstkord .fnt13{
-  font-size:12px;
+  font-size:13px;
 }
 .tarstkord .fnt12{
   font-size:12px;
