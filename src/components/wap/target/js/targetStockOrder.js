@@ -178,6 +178,9 @@ export default {
         })
       },
       loadingDailyData(month){
+        this.chartData.data = []
+        this.chartData.alldata = []
+        this.chartData.tag = []
         let threshold = 200
         var dots = 30
         var step = this.dtmap[month||1]
@@ -203,7 +206,7 @@ export default {
             let d = {date: dt,stock_name: this.stockList[i],value: rnd, daily_change: rnd}//-rndDaily
             if(this.chartData.data.length == 0){
               this.chartData.data.push(d)
-            }else{
+            } else {
               if(numberRandom(0,300)>threshold){
                 this.chartData.tag.push({position:[dt, rnd],html:ht})
                 this.chartData.alldata.push({date:dt,stock_name:"大目标达标",value:rnd, daily_change: rnd})

@@ -63,7 +63,7 @@
                 <v-scale x field="date" type="timeCat" mask="MM-DD"/>
                 <v-scale y field="value" :tick-count="5" />
                 <v-axis y :label="lblFy"/>
-                <v-line series-field="stock_name" :colors="chartData.color"/>
+                <v-line series-field="stock_name" shape="smooth" :colors="chartData.color"/>
                 <div v-for="(item, index) in chartData.tag" :key="index">
                   <v-guide type="html" :options="item" />
                 </div>
@@ -91,7 +91,7 @@
             <td>
               <span class="fntBrown" v-if="it.daily_change>0">+{{it.daily_change}}%</span>
               <span class="fntGreen" v-else>-{{it.daily_change}}%</span>
-              </td>
+            </td>
           </tr>
         </tbody>
       </x-table>
