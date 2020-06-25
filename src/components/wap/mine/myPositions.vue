@@ -50,6 +50,7 @@
       </div>
       
       <div class="rectAgl">
+        <router-link :to="'/fundWap/targetTemplate/1'">
         <div class="invIntro">
           <div style="padding-top:12px;">
             <div>{{it.dt}}  {{it.daily_ratio}}%</div>
@@ -63,6 +64,7 @@
             <div v-else style="color:green;">{{it.hold_profit}}</div>
           </div>
         </div>
+        </router-link>
       </div>
     </div>
     <div class="line"/>
