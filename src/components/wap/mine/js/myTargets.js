@@ -10,9 +10,6 @@ export default {
     }
   },
   methods:{
-    // tradeHis(){
-    //   this.showMsg=true;
-    // },
     myTargets(){
       let dt = {
         "req": {"uid":1},
