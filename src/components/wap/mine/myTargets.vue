@@ -41,13 +41,14 @@
         
         <div class="conTop">
             <div class="conTop">
-                <flexbox>
-                    <flexbox-item><div class ="waitInvokeTxtPre">|||| <span class="waitInvokeTxtTail">大目标2003</span></div></flexbox-item>
-                    <flexbox-item><div style="text-align:right;font-size:11px;">9笔交易确认中 </div></flexbox-item>
-                </flexbox>
+              <flexbox>
+                  <flexbox-item><div class ="waitInvokeTxtPre">|||| <span class="waitInvokeTxtTail">大目标2003</span></div></flexbox-item>
+                  <flexbox-item><div style="text-align:right;font-size:11px;">9笔交易确认中 </div></flexbox-item>
+              </flexbox>
             </div>
             <div class="rectAgl">
-                <div class="invIntro">
+              <router-link :to="'/fundWap/targetTemplate/1'">
+              <div class="invIntro">
                 <div style="padding-top:12px;">
                     <div>04月30日+2.88%</div>
                     <div style="color:#d95353;font-size:13px;">+9500.02</div>
@@ -57,7 +58,8 @@
                     <div>持仓盈亏 +8.88%</div>
                     <div style="color:#d95353;font-size:13px;">10035.54</div>
                 </div>
-                </div>
+              </div>
+              </router-link>
             </div>
         </div>
 
@@ -68,6 +70,7 @@
             </flexbox>
         </div>
         <div class="rectAgl">
+          <router-link :to="'/fundWap/targetTemplate/1'">
             <div class="invIntro">
             <div style="padding-top:12px;">
                 <div>04月30日+2.88%</div>
@@ -79,28 +82,31 @@
                 <div style="color:green;font-size:13px;">-10035.54</div>
             </div>
             </div>
+          </router-link>
         </div>
     </div>
 
     <div class="conTop">
         <div class="conTop">
-            <flexbox>
-                <flexbox-item><div class ="waitInvokeTxtPre">|||| <span class="waitInvokeTxtTail">大目标2005</span></div></flexbox-item>
-                <flexbox-item><div style="text-align:right;font-size:11px;">1笔交易确认中 </div></flexbox-item>
-            </flexbox>
+          <flexbox>
+            <flexbox-item><div class ="waitInvokeTxtPre">|||| <span class="waitInvokeTxtTail">大目标2005</span></div></flexbox-item>
+            <flexbox-item><div style="text-align:right;font-size:11px;">1笔交易确认中 </div></flexbox-item>
+          </flexbox>
         </div>
         <div class="rectAgl">
+          <router-link :to="'/fundWap/targetTemplate/1'">
             <div class="invIntro">
             <div style="padding-top:12px;">
-                <div>04月30日+2.88%</div>
-                <div style="color:#d95353;font-size:13px;">+9500.02</div>
+              <div>04月30日+2.88%</div>
+              <div style="color:#d95353;font-size:13px;">+9500.02</div>
             </div>
             <div class="linkRight"></div>
             <div style="padding-top:12px;">
-                <div>持仓盈亏 -2.88%</div>
-                <div style="color:green;font-size:13px;">-10035.54</div>
+              <div>持仓盈亏 -2.88%</div>
+              <div style="color:green;font-size:13px;">-10035.54</div>
             </div>
             </div>
+          </router-link>
         </div>
     </div>
   </div>

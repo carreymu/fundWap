@@ -9,6 +9,7 @@ import targetNews from '@/components/wap/target/targetNews'
 import targetOrder from '@/components/wap/target/targetOrder'
 import targetFundOrder from '@/components/wap/target/targetFundOrder'
 import targetStockOrder from '@/components/wap/target/targetStockOrder'
+import targetTemplate from '@/components/wap/target/targetTemplate'
 import drumstick from '@/components/wap/drumstick/drumstick'
 import bestChoice from '@/components/wap/bestChoice/bestChoice'
 import bestChoiceDetail from '@/components/wap/bestChoice/bestChoiceDetail'
@@ -73,6 +74,11 @@ const router = new VueRouter({
 					path: '/fundWap/targetStockOrder/:tid',
 					name: 'targetStockOrder',
 					component: targetStockOrder
+				},
+				{
+					path: '/fundWap/targetTemplate/:tid',
+					name: 'targetTemplate',
+					component: targetTemplate
 				},
 			    {
 			      path: '/fundWap/drumstick',
