@@ -1,23 +1,26 @@
 <template>
   <div class="mypo">
     <div>
-    <div class="topRmk">总资产(元)</div>
+    <div class="topRmk">持仓收益率</div>
     <div class="top">2,100,200.01</div>
+    <div class="topRmk">{{fundtemp.apply_endtime}}加入以来</div>
     </div>
 
     <div style="padding:0 10px 0 20px;">
         <flexbox>
         <flexbox-item :span="0.38">
-            <div >04月30日</div>
-            <div style="color:#d95353;font-size:13px;">10200.36</div>
+            <div>{{target.now}}</div>
+            <div v-if="target.daily_profit>0" style="color:#d95353;font-size:13px;">+{{target.daily_profit}}</div>
+            <div v-else style="color:green;font-size:13px;">{{target.daily_profit}}</div>
         </flexbox-item>
         <flexbox-item class="topInfo">
-            <div>持仓盈亏</div>
-            <div style="color:green;font-size:13px;">-150200.36</div>
+            <div>持仓收益</div>
+            <div v-if="target.hold_profit>0" style="color:#d95353;font-size:13px;">+{{target.hold_profit}}</div>
+            <div v-else style="color:green;font-size:13px;">{{target.hold_profit}}</div>
         </flexbox-item>
         <flexbox-item class="topInfo">
-            <div>累计盈亏</div>
-            <div style="color:green;font-size:13px;">-30200.39</div>
+            <div>持有总额</div>
+            <div style="color:#d95353;font-size:13px;">{{target.hold_amt}}</div>
         </flexbox-item>
     </flexbox>
     </div>
@@ -25,13 +28,10 @@
     <div class="line"/> 
 
     <div style="padding:10px;">
-        <div style="float:left;">目标收益5%</div>
-        <div style="float:right;">产品已运行18天</div>
+        <div style="float:left;">目标收益{{fundtemp.target_ratio}}%</div>
+        <div style="float:right;">产品已运行{{fundtemp.run_days}}天</div>
     </div>
 
-    <!-- <div style="text-align:center;" v-if="redemption.length>0">
-        <router-link :to="'#'">{{redemption}} &nbsp; ></router-link>
-    </div>-->
     <div class="line"/> 
     
     <div>

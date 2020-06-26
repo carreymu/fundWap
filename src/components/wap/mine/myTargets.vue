@@ -45,13 +45,14 @@
         <div class="conTop">
             <div class="conTop">
                 <flexbox>
-                    <flexbox-item><div class ="waitInvokeTxtPre">|||| <span class="waitInvokeTxtTail">{{it.name}}</span></div></flexbox-item>
+                    <flexbox-item><div class ="waitInvokeTxtPre">|||| <span class="waitInvokeTxtTail">{{it.name}}--{{it.iv_id}}</span></div></flexbox-item>
                     <flexbox-item>
                       <div style="text-align:right;font-size:11px;" v-if="it.trade_msg.length>0">{{it.trade_msg}}</div>
                     </flexbox-item>
                 </flexbox>
             </div>
             <div class="rectAgl">
+              <router-link :to="{path:'/fundWap/targetTemplate',query:{iv_id:it.iv_id}}">
                 <div class="invIntro">
                 <div style="padding-top:12px;">
                     <div>{{it.inserttime}} &nbsp;&nbsp;<span v-if="it.daily_profit_ratio>=0">+</span>{{it.daily_profit_ratio}}%</div>
@@ -65,6 +66,7 @@
                     <div v-else style="color:green;">{{it.hold_profit_str}}</div>
                 </div>
                 </div>
+              </router-link>
             </div>
         </div>
       </div>
