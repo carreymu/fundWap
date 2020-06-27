@@ -75,7 +75,7 @@ class UserInvestAccountJoined(DataSource):
             t_amt = init_amt + hold_profit
             td_ratio = round(day_profit / t_amt, 2)
             t_ratio = round((hold_profit + day_profit) / t_amt, 2)
-            return {"name": name, "dt": date, "daily_ratio": td_ratio, "daily_profit": round(day_profit, 2),
+            return {"name": name, "dt": date, "type": types, "daily_ratio": td_ratio, "daily_profit": round(day_profit, 2),
                     "hold_ratio": t_ratio, "hold_profit": round(hold_profit, 2), "hold_cnt": len(lst)}
 
 

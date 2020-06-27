@@ -89,7 +89,7 @@ const router = new VueRouter({
 				component: targetStockOrder
 			},
 			{
-				path: '/fundWap/targetTemplate/:iv_id',
+				path: '/fundWap/targetTemplate/',
 				name: 'targetTemplate',
 				component: targetTemplate
 			},

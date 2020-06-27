@@ -24,14 +24,21 @@ export default {
       this.$api.fetchPost('/sanic-api', dt).then(r=>{
         if(r.targets_by_tid!=undefined && r.targets_by_tid.length>0){
           this.fundtemp = r.targets_by_tid[0]
-          this.fundtemp['target_ratio'] = (this.fundtemp['target_ratio']*100).toFixe(2)
-          this.fundtemp['run_days'] = this.$utdate.getDaysLong(new Date().getTime(),x['apply_endtime'])
-          this.fundtemp["apply_endtime"] = this.$utdate.dateFmt(x['apply_endtime'],"YYYY年MM月")
+          this.fundtemp['target_ratio'] = (this.fundtemp['target_ratio']*100).toFixed(2)
+          this.fundtemp['run_days'] = this.$utdate.getDaysLong(new Date().getTime(),this.fundtemp['apply_endtime'])
+          this.fundtemp["apply_endtime"] = this.$utdate.dateFmt(this.fundtemp['apply_endtime'],"yyyy年MM月")
         }
         if(r.user_invest_account_by_type_id!=undefined){
           this.target = r.user_invest_account_by_type_id[0]
           this.target['hold_amt'] = this.target['hold_profit'] + this.target['init_amt']
+          console.log(this.target['hold_amt'])
+          console.log(this.target['hold_profit']/this.target['hold_amt'])
+          this.target['hold_profit_ratio'] = ((this.target['hold_profit']/this.target['hold_amt'])*100).toFixed(2)
+          
           this.target["now"] = this.$utdate.dateFmt(new Date(),"MM月dd日")
+          this.target['hold_profit'] = this.target['hold_profit'].toFixed(2)
+         
+          console.log(this.target)
         }
       })
     },

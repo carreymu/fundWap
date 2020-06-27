@@ -1,9 +1,10 @@
 <template>
-  <div class="mypo">
+  <div class="tartmp">
     <div>
     <div class="topRmk">持仓收益率</div>
-    <div class="top">2,100,200.01</div>
-    <div class="topRmk">{{fundtemp.apply_endtime}}加入以来</div>
+    <div v-if="target.hold_profit_ratio>0" class="rtop">{{target.hold_profit_ratio}}</div>
+    <div v-else class="gtop">{{target.hold_profit_ratio}} %</div>
+    <div class="botRmk">{{fundtemp.apply_endtime}}加入以来</div>
     </div>
 
     <div style="padding:0 10px 0 20px;">
@@ -148,16 +149,28 @@
     -webkit-justify-content: space-around;
     justify-content: space-around;
   }
-  .tartmp .top{
-    font-size: 20px;
+  .tartmp .rtop{
+    font-size: 30px;
     font-weight:600;
-    padding-bottom: 10px;
+    color:#db5361;
+    padding: 10px 0px;
+    text-align: center;
+  }
+  .tartmp .gtop{
+    font-size: 30px;
+    font-weight:600;
+    color:green;
+    padding: 10px 0px;
     text-align: center;
   }
   .tartmp .topRmk{
     color:dimgray;
     text-align: center;
-    padding-top: 20px;
+  }
+  .tartmp .botRmk{
+    color:dimgray;
+    text-align: center;
+    padding-bottom: 10px;
   }
   .tartmp .topInfo{
     text-align: center;

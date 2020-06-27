@@ -45,12 +45,12 @@
       <div style="padding:15px 0 5px 0;">
         <flexbox>
           <flexbox-item><div class ="waitInvokeTxtPre">|||| <span class="waitInvokeTxtTail">{{it.name}}</span></div></flexbox-item>
-          <flexbox-item><div style="text-align:right;" v-if="it.hold_cnt>0"><router-link :to="'/fundWap/myTargets'">持有{{it.hold_cnt}}期&nbsp;> </router-link></div></flexbox-item>
+          <flexbox-item><div style="text-align:right;" v-if="it.hold_cnt>0"><router-link :to="{path:'/fundWap/myTargets',query:{type:it.type}}">持有{{it.hold_cnt}}期&nbsp;> </router-link></div></flexbox-item>
         </flexbox>
       </div>
       
       <div class="rectAgl">
-        <router-link :to="'/fundWap/targetTemplate/1'">
+        <router-link :to="{path:'/fundWap/myTargets',query:{type:it.type}}">
         <div class="invIntro">
           <div style="padding-top:12px;">
             <div>{{it.dt}}  {{it.daily_ratio}}%</div>
