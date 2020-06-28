@@ -1,8 +1,8 @@
+import time
+import copy
 from typing import Any
-
 from wap.base import DataSource
 from wap.data_source import exec_base
-import time
 from datetime import datetime
 from wap.utils.sql_handler import sql_in
 from wap.utils.datetime_handler import datediff_timestamp
@@ -134,10 +134,51 @@ class UserInvestAccountFunds(DataSource):
     dependence_source: dict
 
     async def compute(self):
-        targets = self.dependence_source
-        target_info = {}
-        import pdb;pdb.set_trace()
-        if targets:
+        source = self.dependence_source
+        if source:
+            targets = source['targets_by_tid']
+            user_invest_account = source['user_invest_account_by_type_id']
+            target_info = {}
+            # import pdb;pdb.set_trace()
+            if targets and len(targets) > 0:
+                fundtemp = targets[0]
+                fundtemp['target_ratio'] = format(fundtemp['target_ratio']*100, '.2f') + "%"
+                fundtemp['run_days'] = datediff_timestamp(fundtemp['apply_endtime'])
+                dt = datetime.fromtimestamp(fundtemp['apply_endtime'] / 1e3)
+                fundtemp["apply_endtime"] = datetime.strftime(dt, "%Y年%m月")
+                target_info['fundtemp'] = fundtemp
+            uia_ids = ''
+            if user_invest_account and len(user_invest_account) > 0:
+                target = user_invest_account[0]
+                uia_ids = f"'{target['uia_id']}'"
+                target["hold_amt"] = target['hold_profit'] + target['init_amt']
+                target['hold_profit_ratio'] = format(((target['hold_profit'] / target['hold_amt']) * 100), '.2f') + "%"
+                target["now"] = datetime.strftime(datetime.now(), "%m月%d日")
+                target['hold_profit'] = format(target['hold_profit'], '.2f')
+                target_info["target"] = target
 
+            uid = source['req']['uid']
+            user_iv_acc_detail_list = await exec_base.exec_sql_key(event_names='user_invest_account_details_in_uiaids',
+                                                                   **{'uid': uid, 'uia_ids': uia_ids})
+            if user_iv_acc_detail_list and len(user_iv_acc_detail_list) > 0:
+                # 1-持仓,2-赎回中
+                user_iv_acc_detail_list = [x for x in user_iv_acc_detail_list if x['hold_status'] != 0]
+                user_iv_acc = copy.deepcopy(user_iv_acc_detail_list)
+                fids = sql_in(list(set([x['fid'] for x in user_iv_acc_detail_list])))
+                if fids:
+                    fund_info_short = await exec_base.exec_sql_key(event_names="fund_info_short", **{'fids': fids})
+                    if fund_info_short:
+                        fund_dict = dict((str(x['fid']), x['fund_name']) for x in fund_info_short)
+                        fund_lst = []
+                        # import pdb;pdb.set_trace()
+                        for x in user_iv_acc:
+                            x['fund_name'] = fund_dict[x['fid']]
+                            if fund_lst:
+                                dis = [y for y in fund_lst if x['fid'] == y['fid']]
+                                if dis:
+                                    x['hold_share'] = dis[0]['hold_share'] + x['hold_share']
+                                    x['daily_profit'] = dis[0]['daily_profit'] + x['daily_profit']
+                            fund_lst.append(x)
+                        target_info["fund_lst"] = fund_lst
             return target_info
         return self.event_default

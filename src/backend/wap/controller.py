@@ -60,7 +60,10 @@ class Variables:
                     ds = self.event_info['dependence_source']
                     # dict or list, dict contains filters,key is table_name ,value is filter if it is not empty
                     is_dict = isinstance(ds[0], dict)
-                    if is_dict:
+                    if not is_dict:
+                        dep_res = {event_names: await Variable(self.ctx, event_names).get_result() for event_names
+                                   in ds}
+                    else:
                         dep_src = []
                         for it in ds:
                             dep_src = [k for k, v in it.items() if len(v) > 0]
@@ -71,11 +74,7 @@ class Variables:
                                        in dep_src}
                             dep_res['filter'] = ds
                             dep_res['req'] = self.ctx['req']
-                    else:
-                        dep_res = {event_names: await Variable(self.ctx, event_names).get_result() for event_names
-                                   in ds}
-
-                    print(dep_res)
+                    # print(dep_res)
                     self.result = await Variable(self.ctx, self.event_names).get_result_joined(dep_res)
             except asyncio.CancelledError:
                 raise
