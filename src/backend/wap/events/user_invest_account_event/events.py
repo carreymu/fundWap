@@ -127,3 +127,17 @@ class UserInvestAccountTargets(DataSource):
                 my_info['hold_targets'] = user_iv_acc
             return my_info
         return self.event_default
+
+
+class UserInvestAccountFunds(DataSource):
+    event_default: Any
+    dependence_source: dict
+
+    async def compute(self):
+        targets = self.dependence_source
+        target_info = {}
+        import pdb;pdb.set_trace()
+        if targets:
+
+            return target_info
+        return self.event_default

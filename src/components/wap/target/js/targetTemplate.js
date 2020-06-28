@@ -37,7 +37,6 @@ export default {
           
           this.target["now"] = this.$utdate.dateFmt(new Date(),"MM月dd日")
           this.target['hold_profit'] = this.target['hold_profit'].toFixed(2)
-         
           console.log(this.target)
         }
       })

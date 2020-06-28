@@ -16,5 +16,13 @@ config = dict(
       "dependence_source": [{"user_invest_account_by_uid": "uid", "targets_by_tids": "", "user_detail_by_uid": "",
                              "user_invest_account_details_by_ids": ""}],
       "dependence": events.UserInvestAccountTargets,
-    }
+    },
+    user_invest_account_funds={
+      "name": "show user invest account joined info",
+      "author": "root",
+      "event_default": [],
+      "dependence_source": [{"targets_by_tid": "tid", "user_invest_account_by_type_id": "uid,type,iv_id",
+                             "user_invest_account_details_by_ids": ""}],
+      "dependence": events.UserInvestAccountFunds,
+    },
 )
