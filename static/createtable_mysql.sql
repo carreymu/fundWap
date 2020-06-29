@@ -429,7 +429,7 @@ values(3,1,3,200,1,0,-21.3,0,0,null,null); /*大目标-2006,朕,富国新动力B
 INSERT INTO user_invest_account_detail(uia_id,uid,fid,hold_share,hold_status,is_sched,daily_profit,redeem_share,redeem_amt,redeem_date,pay_date)
 values(3,1,2,201,1,0,-21.3,0,0,null,null); /*大目标-2006,朕,富国新动力A,201份,持有,非定投,今日跌20.3元,赎回0份,赎回0元,null,null*/
 INSERT INTO user_invest_account_detail(uia_id,uid,fid,hold_share,hold_status,is_sched,daily_profit,redeem_share,redeem_amt,redeem_date,pay_date)
-values(3,1,2,202,1,0,-21.3,0,0,null,null); /*大目标-2006,朕,富国新动力A,202份,持有,非定投,今日跌25.3元,赎回0份,赎回0元,null,null*/
+values(3,1,2,202,2,0,-21.3,0,0,null,null); /*大目标-2006,朕,富国新动力A,202份,赎回中,非定投,今日跌25.3元,赎回0份,赎回0元,null,null*/
 INSERT INTO user_invest_account_detail(uia_id,uid,fid,hold_share,hold_status,is_sched,daily_profit,redeem_share,redeem_amt,redeem_date,pay_date)
 values(3,1,4,205,1,0,-21.3,0,0,null,null); /*大目标-2006,朕,富国新动力A,205份,持有,非定投,今日跌18.3元,赎回0份,赎回0元,null,null*/
 INSERT INTO user_invest_account_detail(uia_id,uid,fid,hold_share,hold_status,is_sched,daily_profit,redeem_share,redeem_amt,redeem_date,pay_date)

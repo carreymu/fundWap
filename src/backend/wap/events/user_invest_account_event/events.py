@@ -170,15 +170,26 @@ class UserInvestAccountFunds(DataSource):
                     if fund_info_short:
                         fund_dict = dict((str(x['fid']), x['fund_name']) for x in fund_info_short)
                         fund_lst = []
+                        same_fids = []
                         # import pdb;pdb.set_trace()
                         for x in user_iv_acc:
                             x['fund_name'] = fund_dict[x['fid']]
-                            if fund_lst:
-                                dis = [y for y in fund_lst if x['fid'] == y['fid']]
-                                if dis:
-                                    x['hold_share'] = dis[0]['hold_share'] + x['hold_share']
-                                    x['daily_profit'] = dis[0]['daily_profit'] + x['daily_profit']
-                            fund_lst.append(x)
+                            if x['fid'] not in same_fids:
+                                x['redeem_cnt'] = 1 if x['hold_status'] == 2 else 0
+                                x['hold_cnt'] = 1 if x['hold_status'] == 1 else 0
+                                same_fids.append(x['fid'])
+                                fund_lst.append(x)
+                            else:
+                                fund = [y for y in fund_lst if x['fid'] == y['fid']][0]
+                                fund['redeem_cnt'] = fund['redeem_cnt'] + 1 if x['hold_status'] == 2 else 0
+                                fund['hold_cnt'] = fund['hold_cnt'] + 1 if x['hold_status'] == 1 else 0
+                                fund['hold_share'] = fund['hold_share'] + x['hold_share']
+                                fund['daily_profit'] = fund['daily_profit'] + x['daily_profit']
+                                print(fund)
+                                print('-' * 20)
+                                print(fund_lst)
+                                print('#' * 20)
+
                         target_info["fund_lst"] = fund_lst
             return target_info
         return self.event_default
