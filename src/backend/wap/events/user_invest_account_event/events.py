@@ -139,13 +139,14 @@ class UserInvestAccountFunds(DataSource):
             targets = source['targets_by_tid']
             user_invest_account = source['user_invest_account_by_type_id']
             target_info = {}
+            md = datetime.strftime(datetime.now(), "%m月%d日")
             # import pdb;pdb.set_trace()
             if targets and len(targets) > 0:
                 fundtemp = targets[0]
                 fundtemp['target_ratio'] = format(fundtemp['target_ratio']*100, '.2f') + "%"
                 fundtemp['run_days'] = datediff_timestamp(fundtemp['apply_endtime'])
                 dt = datetime.fromtimestamp(fundtemp['apply_endtime'] / 1e3)
-                fundtemp["apply_endtime"] = datetime.strftime(dt, "%Y年%m月")
+                fundtemp["apply_endtime"] = md
                 target_info['fundtemp'] = fundtemp
             uia_ids = ''
             if user_invest_account and len(user_invest_account) > 0:
@@ -166,14 +167,14 @@ class UserInvestAccountFunds(DataSource):
                 user_iv_acc = copy.deepcopy(user_iv_acc_detail_list)
                 fids = sql_in(list(set([x['fid'] for x in user_iv_acc_detail_list])))
                 if fids:
+                    # fund_worth_history.worth 万份收益/净值
                     fund_info_short = await exec_base.exec_sql_key(event_names="fund_info_short", **{'fids': fids})
                     if fund_info_short:
-                        fund_dict = dict((str(x['fid']), x['fund_name']) for x in fund_info_short)
-                        fund_lst = []
-                        same_fids = []
-                        # import pdb;pdb.set_trace()
+                        fund_dict = dict((str(x['fid']), f"{x['fund_name']}({x['fund_code']})") for x in fund_info_short)
+                        fund_lst, same_fids = [], []
                         for x in user_iv_acc:
                             x['fund_name'] = fund_dict[x['fid']]
+                            x['now'] = md
                             if x['fid'] not in same_fids:
                                 x['redeem_cnt'] = 1 if x['hold_status'] == 2 else 0
                                 x['hold_cnt'] = 1 if x['hold_status'] == 1 else 0
@@ -181,15 +182,12 @@ class UserInvestAccountFunds(DataSource):
                                 fund_lst.append(x)
                             else:
                                 fund = [y for y in fund_lst if x['fid'] == y['fid']][0]
-                                fund['redeem_cnt'] = fund['redeem_cnt'] + 1 if x['hold_status'] == 2 else 0
-                                fund['hold_cnt'] = fund['hold_cnt'] + 1 if x['hold_status'] == 1 else 0
+                                if x['hold_status'] == 2:
+                                    fund['redeem_cnt'] = fund['redeem_cnt'] + 1
+                                if x['hold_status'] == 1:
+                                    fund['hold_cnt'] = fund['hold_cnt'] + 1
                                 fund['hold_share'] = fund['hold_share'] + x['hold_share']
                                 fund['daily_profit'] = fund['daily_profit'] + x['daily_profit']
-                                print(fund)
-                                print('-' * 20)
-                                print(fund_lst)
-                                print('#' * 20)
-
                         target_info["fund_lst"] = fund_lst
             return target_info
         return self.event_default

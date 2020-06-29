@@ -63,19 +63,22 @@
       <div style="padding:15px 0 5px 0;">
         <div class ="waitInvokeTxtPre">|||| <span class="waitInvokeTxtTail">持仓基金</span></div>
       </div>
-      <div style="padding:10px;">汇添富中证主要消费ETF联接(000248)</div>
-      <div class="invIntro">
-        <div style="padding-top:5px;">
-            <div>04月30日+2.88%</div>
-            <div style="color:#d95353;">+9500.02</div>
+      <div v-for="(it,idx) in fund_lst" :key="idx">
+        <div style="padding:10px;">{{it.fund_name}}</div>
+        <div class="invIntro">
+          <div style="padding-top:5px;">
+              <div>{{it.now}} +2.88%</div>
+              <div v-if="it.daily_profit>=0" style="color:#d95353;">+{{it.daily_profit}}</div>
+              <div v-else style="color:green;">{{it.daily_profit}}</div>
+          </div>
+          <div class="botLineRight"></div>
+          <div style="padding-top:5px;">
+              <div>持仓盈亏 -2.88%</div>
+              <div style="color:green;">-10035.54</div>
+          </div>
         </div>
-        <div class="botLineRight"></div>
-        <div style="padding-top:5px;">
-            <div>持仓盈亏 -2.88%</div>
-            <div style="color:green;">-10035.54</div>
-        </div>
+        <div class="line"/> 
       </div>
-      <div class="line"/> 
 
     <div style="padding:10px;">天弘创业板ETF联接(001593)</div>
     <div class="invIntro">
