@@ -1,18 +1,19 @@
 <template>
+  <div>
   <div class="tartmp">
     <div>
     <div class="topRmk">持仓收益率</div>
     <div v-if="target.hold_profit_ratio>0" class="rtop">{{target.hold_profit_ratio}}</div>
-    <div v-else class="gtop">{{target.hold_profit_ratio}} %</div>
+    <div v-else class="gtop">{{target.hold_profit_ratio}}%</div>
     <div class="botRmk">{{fundtemp.apply_endtime}}加入以来</div>
     </div>
 
     <div style="padding:0 10px 0 20px;">
         <flexbox>
-        <flexbox-item :span="0.38">
+        <flexbox-item>
             <div>{{target.now}}</div>
-            <div v-if="target.daily_profit>0" style="color:#d95353;font-size:13px;">+{{target.daily_profit}}</div>
-            <div v-else style="color:green;font-size:13px;">{{target.daily_profit}}</div>
+            <div v-if="target.daily_profit>0" style="color:#d95353;font-size:17px;">+{{target.daily_profit}}</div>
+            <div v-else style="color:green;font-size:17px;">{{target.daily_profit}}</div>
         </flexbox-item>
         <flexbox-item class="topInfo">
             <div>持仓收益</div>
@@ -77,15 +78,23 @@
               <div v-else style="color:green;">{{it.daily_profit}}</div>
           </div>
         </div>
-        <div class="line"/> 
+        <div class="line"/>
       </div>
     </div>
 
-    <div style="padding-top:15px;">
-      <div style="float: left;">已清仓</div>
-      <div style="float: right;">赎回明细 ></div>
+    <div style="padding: 10px 0px 70px 10px;">
+      <div style="float: left;">交易记录</div>
+      <div style="float: right;"> ></div>
     </div>
+    
     <!-- <toast v-model="showMsg" type="text"  width="20em" class="showMsg" :time="2000">coming soon....</toast> -->
+  </div>
+  <div class="bstfooterFix">
+    <!-- <x-button type="default" class="fnt12" :link="{path:'/fundWap/targetSOrder',query:{cid:cid,sch:true}}">赎回
+      <div style="font-size:10px;">{{mainData.sched_init_amt}}元起投(费率1折起)</div>
+      </x-button> -->
+      <x-button type="default" >赎回</x-button>
+  </div> 
   </div>
 </template>
 <script>
@@ -167,5 +176,13 @@
   .tartmp .rectAgl .aimRmkMoney{
     font-weight: 800;
     font-size: 14px;
+  }
+  .bstfooterFix{
+    font-size:12px;
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:97px;
+    background:#F7F7F7;
   }
 </style>

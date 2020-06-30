@@ -1,4 +1,4 @@
-import { Tabbar, TabbarItem ,XHeader,Flexbox, FlexboxItem, XTable} from 'vux'
+import { Tabbar, TabbarItem ,XHeader,Flexbox, FlexboxItem, XTable, XButton} from 'vux'
 export default {
   mounted() {
     this.$store.commit('UPDATE_PAGE_TITLE', '我的理财')
@@ -56,5 +56,6 @@ export default {
     Flexbox,
     FlexboxItem,
     XTable,
+    XButton
   }
 }

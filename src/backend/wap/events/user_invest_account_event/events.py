@@ -148,7 +148,6 @@ class UserInvestAccountFunds(DataSource):
                 fundtemp = targets[0]
                 fundtemp['target_ratio'] = f"{format(fundtemp['target_ratio']*100, '.2f')}%"
                 fundtemp['run_days'] = datediff_timestamp(fundtemp['apply_endtime'])
-                dt = datetime.fromtimestamp(fundtemp['apply_endtime'] / 1e3)
                 fundtemp["apply_endtime"] = md
                 target_info['fundtemp'] = fundtemp
             uia_ids = ''
@@ -156,9 +155,11 @@ class UserInvestAccountFunds(DataSource):
                 target = user_invest_account[0]
                 uia_ids = f"'{target['uia_id']}'"
                 target["hold_amt"] = target['hold_profit'] + target['init_amt']
-                target['hold_profit_ratio'] = f"{format(((target['hold_profit'] / target['hold_amt']) * 100), '.2f')}%"
+                target['hold_profit_ratio'] = format(((target['hold_profit'] / target['hold_amt']) * 100), '.2f')
+                target["hold_amt"] = format(target["hold_amt"], '.2f')
                 target["now"] = datetime.strftime(datetime.now(), "%m月%d日")
                 target['hold_profit'] = format(target['hold_profit'], '.2f')
+                target['daily_profit'] = format(target['daily_profit'], '.2f')
                 target_info["target"] = target
 
             uid = source['req']['uid']
@@ -186,6 +187,7 @@ class UserInvestAccountFunds(DataSource):
                             x['daily_ratio'] = format(wor['daily_ratio']*100, '.2f')
                             x['worth'] = wor['worth']
                             x['hold_amt'] = format(wor['worth'] * x['hold_share'], '.2f')
+                            x['daily_profit'] = format(float(x['daily_profit']), '.2f')
                             if x['fid'] not in same_fids:
                                 x['redeem_cnt'] = 1 if x['hold_status'] == 2 else 0
                                 x['hold_cnt'] = 1 if x['hold_status'] == 1 else 0
@@ -198,7 +200,7 @@ class UserInvestAccountFunds(DataSource):
                                 if x['hold_status'] == 1:
                                     fund['hold_cnt'] = fund['hold_cnt'] + 1
                                 fund['hold_share'] = fund['hold_share'] + x['hold_share']
-                                fund['daily_profit'] = fund['daily_profit'] + x['daily_profit']
+                                fund['daily_profit'] = format(float(fund['daily_profit']) + float(x['daily_profit']), '.2f')
                                 fund['hold_amt'] = format(float(fund['hold_amt']) + float(x['hold_amt']), '.2f')
                         target_info["fund_lst"] = fund_lst
             return target_info
