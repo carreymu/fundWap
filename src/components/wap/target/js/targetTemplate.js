@@ -24,7 +24,7 @@ export default {
       }
       this.$api.fetchPost('/sanic-api', dt).then(r=>{
           if(r.user_invest_account_funds != undefined){
-              res = r.user_invest_account_funds
+              let res = r.user_invest_account_funds
               this.fundtemp = res.fundtemp
               this.target = res.target
               this.fund_lst = res.fund_lst

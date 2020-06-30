@@ -19,7 +19,7 @@
         </div>
         <div style="float: right;">
             <div>万份收益</div>
-            <div class="ratio">{{funcInfo.daily_change}}</div>
+            <div class="ratio">{{funcInfo.daily_ratio}}</div>
         </div>
       </div>
     

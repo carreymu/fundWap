@@ -59,7 +59,7 @@ export default {
         }
         if(r.fund_worth_history_by_fid!=undefined && r.fund_worth_history_by_fid.length>0){
           this.funcInfo['worth']= (r.fund_worth_history_by_fid[0].worth *100).toFixed(2)
-          this.funcInfo['daily_change']= r.fund_worth_history_by_fid[0].daily_change
+          this.funcInfo['daily_ratio']= r.fund_worth_history_by_fid[0].daily_ratio
           for(var i=0;i<r.fund_worth_history_by_fid.length;i++){
             this.fundDailyData.push({
               date:this.$utdate.dateFmt(r.fund_worth_history_by_fid[i].inserttime,"yyyy-MM-dd"), 

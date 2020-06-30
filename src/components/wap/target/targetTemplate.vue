@@ -67,32 +67,18 @@
         <div style="padding:10px;">{{it.fund_name}}</div>
         <div class="invIntro">
           <div style="padding-top:5px;">
-              <div>{{it.now}} +2.88%</div>
-              <div v-if="it.daily_profit>=0" style="color:#d95353;">+{{it.daily_profit}}</div>
-              <div v-else style="color:green;">{{it.daily_profit}}</div>
+              <div>持有总金额</div>
+              <div style="color:#d95353;">{{it.hold_amt}}</div>
           </div>
           <div class="botLineRight"></div>
           <div style="padding-top:5px;">
-              <div>持仓盈亏 -2.88%</div>
-              <div style="color:green;">-10035.54</div>
+              <div>{{it.now}}收益</div>
+              <div v-if="it.daily_profit>=0" style="color:#d95353;">+{{it.daily_profit}}</div>
+              <div v-else style="color:green;">{{it.daily_profit}}</div>
           </div>
         </div>
         <div class="line"/> 
       </div>
-
-    <div style="padding:10px;">天弘创业板ETF联接(001593)</div>
-    <div class="invIntro">
-        <div style="padding-top:5px;">
-            <div>04月30日+2.88%</div>
-            <div style="color:#d95353;">+9500.02</div>
-        </div>
-        <div class="botLineRight"></div>
-        <div style="padding-top:5px;">
-            <div>持仓盈亏 -2.88%</div>
-            <div style="color:green;">-10035.54</div>
-        </div>
-      </div>
-      <div class="line"/> 
     </div>
 
     <div style="padding-top:15px;">

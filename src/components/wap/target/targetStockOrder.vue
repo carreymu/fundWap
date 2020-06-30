@@ -9,8 +9,8 @@
           <flexbox-item>
             <div class="fnt10"> 日涨跌幅</div>
             <div style="font-size:25px;">
-              <span class="fntBrown" v-if="funcInfo.daily_change>0">+{{funcInfo.daily_change}}%</span>
-              <span class="fntGreen" v-else>{{funcInfo.daily_change}}%</span>
+              <span class="fntBrown" v-if="funcInfo.daily_ratio>0">+{{funcInfo.daily_ratio}}%</span>
+              <span class="fntGreen" v-else>{{funcInfo.daily_ratio}}%</span>
               </div>
             </flexbox-item>
           <flexbox-item><div class="fnt10">单位净值({{funcInfo.date}})</div>
@@ -89,8 +89,8 @@
             <td>{{it.date}}</td>
             <td>{{it.value}}</td>
             <td>
-              <span class="fntBrown" v-if="it.daily_change>0">+{{it.daily_change}}%</span>
-              <span class="fntGreen" v-else>-{{it.daily_change}}%</span>
+              <span class="fntBrown" v-if="it.daily_ratio>0">+{{it.daily_ratio}}%</span>
+              <span class="fntGreen" v-else>-{{it.daily_ratio}}%</span>
             </td>
           </tr>
         </tbody>

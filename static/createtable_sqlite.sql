@@ -117,8 +117,8 @@ INSERT INTO fund_position_other(fid,fpoc_id,hold_num) values(1,2,2.6);
 INSERT INTO fund_position_other(fid,fpoc_id,hold_num) values(1,3,0.66);
 
 --17.fund worth history
-CREATE TABLE fund_worth_history(fwh_id Integer primary key autoincrement,fid int,worth float,daily_change float,inserttime timestamp not null default (datetime('now','localtime')));
-INSERT INTO fund_worth_history(fid,worth,daily_change) values(1,2.195,-3.37);
+CREATE TABLE fund_worth_history(fwh_id Integer primary key autoincrement,fid int,worth float,daily_ratio float,inserttime timestamp not null default (datetime('now','localtime')));
+INSERT INTO fund_worth_history(fid,worth,daily_ratio) values(1,2.195,-3.37);
 
 ------------------------------------fund plans--biz:target,drumstick and best choice------------------------------------------------
 --18.fund plan (returns_type:1-七日年化收益,2-近六月历史收益,3-近三年历史收益|page_type:1-only text or image,2-including FOFs etc.)

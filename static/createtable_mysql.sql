@@ -262,15 +262,18 @@ INSERT INTO fund_position_other(fid,fpoc_id,hold_num) values(1,3,0.66);
 CREATE TABLE fund_worth_history(fwh_id int(11) primary key AUTO_INCREMENT,
 fid int not null comment '基金ID',
 worth float not null comment '万份收益/净值',
-daily_change float not null comment '七日年化/日涨跌幅',
+daily_ratio float not null comment '七日年化/日涨跌幅',
 inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO fund_worth_history(fid,worth,daily_change,inserttime) values(1,2.195,-3.37,'2020-03-23 3:14:36');
-INSERT INTO fund_worth_history(fid,worth,daily_change,inserttime) values(1,0.02196,-3.37,'2020-03-24 13:14:36');
-INSERT INTO fund_worth_history(fid,worth,daily_change,inserttime) values(1,0.02096,3.17,'2020-03-25 13:14:36');
-INSERT INTO fund_worth_history(fid,worth,daily_change,inserttime) values(1,0.02296,-2.07,'2020-03-26 13:14:36');
-INSERT INTO fund_worth_history(fid,worth,daily_change,inserttime) values(5,2.195,-3.37,'2020-03-23 13:14:36');
-INSERT INTO fund_worth_history(fid,worth,daily_change,inserttime) values(5,2.295,-3.17,'2020-03-24 13:14:36');
-INSERT INTO fund_worth_history(fid,worth,daily_change,inserttime) values(5,2.395,-3.07,'2020-03-25 13:14:36');
+INSERT INTO fund_worth_history(fid,worth,daily_ratio) values(1,2.195,-0.0137);
+INSERT INTO fund_worth_history(fid,worth,daily_ratio) values(1,1.1219,-0.0137);
+INSERT INTO fund_worth_history(fid,worth,daily_ratio) values(1,1.02,-0.0117);
+INSERT INTO fund_worth_history(fid,worth,daily_ratio) values(1,1.2296,-0.0107);
+INSERT INTO fund_worth_history(fid,worth,daily_ratio) values(2,2.01,-0.0137);
+INSERT INTO fund_worth_history(fid,worth,daily_ratio) values(3,1.72,-0.017);
+INSERT INTO fund_worth_history(fid,worth,daily_ratio) values(4,1.18,-0.0207);
+INSERT INTO fund_worth_history(fid,worth,daily_ratio) values(5,1.195,-0.0137);
+INSERT INTO fund_worth_history(fid,worth,daily_ratio) values(5,3.95,-0.0117);
+INSERT INTO fund_worth_history(fid,worth,daily_ratio) values(5,2.195,-0.0107);
 
 /*--18.stage fund worth history*/
 CREATE TABLE fund_worth_history_stage(fwhs_id int(11) primary key AUTO_INCREMENT,
@@ -429,7 +432,7 @@ values(3,1,3,200,1,0,-21.3,0,0,null,null); /*大目标-2006,朕,富国新动力B
 INSERT INTO user_invest_account_detail(uia_id,uid,fid,hold_share,hold_status,is_sched,daily_profit,redeem_share,redeem_amt,redeem_date,pay_date)
 values(3,1,2,201,1,0,-21.3,0,0,null,null); /*大目标-2006,朕,富国新动力A,201份,持有,非定投,今日跌20.3元,赎回0份,赎回0元,null,null*/
 INSERT INTO user_invest_account_detail(uia_id,uid,fid,hold_share,hold_status,is_sched,daily_profit,redeem_share,redeem_amt,redeem_date,pay_date)
-values(3,1,2,202,2,0,-21.3,0,0,null,null); /*大目标-2006,朕,富国新动力A,202份,赎回中,非定投,今日跌25.3元,赎回0份,赎回0元,null,null*/
+values(3,1,2,202,2,0,-21.3,0,0,'2020-03-20 10:20:22','2020-03-20 10:20:22'); /*大目标-2006,朕,富国新动力A,202份,赎回中,非定投,今日跌25.3元,赎回0份,赎回0元,null,null*/
 INSERT INTO user_invest_account_detail(uia_id,uid,fid,hold_share,hold_status,is_sched,daily_profit,redeem_share,redeem_amt,redeem_date,pay_date)
 values(3,1,4,205,1,0,-21.3,0,0,null,null); /*大目标-2006,朕,富国新动力A,205份,持有,非定投,今日跌18.3元,赎回0份,赎回0元,null,null*/
 INSERT INTO user_invest_account_detail(uia_id,uid,fid,hold_share,hold_status,is_sched,daily_profit,redeem_share,redeem_amt,redeem_date,pay_date)
