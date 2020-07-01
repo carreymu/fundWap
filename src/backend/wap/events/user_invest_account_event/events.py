@@ -31,16 +31,20 @@ class UserInvestAccountJoined(DataSource):
             my_invests = []
             user_iv_acc = [x for x in user_iv_acc_list if x['hold_status'] != 0]
             if user_iv_acc:
-                targets = self.json_convert(user_iv_acc, 'tid', '大目标', dt)
+                targets_dict = {"name": '大目标', "dt": dt, "type": 'tid', "url": "myTargets"}
+                targets = self.json_convert(user_iv_acc, targets_dict)
                 if targets:
                     my_invests.append(targets)
-                best_choices = self.json_convert(user_iv_acc, 'fpl_id', '优选', dt)
+                choices_dict = {"name": '优选', "dt": dt, "type": 'fpl_id', "url": "myTargets"}
+                best_choices = self.json_convert(user_iv_acc, choices_dict)
                 if best_choices:
                     my_invests.append(best_choices)
-                drumsticks = self.json_convert(user_iv_acc, 'did', '鸡腿计划', dt)
+                drumsticks_dict = {"name": '鸡腿计划', "dt": dt, "type": 'did', "url": "targetTemplate"}
+                drumsticks = self.json_convert(user_iv_acc, drumsticks_dict)
                 if drumsticks:
                     my_invests.append(drumsticks)
-                funds = self.json_convert(user_iv_acc, 'fid', '基金', dt)
+                funds_dict = {"name": '基金', "dt": dt, "type": 'fid', "url": "targetTemplate"}
+                funds = self.json_convert(user_iv_acc, funds_dict)
                 if funds:
                     my_invests.append(funds)
             user_invest["my_invests"] = my_invests
@@ -67,17 +71,20 @@ class UserInvestAccountJoined(DataSource):
             return user_invest
         return self.event_default
 
-    def json_convert(self, hd_user_iv_acc: list, types: str, name: str, date: str):
-        lst = [x for x in hd_user_iv_acc if x['type'] == types]
-        if lst:
-            hold_profit = sum([x['hold_profit'] for x in lst])
-            day_profit = sum([x['daily_profit'] for x in lst])
-            init_amt = sum([x['init_amt'] for x in lst])
-            t_amt = init_amt + hold_profit
-            td_ratio = round(day_profit / t_amt, 2)
-            t_ratio = round((hold_profit + day_profit) / t_amt, 2)
-            return {"name": name, "dt": date, "type": types, "daily_ratio": td_ratio, "daily_profit": round(day_profit, 2),
-                    "hold_ratio": t_ratio, "hold_profit": round(hold_profit, 2), "hold_cnt": len(lst)}
+    def json_convert(self, hd_user_iv_acc: list, targets_dict: dict):
+        lst = [x for x in hd_user_iv_acc if x['type'] == targets_dict['type']]
+        if len(lst) == 0:
+            return None
+        hold_profit = sum([x['hold_profit'] for x in lst])
+        day_profit = sum([x['daily_profit'] for x in lst])
+        targets_dict['hold_profit'] = round(hold_profit, 2)
+        targets_dict['daily_profit'] = round(day_profit, 2)
+        init_amt = sum([x['init_amt'] for x in lst])
+        t_amt = init_amt + hold_profit
+        targets_dict["daily_ratio"] = round((day_profit / t_amt)*100, 2)
+        targets_dict["hold_cnt"] = len(lst)
+        targets_dict["hold_ratio"] = round((hold_profit + day_profit)*100 / t_amt, 2)
+        return targets_dict
 
 
 class UserInvestAccountTargets(DataSource):
@@ -85,21 +92,19 @@ class UserInvestAccountTargets(DataSource):
     dependence_source: dict
 
     async def compute(self):
-        user_iv_acc_list = self.dependence_source
-        if user_iv_acc_list:
+        res = self.dependence_source
+        if res:
             my_info = {}
-            user_iv_acc = [x for x in user_iv_acc_list['user_invest_account_by_uid'] if x['type'] == 'tid']
+            req = res['req']
+            user_details = res['user_detail_by_uid']
+            user_iv_acc = [x for x in res['user_invest_account_by_uid'] if x['type'] == req['type']]
             if user_iv_acc:
-                dt = time.strftime('%m月%d日', time.localtime(time.time()))
                 all_hold_profit = sum([x['hold_profit'] for x in user_iv_acc])
                 init_amt = sum([x['init_amt'] for x in user_iv_acc])
                 my_info['all_amt'] = format((all_hold_profit + init_amt), '.2f')
                 my_info["hold_profit"] = format(sum([x['hold_profit'] for x in user_iv_acc if x['hold_status'] != 0]), '.2f')
                 my_info["daily_profit"] = format(sum([x['daily_profit'] for x in user_iv_acc]), '.2f')
-                my_info["now"] = dt
-
-                uid = user_iv_acc[0]['uid']
-                user_details = await exec_base.exec_sql_key(event_names='user_detail_by_uid', **{'uid': uid})
+                my_info["now"] = time.strftime('%m月%d日', time.localtime(time.time()))
                 my_info["joined_days"] = datediff_timestamp(user_details[0]['inserttime'])
 
                 tids = sql_in([x['iv_id'] for x in user_iv_acc])
@@ -109,7 +114,8 @@ class UserInvestAccountTargets(DataSource):
                 fids = sql_in([x['ft_id'] for x in tars_list])
                 uia_ids = sql_in([x['uia_id'] for x in user_iv_acc])
                 user_iv_acc_detail_list = await exec_base.exec_sql_key(event_names='user_invest_account_details_by_ids',
-                                                                       **{'uid': uid, 'uia_ids': uia_ids, 'fids': fids})
+                                                                       **{'uid': req['uid'], 'uia_ids': uia_ids,
+                                                                          'fids': fids})
                 my_info["target_profit"] = sum([x['redeem_amt'] for x in user_iv_acc_detail_list if x['hold_status'] == 0])
                 # 达标盈利=user_invest_account_detail.hold_status==0
                 # hold targets + N笔交易确认中
@@ -142,7 +148,6 @@ class UserInvestAccountFunds(DataSource):
             target_info = {}
             nw = datetime.now()
             md = datetime.strftime(nw, "%m月%d日")
-            ymd = str(datetime.strftime(nw, '%Y-%m-%d'))
 
             if targets and len(targets) > 0:
                 fundtemp = targets[0]

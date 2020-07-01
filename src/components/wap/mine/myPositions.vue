@@ -50,10 +50,10 @@
       </div>
       
       <div class="rectAgl">
-        <router-link :to="{path:'/fundWap/myTargets',query:{type:it.type}}">
+        <router-link :to="{path:'/fundWap/'+it.url,query:{type:it.type}}">
         <div class="invIntro">
           <div style="padding-top:12px;">
-            <div>{{it.dt}}  {{it.daily_ratio}}%</div>
+            <div>{{it.dt}} {{it.daily_ratio}}%</div>
             <div v-if="it.daily_profit>=0" style="color:#d95353;">+{{it.daily_profit}}</div>
             <div v-else style="color:green;">{{it.daily_profit}}</div>
           </div>

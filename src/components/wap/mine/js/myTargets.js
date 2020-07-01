@@ -11,8 +11,9 @@ export default {
   },
   methods:{
     myTargets(){
+      let type = this.$route.query.vi_id || 1;
       let dt = {
-        "req": {"uid":1},
+        "req": {"uid":1,"type":type},
         "event_names": ["user_invest_account_targets"]
       }
       this.$api.fetchPost('/sanic-api', dt).then(r=>{
