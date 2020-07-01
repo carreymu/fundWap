@@ -89,7 +89,7 @@
     
     <toast v-model="showMsg" type="text"  width="20em" class="showMsg" :time="2000">coming soon....</toast>
   </div>
-  <div class="bstfooterFix">
+  <div class="ttpfooterFix">
       <x-button type="default" @click.native="redeem()">赎回</x-button>
   </div> 
   </div>
@@ -174,7 +174,7 @@
     font-weight: 800;
     font-size: 14px;
   }
-  .bstfooterFix{
+  .ttpfooterFix{
     font-size:12px;
     position:absolute;
     bottom:0;

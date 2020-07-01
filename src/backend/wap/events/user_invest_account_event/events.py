@@ -147,7 +147,6 @@ class UserInvestAccountFunds(DataSource):
             target_info = {}
             nw = datetime.now()
             md = datetime.strftime(nw, "%m月%d日")
-
             if targets and len(targets) > 0:
                 fundtemp = targets[0]
                 fundtemp['target_ratio'] = f"{format(fundtemp['target_ratio']*100, '.2f')}%"
@@ -155,6 +154,8 @@ class UserInvestAccountFunds(DataSource):
                 fundtemp["apply_endtime"] = md
                 target_info['fundtemp'] = fundtemp
             uia_ids = ''
+            # import pdb;
+            # pdb.set_trace()
             if user_invest_account and len(user_invest_account) > 0:
                 target = user_invest_account[0]
                 uia_ids = f"'{target['uia_id']}'"
@@ -171,39 +172,40 @@ class UserInvestAccountFunds(DataSource):
                                                                    **{'uid': uid, 'uia_ids': uia_ids})
             if user_iv_acc_detail_list and len(user_iv_acc_detail_list) > 0:
                 # 1-持仓,2-赎回中
-                user_iv_acc_detail_list = [x for x in user_iv_acc_detail_list if x['hold_status'] != 0]
-                user_iv_acc = copy.deepcopy(user_iv_acc_detail_list)
-                fds = list(set([x['fid'] for x in user_iv_acc_detail_list]))
-                fids = sql_in(fds)
-                if fids:
-                    fund_worth_his = await exec_base.exec_sql_key(event_names="fund_worth_history_by_fids",
-                                                                  **{'fids': fids, 'topx': len(fds)})
-                    fund_info_short = await exec_base.exec_sql_key(event_names="fund_info_short", **{'fids': fids})
-                    if fund_worth_his and fund_info_short:
-                        fund_dict = dict((str(x['fid']), f"{x['fund_name']}({x['fund_code']})") for x in fund_info_short)
-                        fund_lst, same_fids = [], []
-                        for x in user_iv_acc:
-                            wor = [w for w in fund_worth_his if str(w['fid']) == x['fid']][0]
-                            x['fund_name'] = fund_dict[x['fid']]
-                            x['now'] = md
-                            x['daily_ratio'] = format(wor['daily_ratio']*100, '.2f')
-                            x['worth'] = wor['worth']
-                            x['hold_amt'] = format(wor['worth'] * x['hold_share'], '.2f')
-                            x['daily_profit'] = format(float(x['daily_profit']), '.2f')
-                            if x['fid'] not in same_fids:
-                                x['redeem_cnt'] = 1 if x['hold_status'] == 2 else 0
-                                x['hold_cnt'] = 1 if x['hold_status'] == 1 else 0
-                                same_fids.append(x['fid'])
-                                fund_lst.append(x)
-                            else:
-                                fund = [y for y in fund_lst if x['fid'] == y['fid']][0]
-                                if x['hold_status'] == 2:
-                                    fund['redeem_cnt'] = fund['redeem_cnt'] + 1
-                                if x['hold_status'] == 1:
-                                    fund['hold_cnt'] = fund['hold_cnt'] + 1
-                                fund['hold_share'] = fund['hold_share'] + x['hold_share']
-                                fund['daily_profit'] = format(float(fund['daily_profit']) + float(x['daily_profit']), '.2f')
-                                fund['hold_amt'] = format(float(fund['hold_amt']) + float(x['hold_amt']), '.2f')
-                        target_info["fund_lst"] = fund_lst
+                user_iv_acc = [x for x in user_iv_acc_detail_list if x['hold_status'] != 0]
+                fund_lst = []
+                if not user_iv_acc:
+                    fds = list(set([x['fid'] for x in user_iv_acc]))
+                    fids = sql_in(fds)
+                    if fids:
+                        fund_worth_his = await exec_base.exec_sql_key(event_names="fund_worth_history_by_fids",
+                                                                      **{'fids': fids, 'topx': len(fds)})
+                        fund_info_short = await exec_base.exec_sql_key(event_names="fund_info_short", **{'fids': fids})
+                        if fund_worth_his and fund_info_short:
+                            fund_dict = dict((str(x['fid']), f"{x['fund_name']}({x['fund_code']})") for x in fund_info_short)
+                            same_fids = []
+                            for x in user_iv_acc:
+                                wor = [w for w in fund_worth_his if str(w['fid']) == x['fid']][0]
+                                x['fund_name'] = fund_dict[x['fid']]
+                                x['now'] = md
+                                x['daily_ratio'] = format(wor['daily_ratio']*100, '.2f')
+                                x['worth'] = wor['worth']
+                                x['hold_amt'] = format(wor['worth'] * x['hold_share'], '.2f')
+                                x['daily_profit'] = format(float(x['daily_profit']), '.2f')
+                                if x['fid'] not in same_fids:
+                                    x['redeem_cnt'] = 1 if x['hold_status'] == 2 else 0
+                                    x['hold_cnt'] = 1 if x['hold_status'] == 1 else 0
+                                    same_fids.append(x['fid'])
+                                    fund_lst.append(x)
+                                else:
+                                    fund = [y for y in fund_lst if x['fid'] == y['fid']][0]
+                                    if x['hold_status'] == 2:
+                                        fund['redeem_cnt'] = fund['redeem_cnt'] + 1
+                                    if x['hold_status'] == 1:
+                                        fund['hold_cnt'] = fund['hold_cnt'] + 1
+                                    fund['hold_share'] = fund['hold_share'] + x['hold_share']
+                                    fund['daily_profit'] = format(float(fund['daily_profit']) + float(x['daily_profit']), '.2f')
+                                    fund['hold_amt'] = format(float(fund['hold_amt']) + float(x['hold_amt']), '.2f')
+                target_info["fund_lst"] = fund_lst
             return target_info
         return self.event_default

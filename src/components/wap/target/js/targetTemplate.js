@@ -17,7 +17,7 @@ export default {
       this.showMsg = true;
     },
     myTartemp(){
-      let iv_id = this.$route.query.vi_id || 1;
+      let iv_id = this.$route.query.iv_id || 1;
       let dt = {
         "req": {"tid":iv_id,"uid":1,"type":"tid","iv_id":iv_id},
         "event_names": ["user_invest_account_funds"]
