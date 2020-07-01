@@ -119,7 +119,6 @@ class UserInvestAccountTargets(DataSource):
                 my_info["target_profit"] = sum([x['redeem_amt'] for x in user_iv_acc_detail_list if x['hold_status'] == 0])
                 # 达标盈利=user_invest_account_detail.hold_status==0
                 # hold targets + N笔交易确认中
-
                 targets_dict = dict([(x['tid'], x['name']) for x in tars_list]) #if x['run_status'] in [0, 1, 2, 3]
                 for ui in user_iv_acc:
                     trade_cnt = len([x for x in user_iv_acc_detail_list if x['uia_id'] == ui['uia_id']
