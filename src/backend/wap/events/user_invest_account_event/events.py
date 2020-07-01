@@ -172,10 +172,8 @@ class UserInvestAccountFunds(DataSource):
                 fds = list(set([x['fid'] for x in user_iv_acc_detail_list]))
                 fids = sql_in(fds)
                 if fids:
-                    # import pdb;pdb.set_trace()
-                    # fund_worth_history.worth 万份收益/净值
                     fund_worth_his = await exec_base.exec_sql_key(event_names="fund_worth_history_by_fids",
-                                                                  **{'fids': fids, 'topx': len(fds), 'inserttime': ymd})
+                                                                  **{'fids': fids, 'topx': len(fds)})
                     fund_info_short = await exec_base.exec_sql_key(event_names="fund_info_short", **{'fids': fids})
                     if fund_worth_his and fund_info_short:
                         fund_dict = dict((str(x['fid']), f"{x['fund_name']}({x['fund_code']})") for x in fund_info_short)

@@ -1,4 +1,4 @@
-import { Tabbar, TabbarItem ,XHeader,Flexbox, FlexboxItem, XTable, XButton} from 'vux'
+import { Tabbar, TabbarItem ,XHeader,Flexbox, FlexboxItem, XTable, XButton, Toast} from 'vux'
 export default {
   mounted() {
     this.$store.commit('UPDATE_PAGE_TITLE', '我的理财')
@@ -6,16 +6,16 @@ export default {
   },
   data(){
     return {
-      // showMsg:false,
+      showMsg:false,
       fundtemp:{},
       target:{},
       fund_lst:[]
     }
   },
   methods:{
-    // tradeHis(){
-    //   this.showMsg=true;
-    // },
+    redeem(){
+      this.showMsg = true;
+    },
     myTartemp(){
       let iv_id = this.$route.query.vi_id || 1;
       let dt = {
@@ -56,6 +56,7 @@ export default {
     Flexbox,
     FlexboxItem,
     XTable,
-    XButton
+    XButton,
+    Toast
   }
 }

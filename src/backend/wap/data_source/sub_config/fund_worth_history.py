@@ -24,7 +24,7 @@ config = dict(
         "engine_name": "db_fund_wap_mysql",
         "sql": {
           "mysql": "select fid,worth,daily_ratio,inserttime from fund_worth_history where fid in ({fids}) "
-                   " and str_to_date(inserttime, '%Y-%m-%d')= '{inserttime}' order by inserttime desc",
+                   " order by inserttime desc",
           "sqlite3": "",
           "mssql": ""
         }

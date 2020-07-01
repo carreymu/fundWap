@@ -87,13 +87,10 @@
       <div style="float: right;"> ></div>
     </div>
     
-    <!-- <toast v-model="showMsg" type="text"  width="20em" class="showMsg" :time="2000">coming soon....</toast> -->
+    <toast v-model="showMsg" type="text"  width="20em" class="showMsg" :time="2000">coming soon....</toast>
   </div>
   <div class="bstfooterFix">
-    <!-- <x-button type="default" class="fnt12" :link="{path:'/fundWap/targetSOrder',query:{cid:cid,sch:true}}">赎回
-      <div style="font-size:10px;">{{mainData.sched_init_amt}}元起投(费率1折起)</div>
-      </x-button> -->
-      <x-button type="default" >赎回</x-button>
+      <x-button type="default" @click.native="redeem()">赎回</x-button>
   </div> 
   </div>
 </template>
