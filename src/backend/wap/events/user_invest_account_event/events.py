@@ -172,7 +172,8 @@ class UserInvestAccountFunds(DataSource):
                 # 1-持仓,2-赎回中
                 user_iv_acc = [x for x in user_iv_acc_detail_list if x['hold_status'] != 0]
                 fund_lst = []
-                if not user_iv_acc and len(user_iv_acc) > 1:
+                # import pdb;pdb.set_trace()
+                if user_iv_acc and len(user_iv_acc) > 0:
                     fds = list(set([x['fid'] for x in user_iv_acc]))
                     fids = sql_in(fds)
                     if fids:

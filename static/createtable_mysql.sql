@@ -289,8 +289,17 @@ INSERT INTO fund_worth_history_stage(fid,stage,worth,topn,his_tot) values(1,30,0
 INSERT INTO fund_worth_history_stage(fid,stage,worth,topn,his_tot) values(1,90,-0.011,120,1100); -- 景顺长城沪深300增强,90,-0.011,120,1100
 INSERT INTO fund_worth_history_stage(fid,stage,worth,topn,his_tot) values(1,365,0.111,110,1100); -- 景顺长城沪深300增强,365,0.111,110,1100
 
-/*------------------------------------fund plans--biz:target,drumstick and best choice------------------------------------------------
---19.fund plan (returns_type:1-七日年化收益,2-近六月历史收益,3-近三年历史收益|page_type:1-only text or image,2-including FOFs etc.)*/
+/*------------------------------------fund plans--biz:target,drumstick and best choice---------------------------------*/
+/*--19.plan category*/
+CREATE TABLE fund_plan_category(fpc_id int(11) primary key AUTO_INCREMENT,
+name varchar(20) not null comment '基金类型名称',
+remark varchar(50)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO fund_plan_category(name,remark) values('活期理财','选哪个火鸡呢?天鸿?');
+INSERT INTO fund_plan_category(name,remark) values('高成长股基组合','高高尔基');
+INSERT INTO fund_plan_category(name,remark) values('稳健债基组合','稳健债基组合');
+INSERT INTO fund_plan_category(name,remark) values('平衡性股基组合','平衡性股基组合');
+
+/*--20.fund plan (returns_type:1-七日年化收益,2-近六月历史收益,3-近三年历史收益|page_type:1-only text or image,2-including FOFs etc.)*/
 CREATE TABLE fund_plan(fpl_id int(11) primary key AUTO_INCREMENT,
 fpc_id int not null comment '基金类型id',
 name varchar(20) not null comment '基金计划名',
@@ -318,30 +327,97 @@ INSERT INTO fund_plan(fpc_id,name,profit_ratio,profit_txt,loss_ratio,profit_type
 INSERT INTO fund_plan(fpc_id,name,profit_ratio,profit_txt,loss_ratio,profit_type,init_amt,sched_init_amt,img_url,page_type,details,short_intro,remark,is_sellout,join_num,status,purchase_rate_new) values(3,'小确幸计划2',31.63,'近三年历史收益',18.24,3,1004,104,'//images_url',2,'组合详情:','精选债基组合,收益长赢','高尔基',true,1080,1,0.016);
 INSERT INTO fund_plan(fpc_id,name,profit_ratio,profit_txt,loss_ratio,profit_type,init_amt,sched_init_amt,img_url,page_type,details,short_intro,remark,is_sellout,join_num,status,purchase_rate_new) values(4,'稳拿计划',30.63,'近三年历史收益',18.24,3,1005,105,'//images_url',2,'组合详情:','股债动态平衡,文件投资典范','高尔基',false,1808,1,0.017);
 
-/*--20.fund plan details*/
+/*--21.fund plan details,like fund_templates*/
 CREATE TABLE fund_plan_details(fpd_id int(11) primary key AUTO_INCREMENT,
 fpl_id int not null comment '基金计划id',
 fid int not null comment '基金id',
 hold_percentage float not null comment '持有百分比',
+remark varchar(500),
 inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO fund_plan_details(fpl_id,hold_percentage,fid) values(2,30.8,1); /*--全明星计划1-景顺长城沪深300增强,fid=12*/
-INSERT INTO fund_plan_details(fpl_id,hold_percentage,fid) values(2,14.2,4); /*--全明星计划1-富国新动力A,fid=4*/
-INSERT INTO fund_plan_details(fpl_id,hold_percentage,fid) values(2,15,5); /*--全明星计划1-富国新动力B,fid=5*/
-INSERT INTO fund_plan_details(fpl_id,hold_percentage,fid) values(2,30,6); /*--全明星计划1-富国新动力C,fid=6*/
-INSERT INTO fund_plan_details(fpl_id,hold_percentage,fid) values(2,10,7); /*--全明星计划1-天弘鸿运宝,fid=7*/
-INSERT INTO fund_plan_details(fpl_id,hold_percentage,fid) values(3,100,3); /*--全明星计划2-景顺长城沪深200增强,fid=3*/
-
-/*--21.plan category*/
-CREATE TABLE fund_plan_category(fpc_id int(11) primary key AUTO_INCREMENT,
-name varchar(20) not null comment '基金类型名称',
-remark varchar(50)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO fund_plan_category(name,remark) values('活期理财','选哪个火鸡呢?天鸿?');
-INSERT INTO fund_plan_category(name,remark) values('高成长股基组合','高高尔基');
-INSERT INTO fund_plan_category(name,remark) values('稳健债基组合','稳健债基组合');
-INSERT INTO fund_plan_category(name,remark) values('平衡性股基组合','平衡性股基组合');
-
+INSERT INTO fund_plan_details(fpl_id,hold_percentage,fid) values(2,0.0308,1); /*--全明星计划1-景顺长城沪深300增强,fid=12*/
+INSERT INTO fund_plan_details(fpl_id,hold_percentage,fid) values(2,0.0142,4); /*--全明星计划1-富国新动力A,fid=4*/
+INSERT INTO fund_plan_details(fpl_id,hold_percentage,fid) values(2,0.015,5); /*--全明星计划1-富国新动力B,fid=5*/
+INSERT INTO fund_plan_details(fpl_id,hold_percentage,fid) values(2,0.030,6); /*--全明星计划1-富国新动力C,fid=6*/
+INSERT INTO fund_plan_details(fpl_id,hold_percentage,fid) values(2,0.010,7); /*--全明星计划1-天弘鸿运宝,fid=7*/
+INSERT INTO fund_plan_details(fpl_id,hold_percentage,fid) values(3,1.00,3); /*--全明星计划2-景顺长城沪深200增强,fid=3*/
 
 /*------------------------------------mine--biz:target and best choice------------------------------------------------
+/*--25.service card (source:0-分享积得,1-购买,2-赠送,3-免费领取,4-友情援助;status:1-未使用,0-已使用;type:0-大目标服务卡,1-鸡腿券,2-高尔基)*/
+CREATE TABLE user_card(uc_id int(11) primary key AUTO_INCREMENT,
+uid int not null comment '用户id',
+name varchar(20) not null comment '卡名',
+type int not null comment '卡类型' default 0,
+source int not null comment '来源',
+status int not null comment '状态',
+exp_date_start datetime not null comment '有效期开始时间',
+exp_date_end datetime not null comment '有效期结束时间',
+inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO user_card(uid,name,type,source,status,exp_date_start,exp_date_end) values(1,'大目标服务卡',0,0,1,'2020-01-22','2022-01-22');
+INSERT INTO user_card(uid,name,type,source,status,exp_date_start,exp_date_end) values(1,'大目标服务卡',0,0,1,'2020-01-22','2022-06-22');
+INSERT INTO user_card(uid,name,type,source,status,exp_date_start,exp_date_end) values(1,'大目标服务卡',0,0,1,'2020-01-22','2020-05-22');
+INSERT INTO user_card(uid,name,type,source,status,exp_date_start,exp_date_end) values(1,'加鸡腿服务卡',1,1,1,'2020-01-22','2022-01-22');
+
+/*--26.bank information*/
+CREATE TABLE bank(bid int(11) primary key AUTO_INCREMENT,
+name varchar(50) not null comment '银行名',
+status int not null comment '是否可用',
+remark varchar(500) comment '备注'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO bank(name,status,remark) values('包头银行',1,'硕鼠01');
+INSERT INTO bank(name,status,remark) values('工商银行',1,'惹不起');
+INSERT INTO bank(name,status,remark) values('建设银行',1,'基建狂魔的银行');
+INSERT INTO bank(name,status,remark) values('天地银行',1,'天地良心');
+
+/*--27.branch bank information*/
+CREATE TABLE branch_bank(bbid int(11) primary key AUTO_INCREMENT,
+pid int not null comment '省份id',
+cid int not null comment '城市id',
+bid int not null comment '银行id',
+name varchar(50) not null comment '分行名',
+status int not null comment '是否可用',
+policy varchar(100) comment '政策',
+remark varchar(500) comment '备注'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO branch_bank(pid,cid,bid,name,status,policy,remark) values(1,1,1,'包头银行(帝都天门支行)',1,'单笔支付限额10万,日限额10万,月限额3000万','');
+INSERT INTO branch_bank(pid,cid,bid,name,status,policy,remark) values(1,1,4,'天地银行(帝都门天支行)',1,'单笔支付限额11万,日限额11万,月限额3000万','');
+INSERT INTO branch_bank(pid,cid,bid,name,status,policy,remark) values(1,2,2,'工商银行(都门天支行)',1,'单笔支付限额5万,日限额10万,月限额300万','');
+
+/*--27./28.province/city*/
+CREATE TABLE province(pid int(11) primary key AUTO_INCREMENT,
+name varchar(20) not null comment '省名') ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO province(name) values('帝都');
+INSERT INTO province(name) values('魔都');
+INSERT INTO province(name) values('废都');
+INSERT INTO province(name) values('旧都');
+INSERT INTO province(name) values('陪都');
+INSERT INTO province(name) values('妖都');
+INSERT INTO province(name) values('伪都');
+INSERT INTO province(name) values('腐都');
+INSERT INTO province(name) values('雌都');
+
+CREATE TABLE city(cid int(11) primary key AUTO_INCREMENT,
+pid int not null comment '省Id',
+name varchar(30) not null comment '城市名') ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO city(pid,name) values(1,'五年模拟区');
+INSERT INTO city(pid,name) values(1,'三年高考区');
+INSERT INTO city(pid,name) values(1,'东城区');
+INSERT INTO city(pid,name) values(1,'西城区');
+INSERT INTO city(pid,name) values(1,'南城区');
+INSERT INTO city(pid,name) values(1,'北城区');
+
+/*--29.bank card number bankid*/
+CREATE TABLE user_bank(ub_id int(11) primary key AUTO_INCREMENT,
+uid int not null comment '用户id',
+card_number varchar(20) not null comment '卡号',
+bid int not null comment '银行id',
+bbid int not null comment '支行id',
+pid int not null comment '省id',
+cid int not null comment '市id',
+leave_phonenumber varchar(15) not null comment '预留电话',
+is_default int comment '是否默认') ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO user_bank(uid,card_number,bid,bbid,pid,cid,leave_phonenumber,is_default) values(1,'520145687956235',1,1,1,1,'18856898989',0);
+INSERT INTO user_bank(uid,card_number,bid,bbid,pid,cid,leave_phonenumber,is_default) values(1,'510145687956236',2,3,1,1,'18856898989',1);
+
 /*--22.user news info*/
 CREATE TABLE user_news_info(uni_id int(11) primary key AUTO_INCREMENT,
 uid int not null comment '用户id',
@@ -443,7 +519,6 @@ INSERT INTO user_invest_account_detail(uia_id,uid,fid,hold_share,hold_status,is_
 values(5,1,1,203,0,0,0,0,0,'2020-03-20 10:20:22','2020-03-20 10:20:22'); /*大目标-2004,朕,景顺长城沪深300增强,203份,已清仓,非定投,今日跌22.13元,赎回20份,赎回230元,'2020-03-20 10:20:22','2020-03-20 10:20:22'*/
 
 
-
 /*--26.user investion account*/
 CREATE TABLE user_invest_account_log(
 uia_id int,
@@ -464,81 +539,6 @@ INSERT INTO user_invest_account_log(uid,type,iv_id,init_amt,is_sched,daily_profi
 INSERT INTO user_invest_account_log(uid,type,iv_id,init_amt,is_sched,daily_profit) values(1,'fid',1,5000,1,33.3);/*基金-景顺长城沪深300增强-定投*/
 INSERT INTO user_invest_account_log(uid,type,iv_id,init_amt,is_sched,daily_profit) values(1,'did',1,5000,1,33.3);/*鸡腿计划-???-定投*/
 
-/*--25.service card (source:0-分享积得,1-购买,2-赠送,3-免费领取,4-友情援助;status:1-未使用,0-已使用;type:0-大目标服务卡,1-鸡腿券,2-高尔基)*/
-CREATE TABLE user_card(uc_id int(11) primary key AUTO_INCREMENT,
-uid int not null comment '用户id',
-name varchar(20) not null comment '卡名',
-type int not null comment '卡类型' default 0,
-source int not null comment '来源',
-status int not null comment '状态',
-exp_date_start datetime not null comment '有效期开始时间',
-exp_date_end datetime not null comment '有效期结束时间',
-inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO user_card(uid,name,type,source,status,exp_date_start,exp_date_end) values(1,'大目标服务卡',0,0,1,'2020-01-22','2022-01-22');
-INSERT INTO user_card(uid,name,type,source,status,exp_date_start,exp_date_end) values(1,'大目标服务卡',0,0,1,'2020-01-22','2022-06-22');
-INSERT INTO user_card(uid,name,type,source,status,exp_date_start,exp_date_end) values(1,'大目标服务卡',0,0,1,'2020-01-22','2020-05-22');
-INSERT INTO user_card(uid,name,type,source,status,exp_date_start,exp_date_end) values(1,'加鸡腿服务卡',1,1,1,'2020-01-22','2022-01-22');
-
-/*--26.bank information*/
-CREATE TABLE bank(bid int(11) primary key AUTO_INCREMENT,
-name varchar(50) not null comment '银行名',
-status int not null comment '是否可用',
-remark varchar(500) comment '备注'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO bank(name,status,remark) values('包头银行',1,'硕鼠01');
-INSERT INTO bank(name,status,remark) values('工商银行',1,'惹不起');
-INSERT INTO bank(name,status,remark) values('建设银行',1,'基建狂魔的银行');
-INSERT INTO bank(name,status,remark) values('天地银行',1,'天地良心');
-
-/*--27.branch bank information*/
-CREATE TABLE branch_bank(bbid int(11) primary key AUTO_INCREMENT,
-pid int not null comment '省份id',
-cid int not null comment '城市id',
-bid int not null comment '银行id',
-name varchar(50) not null comment '分行名',
-status int not null comment '是否可用',
-policy varchar(100) comment '政策',
-remark varchar(500) comment '备注'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO branch_bank(pid,cid,bid,name,status,policy,remark) values(1,1,1,'包头银行(帝都天门支行)',1,'单笔支付限额10万,日限额10万,月限额3000万','');
-INSERT INTO branch_bank(pid,cid,bid,name,status,policy,remark) values(1,1,4,'天地银行(帝都门天支行)',1,'单笔支付限额11万,日限额11万,月限额3000万','');
-INSERT INTO branch_bank(pid,cid,bid,name,status,policy,remark) values(1,2,2,'工商银行(都门天支行)',1,'单笔支付限额5万,日限额10万,月限额300万','');
-
-/*--27./28.province/city*/
-CREATE TABLE province(pid int(11) primary key AUTO_INCREMENT,
-name varchar(20) not null comment '省名') ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO province(name) values('帝都');
-INSERT INTO province(name) values('魔都');
-INSERT INTO province(name) values('废都');
-INSERT INTO province(name) values('旧都');
-INSERT INTO province(name) values('陪都');
-INSERT INTO province(name) values('妖都');
-INSERT INTO province(name) values('伪都');
-INSERT INTO province(name) values('腐都');
-INSERT INTO province(name) values('雌都');
-
-CREATE TABLE city(cid int(11) primary key AUTO_INCREMENT,
-pid int not null comment '省Id',
-name varchar(30) not null comment '城市名') ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO city(pid,name) values(1,'五年模拟区');
-INSERT INTO city(pid,name) values(1,'三年高考区');
-INSERT INTO city(pid,name) values(1,'东城区');
-INSERT INTO city(pid,name) values(1,'西城区');
-INSERT INTO city(pid,name) values(1,'南城区');
-INSERT INTO city(pid,name) values(1,'北城区');
-
-/*--29.bank card number bankid*/
-CREATE TABLE user_bank(ub_id int(11) primary key AUTO_INCREMENT,
-uid int not null comment '用户id',
-card_number varchar(20) not null comment '卡号',
-bid int not null comment '银行id',
-bbid int not null comment '支行id',
-pid int not null comment '省id',
-cid int not null comment '市id',
-leave_phonenumber varchar(15) not null comment '预留电话',
-is_default int comment '是否默认') ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO user_bank(uid,card_number,bid,bbid,pid,cid,leave_phonenumber,is_default) values(1,'520145687956235',1,1,1,1,'18856898989',0);
-INSERT INTO user_bank(uid,card_number,bid,bbid,pid,cid,leave_phonenumber,is_default) values(1,'510145687956236',2,3,1,1,'18856898989',1);
 
 /*--30.fund template*/
 CREATE TABLE fund_template(ft_id int(11) primary key AUTO_INCREMENT,

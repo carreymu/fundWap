@@ -3,7 +3,7 @@
   <div class="tartmp">
     <div>
     <div class="topRmk">持仓收益率</div>
-    <div v-if="target.hold_profit_ratio>0" class="rtop">{{target.hold_profit_ratio}}</div>
+    <div v-if="target.hold_profit_ratio>0" class="rtop">{{target.hold_profit_ratio}}%</div>
     <div v-else class="gtop">{{target.hold_profit_ratio}}%</div>
     <div class="botRmk">{{fundtemp.apply_endtime}}加入以来</div>
     </div>
@@ -90,7 +90,7 @@
     <toast v-model="showMsg" type="text"  width="20em" class="showMsg" :time="2000">coming soon....</toast>
   </div>
   <div class="ttpfooterFix">
-      <x-button type="default" @click.native="redeem()">赎回</x-button>
+      <x-button type="default" @click.native="redeem()"><span style="font-size:12px">赎回</span></x-button>
   </div> 
   </div>
 </template>
