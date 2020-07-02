@@ -154,8 +154,7 @@ class UserInvestAccountFunds(DataSource):
                 fundtemp["apply_endtime"] = md
                 target_info['fundtemp'] = fundtemp
             uia_ids = ''
-            # import pdb;
-            # pdb.set_trace()
+            # import pdb;pdb.set_trace()
             if user_invest_account and len(user_invest_account) > 0:
                 target = user_invest_account[0]
                 uia_ids = f"'{target['uia_id']}'"
@@ -166,7 +165,6 @@ class UserInvestAccountFunds(DataSource):
                 target['hold_profit'] = format(target['hold_profit'], '.2f')
                 target['daily_profit'] = format(target['daily_profit'], '.2f')
                 target_info["target"] = target
-
             uid = source['req']['uid']
             user_iv_acc_detail_list = await exec_base.exec_sql_key(event_names='user_invest_account_details_in_uiaids',
                                                                    **{'uid': uid, 'uia_ids': uia_ids})
@@ -174,7 +172,7 @@ class UserInvestAccountFunds(DataSource):
                 # 1-持仓,2-赎回中
                 user_iv_acc = [x for x in user_iv_acc_detail_list if x['hold_status'] != 0]
                 fund_lst = []
-                if not user_iv_acc:
+                if not user_iv_acc and len(user_iv_acc) > 1:
                     fds = list(set([x['fid'] for x in user_iv_acc]))
                     fids = sql_in(fds)
                     if fids:
