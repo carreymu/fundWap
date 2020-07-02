@@ -158,10 +158,9 @@ class UserInvestAccountFunds(DataSource):
             if user_invest_account and len(user_invest_account) > 0:
                 target = user_invest_account[0]
                 uia_ids = f"'{target['uia_id']}'"
-                target["hold_amt"] = target['hold_profit'] + target['init_amt']
-                target['hold_profit_ratio'] = format(((target['hold_profit'] / target['hold_amt']) * 100), '.2f')
-                target["hold_amt"] = format(target["hold_amt"], '.2f')
-                target["now"] = datetime.strftime(datetime.now(), "%m月%d日")
+                target['hold_profit_ratio'] = format(((target['hold_profit'] / target['init_amt']) * 100), '.2f')
+                target["hold_amt"] = format(target['hold_profit'] + target['init_amt'], '.2f')
+                target["now"] = md
                 target['hold_profit'] = format(target['hold_profit'], '.2f')
                 target['daily_profit'] = format(target['daily_profit'], '.2f')
                 target_info["target"] = target
@@ -206,5 +205,30 @@ class UserInvestAccountFunds(DataSource):
                                     fund['daily_profit'] = format(float(fund['daily_profit']) + float(x['daily_profit']), '.2f')
                                     fund['hold_amt'] = format(float(fund['hold_amt']) + float(x['hold_amt']), '.2f')
                 target_info["fund_lst"] = fund_lst
+            return target_info
+        return self.event_default
+
+
+class UserInvestAccountFundplan(DataSource):
+    event_default: Any
+    dependence_source: dict
+
+    async def compute(self):
+        source = self.dependence_source
+        # import pdb;pdb.set_trace()
+        if source:
+            target_info = {}
+            fund_plan = source['fund_plan_by_fplid']
+            user_invest_account = source['user_invest_account_by_type_id']
+            nw = datetime.now()
+            md = datetime.strftime(nw, "%m月%d日")
+            if fund_plan and len(fund_plan) > 0:
+                fundtemp = fund_plan[0]
+                fundtemp['target_ratio'] = f"{format(fundtemp['target_ratio'] * 100, '.2f')}%"
+                fundtemp['run_days'] = datediff_timestamp(fundtemp['apply_endtime'])
+                fundtemp["apply_endtime"] = md
+                target_info['fundtemp'] = fundtemp
+
+
             return target_info
         return self.event_default

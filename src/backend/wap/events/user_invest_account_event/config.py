@@ -25,4 +25,12 @@ config = dict(
                              "user_invest_account_details_by_ids": ""}],
       "dependence": events.UserInvestAccountFunds,
     },
+    user_invest_account_fundplan={
+      "name": "show user invest account joined info",
+      "author": "root",
+      "event_default": [],
+      "dependence_source": [{"fund_plan_by_fplid": "fpl_id", "user_invest_account_by_type_id": "uid,type,iv_id",
+                             "user_invest_account_details_by_ids": ""}],
+      "dependence": events.UserInvestAccountFundplan,
+    },
 )
