@@ -554,15 +554,16 @@ CREATE TABLE fund_templates(fts_id int(11) primary key AUTO_INCREMENT,
 ft_id int not null comment '基金模板id',
 fid int not null comment '基金id',
 hold_percentage float not null comment '持有投资占比',
-remark varchar(500),inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO fund_templates(ft_id,fid,hold_percentage,remark) values(1,1,0.41,''); -- 2006聚能环01,景顺长城沪深300增强,41%
-INSERT INTO fund_templates(ft_id,fid,hold_percentage,remark) values(1,2,0.44,''); -- 2006聚能环01,富国新动力A,44%
-INSERT INTO fund_templates(ft_id,fid,hold_percentage,remark) values(1,3,0.15,''); -- 2006聚能环01,富国新动力B,15%
-INSERT INTO fund_templates(ft_id,fid,hold_percentage,remark) values(2,2,1,''); -- 2006聚能环02,富国新动力A,44%
-INSERT INTO fund_templates(ft_id,fid,hold_percentage,remark) values(3,3,0.25,''); -- 钻石王老五01,富国新动力B,25%
-INSERT INTO fund_templates(ft_id,fid,hold_percentage,remark) values(3,2,0.25,''); -- 钻石王老五01,富国新动力A,25%
-INSERT INTO fund_templates(ft_id,fid,hold_percentage,remark) values(3,1,0.50,''); -- 钻石王老五01,景顺长城沪深300增强,50%
-INSERT INTO fund_templates(ft_id,fid,hold_percentage,remark) values(1,5,0.50,''); -- 2006聚能环01,天弘鸿运宝,100%
+remark varchar(500),
+inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO fund_templates(ft_id,fid,hold_percentage) values(1,1,0.41); -- 2006聚能环01,景顺长城沪深300增强,41%
+INSERT INTO fund_templates(ft_id,fid,hold_percentage) values(1,2,0.44); -- 2006聚能环01,富国新动力A,44%
+INSERT INTO fund_templates(ft_id,fid,hold_percentage) values(1,3,0.15); -- 2006聚能环01,富国新动力B,15%
+INSERT INTO fund_templates(ft_id,fid,hold_percentage) values(2,2,1); -- 2006聚能环02,富国新动力A,44%
+INSERT INTO fund_templates(ft_id,fid,hold_percentage) values(3,3,0.25); -- 钻石王老五01,富国新动力B,25%
+INSERT INTO fund_templates(ft_id,fid,hold_percentage) values(3,2,0.25); -- 钻石王老五01,富国新动力A,25%
+INSERT INTO fund_templates(ft_id,fid,hold_percentage) values(3,1,0.50); -- 钻石王老五01,景顺长城沪深300增强,50%
+INSERT INTO fund_templates(ft_id,fid,hold_percentage) values(1,5,0.50); -- 2006聚能环01,天弘鸿运宝,100%
 
 /*------------------------------------target--biz:target------------------------------------------------
 --32.target run_status:-1-流标,0-申请中,1-建仓中,2-盈利中,3-浮亏中,4-已达标,5已清仓 ,0<N<4->运行中*/

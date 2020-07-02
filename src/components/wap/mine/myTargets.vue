@@ -52,7 +52,7 @@
               </flexbox>
             </div>
             <div class="rectAgl">
-              <router-link :to="{path:'/fundWap/targetTemplate',query:{iv_id:it.iv_id}}">
+              <router-link :to="{path:'/fundWap/targetTemplate',query:{iv_id:it.iv_id,type:it.type}}">
                 <div class="invIntro">
                 <div style="padding-top:12px;">
                   <div>{{it.inserttime}} &nbsp;&nbsp;<span v-if="it.daily_profit_ratio>=0">+</span>{{it.daily_profit_ratio}}%</div>

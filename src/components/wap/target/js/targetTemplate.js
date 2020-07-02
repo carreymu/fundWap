@@ -1,4 +1,4 @@
-import { Tabbar, TabbarItem ,XHeader,Flexbox, FlexboxItem, XTable, XButton, Toast} from 'vux'
+import { Tabbar, TabbarItem ,XHeader,Flexbox, FlexboxItem, XTable, XButton, AlertModule, Toast} from 'vux'
 export default {
   mounted() {
     this.$store.commit('UPDATE_PAGE_TITLE', '我的理财')
@@ -17,18 +17,29 @@ export default {
       this.showMsg = true;
     },
     myTartemp(){
-      let iv_id = this.$route.query.iv_id || 1;
+      let iv_id = this.$route.query.iv_id || 1
+      let type = this.$route.query.type || 'tid'
       let dt = {
-        "req": {"tid":iv_id,"uid":1,"type":"tid","iv_id":iv_id},
+        "req": {"tid":iv_id,"uid":1,"type":type,"iv_id":iv_id},
         "event_names": ["user_invest_account_funds"]
       }
       this.$api.fetchPost('/sanic-api', dt).then(r=>{
-          if(r.user_invest_account_funds != undefined){
-              let res = r.user_invest_account_funds
-              this.fundtemp = res.fundtemp
-              this.target = res.target
-              this.fund_lst = res.fund_lst
-          }
+        if(r.user_invest_account_funds != undefined){
+          let res = r.user_invest_account_funds
+          if(res.fund_lst.length==0){
+            AlertModule.show({
+              title: '亲~~',
+              content: '请勿瞎搞.',
+              onHide () {
+                  window.location.replace(document.referrer)
+              }
+            })
+          } else{
+            this.fundtemp = res.fundtemp
+            this.target = res.target
+            this.fund_lst = res.fund_lst
+          }              
+        }
         // if(r.targets_by_tid!=undefined && r.targets_by_tid.length>0){
         //   this.fundtemp = r.targets_by_tid[0]
         //   this.fundtemp['target_ratio'] = (this.fundtemp['target_ratio']*100).toFixed(2)
@@ -57,6 +68,7 @@ export default {
     FlexboxItem,
     XTable,
     XButton,
+    AlertModule, 
     Toast
   }
 }

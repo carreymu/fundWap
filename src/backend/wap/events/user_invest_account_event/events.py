@@ -35,7 +35,7 @@ class UserInvestAccountJoined(DataSource):
                 targets = self.json_convert(user_iv_acc, targets_dict)
                 if targets:
                     my_invests.append(targets)
-                choices_dict = {"name": '优选', "dt": dt, "type": 'fpl_id', "url": "myTargets"}
+                choices_dict = {"name": '优选', "dt": dt, "type": 'fpl_id', "url": "targetTemplate"}
                 best_choices = self.json_convert(user_iv_acc, choices_dict)
                 if best_choices:
                     my_invests.append(best_choices)
