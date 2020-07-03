@@ -16,6 +16,7 @@ import drumstick from '@/components/wap/drumstick/drumstick'
 import bestChoice from '@/components/wap/bestChoice/bestChoice'
 import bestChoiceDetail from '@/components/wap/bestChoice/bestChoiceDetail'
 import bestChoiceSingle from '@/components/wap/bestChoice/bestChoiceSingle'
+import bestChoicePlan from '@/components/wap/bestChoice/bestChoicePlan'
 import systemInfoDetail from '@/components/wap/systemInfo/systemInfoDetail'
 import systemInfo from '@/components/wap/systemInfo/systemInfo'
 import mine from '@/components/wap/mine/mine'
@@ -89,7 +90,7 @@ const router = new VueRouter({
 				component: targetStockOrder
 			},
 			{
-				path: '/fundWap/targetTemplate/',
+				path: '/fundWap/targetTemplate',
 				name: 'targetTemplate',
 				component: targetTemplate
 			},
@@ -127,11 +128,16 @@ const router = new VueRouter({
 				path: '/fundWap/mine',
 				name: 'mine',
 				component: mine
-				},
+			},
 			{
 				path: '/fundWap/bestChoice',
 				name: 'bestChoice',
 				component: bestChoice
+			},
+			{
+				path: '/fundWap/bestChoicePlan',
+				name: 'bestChoicePlan',
+				component: bestChoicePlan
 			},
 			{
 				path: '/fundWap/bestChoiceDetail/:cid',
