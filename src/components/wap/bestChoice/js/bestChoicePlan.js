@@ -20,10 +20,13 @@ export default {
       let iv_id = this.$route.query.iv_id || 1
       let type = this.$route.query.type || 'tid'
       let dt = {
-        "req": {"tid":iv_id,"uid":1,"type":type,"iv_id":iv_id},
-        "event_names": ["user_invest_account_funds"]
+        "req": {"fpl_id":iv_id,"uid":1,"type":type,"iv_id":iv_id},
+        "event_names": ["fund_plan_by_fplid","user_invest_account_funds"]
       }
       this.$api.fetchPost('/sanic-api', dt).then(r=>{
+        if(r.fund_plan_by_fplid!=undefined){
+            fund_plan = r.fund_plan_by_fplid
+        }
         if(r.user_invest_account_funds != undefined){
           let res = r.user_invest_account_funds
           if(res.fund_lst.length==0){

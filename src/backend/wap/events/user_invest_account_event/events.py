@@ -151,7 +151,7 @@ class UserInvestAccountFunds(DataSource):
                 fundtemp = targets[0]
                 fundtemp['target_ratio'] = f"{format(fundtemp['target_ratio']*100, '.2f')}%"
                 fundtemp['run_days'] = datediff_timestamp(fundtemp['apply_endtime'])
-                fundtemp["apply_endtime"] = md
+                fundtemp["apply_endtime"] = datetime.strftime(fundtemp["apply_endtime"], "%m月%d日")
                 target_info['fundtemp'] = fundtemp
             uia_ids = ''
             # import pdb;pdb.set_trace()
@@ -224,8 +224,7 @@ class UserInvestAccountFundplan(DataSource):
             md = datetime.strftime(nw, "%m月%d日")
             if fund_plan and len(fund_plan) > 0:
                 fundtemp = fund_plan[0]
-                fundtemp['target_ratio'] = f"{format(fundtemp['target_ratio'] * 100, '.2f')}%"
-                fundtemp['run_days'] = datediff_timestamp(fundtemp['apply_endtime'])
+                # fundtemp['run_days'] = datediff_timestamp(fundtemp['apply_endtime'])
                 fundtemp["apply_endtime"] = md
                 target_info['fundtemp'] = fundtemp
 

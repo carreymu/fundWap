@@ -3,8 +3,8 @@
   <div class="bcp">
     <div>
     <div class="topRmk">持仓收益率</div>
-    <div v-if="target.hold_profit_ratio>0" class="rtop">{{target.hold_profit_ratio}}%</div>
-    <div v-else class="gtop">{{target.hold_profit_ratio}}%</div>
+    <div v-if="fund_plan.profit_ratio>0" class="rtop">{{fund_plan.profit_ratio}}%</div>
+    <div v-else class="gtop">{{fund_plan.profit_ratio}}%</div>
     <div class="botRmk">{{fundtemp.apply_endtime}}加入以来</div>
     </div>
 
