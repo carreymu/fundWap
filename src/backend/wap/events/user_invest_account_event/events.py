@@ -215,10 +215,13 @@ class UserInvestAccountFundplan(DataSource):
 
     async def compute(self):
         source = self.dependence_source
+        # 1.fund_plan_details.fpl_id->fund_plan_details.fid
+        # 2.
         # import pdb;pdb.set_trace()
         if source:
             target_info = {}
-            fund_plan = source['fund_plan_by_fplid']
+            fund_plan = [x for x in source['fund_plan_by_fplid'] if x['status'] == 1]
+            fund_plan_detail = source['fund_plan_details']
             user_invest_account = source['user_invest_account_by_type_id']
             nw = datetime.now()
             md = datetime.strftime(nw, "%m月%d日")
@@ -230,5 +233,46 @@ class UserInvestAccountFundplan(DataSource):
 
             if user_invest_account:
                 target_info['target'] = user_invest_account
+
+            if fund_plan_detail:
+                fds = list(set([x['fid'] for x in fund_plan_detail]))
+                fids = sql_in(fds)
+                if fids:
+                    fund_lst = []
+                    targets = {'now': md}
+                    # todo 根据每个fid取最新的一条记录
+                    fund_worth_his = await exec_base.exec_sql_key(event_names="fund_worth_history_by_fids",
+                                                                  **{'fids': fids, 'topx': len(fds)})
+                    fund_info_short = await exec_base.exec_sql_key(event_names="fund_info_short", **{'fids': fids})
+                    if fund_worth_his and fund_info_short:
+                        same_fids = []
+                        daily_profit = 0
+                        for x in fund_plan_detail:
+                            wor = [w for w in fund_worth_his if str(w['fid']) == x['fid']][0]
+                            fd = [f for f in fund_info_short if str(f['fid']) == x['fid']][0]
+                            daily_profit = daily_profit + wor['daily_ratio'] * x['hold_percentage'] * fd['init_amt']
+                            x['fund_name'] = f"{fd['fund_name']}({fd['fund_code']})"
+                            x['now'] = md
+                            x['daily_ratio'] = format(wor['daily_ratio'] * 100, '.2f')
+                            x['worth'] = wor['worth']
+                            x['hold_amt'] = format(wor['worth'] * x['hold_share'], '.2f')
+                            x['daily_profit'] = format(float(x['daily_profit']), '.2f')
+                            if x['fid'] not in same_fids:
+                                x['redeem_cnt'] = 1 if x['hold_status'] == 2 else 0
+                                x['hold_cnt'] = 1 if x['hold_status'] == 1 else 0
+                                same_fids.append(x['fid'])
+                                fund_lst.append(x)
+                            else:
+                                fund = [y for y in fund_lst if x['fid'] == y['fid']][0]
+                                if x['hold_status'] == 2:
+                                    fund['redeem_cnt'] = fund['redeem_cnt'] + 1
+                                if x['hold_status'] == 1:
+                                    fund['hold_cnt'] = fund['hold_cnt'] + 1
+                                fund['hold_share'] = fund['hold_share'] + x['hold_share']
+                                fund['daily_profit'] = format(float(fund['daily_profit']) + float(x['daily_profit']), '.2f')
+                                fund['hold_amt'] = format(float(fund['hold_amt']) + float(x['hold_amt']), '.2f')
+                        targets['daily_profit'] = daily_profit
+                    target_info["fund_lst"] = fund_lst
+
             return target_info
         return self.event_default

@@ -22,7 +22,8 @@ config = dict(
       "author": "root",
       "event_default": [],
       "dependence_source": [{"targets_by_tid": "tid", "user_invest_account_by_type_id": "uid,type,iv_id",
-                             "user_invest_account_details_by_ids": ""}],
+                             "user_invest_account_details_by_ids": "", "fund_worth_history_by_fids": "",
+                             "fund_info_short": ""}],
       "dependence": events.UserInvestAccountFunds,
     },
     user_invest_account_fundplan={
@@ -30,7 +31,7 @@ config = dict(
       "author": "root",
       "event_default": [],
       "dependence_source": [{"fund_plan_by_fplid": "fpl_id", "user_invest_account_by_type_id": "uid,type,iv_id",
-                             "user_invest_account_details_by_ids": ""}],
+                             "fund_plan_details": "fpl_id", "fund_worth_history_by_fids": "", "fund_info_short": ""}],
       "dependence": events.UserInvestAccountFundplan,
     },
 )
