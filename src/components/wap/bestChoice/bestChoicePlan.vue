@@ -5,7 +5,7 @@
     <div class="topRmk">持仓收益率</div>
     <div v-if="fund_plan.profit_ratio>0" class="rtop">{{fund_plan.profit_ratio}}%</div>
     <div v-else class="gtop">{{fund_plan.profit_ratio}}%</div>
-    <div class="botRmk">{{fundtemp.apply_endtime}}加入以来</div>
+    <div class="botRmk">{{fund_plan.apply_endtime}}加入以来</div>
     </div>
 
     <div style="padding:0 10px 0 20px;">
