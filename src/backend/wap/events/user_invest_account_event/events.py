@@ -175,7 +175,7 @@ class UserInvestAccountFunds(DataSource):
                 if user_iv_acc and len(user_iv_acc) > 0:
                     fds = list(set([x['fid'] for x in user_iv_acc]))
                     fids = sql_in(fds)
-                    inserttime = source['req']['inserttime'] if source['req']['inserttime'] else '2020-07-10'
+                    inserttime = source['req']['inserttime'] if 'inserttime' in source['req'] and source['req']['inserttime'] else '2020-07-10'
                     if fids:
                         fund_worth_his = await exec_base.exec_sql_key(event_names="fund_worth_history_by_fids",
                                                                       **{'fids': fids, 'topx': len(fds),
@@ -227,7 +227,7 @@ class UserInvestAccountFundplan(DataSource):
             user_invest_account = source['user_invest_account_by_type_id']
             nw = datetime.now()
             md = datetime.strftime(nw, "%m月%d日")
-            inserttime = source['req']['inserttime'] if source['req']['inserttime'] else '2020-07-10'
+            inserttime = source['req']['inserttime'] if 'inserttime' in source['req'] and source['req']['inserttime'] else '2020-07-10'
             if fund_plan and len(fund_plan) > 0:
                 fundtemp = fund_plan[0]
                 # fundtemp['run_days'] = datediff_timestamp(fundtemp['apply_endtime'])
