@@ -175,9 +175,11 @@ class UserInvestAccountFunds(DataSource):
                 if user_iv_acc and len(user_iv_acc) > 0:
                     fds = list(set([x['fid'] for x in user_iv_acc]))
                     fids = sql_in(fds)
+                    inserttime = source['req']['inserttime'] if source['req']['inserttime'] else '2020-07-10'
                     if fids:
                         fund_worth_his = await exec_base.exec_sql_key(event_names="fund_worth_history_by_fids",
-                                                                      **{'fids': fids, 'topx': len(fds)})
+                                                                      **{'fids': fids, 'topx': len(fds),
+                                                                         'inserttime': inserttime})
                         fund_info_short = await exec_base.exec_sql_key(event_names="fund_info_short", **{'fids': fids})
                         if fund_worth_his and fund_info_short:
                             fund_dict = dict((str(x['fid']), f"{x['fund_name']}({x['fund_code']})") for x in fund_info_short)
@@ -225,6 +227,7 @@ class UserInvestAccountFundplan(DataSource):
             user_invest_account = source['user_invest_account_by_type_id']
             nw = datetime.now()
             md = datetime.strftime(nw, "%m月%d日")
+            inserttime = source['req']['inserttime'] if source['req']['inserttime'] else '2020-07-10'
             if fund_plan and len(fund_plan) > 0:
                 fundtemp = fund_plan[0]
                 # fundtemp['run_days'] = datediff_timestamp(fundtemp['apply_endtime'])
@@ -242,14 +245,21 @@ class UserInvestAccountFundplan(DataSource):
                     targets = {'now': md}
                     # todo 根据每个fid取最新的一条记录
                     fund_worth_his = await exec_base.exec_sql_key(event_names="fund_worth_history_by_fids",
-                                                                  **{'fids': fids, 'topx': len(fds)})
+                                                                  **{'fids': fids, 'topx': len(fds),
+                                                                     'inserttime': inserttime})
                     fund_info_short = await exec_base.exec_sql_key(event_names="fund_info_short", **{'fids': fids})
                     if fund_worth_his and fund_info_short:
                         same_fids = []
                         daily_profit = 0
+                        import pdb;pdb.set_trace()
                         for x in fund_plan_detail:
-                            wor = [w for w in fund_worth_his if str(w['fid']) == x['fid']][0]
-                            fd = [f for f in fund_info_short if str(f['fid']) == x['fid']][0]
+                            wor = [w for w in fund_worth_his if str(w['fid']) == x['fid']]
+                            if not wor:
+                                continue
+                            fd = [f for f in fund_info_short if str(f['fid']) == x['fid']]
+                            if not fd:
+                                continue
+                            fd, wor = fd[0], wor[0]
                             daily_profit = daily_profit + wor['daily_ratio'] * x['hold_percentage'] * fd['init_amt']
                             x['fund_name'] = f"{fd['fund_name']}({fd['fund_code']})"
                             x['now'] = md

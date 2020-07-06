@@ -264,16 +264,16 @@ fid int not null comment '基金ID',
 worth float not null comment '万份收益/净值',
 daily_ratio float not null comment '七日年化/日涨跌幅',
 inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO fund_worth_history(fid,worth,daily_ratio) values(1,2.195,-0.0137);
-INSERT INTO fund_worth_history(fid,worth,daily_ratio) values(1,1.1219,-0.0137);
-INSERT INTO fund_worth_history(fid,worth,daily_ratio) values(1,1.02,-0.0117);
-INSERT INTO fund_worth_history(fid,worth,daily_ratio) values(1,1.2296,-0.0107);
-INSERT INTO fund_worth_history(fid,worth,daily_ratio) values(2,2.01,-0.0137);
-INSERT INTO fund_worth_history(fid,worth,daily_ratio) values(3,1.72,-0.017);
-INSERT INTO fund_worth_history(fid,worth,daily_ratio) values(4,1.18,-0.0207);
-INSERT INTO fund_worth_history(fid,worth,daily_ratio) values(5,1.195,-0.0137);
-INSERT INTO fund_worth_history(fid,worth,daily_ratio) values(5,3.95,-0.0117);
-INSERT INTO fund_worth_history(fid,worth,daily_ratio) values(5,2.195,-0.0107);
+INSERT INTO fund_worth_history(fid,worth,daily_ratio,inserttime) values(1,2.195,-0.0137,'2020-07-10 12:28:58');
+INSERT INTO fund_worth_history(fid,worth,daily_ratio,inserttime) values(1,1.1219,-0.0137,'2020-07-09 12:28:58');
+INSERT INTO fund_worth_history(fid,worth,daily_ratio,inserttime) values(1,1.02,-0.0117,'2020-07-08 12:28:58');
+INSERT INTO fund_worth_history(fid,worth,daily_ratio,inserttime) values(1,1.2296,-0.0107,'2020-07-07 12:28:58');
+INSERT INTO fund_worth_history(fid,worth,daily_ratio,inserttime) values(2,2.01,-0.0137,'2020-07-10 12:28:58');
+INSERT INTO fund_worth_history(fid,worth,daily_ratio,inserttime) values(3,1.72,-0.017,'2020-07-10 12:28:58');
+INSERT INTO fund_worth_history(fid,worth,daily_ratio,inserttime) values(4,1.18,-0.0207,'2020-07-10 12:28:58');
+INSERT INTO fund_worth_history(fid,worth,daily_ratio,inserttime) values(5,1.195,-0.0137,'2020-07-10 12:28:58');
+INSERT INTO fund_worth_history(fid,worth,daily_ratio,inserttime) values(5,3.95,-0.0117,'2020-07-09 12:28:58');
+INSERT INTO fund_worth_history(fid,worth,daily_ratio,inserttime) values(5,2.195,-0.0107,'2020-07-08 12:28:58');
 
 /*--18.stage fund worth history*/
 CREATE TABLE fund_worth_history_stage(fwhs_id int(11) primary key AUTO_INCREMENT,
