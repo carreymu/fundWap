@@ -1,5 +1,4 @@
 import time
-import copy
 from typing import Any
 from wap.base import DataSource
 from wap.data_source import exec_base
@@ -29,32 +28,34 @@ class UserInvestAccountJoined(DataSource):
             my_info["now"] = dt
 
             my_invests = []
+            # 1-fpl_id-bestchoice,2-tid-大目标,3-fid-基金,4-did-鸡腿计划
             user_iv_acc = [x for x in user_iv_acc_list if x['hold_status'] != 0]
+            types = {'fpl_id': 1, 'tid': 2, 'fid': 3, 'did': 4}
             if user_iv_acc:
-                targets_dict = {"name": '大目标', "dt": dt, "type": 'tid', "url": "myTargets"}
+                targets_dict = {"name": '大目标', "dt": dt, "type": types['tid'], "url": "myTargets"}
                 targets = self.json_convert(user_iv_acc, targets_dict)
                 if targets:
                     my_invests.append(targets)
-                choices_dict = {"name": '优选', "dt": dt, "type": 'fpl_id', "url": "targetTemplate"}
+                choices_dict = {"name": '优选', "dt": dt, "type": types['fpl_id'], "url": "targetTemplate"}
                 best_choices = self.json_convert(user_iv_acc, choices_dict)
                 if best_choices:
                     my_invests.append(best_choices)
-                drumsticks_dict = {"name": '鸡腿计划', "dt": dt, "type": 'did', "url": "targetTemplate"}
+                drumsticks_dict = {"name": '鸡腿计划', "dt": dt, "type": types['did'], "url": "targetTemplate"}
                 drumsticks = self.json_convert(user_iv_acc, drumsticks_dict)
                 if drumsticks:
                     my_invests.append(drumsticks)
-                funds_dict = {"name": '基金', "dt": dt, "type": 'fid', "url": "targetTemplate"}
+                funds_dict = {"name": '基金', "dt": dt, "type": types['fid'], "url": "targetTemplate"}
                 funds = self.json_convert(user_iv_acc, funds_dict)
                 if funds:
                     my_invests.append(funds)
             user_invest["my_invests"] = my_invests
 
             # tid->ft_id->fid 有9笔赎回记录即将到帐,最早预计05-07到帐
-            tids = sql_in([x['iv_id'] for x in user_iv_acc_list if x['type'] == 'tid'])
+            tids = sql_in([x['iv_id'] for x in user_iv_acc_list if x['type'] == types['tid']])
             tars_list = await exec_base.exec_sql_key(event_names='targets_by_tids', **{'tids': tids})
             fids = sql_in([x['ft_id'] for x in tars_list])
 
-            uia_ids = sql_in([x['uia_id'] for x in user_iv_acc_list if x['type'] == 'tid'])
+            uia_ids = sql_in([x['uia_id'] for x in user_iv_acc_list if x['type'] == types['tid']])
             uid = user_iv_acc_list[0]['uid']
             user_iv_acc_detail_list = await exec_base.exec_sql_key(event_names='user_invest_account_details_by_ids',
                                                                    **{'uid': uid, 'uia_ids': uia_ids, 'fids': fids})

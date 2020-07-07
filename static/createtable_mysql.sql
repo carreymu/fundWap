@@ -542,7 +542,7 @@ ft_id int not null comment '基金模板id',
 fid int not null comment '基金id',
 hold_percentage float not null comment '持有投资占比',
 remark varchar(500),
---大目标
+-- 大目标
 inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO fund_templates(ft_id,fid,hold_percentage) values(1,1,0.41); -- 2006聚能环01,景顺长城沪深300增强,41%
 INSERT INTO fund_templates(ft_id,fid,hold_percentage) values(1,2,0.44); -- 2006聚能环01,富国新动力A,44%
@@ -552,8 +552,8 @@ INSERT INTO fund_templates(ft_id,fid,hold_percentage) values(3,3,0.25); -- 钻�
 INSERT INTO fund_templates(ft_id,fid,hold_percentage) values(3,2,0.25); -- 钻石王老五01,富国新动力A,25%
 INSERT INTO fund_templates(ft_id,fid,hold_percentage) values(3,1,0.50); -- 钻石王老五01,景顺长城沪深300增强,50%
 INSERT INTO fund_templates(ft_id,fid,hold_percentage) values(1,5,0.50); -- 2006聚能环01,天弘鸿运宝,100%
---best choice
-INSERT INTO fund_templates(ft_id,hold_percentage,fid) values(5,0.0308,1); /*--全明星计划1-景顺长城沪深300增强,fid=12*/
+-- best choice
+INSERT INTO fund_templates(ft_id,hold_percentage,fid) values(5,0.0308,1); /*--全明星计划1-景顺长城沪深300增强,fid=1*/
 INSERT INTO fund_templates(ft_id,hold_percentage,fid) values(5,0.0142,4); /*--全明星计划1-富国新动力A,fid=4*/
 INSERT INTO fund_templates(ft_id,hold_percentage,fid) values(5,0.015,5); /*--全明星计划1-富国新动力B,fid=5*/
 INSERT INTO fund_templates(ft_id,hold_percentage,fid) values(5,0.030,6); /*--全明星计划1-富国新动力C,fid=6*/
