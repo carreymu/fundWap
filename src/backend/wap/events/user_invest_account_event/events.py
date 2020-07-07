@@ -252,7 +252,7 @@ class UserInvestAccountFundplan(DataSource):
                     if fund_worth_his and fund_info_short:
                         same_fids = []
                         daily_profit = 0
-                        import pdb;pdb.set_trace()
+                        # import pdb;pdb.set_trace()
                         for x in fund_plan_detail:
                             wor = [w for w in fund_worth_his if str(w['fid']) == x['fid']]
                             if not wor:

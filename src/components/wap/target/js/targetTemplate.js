@@ -18,7 +18,7 @@ export default {
     },
     myTartemp(){
       let iv_id = this.$route.query.iv_id || 1
-      let type = this.$route.query.type || 'tid'
+      let type = this.$route.query.type || 2
       let dt = {
         "req": {"tid":iv_id,"uid":1,"type":type,"iv_id":iv_id},
         "event_names": ["user_invest_account_funds"]
