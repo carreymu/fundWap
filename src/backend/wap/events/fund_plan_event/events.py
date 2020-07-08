@@ -46,7 +46,7 @@ class FundPlans(DataSource):
                                         cat_hold_num = 0
                                         # add hold num
                                         for x in fnd_list:
-                                            # todo hold_percentage???
+                                            # fund_templates.hold_percentage
                                             x['hold_percentage'] = [y for y in plan_details_list if x['fid'] == y['fid']][0]['hold_percentage']
                                             cat_hold_num += x['hold_percentage']
                                         holds.append({"name": r['name'], "percent": cat_hold_num})

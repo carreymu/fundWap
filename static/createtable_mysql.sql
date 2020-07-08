@@ -302,6 +302,7 @@ INSERT INTO fund_plan_category(name,remark) values('平衡性股基组合','平�
 /*--20.fund plan (returns_type:1-七日年化收益,2-近六月历史收益,3-近三年历史收益|page_type:1-only text or image,2-including FOFs etc.)*/
 CREATE TABLE fund_plan(fpl_id int(11) primary key AUTO_INCREMENT,
 fpc_id int not null comment '基金类型id',
+ft_id int not null comment '基金模板id',
 name varchar(20) not null comment '基金计划名',
 profit_ratio float not null comment '收益率',
 profit_txt varchar(50) not null comment '收益描述',
@@ -320,18 +321,18 @@ is_sellout bool not null comment '是否售完',
 join_num int not null comment '加入人数',
 status int not null comment '是否可用',
 remark varchar(200),inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO fund_plan(fpc_id,name,profit_ratio,profit_txt,loss_ratio,profit_type,init_amt,sched_init_amt,img_url,page_type,details,short_intro,remark,is_sellout,join_num,status,purchase_rate_new) 
-values(1,'超级现金宝',2.8,'七日年化收益',0,1,100,0,'//images_url',1,'','','仅一张图片的页面',false,188,1,0.012);
-INSERT INTO fund_plan(fpc_id,name,profit_ratio,profit_txt,loss_ratio,profit_type,init_amt,sched_init_amt,img_url,page_type,details,short_intro,remark,is_sellout,join_num,status,purchase_rate_new) 
-values(2,'全明星计划1',35.57,'七日年化收益',43.11,3,1001,5001,'//images_url',2,'组合详情:','跟对人买对基,实力派经理一网打尽','有基列表',false,1088,1,0.013);
-INSERT INTO fund_plan(fpc_id,name,profit_ratio,profit_txt,loss_ratio,profit_type,init_amt,sched_init_amt,img_url,page_type,details,short_intro,remark,is_sellout,join_num,status,purchase_rate_new) 
-values(2,'全明星计划2',31.57,'七日年化收益',43.11,3,1002,502,'//images_url',2,'组合详情:','跟对人买对基,实力派经理一网打尽','有基列表',false,1808,1,0.014);
-INSERT INTO fund_plan(fpc_id,name,profit_ratio,profit_txt,loss_ratio,profit_type,init_amt,sched_init_amt,img_url,page_type,details,short_intro,remark,is_sellout,join_num,status,purchase_rate_new) 
-values(3,'小确幸计划1',30.63,'近三年历史收益',18.24,3,1003,103,'//images_url',2,'组合详情:','精选债基组合,收益长赢','高尔基',false,1008,1,0.015);
-INSERT INTO fund_plan(fpc_id,name,profit_ratio,profit_txt,loss_ratio,profit_type,init_amt,sched_init_amt,img_url,page_type,details,short_intro,remark,is_sellout,join_num,status,purchase_rate_new) 
-values(3,'小确幸计划2',31.63,'近三年历史收益',18.24,3,1004,104,'//images_url',2,'组合详情:','精选债基组合,收益长赢','高尔基',true,1080,1,0.016);
-INSERT INTO fund_plan(fpc_id,name,profit_ratio,profit_txt,loss_ratio,profit_type,init_amt,sched_init_amt,img_url,page_type,details,short_intro,remark,is_sellout,join_num,status,purchase_rate_new) 
-values(4,'稳拿计划',30.63,'近三年历史收益',18.24,3,1005,105,'//images_url',2,'组合详情:','股债动态平衡,文件投资典范','高尔基',false,1808,1,0.017);
+INSERT INTO fund_plan(fpc_id,ft_id,name,profit_ratio,profit_txt,loss_ratio,profit_type,init_amt,sched_init_amt,img_url,page_type,details,short_intro,remark,is_sellout,join_num,status,purchase_rate_new) 
+values(1,9,'超级现金宝',2.8,'七日年化收益',0,1,100,0,'//images_url',1,'','','仅一张图片的页面',false,188,1,0.012);
+INSERT INTO fund_plan(fpc_id,ft_id,name,profit_ratio,profit_txt,loss_ratio,profit_type,init_amt,sched_init_amt,img_url,page_type,details,short_intro,remark,is_sellout,join_num,status,purchase_rate_new) 
+values(2,5,'全明星计划1',35.57,'七日年化收益',43.11,3,1001,5001,'//images_url',2,'组合详情:','跟对人买对基,实力派经理一网打尽','有基列表',false,1088,1,0.013);
+INSERT INTO fund_plan(fpc_id,ft_id,name,profit_ratio,profit_txt,loss_ratio,profit_type,init_amt,sched_init_amt,img_url,page_type,details,short_intro,remark,is_sellout,join_num,status,purchase_rate_new) 
+values(2,6,'全明星计划2',31.57,'七日年化收益',43.11,3,1002,502,'//images_url',2,'组合详情:','跟对人买对基,实力派经理一网打尽','有基列表',false,1808,1,0.014);
+INSERT INTO fund_plan(fpc_id,ft_id,name,profit_ratio,profit_txt,loss_ratio,profit_type,init_amt,sched_init_amt,img_url,page_type,details,short_intro,remark,is_sellout,join_num,status,purchase_rate_new) 
+values(3,7,'小确幸计划1',30.63,'近三年历史收益',18.24,3,1003,103,'//images_url',2,'组合详情:','精选债基组合,收益长赢','高尔基',false,1008,1,0.015);
+INSERT INTO fund_plan(fpc_id,ft_id,name,profit_ratio,profit_txt,loss_ratio,profit_type,init_amt,sched_init_amt,img_url,page_type,details,short_intro,remark,is_sellout,join_num,status,purchase_rate_new) 
+values(3,8,'小确幸计划2',31.63,'近三年历史收益',18.24,3,1004,104,'//images_url',2,'组合详情:','精选债基组合,收益长赢','高尔基',true,1080,1,0.016);
+INSERT INTO fund_plan(fpc_id,ft_id,name,profit_ratio,profit_txt,loss_ratio,profit_type,init_amt,sched_init_amt,img_url,page_type,details,short_intro,remark,is_sellout,join_num,status,purchase_rate_new) 
+values(4,10,'稳拿计划',30.63,'近三年历史收益',18.24,3,1005,105,'//images_url',2,'组合详情:','股债动态平衡,文件投资典范','高尔基',false,1808,1,0.017);
 
 /*--20.fund plan details,like fund_templates-------------del*/
 CREATE TABLE fund_plan_details(fpd_id int(11) primary key AUTO_INCREMENT,
@@ -524,16 +525,21 @@ CREATE TABLE fund_template(ft_id int(11) primary key AUTO_INCREMENT,
 tmp_name varchar(50) not null comment '基金模板名',
 type tinyint not null comment '类型,1-fpl_id-bestchoice,2-tid-大目标,3-fid-基金,4-did-鸡腿计划',
 remark varchar(500),
+version varchar(100) not null comment '版本号',
 status int, 
 inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
---大目标
-INSERT INTO fund_template(tmp_name,type,status,remark) values('2006聚能环01',2,1,'2019年12月前表现不错');
-INSERT INTO fund_template(tmp_name,type,status,remark) values('2006聚能环02',2,1,'关注了神秘代码007');
-INSERT INTO fund_template(tmp_name,type,status,remark) values('钻石王老五01',2,1,'王老五护体');
-INSERT INTO fund_template(tmp_name,type,status,remark) values('钻石王老五02',2,1,'隔壁老王是钻石王老五');
---best choice
-INSERT INTO fund_template(tmp_name,type,status,remark) values('全明星计划1',1,1,'全明星计划1');
-INSERT INTO fund_template(tmp_name,type,status,remark) values('全明星计划2',1,1,'全明星计划2');
+-- 大目标
+INSERT INTO fund_template(tmp_name,type,status,version,remark) values('2006聚能环01',2,1,'v1','2019年12月前表现不错');
+INSERT INTO fund_template(tmp_name,type,status,version,remark) values('2006聚能环02',2,1,'v2','关注了神秘代码007');
+INSERT INTO fund_template(tmp_name,type,status,version,remark) values('钻石王老五01',2,1,'v1','王老五护体');
+INSERT INTO fund_template(tmp_name,type,status,version,remark) values('钻石王老五02',2,1,'v2','隔壁老王是钻石王老五');
+-- best choice                          
+INSERT INTO fund_template(tmp_name,type,status,version,remark) values('全明星计划1',1,1,'v1','全明星计划1');
+INSERT INTO fund_template(tmp_name,type,status,version,remark) values('全明星计划2',1,1,'v2','全明星计划2');
+INSERT INTO fund_template(tmp_name,type,status,version,remark) values('小确幸计划1',1,1,'v1','小确幸计划1');
+INSERT INTO fund_template(tmp_name,type,status,version,remark) values('小确幸计划2',1,1,'v2','小确幸计划2');
+INSERT INTO fund_template(tmp_name,type,status,version,remark) values('超级现金宝',1,1,'v1','超级现金宝');
+INSERT INTO fund_template(tmp_name,type,status,version,remark) values('稳拿计划',1,1,'v1','稳拿计划');
 
 
 /*--31.fund template and its funds*/
