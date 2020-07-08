@@ -59,7 +59,7 @@ export default {
 			*/
 			this.cid=this.$route.params.cid;
 			let dt = {
-				"req": {"fpl_id":this.cid,"sid":19},
+				"req": {"uid":1,"fpl_id":this.cid,"sid":19},
 				"event_names": ["fund_plan_list","system_info_by_id"]
 			  }
 			this.$api.fetchPost('/sanic-api', dt).then(r=>{
