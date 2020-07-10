@@ -38,10 +38,8 @@ class FundPlans(DataSource):
                                 if len(fccids) == 0 or len(cats) == 0:
                                     return result
                                 # fund_templates.hold_percentage
-
                                 fdts = await exec_base.exec_sql_key(event_names='fund_templates_by_ftid',
                                                                     **{'ft_id': result[0]['ft_id']})
-
                                 if len(fdts) == 0:
                                     return result
                                 matched_cat = [x for x in cats if x['fcc_id'] in fccids]
@@ -51,13 +49,10 @@ class FundPlans(DataSource):
                                     fnd_list = [x for x in funds if x['fcc_id'] == r['fcc_id']]
                                     if fnd_list:
                                         cat_hold_num = 0
-                                        # add hold num
                                         for x in fnd_list:
-                                            # fund_template.hold_percentage
-                                            # import pdb;
-                                            # pdb.set_trace()
-                                            # x['hold_percentage'] = [y for y in plan_details_list if x['fid'] == y['fid']][0]['hold_percentage']
-                                            x['hold_percentage'] = dict_percent[x['fid']]*100 if x['fid'] in dict_percent.keys() else 0
+                                            x['hold_percentage'] = 0
+                                            if x['fid'] in dict_percent.keys():
+                                                x['hold_percentage'] = round(dict_percent[x['fid']]*100, 2)
                                             cat_hold_num += x['hold_percentage']
                                         holds.append({"name": r['name'], "percent": cat_hold_num})
                                         colors.append(r['ico_color'])

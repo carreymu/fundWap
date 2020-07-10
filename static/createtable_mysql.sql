@@ -334,20 +334,6 @@ values(3,8,'小确幸计划2',31.63,'近三年历史收益',18.24,3,1004,104,'//
 INSERT INTO fund_plan(fpc_id,ft_id,name,profit_ratio,profit_txt,loss_ratio,profit_type,init_amt,sched_init_amt,img_url,page_type,details,short_intro,remark,is_sellout,join_num,status,purchase_rate_new) 
 values(4,10,'稳拿计划',30.63,'近三年历史收益',18.24,3,1005,105,'//images_url',2,'组合详情:','股债动态平衡,文件投资典范','高尔基',false,1808,1,0.017);
 
-/*--20.fund plan details,like fund_templates-------------del*/
-CREATE TABLE fund_plan_details(fpd_id int(11) primary key AUTO_INCREMENT,
-fpl_id int not null comment '基金计划id',
-fid int not null comment '基金id',
-hold_percentage float not null comment '持有百分比',
-remark varchar(500),
-inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO fund_plan_details(fpl_id,hold_percentage,fid) values(2,0.0308,1); /*--全明星计划1-景顺长城沪深300增强,fid=12*/
-INSERT INTO fund_plan_details(fpl_id,hold_percentage,fid) values(2,0.0142,4); /*--全明星计划1-富国新动力A,fid=4*/
-INSERT INTO fund_plan_details(fpl_id,hold_percentage,fid) values(2,0.015,5); /*--全明星计划1-富国新动力B,fid=5*/
-INSERT INTO fund_plan_details(fpl_id,hold_percentage,fid) values(2,0.030,6); /*--全明星计划1-富国新动力C,fid=6*/
-INSERT INTO fund_plan_details(fpl_id,hold_percentage,fid) values(2,0.010,7); /*--全明星计划1-天弘鸿运宝,fid=7*/
-INSERT INTO fund_plan_details(fpl_id,hold_percentage,fid) values(3,1.00,3); /*--全明星计划2-景顺长城沪深200增强,fid=3*/
-
 
 /*------------------------------------mine--biz:target and best choice------------------------------------------------
 /*--25.service card (source:0-分享积得,1-购买,2-赠送,3-免费领取,4-友情援助;status:1-未使用,0-已使用;type:0-大目标服务卡,1-鸡腿券,2-高尔基)*/
@@ -559,12 +545,12 @@ INSERT INTO fund_templates(ft_id,fid,hold_percentage) values(3,2,0.25); -- 钻�
 INSERT INTO fund_templates(ft_id,fid,hold_percentage) values(3,1,0.50); -- 钻石王老五01,景顺长城沪深300增强,50%
 INSERT INTO fund_templates(ft_id,fid,hold_percentage) values(1,5,0.50); -- 2006聚能环01,天弘鸿运宝,100%
 -- best choice
-INSERT INTO fund_templates(ft_id,hold_percentage,fid) values(5,0.0308,1); /*--全明星计划1-景顺长城沪深300增强,fid=1*/
-INSERT INTO fund_templates(ft_id,hold_percentage,fid) values(5,0.0142,4); /*--全明星计划1-富国新动力A,fid=4*/
-INSERT INTO fund_templates(ft_id,hold_percentage,fid) values(5,0.015,5); /*--全明星计划1-富国新动力B,fid=5*/
-INSERT INTO fund_templates(ft_id,hold_percentage,fid) values(5,0.030,6); /*--全明星计划1-富国新动力C,fid=6*/
-INSERT INTO fund_templates(ft_id,hold_percentage,fid) values(5,0.010,7); /*--全明星计划1-天弘鸿运宝,fid=7*/
-INSERT INTO fund_templates(ft_id,hold_percentage,fid) values(6,1.00,3); /*--全明星计划2-景顺长城沪深200增强,fid=3*/
+INSERT INTO fund_templates(ft_id,hold_percentage,fid) values(5,0.308,1); /*--全明星计划1-景顺长城沪深300增强,fid=1*/
+INSERT INTO fund_templates(ft_id,hold_percentage,fid) values(5,0.142,2); /*--全明星计划1-富国新动力A,fid=2*/
+INSERT INTO fund_templates(ft_id,hold_percentage,fid) values(5,0.15,3); /*--全明星计划1-富国新动力B,fid=3*/
+INSERT INTO fund_templates(ft_id,hold_percentage,fid) values(5,0.30,4); /*--全明星计划1-富国新动力C,fid=4*/
+INSERT INTO fund_templates(ft_id,hold_percentage,fid) values(5,0.10,7); /*--全明星计划1-景顺长城沪深100增强,fid=7*/
+INSERT INTO fund_templates(ft_id,hold_percentage,fid) values(6,1.0,3); /*--全明星计划2-景顺长城沪深200增强,fid=3*/
 
 /*------------------------------------target--biz:target------------------------------------------------
 --32.target run_status:-1-流标,0-申请中,1-建仓中,2-盈利中,3-浮亏中,4-已达标,5已清仓 ,0<N<4->运行中*/
