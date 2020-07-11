@@ -218,14 +218,14 @@ class UserInvestAccountFundplan(DataSource):
 
     async def compute(self):
         source = self.dependence_source
-        # 1.fund_plan_details.fpl_id->fund_plan_details.fid
-        # 2.
+        # 1.fpl_id==user_invest_account.iv_id&&user_invest_account.type=1->user_invest_account.uia_id
+        # 2.user_invest_account.uia_id->user_invest_account.fid
         # import pdb;pdb.set_trace()
         if source:
+            uid = source['req']['uid']
             target_info = {}
             fund_plan = [x for x in source['fund_plan_by_fplid'] if x['status'] == 1]
-            fund_plan_detail = source['fund_plan_details']
-            user_invest_account = source['user_invest_account_by_type_id']
+            usr_ivst_acc = source['user_invest_account_by_type_id']
             nw = datetime.now()
             md = datetime.strftime(nw, "%m月%d日")
             inserttime = source['req']['inserttime'] if 'inserttime' in source['req'] and source['req']['inserttime'] else '2020-07-10'
@@ -235,11 +235,17 @@ class UserInvestAccountFundplan(DataSource):
                 fundtemp["apply_endtime"] = md
                 target_info['fundtemp'] = fundtemp
 
-            if user_invest_account:
-                target_info['target'] = user_invest_account
+            if usr_ivst_acc:
+                target_info['target'] = usr_ivst_acc
 
-            if fund_plan_detail:
-                fds = list(set([x['fid'] for x in fund_plan_detail]))
+            uaids = [x['uia_id'] for x in usr_ivst_acc]
+            if not uaids:
+                return self.event_default
+
+            usr_ivst_acc_dtl = await exec_base.exec_sql_key(event_names="user_invest_account_details_in_uiaids",
+                                                            **{'uid': uid, 'uia_ids': sql_in(uaids)})
+            if usr_ivst_acc_dtl:
+                fds = list(set([x['fid'] for x in usr_ivst_acc_dtl]))
                 fids = sql_in(fds)
                 if fids:
                     fund_lst = []
@@ -253,7 +259,7 @@ class UserInvestAccountFundplan(DataSource):
                         same_fids = []
                         daily_profit = 0
                         # import pdb;pdb.set_trace()
-                        for x in fund_plan_detail:
+                        for x in usr_ivst_acc_dtl:
                             wor = [w for w in fund_worth_his if str(w['fid']) == x['fid']]
                             if not wor:
                                 continue
