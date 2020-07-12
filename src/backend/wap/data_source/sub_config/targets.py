@@ -24,7 +24,7 @@ config = dict(
         "engine_name": "db_fund_wap_mysql",
         "sql": {
           "mysql": "select tid,ft_id,name,target_ratio,run_status,run_days,pre_run,apply_starttime,apply_endtime,"
-                   "init_amt,fee_ratio from targets where tid in({tids})",
+                   "init_amt,fee_ratio from targets where tid in ({tids})",
           "sqlite3": "",
           "mssql": ""
         }

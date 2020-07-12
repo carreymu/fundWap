@@ -32,7 +32,7 @@ config = dict(
       "event_default": [],
       "dependence_source": [{"fund_plan_by_fplid": "fpl_id", "user_invest_account_by_type_id": "uid,type,iv_id",
                              "user_invest_account_details_in_uiaids": "", "fund_worth_history_by_fids": "",
-                             "fund_info_short": ""}],
+                             "fund_info_short": "", "fund_templates": ""}],
       "dependence": events.UserInvestAccountFundplan,
     },
 )

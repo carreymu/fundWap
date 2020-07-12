@@ -1,7 +1,7 @@
 from wap.data_source import exec_base
 
 config = dict(
-    fund_plans={
+    fund_plan_by_fplids={
       "name": "fund plan",
       "author": "root",
       "event_default": {},
@@ -10,7 +10,8 @@ config = dict(
         "sql": {
           "mysql": "select fpl_id,ft_id,fpc_id,name,profit_ratio,loss_ratio,profit_type,init_amt,sched_init_amt,"
                    "profit_txt,img_url,page_type,details,short_intro,remark,is_sellout,join_num,status,"
-                   "purchase_rate_old,purchase_rate_new,purchase_rate_discount from fund_plan ",
+                   "purchase_rate_old,purchase_rate_new,purchase_rate_discount from fund_plan "
+                   "where fpl_id in ({fpl_ids})",
           "sqlite3": "",
           "mssql": ""
         }

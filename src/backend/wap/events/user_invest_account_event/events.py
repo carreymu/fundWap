@@ -36,7 +36,7 @@ class UserInvestAccountJoined(DataSource):
                 targets = self.json_convert(user_iv_acc, targets_dict)
                 if targets:
                     my_invests.append(targets)
-                choices_dict = {"name": '优选', "dt": dt, "type": types['fpl_id'], "url": "targetTemplate"}
+                choices_dict = {"name": '优选', "dt": dt, "type": types['fpl_id'], "url": "myTargets"}
                 best_choices = self.json_convert(user_iv_acc, choices_dict)
                 if best_choices:
                     my_invests.append(best_choices)
@@ -109,27 +109,37 @@ class UserInvestAccountTargets(DataSource):
                 my_info["joined_days"] = datediff_timestamp(user_details[0]['inserttime'])
 
                 tids = sql_in([x['iv_id'] for x in user_iv_acc])
-                tars_list = await exec_base.exec_sql_key(event_names='targets_by_tids', **{'tids': tids})
-                tars_ach = [x for x in tars_list if x['run_status'] > 3]
-                my_info["target_achivement"] = len(tars_ach)
-                fids = sql_in([x['ft_id'] for x in tars_list])
+                tars_list = []
+                targets_dict = dict()
+                if req['type'] == 2:
+                    tars_list = await exec_base.exec_sql_key(event_names='targets_by_tids', **{'tids': tids})
+                    tars_ach = [x for x in tars_list if x['run_status'] > 3]
+                    my_info["target_achivement"] = len(tars_ach)
+                    # if x['run_status'] in [0, 1, 2, 3]
+                    targets_dict = dict([(x['tid'], x['name']) for x in tars_list])
+                else:
+                    tars_list = await exec_base.exec_sql_key(event_names="fund_plan_by_fplids", **{'fpl_ids': tids})
+                    targets_dict = dict((x['fpl_id'], x['name']) for x in tars_list)
                 uia_ids = sql_in([x['uia_id'] for x in user_iv_acc])
-                user_iv_acc_detail_list = await exec_base.exec_sql_key(event_names='user_invest_account_details_by_ids',
-                                                                       **{'uid': req['uid'], 'uia_ids': uia_ids,
-                                                                          'fids': fids})
-                my_info["target_profit"] = sum([x['redeem_amt'] for x in user_iv_acc_detail_list if x['hold_status'] == 0])
+                usr_iv_acc_dtl_lst = await exec_base.exec_sql_key(event_names='user_invest_account_details_in_uiaids',
+                                                                  **{'uid': req['uid'], 'uia_ids': uia_ids})
+                my_info["target_profit"] = sum([x['redeem_amt'] for x in usr_iv_acc_dtl_lst if x['hold_status'] == 0])
                 # 达标盈利=user_invest_account_detail.hold_status==0
                 # hold targets + N笔交易确认中
-                targets_dict = dict([(x['tid'], x['name']) for x in tars_list]) #if x['run_status'] in [0, 1, 2, 3]
+
                 for ui in user_iv_acc:
-                    trade_cnt = len([x for x in user_iv_acc_detail_list if x['uia_id'] == ui['uia_id']
+                    trade_cnt = len([x for x in usr_iv_acc_dtl_lst if x['uia_id'] == ui['uia_id']
                                      and x['hold_status'] == 2])
                     ui['daily_profit_str'] = format(ui['daily_profit'], '.2f')
                     ui['hold_profit_str'] = format(ui['hold_profit'], '.2f')
                     ui['hold_profit_ratio'] = format((ui['hold_profit'] / (ui['hold_profit']+ui['init_amt']))*100, '.2f')
                     ui['daily_profit_ratio'] = format((ui['daily_profit'] / (ui['hold_profit'] + ui['init_amt']))*100, '.2f')
                     ui['trade_msg'] = '' if trade_cnt == 0 else f'{trade_cnt}笔交易确认中'
-                    ui['name'] = f"大目标{targets_dict[ui['iv_id']]}"
+                    if req['type'] == 2:
+                        ui['name'] = f"大目标{targets_dict[ui['iv_id']]}"
+                    else:
+                        name = targets_dict[ui['iv_id']]
+                        ui['name'] = f"{name}[定投]" if ui['is_sched'] == 1 else f"{name}"
                     ui['inserttime'] = time.strftime('%m月%d日', time.localtime(ui['inserttime']))
                 my_info['hold_targets'] = user_iv_acc
             return my_info
@@ -155,7 +165,6 @@ class UserInvestAccountFunds(DataSource):
                 fundtemp["apply_endtime"] = datetime.strftime(datetime.utcfromtimestamp(fundtemp["apply_endtime"] / 1e3), "%m月%d日")
                 target_info['fundtemp'] = fundtemp
             uia_ids = ''
-            # import pdb;pdb.set_trace()
             if user_invest_account and len(user_invest_account) > 0:
                 target = user_invest_account[0]
                 uia_ids = f"'{target['uia_id']}'"
@@ -172,7 +181,6 @@ class UserInvestAccountFunds(DataSource):
                 # 1-持仓,2-赎回中
                 user_iv_acc = [x for x in user_iv_acc_detail_list if x['hold_status'] != 0]
                 fund_lst = []
-                # import pdb;pdb.set_trace()
                 if user_iv_acc and len(user_iv_acc) > 0:
                     fds = list(set([x['fid'] for x in user_iv_acc]))
                     fids = sql_in(fds)
@@ -234,14 +242,11 @@ class UserInvestAccountFundplan(DataSource):
                 # fundtemp['run_days'] = datediff_timestamp(fundtemp['apply_endtime'])
                 fundtemp["apply_endtime"] = md
                 target_info['fundtemp'] = fundtemp
-
             if usr_ivst_acc:
                 target_info['target'] = usr_ivst_acc
-
             uaids = [x['uia_id'] for x in usr_ivst_acc]
             if not uaids:
                 return self.event_default
-
             usr_ivst_acc_dtl = await exec_base.exec_sql_key(event_names="user_invest_account_details_in_uiaids",
                                                             **{'uid': uid, 'uia_ids': sql_in(uaids)})
             if usr_ivst_acc_dtl:
@@ -259,6 +264,11 @@ class UserInvestAccountFundplan(DataSource):
                         same_fids = []
                         daily_profit = 0
                         # import pdb;pdb.set_trace()
+                        # fund_plan.ft_id==fund_templates.ft_id->fund_templates.fid,fund_templates.hold_percentage
+                        # ft_id = [x['ft_id'] for x in fund_plan][0]
+                        # fund_tmps = await exec_base.exec_sql_key(event_names="fund_templates_by_ftid",
+                        #                                          **{'ft_id': ft_id})
+                        # dict_holdper = dict((x['fid'], x['hold_percentage']) for x in fund_tmps)
                         for x in usr_ivst_acc_dtl:
                             wor = [w for w in fund_worth_his if str(w['fid']) == x['fid']]
                             if not wor:
@@ -267,7 +277,7 @@ class UserInvestAccountFundplan(DataSource):
                             if not fd:
                                 continue
                             fd, wor = fd[0], wor[0]
-                            daily_profit = daily_profit + wor['daily_ratio'] * x['hold_percentage'] * fd['init_amt']
+                            # daily_profit = daily_profit + wor['daily_ratio'] * x['hold_percentage'] * fd['init_amt']
                             x['fund_name'] = f"{fd['fund_name']}({fd['fund_code']})"
                             x['now'] = md
                             x['daily_ratio'] = format(wor['daily_ratio'] * 100, '.2f')

@@ -7,13 +7,14 @@ export default {
   data(){
     return {
       myInfo:{},
+      type:1
     }
   },
   methods:{
     myTargets(){
-      let type = this.$route.query.type || 1;
+      this.type = parseInt(this.$route.query.type) || 1;
       let dt = {
-        "req": {"uid":1,"type":parseInt(type)},
+        "req": {"uid":1,"type":this.type},
         "event_names": ["user_invest_account_targets"]
       }
       this.$api.fetchPost('/sanic-api', dt).then(r=>{

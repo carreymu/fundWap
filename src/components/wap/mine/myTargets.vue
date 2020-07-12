@@ -20,26 +20,24 @@
        </div>
     </div>
     <div class="mytars">
-        <div>
-            <div class="invIntro">
-            <div style="padding-top:12px;">
-                <div style="font-size:10px;">加入大目标(天)</div>
-                <div style="text-align:center;">{{myInfo.joined_days}}</div>
-            </div>
-            <div class="linkRight"></div>
-            <div style="padding-top:12px;">
-                <div style="font-size:10px;">共达标</div>
-                <div style="color:brown;font-size:13px;">{{myInfo.target_achivement}}期</div>
-            </div>
-            <div class="linkRight"></div>
-            <div style="padding-top:12px;">
-                <div style="font-size:10px;">达标盈利(元)</div>
-                <div style="color:brown;font-size:13px;">{{myInfo.hold_profit}}</div>
-            </div>
-            </div>
-        </div>
-
+      <div class="invIntro" v-if="type==2">
+          <div style="padding-top:12px;">
+              <div style="font-size:10px;">加入大目标(天)</div>
+              <div style="text-align:center;">{{myInfo.joined_days}}</div>
+          </div>
+          <div class="linkRight"></div>
+          <div style="padding-top:12px;">
+              <div style="font-size:10px;">共达标</div>
+              <div style="color:brown;font-size:13px;">{{myInfo.target_achivement}}期</div>
+          </div>
+          <div class="linkRight"></div>
+          <div style="padding-top:12px;">
+              <div style="font-size:10px;">达标盈利(元)</div>
+              <div style="color:brown;font-size:13px;">{{myInfo.hold_profit}}</div>
+          </div>
         <div class="line"/>
+      </div>
+      
         
       <div v-for="(it,idx) in myInfo.hold_targets" :key="idx">
         <div class="conTop">
