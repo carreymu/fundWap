@@ -9,7 +9,8 @@ export default {
       showMsg:false,
       fundtemp:{},
       target:{},
-      fund_lst:[]
+      fund_lst:[],
+      news_info:{}
     }
   },
   methods:{
@@ -20,8 +21,8 @@ export default {
       let iv_id = this.$route.query.iv_id || 1
       let type = this.$route.query.type || 2
       let dt = {
-        "req": {"tid":iv_id,"uid":1,"type":type,"iv_id":iv_id,"inserttime":"2020-07-10"},
-        "event_names": ["user_invest_account_funds"]
+        "req": {"tid":iv_id,"uid":1,"type":type,"iv_id":iv_id,"inserttime":"2020-07-10","topx":1,"nc_id":5},
+        "event_names": ["user_invest_account_funds","news_info_topx_by_ncid"]
       }
       this.$api.fetchPost('/sanic-api', dt).then(r=>{
         if(r.user_invest_account_funds != undefined){
@@ -38,7 +39,14 @@ export default {
             this.fundtemp = res.fundtemp
             this.target = res.target
             this.fund_lst = res.fund_lst
-          }              
+          }
+        }
+        if(r.news_info_topx_by_ncid!=undefined){
+            this.news_info = r.news_info_topx_by_ncid[0]
+            let d = new Date(this.news_info['inserttime'])
+            this.news_info['month'] = ("0" + (d.getMonth() + 1)).slice(-2)
+            this.news_info['day'] = ("0" + (d.getDate())).slice(-2)
+            console.log(this.news_info)
         }
         // if(r.targets_by_tid!=undefined && r.targets_by_tid.length>0){
         //   this.fundtemp = r.targets_by_tid[0]

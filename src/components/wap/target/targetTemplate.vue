@@ -40,20 +40,21 @@
       <div style="padding:15px 0 5px 0;">
         <flexbox>
           <flexbox-item><div class ="waitInvokeTxtPre">|||| <span class="waitInvokeTxtTail">持仓动态</span></div></flexbox-item>
-          <flexbox-item><div style="text-align:right;"><router-link :to="'/fundWap/myTargets'">全部&nbsp;> </router-link></div></flexbox-item>
+          <flexbox-item><div style="text-align:right;"><router-link :to="'#'">全部&nbsp;> </router-link></div></flexbox-item>
         </flexbox>
       </div>
       <div class="rectAgl">
-        <router-link :to="'/fundWap/myTargets'">
+        <router-link :to="'#'">
         <div class="invIntro">
           <div style="padding:10px;font-size:14px;width:45px;background-color:font-weight:bold;">
-            <div>04月</div>
-            <div>30日</div>
+            <div>{{news_info.month}}月</div>
+            <div>{{news_info.day}}日</div>
           </div>
           <div class="midLineRight"></div>
           <div style="padding:10px;">
-            <div>04月24日[大目标]投资播报</div>
-            <div style="font-size:10px;">今日大盘上涨0.3%。预计今天[大目标]收益范围在上涨0.09%至0.23%之间</div>
+            <div>{{news_info.title}}</div>
+            <div style="font-size:10px;"  v-if="news_info.content.length>30">{{news_info.content}}...</div>
+            <div style="font-size:10px;" v-else>{{news_info.content}}</div>
           </div>
         </div>
         </router-link>
