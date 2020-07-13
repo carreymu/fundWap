@@ -20,7 +20,7 @@ export default {
       let iv_id = this.$route.query.iv_id || 1
       let type = this.$route.query.type || 2
       let dt = {
-        "req": {"tid":iv_id,"uid":1,"type":type,"iv_id":iv_id},
+        "req": {"tid":iv_id,"uid":1,"type":type,"iv_id":iv_id,"inserttime":"2020-07-10"},
         "event_names": ["user_invest_account_funds"]
       }
       this.$api.fetchPost('/sanic-api', dt).then(r=>{

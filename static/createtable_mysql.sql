@@ -67,6 +67,7 @@ INSERT INTO news_category(category_name, status, is_broadcast) values('鸡腿计
 INSERT INTO news_category(category_name, status, is_broadcast) values('鸡腿计划发车提醒',1,1);
 INSERT INTO news_category(category_name, status, is_broadcast) values('止盈赎回提醒',1,1);
 INSERT INTO news_category(category_name, status, is_broadcast) values('[豆妹专栏]',1,1);
+INSERT INTO news_category(category_name, status, is_broadcast) values('持仓动态',1,1);
 
 /*--3.news details invester face to face/drumstick news*/
 CREATE TABLE news_info(nid int(11) primary key AUTO_INCREMENT,
@@ -86,7 +87,10 @@ INSERT INTO news_info(title,nc_id,img_url, content, status) values('[止盈赎�
 INSERT INTO news_info(title,nc_id,img_url, content, status) values('[豆妹专栏]今天大目标大涨',4,'','2009~2011涨1%,其他暂涨2%吧,具体问建国同志',1);
 INSERT INTO news_info(title,nc_id,img_url, content, status) values('[鸡腿计划]2周年发车',4,'','我是鸡腿计划,开车是我的一大爱好....哈哈哈',1);
 INSERT INTO news_info(title,nc_id,img_url, content, status) values('[止盈赎回提醒]2010止盈赎回提醒',4,'','我是鸡腿计划,开车是我的一大爱好....哈哈哈',1);
-INSERT INTO news_info(title,nc_id,img_url, content, status) values('[豆妹专栏]今天大目标大涨',4,'','2009~2011涨1%,其他暂涨2%吧,具体问建国同志',1);
+INSERT INTO news_info(title,nc_id,img_url, content, status) values('[豆妹专栏]今天大目标涨',4,'','2009~2011涨1%,其他暂涨2%吧,具体问建国同志',1);
+INSERT INTO news_info(title,nc_id,img_url, content, status) values('04月24日[大目标]投资播报',5,'','今日大盘上涨0.3%。预计今天[大目标]收益范围在上涨0.09%至0.23%之间,强于大盘表现',1);
+INSERT INTO news_info(title,nc_id,img_url, content, status) values('04月25日[大目标]投资播报',5,'','今日大盘上涨0.31%。预计今天[大目标]收益范围在上涨0.09%至0.23%之间,强于大盘表现',1);
+
 
 /*----------------------------------fund details--biz:target,drumstick and best choice--------------------------------------------------
 --4.fund category  like ETF/LOF/QDFII etc.*/

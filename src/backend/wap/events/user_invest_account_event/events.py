@@ -184,7 +184,8 @@ class UserInvestAccountFunds(DataSource):
                 if user_iv_acc and len(user_iv_acc) > 0:
                     fds = list(set([x['fid'] for x in user_iv_acc]))
                     fids = sql_in(fds)
-                    inserttime = source['req']['inserttime'] if 'inserttime' in source['req'] and source['req']['inserttime'] else '2020-07-10'
+                    insert_time = source['req']['inserttime']
+                    inserttime = insert_time if 'inserttime' in source['req'] and insert_time else '2020-07-10'
                     if fids:
                         fund_worth_his = await exec_base.exec_sql_key(event_names="fund_worth_history_by_fids",
                                                                       **{'fids': fids, 'topx': len(fds),
