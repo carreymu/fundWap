@@ -32,7 +32,7 @@ module.exports = {
         target: 'http://localhost:8000',  //后端请求服务域名和端口
         changeOrigin: true,   //设置请求头
         pathRewrite: {
-            '^/sanic-api': '/'   //路径重写  前端/sanic-api 对应 后端/
+            '^/sanic-api': '/'   //路径重写  前端/sanic-api 对应 后端/ 解决跨域问题
         },
       }
     },

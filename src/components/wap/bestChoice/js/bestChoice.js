@@ -31,13 +31,13 @@ import { Tab, TabItem,XImg,XButton,Flexbox, FlexboxItem,Toast} from 'vux';
         })
       },
       fundTest(){
-        this.showMsg=true;
+        this.showMsg=true
       },
       fundMemo(){
-        this.showMsg=true;
+        this.showMsg=true
       },
       fundInvest(){
-        this.showMsg=true;
+        this.showMsg=true
       },
     },
     components: {

@@ -1,4 +1,4 @@
-import { Tabbar, TabbarItem ,XHeader,XButton,XDialog, Group,Divider,XInput} from 'vux'
+import { Tabbar, TabbarItem ,XHeader,XButton,Group,Divider,XInput,Flexbox, FlexboxItem,Toast} from 'vux'
   export default {
     mounted() {
         this.$store.commit('UPDATE_PAGE_TITLE', '登录中心') 
@@ -10,6 +10,7 @@ import { Tabbar, TabbarItem ,XHeader,XButton,XDialog, Group,Divider,XInput} from
         showDialogStyle: false,
         uname:'',
         upwd: '',
+        showMsg:false,
       }
     },
     methods:{
@@ -17,7 +18,11 @@ import { Tabbar, TabbarItem ,XHeader,XButton,XDialog, Group,Divider,XInput} from
         console.log(this.uname)
         console.log(this.upwd)
       },
-      doShowToast (id) {
+      onEnter(val){
+        console.log('click enter!', val)
+      },
+      doShowToast () {
+        this.showMsg=true
         // let flt = this.newsList.filter(x=>x.id==id)
         // if(flt.length>0){          
         //   this.dialogContent = flt[0].content
@@ -27,20 +32,9 @@ import { Tabbar, TabbarItem ,XHeader,XButton,XDialog, Group,Divider,XInput} from
         // }
         this.showDialogStyle=true
       }
-    //   menuLists(){
-    //     let self=this;
-    //     this.baseAjax({
-    //       url:'../../../static/basicData/mineMenu.json',
-    //       showLoading:true,
-    //       success:function(data){
-    //           console.log(data)
-    //           self.menuList=data.returnObject
-    //           // console.log(self.urlList)
-    //       }
-    //     })
-    //   },
     },
     components: {
+      Flexbox, FlexboxItem,
       Tabbar,
       TabbarItem,
       XHeader,
@@ -48,6 +42,6 @@ import { Tabbar, TabbarItem ,XHeader,XButton,XDialog, Group,Divider,XInput} from
       Divider,
       XInput,
       XButton,
-      XDialog
+      Toast
     }
   }
