@@ -3,8 +3,8 @@
         <div style="font-size:23px;padding:10px;">欢迎登录</div>
         <div>
             <group>
-                <x-input required placeholder="请输入用户名或手机号" :show-clear="false"></x-input>
-                <x-input required type="password" placeholder="请输入密码" :show-clear="false"></x-input>
+                <x-input required placeholder="请输入用户名或手机号或Email" style="font-size:12px;" :show-clear="false"></x-input>
+                <x-input required type="password" placeholder="请输入密码" :max="16" style="font-size:12px;" :show-clear="false"></x-input>
                 <x-button type="warn" link="/demo">登录</x-button>
             </group>
         </div>
@@ -14,7 +14,8 @@
         </div>
         <divider>其他登录方式</divider>
         <div style="padding:10px;">
-            第三方帐号登录: 
+            第三方帐号登录: &nbsp;&nbsp;<img src="../../../../static/img/weixin.png" style="height:20px;width:25px"/> &nbsp;&nbsp;
+            <img src="../../../../static/img/weibo.png"  style="height:20px;width:25px"/>
         </div>
 
       <x-dialog v-model="showDialogStyle" hide-on-blur 
