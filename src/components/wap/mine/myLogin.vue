@@ -1,12 +1,12 @@
 <template>
     <div class="myLg">
-        <div style="font-size:23px;padding:10px;">欢迎登录</div>
+        <div class="wel">欢迎登录</div>
         <div>
-            <group>
-                <x-input required placeholder="请输入用户名或手机号或Email" style="font-size:12px;" :show-clear="false"></x-input>
-                <x-input required type="password" placeholder="请输入密码" :max="16" style="font-size:12px;" :show-clear="false"></x-input>
-                <x-button type="warn" link="/demo">登录</x-button>
-            </group>
+          <group>
+            <x-input required placeholder="请输入用户名或手机号或Email" v-model="uname" :min="6" :max="16" class="fmfnt" :show-clear="false"></x-input>
+            <x-input required type="password" placeholder="请输入密码" v-model="upwd" :min="6" :max="16" class="fmfnt" :show-clear="false"></x-input>
+            <x-button type="warn" @click.native="login()">登录</x-button>
+          </group>
         </div>
         <div style="padding:20px;">
             <div style="float:left">忘记密码</div>
@@ -14,8 +14,9 @@
         </div>
         <divider>其他登录方式</divider>
         <div style="padding:10px;">
-            第三方帐号登录: &nbsp;&nbsp;<img src="../../../../static/img/weixin.png" style="height:20px;width:25px"/> &nbsp;&nbsp;
-            <img src="../../../../static/img/weibo.png"  style="height:20px;width:25px"/>
+            第三方帐号登录: &nbsp;&nbsp;
+            <img src="../../../../static/img/weixin.png" style="height:20px;width:25px"/> &nbsp;&nbsp;
+            <img src="../../../../static/img/weibo.png" style="height:20px;width:25px"/>
         </div>
 
       <x-dialog v-model="showDialogStyle" hide-on-blur 
@@ -35,46 +36,18 @@
 </script>
 
 <style>
-  a:link {
-  color:dimgray;
-  text-decoration: none;
-  }
-  a:visited {
-  color:dimgray;
-  text-decoration: none;
-  }
-  a:hover {
-  color:dimgray;
-  }
   .myLg{
     color:dimgray;
     font-size:12px;
     margin:10px 10px 0px 10px;
   }
-  .myLg .rectAgl{
-    height:auto;
-    width: auto;
-    /* background: rgb(216, 80, 80); */
-    border-width: 1px;
-    border-style: solid;
-    /* border-radius: 5px; */
-    /* border-color:  rgb(216, 80, 80); */
-    border-color: #ccc;
-    /* padding-left: 10px; */
-    margin-bottom: 10px;
-    margin-top: 10px;
+  .myLg .wel{
+    font-size:23px;
+    padding:10px;
   }
-  .myLg .linen{
-    border-bottom:1px solid rgb(230, 230, 230);
+  .myLg .fmfnt{
+    font-size:12px;
    }
-  .myLg .rectAgl .aimRmkMoney{
-    font-weight: 700;
-    font-size: 14px;
-  }
-  .myLg .msg{
-    font-size: 12px;
-    margin-left:5px;
-  }  
 
 
   .weui-dialog{

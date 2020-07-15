@@ -8,17 +8,23 @@ import { Tabbar, TabbarItem ,XHeader,XButton,XDialog, Group,Divider,XInput} from
       return {
         dialogContent: '',
         showDialogStyle: false,
+        uname:'',
+        upwd: '',
       }
     },
     methods:{
+      login(){
+        console.log(this.uname)
+        console.log(this.upwd)
+      },
       doShowToast (id) {
-        let flt = this.newsList.filter(x=>x.id==id)
-        if(flt.length>0){          
-          this.dialogContent = flt[0].content
-        } else{
-          this.dialogContent = '暂无信息'
-          console.log('alter....')
-        }
+        // let flt = this.newsList.filter(x=>x.id==id)
+        // if(flt.length>0){          
+        //   this.dialogContent = flt[0].content
+        // } else{
+        //   this.dialogContent = '暂无信息'
+        //   console.log('alter....')
+        // }
         this.showDialogStyle=true
       }
     //   menuLists(){
