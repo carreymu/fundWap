@@ -9,6 +9,11 @@ class UserLoginCheck(DataSource):
 
     async def compute(self):
         res = self.dependence_source
-        if res and hashlib.md5(res['req']['upwd']).hexdigest() == res[0]['password']:
-            return res
+        if res:
+            result = res['user_detail_by_name']
+            req = res['req']
+            hl = hashlib.md5()
+            hl.update(req['upwd'].encode(encoding='utf-8'))
+            if result[0]['password'] == hl.hexdigest():
+                return result
         return self.event_default

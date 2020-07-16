@@ -23,10 +23,10 @@ import { Tabbar, TabbarItem ,XHeader,XButton,Group,Divider,XInput,Flexbox, Flexb
         }
         this.$api.fetchPost('/sanic-api', dt).then(r=>{
           if(r.user_detail_checkres!=undefined && r.user_detail_checkres.length>0){
-            this.userDetailRes=r.user_detail_checkres
+            this.userDetailRes=r.user_detail_checkres[0]
           } else {
-            //username or pws error
-
+            //username or pwd error
+            
           }
         })
       },

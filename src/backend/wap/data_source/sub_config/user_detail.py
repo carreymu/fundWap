@@ -9,7 +9,7 @@ config = dict(
             "engine_name": "db_fund_wap_mysql",
             "sql": {
                 "mysql": "select uid,username,nickname,phonenumber,password,is_fingerprint,is_posture,is_fund_account,"
-                         "avastar,inserttime from user_detail where uid={uid}",
+                         "avastar,inserttime,sms from user_detail where uid={uid}",
                 "sqlite3": "",
                 "mssql": ""
             }
@@ -24,7 +24,7 @@ config = dict(
             "engine_name": "db_fund_wap_mysql",
             "sql": {
                 "mysql": "select uid,username,nickname,phonenumber,password,is_fingerprint,is_posture,is_fund_account,"
-                         "avastar,inserttime from user_detail where username='{uname}'",
+                         "avastar,inserttime,sms from user_detail where username='{uname}'",
                 "sqlite3": "",
                 "mssql": ""
             }
