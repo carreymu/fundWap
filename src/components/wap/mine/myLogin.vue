@@ -17,10 +17,10 @@
         <divider>其他登录方式</divider>
         <div style="padding:10px;">
           第三方帐号登录: &nbsp;&nbsp;
-          <img src="../../../../static/img/weixin.png" @οn-click="doShowToast()" style="cursor: pointer;height:20px;width:25px"/> &nbsp;&nbsp;
-          <img src="../../../../static/img/weibo.png" @οn-click="doShowToast()" style="cursor: pointer;height:20px;width:25px"/>
+          <img src="../../../../static/img/weixin.png" style="cursor: pointer;height:20px;width:25px" v-on:click="doShowToast('wechat')" />&nbsp;&nbsp;
+          <img src="../../../../static/img/weibo.png" v-on:click="doShowToast('weibo')" style="cursor: pointer;height:20px;width:25px"/>
         </div>
-      <toast v-model="showMsg" type="text"  width="20em" class="showMsg" :time="2000">coming soon....</toast>
+      <toast v-model="showMsg" type="text"  width="20em" class="showMsg" :time="2000">{{dialogContent}} coming soon....</toast>
     </div>
 </template>
 <script>

@@ -21,8 +21,9 @@ import { Tabbar, TabbarItem ,XHeader,XButton,Group,Divider,XInput,Flexbox, Flexb
       onEnter(val){
         console.log('click enter!', val)
       },
-      doShowToast () {
+      doShowToast(txt) {
         this.showMsg=true
+        this.dialogContent = txt
         // let flt = this.newsList.filter(x=>x.id==id)
         // if(flt.length>0){          
         //   this.dialogContent = flt[0].content
