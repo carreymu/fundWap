@@ -413,6 +413,7 @@ is_fingerprint boolean comment '是否开启指纹解锁',
 is_posture boolean comment '是否开启图形解锁',
 is_fund_account boolean not null comment '是否开启了基金账户',
 target_bouns_amt float not null comment '总资产',
+sms varchar(30) comment '短信验证码',
 inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO user_detail(username,nickname,phonenumber,password,is_fingerprint,is_posture,is_fund_account,target_bouns_amt) values('Lady Gaga','GAGA','18808988989','YadnSEWOdwO09uwFepOe====',true,false,false,385.95);
 

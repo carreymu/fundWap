@@ -7,7 +7,7 @@ import { Tabbar, TabbarItem ,XHeader,XButton,Group,Divider,XInput,Flexbox, Flexb
     data(){
       return {
         dialogContent: '',
-        showDialogStyle: false,
+        userDetailRes: {},
         uname:'',
         upwd: '',
         showMsg:false,
@@ -17,6 +17,18 @@ import { Tabbar, TabbarItem ,XHeader,XButton,Group,Divider,XInput,Flexbox, Flexb
       login(){
         console.log(this.uname)
         console.log(this.upwd)
+        let dt = {
+          "req": {"uname":this.uname,"upwd":this.upwd},
+          "event_names": ["user_detail_checkres"]
+        }
+        this.$api.fetchPost('/sanic-api', dt).then(r=>{
+          if(r.user_detail_checkres!=undefined && r.user_detail_checkres.length>0){
+            this.userDetailRes=r.user_detail_checkres
+          } else {
+            //username or pws error
+
+          }
+        })
       },
       onEnter(val){
         console.log('click enter!', val)
@@ -31,7 +43,7 @@ import { Tabbar, TabbarItem ,XHeader,XButton,Group,Divider,XInput,Flexbox, Flexb
         //   this.dialogContent = '暂无信息'
         //   console.log('alter....')
         // }
-        this.showDialogStyle=true
+        // this.showDialogStyle=true
       }
     },
     components: {
