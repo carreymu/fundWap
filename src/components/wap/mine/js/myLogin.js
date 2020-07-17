@@ -1,7 +1,8 @@
 import { Tabbar, TabbarItem ,XHeader,XButton,Group,Divider,XInput,Flexbox, FlexboxItem,Toast} from 'vux'
   export default {
     mounted() {
-        this.$store.commit('UPDATE_PAGE_TITLE', '登录中心') 
+        this.$store.commit('UPDATE_PAGE_TITLE', '登录中心')
+        this.$store.commit('TOKEN','sdfsdf')
     //   this.menuLists();
     },
     data(){
@@ -16,7 +17,10 @@ import { Tabbar, TabbarItem ,XHeader,XButton,Group,Divider,XInput,Flexbox, Flexb
     methods:{
       login(){
         console.log(this.uname)
-        console.log(this.upwd)
+        console.log(this.$store.getters)
+        this.$store.commit("Token",this.userDetailRes.username);
+        console.log(this.$store.getters)
+
         let dt = {
           "req": {"uname":this.uname,"upwd":this.upwd},
           "event_names": ["user_detail_checkres"]
@@ -24,6 +28,9 @@ import { Tabbar, TabbarItem ,XHeader,XButton,Group,Divider,XInput,Flexbox, Flexb
         this.$api.fetchPost('/sanic-api', dt).then(r=>{
           if(r.user_detail_checkres!=undefined && r.user_detail_checkres.length>0){
             this.userDetailRes=r.user_detail_checkres[0]
+            this.$store.commit("Token",this.userDetailRes.username);
+            // Cookies.set('Token', this.userDetailRes.token) //登录成功后将token存储在cookie之中
+            // commit('SET_TOKEN', data.token)
           } else {
             //username or pwd error
             

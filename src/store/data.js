@@ -10,3 +10,5 @@ export const UPDATE_FOOTER='UPDATE_FOOTER';
 
 //页面标题
 export const UPDATE_PAGE_TITLE='UPDATE_PAGE_TITLE';
+
+export const TOKEN='TOKEN'
