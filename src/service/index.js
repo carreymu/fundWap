@@ -1,6 +1,7 @@
 import axios from 'axios'
 // import { Message } from 'element-ui'
 // import qs from 'qs'
+// import stores from './store/store'
 import config from './config'
 
 if (process.server) {
@@ -9,6 +10,7 @@ if (process.server) {
 
 const service = axios.create(config)
 const trace_info = {"hashid": "hashkey","appid": "10050001"}
+// const header_info = {'Authorization':'Bearer'}//+ stores.$store.getters.token
 
 // POST 传参序列化
 service.interceptors.request.use(
@@ -32,6 +34,7 @@ service.interceptors.response.use(
 
 export function fetchPost(url, params) {
   let param = hashkey(params, 'wap_info')
+  // let header = {headers: header_info}
   return new Promise((resolve, reject) => {
     service.post(url, param)
       .then(response => {
@@ -48,9 +51,10 @@ export function fetchPost(url, params) {
 export function fetchGet(url, params) {
   let param = hashkey(params, 'wap_info')
   return new Promise((resolve, reject) => {
-    service.get(url, {
-      params: param
-    })
+      service.get(url, {
+        // headers: header_info,
+        params: param
+      })
       .then(response => {
         resolve(response.data)
       }, err => {
