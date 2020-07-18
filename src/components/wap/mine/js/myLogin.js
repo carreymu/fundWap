@@ -2,7 +2,6 @@ import { Tabbar, TabbarItem ,XHeader,XButton,Group,Divider,XInput,Flexbox, Flexb
   export default {
     mounted() {
         this.$store.commit('UPDATE_PAGE_TITLE', '登录中心')
-        this.$store.commit('TOKEN','sdfsdf')
     //   this.menuLists();
     },
     data(){
@@ -18,7 +17,7 @@ import { Tabbar, TabbarItem ,XHeader,XButton,Group,Divider,XInput,Flexbox, Flexb
       login(){
         console.log(this.uname)
         console.log(this.$store.getters)
-        this.$store.commit("Token",this.userDetailRes.username);
+        this.$store.commit("TOKEN",this.userDetailRes.username);
         console.log(this.$store.getters)
 
         let dt = {

@@ -1,6 +1,7 @@
 from typing import Any
 from wap.base import DataSource
 import hashlib
+from uuid import uuid1
 
 
 class UserLoginCheck(DataSource):
@@ -9,8 +10,8 @@ class UserLoginCheck(DataSource):
 
     async def compute(self):
         res = self.dependence_source
-        if res:
-            result = res['user_detail_by_name']
+        result = res['user_detail_by_name']
+        if result:
             req = res['req']
             hl = hashlib.md5()
             hl.update(req['upwd'].encode(encoding='utf-8'))
