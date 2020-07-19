@@ -5,7 +5,7 @@
           <group style="padding: 10px;">
             <x-input required :show-clear="false" placeholder="请输入用户名或手机号或Email" v-model="uname" :min="6" :max="16" class="fmfnt"
              @on-enter="onEnter"></x-input>
-            <x-input required :show-clear="false" type="password" placeholder="请输入密码" v-model="upwd" :min="6" :max="16" @on-enter="onEnter"
+            <x-input required :show-clear="false" type="password" placeholder="请输入密码" v-model="upwd" :min="6" :max="16" @on-enter="login()"
             class="fmfnt"></x-input>
           </group>
           <x-button type="warn" @click.native="login()">登录</x-button>

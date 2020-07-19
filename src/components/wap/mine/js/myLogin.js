@@ -25,7 +25,7 @@ import { Tabbar, TabbarItem ,XHeader,XButton,Group,Divider,XInput,AlertModule,To
             this.$utcookie.setCookie("token",this.userDetailRes.token);//缓存token
             this.$store.commit("TOKEN",this.userDetailRes.token);
             console.log(this.$store.getters.token)
-            
+            window.location = "#/fundWap/mine"
           } else {
             AlertModule.show({
               title: '亲~~',
@@ -38,7 +38,8 @@ import { Tabbar, TabbarItem ,XHeader,XButton,Group,Divider,XInput,AlertModule,To
         })
       },
       onEnter(val){
-        console.log('click enter!', val)
+        // console.log('click enter!', val)
+        login()
       },
       doShowToast(txt) {
         this.showMsg=true
