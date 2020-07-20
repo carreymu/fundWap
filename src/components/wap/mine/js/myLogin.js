@@ -22,7 +22,7 @@ import { Tabbar, TabbarItem ,XHeader,XButton,Group,Divider,XInput,AlertModule,To
         this.$api.fetchPost('/sanic-api', dt).then(r=>{
           if(r.user_detail_checkres!=undefined && r.user_detail_checkres.length>0){
             this.userDetailRes=r.user_detail_checkres[0]
-            this.$utcookie.setCookie("token",this.userDetailRes.token);//缓存token
+            this.$utcookie.setCookie("Cookie",this.userDetailRes.token,30);//缓存token
             this.$store.commit("TOKEN",this.userDetailRes.token);
             console.log(this.$store.getters.token)
             window.location = "#/fundWap/mine"

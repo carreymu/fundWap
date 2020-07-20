@@ -2,6 +2,7 @@ import axios from 'axios'
 // import { Message } from 'element-ui'
 // import qs from 'qs'
 // import stores from './store/store'
+import utcookie from '../utils/utcookie.js'
 import config from './config'
 
 if (process.server) {
@@ -10,7 +11,7 @@ if (process.server) {
 
 const service = axios.create(config)
 const trace_info = {"hashid": "hashkey","appid": "10050001"}
-// const header_info = {'Authorization':'Bearer'}//+ stores.$store.getters.token
+const header_info = {'Cookie': utcookie.getCookie("token")}//+ stores.$store.getters.token
 
 // POST 传参序列化
 service.interceptors.request.use(
@@ -52,7 +53,7 @@ export function fetchGet(url, params) {
   let param = hashkey(params, 'wap_info')
   return new Promise((resolve, reject) => {
       service.get(url, {
-        // headers: header_info,
+        headers: header_info,
         params: param
       })
       .then(response => {
