@@ -1,7 +1,6 @@
 import axios from 'axios'
-// import { Message } from 'element-ui'
 // import qs from 'qs'
-// import stores from './store/store'
+import stores from '../store/store.js'
 import utcookie from '../utils/utcookie.js'
 import config from './config'
 
@@ -16,6 +15,11 @@ const header_info = {'Cookie': utcookie.getCookie("token")}//+ stores.$store.get
 // POST 传参序列化
 service.interceptors.request.use(
   config => {
+    // todo auto redirect???
+    // todo  Authorization????
+    if (stores.getters.token) {
+      config.headers.Authorization = `token ${stores.getters.token}`;
+    }
     // if (config.method === 'post') config.data = qs.stringify(config.data)
     return config
   },
@@ -35,9 +39,9 @@ service.interceptors.response.use(
 
 export function fetchPost(url, params) {
   let param = hashkey(params, 'wap_info')
-  // let header = {headers: header_info}
+  let header = {headers: header_info}
   return new Promise((resolve, reject) => {
-    service.post(url, param)
+    service.post(url, param, header)
       .then(response => {
         resolve(response.data);
       }, err => {

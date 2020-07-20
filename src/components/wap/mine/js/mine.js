@@ -8,8 +8,8 @@ export default {
     return {
       menus:[],
       myInfo:{},
-      showContent004: false,
-      menus1: {
+      showContent: false,
+      menus: {
         menu1: '分享给朋友',
         menu2: '分享到朋友圈'
       },
@@ -17,6 +17,7 @@ export default {
   },
   methods:{
     menuLists(){
+      console.log(this.$utcookie.getCookie("token")==undefined)
       let dt = {
         "req": {"uid":1,"scids":13},
         "event_names": ["system_info","user_news_info_not_read_by_uid","user_card_cnt_uid",

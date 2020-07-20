@@ -17,7 +17,6 @@ import stores from './store/store'                //---------自定义的全局�
 import './assets/css/base.css'                    //---------引入的全局公共css
 
 
-
 /*charts*/
 import { VChart, VLine, VArea, VBar, VPie, VPoint, VScale, VAxis, VGuide, VTooltip, VLegend } from 'vux' 
 Vue.component('v-chart', VChart)

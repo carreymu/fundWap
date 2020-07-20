@@ -24,9 +24,20 @@ export default {
         }
       })
     },
-    // console (msg) {
-    //   console.log(msg)
-    // },
+    loginOut() {
+      // MUST: remove cookie from SERVER!!
+      // if(this.$utcookie.getCookie("token")!=undefined || this.$utcookie.getCookie("uid")!=undefined){
+        this.$utcookie.delCookie("token")
+        this.$utcookie.delCookie("uid")
+        AlertModule.show({
+          title: '恭喜~~',
+          content: '成功退出!',
+          onHide () {
+              window.location = "#/fundWap/targetIndex"
+          }
+        })
+      // }
+    },
   },
   components: {
     Tabbar,
