@@ -26,17 +26,19 @@ export default {
     },
     loginOut() {
       // MUST: remove cookie from SERVER!!
-      // if(this.$utcookie.getCookie("token")!=undefined || this.$utcookie.getCookie("uid")!=undefined){
+      try {
         this.$utcookie.delCookie("token")
         this.$utcookie.delCookie("uid")
         AlertModule.show({
           title: '恭喜~~',
           content: '成功退出!',
           onHide () {
-              window.location = "#/fundWap/targetIndex"
+            window.location = "#/fundWap/targetIndex"
           }
         })
-      // }
+      } catch (error) {
+        window.location = "#/fundWap/targetIndex"
+      }
     },
   },
   components: {

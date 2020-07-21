@@ -2,7 +2,7 @@ import { Tabbar, TabbarItem ,XHeader,XButton,Group,Divider,XInput,AlertModule,To
   export default {
     mounted() {
       this.$store.commit('UPDATE_PAGE_TITLE', '登录中心')
-      this.loading();
+      this.loading()
     },
     data(){
       return {
@@ -29,11 +29,13 @@ import { Tabbar, TabbarItem ,XHeader,XButton,Group,Divider,XInput,AlertModule,To
             // MUST: set cookie and check cookie from backend,
             // operat cookie with js is A DEMO!!!
             this.userDetailRes=r.user_detail_checkres[0]
-            let cookie = 'token=' + this.userDetailRes.token + ';uid=' + this.userDetailRes.uid
-            this.$utcookie.setCookie("Cookie", cookie, 30);//cache token
+            //cache token
+            this.$utcookie.setCookie("token", this.userDetailRes.token, 30);
+            this.$utcookie.setCookie("uid", this.userDetailRes.uid, 30);
             console.log(this.$utcookie.getCookie("token"))
-            this.$store.commit("TOKEN",this.userDetailRes.token);
-            console.log(this.$store.getters.token)
+            console.log(this.$utcookie.getCookie("uid"))
+            // this.$store.commit("TOKEN",this.userDetailRes.token);
+            // console.log(this.$store.getters.token)
             window.location = "#/fundWap/mine"
           } else {
             AlertModule.show({

@@ -10,15 +10,14 @@ if (process.server) {
 
 const service = axios.create(config)
 const trace_info = {"hashid": "hashkey","appid": "10050001"}
-const header_info = {'Cookie': utcookie.getCookie("token")}//+ stores.$store.getters.token
+const header_info = {'Cookie': utcookie.getCookie("token")}
 
 // POST 传参序列化
 service.interceptors.request.use(
   config => {
-    // todo auto redirect???
     // todo  Authorization????
-    if (stores.getters.token) {
-      config.headers.Authorization = `token ${stores.getters.token}`;
+    if (utcookie.getCookie("token")) {
+      config.headers.Authorization = `token ${utcookie.getCookie("token")}`;
     }
     // if (config.method === 'post') config.data = qs.stringify(config.data)
     return config
