@@ -63,3 +63,18 @@ class FundPlans(DataSource):
                         # print(result)
                         return result
         return self.event_default
+
+
+class FundPlanCats(DataSource):
+    event_default: Any
+    dependence_source: dict
+
+    async def compute(self):
+        result = self.dependence_source['fund_plan_category']
+        if result:
+            fpc_ids = sql_in([x['fpc_id'] for x in result])
+            fund_plans = await exec_base.exec_sql_key(event_names='fund_plan_by_fpcids', **{'fpc_ids': fpc_ids})
+            for x in result:
+                x['fund_plans'] = [y for y in fund_plans if x['fpc_id'] == y['fpc_id']]
+            return result
+        return self.event_default
