@@ -13,8 +13,13 @@ export default {
   },
   methods:{
     myAccount(){
+      if(this.$utcookie.getCookie("uid")==undefined){
+				window.location = "#/fundWap/mylogin"
+				return
+      }
+      let uid = parseInt(this.$utcookie.getCookie("uid"))
       let dt = {
-        "req": {"uid":1},
+        "req": {"uid":uid},
         "event_names": ["user_detail_by_uid"]
       }
       this.$api.fetchPost('/sanic-api', dt).then(r=>{

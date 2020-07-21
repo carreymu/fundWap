@@ -65,6 +65,11 @@ import { Group,XHeader,XButton, Flexbox, FlexboxItem, XInput,CheckIcon,XTable,Po
         console.log('on change', this.amount)
       },
       loadOrder(){
+        if(this.$utcookie.getCookie("uid")==undefined){
+          window.location = "#/fundWap/mylogin"
+          return
+        }
+        this.uid = parseInt(this.$utcookie.getCookie("uid"))
         let fid=this.$route.query.fid
         if(fid == undefined){
           AlertModule.show({

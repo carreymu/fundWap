@@ -44,7 +44,7 @@ import { Tabbar, TabbarItem ,XHeader,XButton,Group,Divider,XInput,AlertModule,To
               onHide () {
                   //window.location.replace(document.referrer)
                   this.uname = this.upwd = ''
-                  this.$router.push({path:'/'})
+                  // this.$router.push({path:'/'})
                   // window.location = "#/fundWap/mylogin"
               }
             })

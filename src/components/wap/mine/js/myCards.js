@@ -17,8 +17,13 @@ import { Tabbar, TabbarItem ,XHeader,XButton, Flexbox, FlexboxItem } from 'vux'
     },
     methods:{
       cardLists(){
+        if(this.$utcookie.getCookie("uid")==undefined){
+          window.location = "#/fundWap/mylogin"
+          return
+        }
+        let uid = parseInt(this.$utcookie.getCookie("uid"))
         let dt = {
-          "req": {"uid":1},
+          "req": {"uid":uid},
           "event_names": ["user_card_by_uid"]
         }
         this.$api.fetchPost('/sanic-api', dt).then(r=>{

@@ -12,9 +12,14 @@ export default {
   },
   methods:{
     myTargets(){
+      if(this.$utcookie.getCookie("uid")==undefined){
+        window.location = "#/fundWap/mylogin"
+        return
+      }
+      let uid = parseInt(this.$utcookie.getCookie("uid"))
       this.type = parseInt(this.$route.query.type) || 1;
       let dt = {
-        "req": {"uid":1,"type":this.type},
+        "req": {"uid":uid,"type":this.type},
         "event_names": ["user_invest_account_targets"]
       }
       this.$api.fetchPost('/sanic-api', dt).then(r=>{

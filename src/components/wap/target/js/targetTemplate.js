@@ -18,10 +18,15 @@ export default {
       this.showMsg = true;
     },
     myTartemp(){
+      if(this.$utcookie.getCookie("uid")==undefined){
+        window.location = "#/fundWap/mylogin"
+        return
+      }
+      let uid = parseInt(this.$utcookie.getCookie("uid"))
       let iv_id = this.$route.query.iv_id || 1
       let type = this.$route.query.type || 2
       let dt = {
-        "req": {"tid":iv_id,"uid":1,"type":type,"iv_id":iv_id,"inserttime":"2020-07-10","topx":1,"nc_id":5},
+        "req": {"tid":iv_id,"uid":uid,"type":type,"iv_id":iv_id,"inserttime":"2020-07-10","topx":1,"nc_id":5},
         "event_names": ["user_invest_account_funds","news_info_topx_by_ncid"]
       }
       this.$api.fetchPost('/sanic-api', dt).then(r=>{

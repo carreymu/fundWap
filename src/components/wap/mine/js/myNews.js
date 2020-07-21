@@ -35,8 +35,13 @@ import { Tabbar, TabbarItem ,XHeader,XButton,XDialog,Flexbox,FlexboxItem } from 
         this.showDialogStyle=true
       },
       newsLists(){
+        if(this.$utcookie.getCookie("uid")==undefined){
+          window.location = "#/fundWap/mylogin"
+          return
+        }
+        let uid = parseInt(this.$utcookie.getCookie("uid"))
         let dt = {
-          "req": {"uid":1},
+          "req": {"uid":uid},
           "event_names": ["user_news_info_list"]
         }
         this.$api.fetchPost('/sanic-api', dt).then(r=>{

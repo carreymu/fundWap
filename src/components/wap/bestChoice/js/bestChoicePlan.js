@@ -17,10 +17,15 @@ export default {
       this.showMsg = true;
     },
     myTartemp(){
+      if(this.$utcookie.getCookie("uid")==undefined){
+				window.location = "#/fundWap/mylogin"
+				return
+      }
+      let uid = parseInt(this.$utcookie.getCookie("uid"))
       let iv_id = this.$route.query.iv_id || 1
       let type = this.$route.query.type || 'tid'
       let dt = {
-        "req": {"fpl_id":iv_id,"uid":1,"type":type,"iv_id":iv_id},
+        "req": {"fpl_id":iv_id,"uid":uid,"type":type,"iv_id":iv_id},
         "event_names": ["fund_plan_by_fplid","user_invest_account_funds"]
       }
       this.$api.fetchPost('/sanic-api', dt).then(r=>{

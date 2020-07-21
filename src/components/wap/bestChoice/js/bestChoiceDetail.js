@@ -49,6 +49,10 @@ export default {
 			this.loadChartData(month)
 		},
 		loadDetail(){
+			if(this.$utcookie.getCookie("uid")==undefined){
+				window.location = "#/fundWap/mylogin"
+				return
+			}
 			//init map
 			this.data.map(obj => {this.map[obj.name] = obj.percent + '%'})			
 			/*
@@ -57,11 +61,12 @@ export default {
 				3.fund_plan_details.fid->fund_info.fid->fund_info.fcc_id
 				4.fund_info.fcc_id->fund_customized_category.fcc_id
 			*/
-			this.cid=this.$route.params.cid;
+			this.cid=this.$route.params.cid
+			let uid = parseInt(this.$utcookie.getCookie("uid"))
 			let dt = {
-				"req": {"uid":1,"fpl_id":this.cid,"sid":19},
+				"req": {"uid":uid,"fpl_id":this.cid,"sid":19},
 				"event_names": ["fund_plan_list","system_info_by_id"]
-			  }
+			}
 			this.$api.fetchPost('/sanic-api', dt).then(r=>{
 			if(r.fund_plan_list!=undefined && r.fund_plan_list.length > 0){
 				this.mainData=r.fund_plan_list[0]
