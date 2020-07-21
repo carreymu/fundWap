@@ -224,8 +224,14 @@ fm_id int not null comment '经理ID',
 inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO fund_managers(fid,fm_id) values(1,1); /*--景顺长城沪深300增强--张三疯*/
 INSERT INTO fund_managers(fid,fm_id) values(1,2); /*--景顺长城沪深300增强--阿瓦买提*/
-INSERT INTO fund_managers(fid,fm_id) values(5,1); /*--景顺长城沪深300增强--张三疯*/
-INSERT INTO fund_managers(fid,fm_id) values(5,2); /*--景顺长城沪深300增强--阿瓦买提*/
+INSERT INTO fund_managers(fid,fm_id) values(2,1); /*--富国新动力A--张三疯*/
+INSERT INTO fund_managers(fid,fm_id) values(3,1); /*--富国新动力B--阿瓦买提*/
+INSERT INTO fund_managers(fid,fm_id) values(4,1); /*--富国新动力C--张三疯*/
+INSERT INTO fund_managers(fid,fm_id) values(3,2); /*--富国新动力B--阿瓦买提*/
+INSERT INTO fund_managers(fid,fm_id) values(5,1); /*--天弘鸿运宝--张三疯*/
+INSERT INTO fund_managers(fid,fm_id) values(5,2); /*--天弘鸿运宝--阿瓦买提*/
+INSERT INTO fund_managers(fid,fm_id) values(6,1); /*--景顺长城沪深200增强--张三疯*/
+INSERT INTO fund_managers(fid,fm_id) values(7,2); /*--景顺长城沪深100增强--阿瓦买提*/
 
 /*-- 13.fund managers and their fund history*/
 CREATE TABLE fund_managers_history(fmh_id int(11) primary key AUTO_INCREMENT,
@@ -292,6 +298,12 @@ INSERT INTO fund_worth_history_stage(fid,stage,worth,topn,his_tot) values(1,7,0.
 INSERT INTO fund_worth_history_stage(fid,stage,worth,topn,his_tot) values(1,30,0.034,120,1200); -- 景顺长城沪深300增强,30,0.034,120,1200
 INSERT INTO fund_worth_history_stage(fid,stage,worth,topn,his_tot) values(1,90,-0.011,120,1100); -- 景顺长城沪深300增强,90,-0.011,120,1100
 INSERT INTO fund_worth_history_stage(fid,stage,worth,topn,his_tot) values(1,365,0.111,110,1100); -- 景顺长城沪深300增强,365,0.111,110,1100
+INSERT INTO fund_worth_history_stage(fid,stage,worth,topn,his_tot) values(2,90,-0.011,120,1100); -- 富国新动力A,90,-0.011,120,1100
+INSERT INTO fund_worth_history_stage(fid,stage,worth,topn,his_tot) values(3,365,0.111,110,1100); -- 富国新动力B,365,0.111,110,1100
+INSERT INTO fund_worth_history_stage(fid,stage,worth,topn,his_tot) values(4,90,-0.011,120,1100); -- 富国新动力C,90,-0.011,120,1100
+INSERT INTO fund_worth_history_stage(fid,stage,worth,topn,his_tot) values(5,365,0.111,110,1100); -- 天弘鸿运宝,365,0.111,110,1100
+INSERT INTO fund_worth_history_stage(fid,stage,worth,topn,his_tot) values(6,90,-0.011,120,1100); -- 景顺长城沪深200增强,90,-0.011,120,1100
+INSERT INTO fund_worth_history_stage(fid,stage,worth,topn,his_tot) values(7,365,0.111,110,1100); -- 景顺长城沪深100增强,365,0.111,110,1100
 
 /*------------------------------------fund plans--biz:target,drumstick and best choice---------------------------------*/
 /*--19.plan category*/

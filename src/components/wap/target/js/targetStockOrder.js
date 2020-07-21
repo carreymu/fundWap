@@ -109,8 +109,7 @@ export default {
           }
           if(r.fund_manangers_list!=undefined && r.fund_manangers_list.length>0){
             this.funcInfo['managers']=r.fund_manangers_list.map(x=>x.name).join()
-          }
-          else {
+          } else {
             AlertModule.show({
               title: '亲~~',
               content: '木有找到你要的信息.',
@@ -133,8 +132,7 @@ export default {
             }
             // this.loadDailyData()
             this.loadingDailyData(1,0)
-          }
-          else {
+          } else {
             AlertModule.show({
               title: '亲~~',
               content: '木有找到你要的信息.',
@@ -152,8 +150,7 @@ export default {
               this.fundWorthStage[i]['worth']=(this.fundWorthStage[i].worth *100).toFixed(2)
             }
             // console.log(this.fundWorthStage)
-          }
-          else {
+          } else {
             AlertModule.show({
               title: '亲~~',
               content: '木有找到你要的信息.',
