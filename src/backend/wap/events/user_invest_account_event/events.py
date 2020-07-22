@@ -44,7 +44,8 @@ class UserInvestAccountJoined(DataSource):
                 drumsticks = self.json_convert(user_iv_acc, drumsticks_dict)
                 if drumsticks:
                     my_invests.append(drumsticks)
-                funds_dict = {"name": '基金', "dt": dt, "type": types['fid'], "url": "targetTemplate"}
+                # 没想好怎么做
+                funds_dict = {"name": '基金', "dt": dt, "type": types['fid'], "url": "#"}
                 funds = self.json_convert(user_iv_acc, funds_dict)
                 if funds:
                     my_invests.append(funds)

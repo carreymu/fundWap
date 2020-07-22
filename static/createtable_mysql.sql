@@ -32,8 +32,8 @@ content varchar(1000) comment '内容',
 url varchar(200) comment '外链地址',
 img_url varchar(200) comment '图片地址',
 status int, inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(1,'banner1','','', 'http://www.baidu.com','http://www.baidu.com/img/PCpad_bc531b595cf1e37c3907d14b69e3a2dd.png',1);
-INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(1,'banner2','','', 'http://www.baidu.com','https://img.zcool.cn/community/01678c574d4f4832f875a429c5c234.jpg@1280w_1l_2o_100sh.jpg',1);
+INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(1,'banner1','','', 'http://www.baidu.com','../../../static/img/b1.png',1);
+INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(1,'banner2','','', 'http://www.baidu.com','../../../static/img/b2.png',1);
 INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(2,'了解"大目标"','<h2>了解"大目标"</h2>','了解了解了解', 'systemInfoDetail','../../../static/img/intro.png',1);
 INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(2,'投资理念','<p>“大目标”系列基金组合</p><p>志在为您提供省心的投资服务<br/>帮您获得实实在在的收益</p>','投资理念投资理念', 'systemInfoDetail','../../../static/img/think.png',1);
 INSERT INTO system_info(scid,title,subtitle,content,url,img_url,status) values(2,'安全可靠','<h2>保证资金安全</h2>','安全可靠安全可靠', 'systemInfoDetail','../../../static/img/safe.png',1);
@@ -76,12 +76,12 @@ title varchar(50) not null comment '新闻标题',
 img_url varchar(200) comment '图片地址',
 content varchar(1000) not null comment '内容',
 status int, inserttime timestamp default CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-INSERT INTO news_info(title,nc_id,img_url, content, status) values('[大目标]2周年运行情况和当前市场分析',1,'https://image.talicai.com/MGZjODAyMzU3Zjc4MjA4Y2RkZDQ0MWYzYTU3ZGQ3Mzc-sq200','我是分析君...哈哈哈',1);
-INSERT INTO news_info(title,nc_id,img_url, content, status) values('新的一年,[大目标]新的变化',1,'https://image.talicai.com/Y2M1OTk2YTEzNzIzZGFkODhkZWJkOTYwZWE4NmU3NWM-sq200','<div style="font-size:15px;">新的一年,[大目标]新的变化.<br/>小朋友你是不是有很多疑问?</div>',1);
-INSERT INTO news_info(title,nc_id,img_url, content, status) values('[大目标]1.5周年运行情况和当前市场分析',1,'https://image.talicai.com/MGZjODAyMzU3Zjc4MjA4Y2RkZDQ0MWYzYTU3ZGQ3Mzc-sq200','我是分析君...哈哈哈',1);
-INSERT INTO news_info(title,nc_id,img_url, content, status) values('[鸡腿计划]2周年运行情况和当前市场分析',2,'https://image.talicai.com/MGZjODAyMzU3Zjc4MjA4Y2RkZDQ0MWYzYTU3ZGQ3Mzc-sq200','我是分析君...哈哈哈',1);
-INSERT INTO news_info(title,nc_id,img_url, content, status) values('新的一年,[鸡腿计划]新的变化',2,'https://image.talicai.com/MGZjODAyMzU3Zjc4MjA4Y2RkZDQ0MWYzYTU3ZGQ3Mzc-sq200','我是鸡腿计划....哈哈哈',1);
-INSERT INTO news_info(title,nc_id,img_url, content, status) values('[鸡腿计划]2周年运行情况和当前市场分析',2,'https://image.talicai.com/MGZjODAyMzU3Zjc4MjA4Y2RkZDQ0MWYzYTU3ZGQ3Mzc-sq200','我是鸡腿计划....哈哈哈',1);
+INSERT INTO news_info(title,nc_id,img_url, content, status) values('[大目标]2周年运行情况和当前市场分析',1,'../../../static/img/s1.jpg','我是分析君...哈哈哈',1);
+INSERT INTO news_info(title,nc_id,img_url, content, status) values('新的一年,[大目标]新的变化',1,'../../../static/img/s2.jpeg','<div style="font-size:15px;">新的一年,[大目标]新的变化.<br/>小朋友你是不是有很多疑问?</div>',1);
+INSERT INTO news_info(title,nc_id,img_url, content, status) values('[大目标]1.5周年运行情况和当前市场分析',1,'../../../static/img/s1.jpg','我是分析君...哈哈哈',1);
+INSERT INTO news_info(title,nc_id,img_url, content, status) values('[鸡腿计划]2周年运行情况和当前市场分析',2,'../../../static/img/s1.jpg','我是分析君...哈哈哈',1);
+INSERT INTO news_info(title,nc_id,img_url, content, status) values('新的一年,[鸡腿计划]新的变化',2,'../../../static/img/s1.jpg','我是鸡腿计划....哈哈哈',1);
+INSERT INTO news_info(title,nc_id,img_url, content, status) values('[鸡腿计划]2周年运行情况和当前市场分析',2,'../../../static/img/s1.jpg','我是鸡腿计划....哈哈哈',1);
 INSERT INTO news_info(title,nc_id,img_url, content, status) values('[鸡腿计划]2周年发车',4,'','满足周五送卡条件,免费送您一张服务卡,有效期截止:2020-05-11。下周五满足条件将继续送卡,建议您低位跟投,规律跟投。满足周五送卡条件,免费送您一张服务卡,有效期截止:2020-05-11。下周五满足条件将继续送卡,建议您低位跟投,规律跟投。',1);
 INSERT INTO news_info(title,nc_id,img_url, content, status) values('[止盈赎回提醒]2010止盈赎回提醒',4,'','我是鸡腿计划,开车是我的一大爱好....哈哈哈',1);
 INSERT INTO news_info(title,nc_id,img_url, content, status) values('[豆妹专栏]今天大目标大涨',4,'','2009~2011涨1%,其他暂涨2%吧,具体问建国同志',1);
