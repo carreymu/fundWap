@@ -1,5 +1,5 @@
 from typing import Any
-
+from wap.utils.sql_handler import sql_in
 from wap.base import DataSource
 from wap.data_source import exec_base
 
@@ -28,4 +28,21 @@ class UserNewsInfoList(DataSource):
                     if t_cat:
                         x['category_name'] = f"({t_cat[0]['category_name']})"
                 return result["user_news_info_by_uid"]
+        return self.event_default
+
+
+class UserNewsInfoRead(DataSource):
+    # req: dict
+    event_default: Any
+    dependence_source: dict
+
+    async def compute(self):
+        result = self.dependence_source["user_news_info_not_read_by_unid"]
+        if result:
+            uni_id = result[0]['uni_id']
+            news_list = await exec_base.exec_sql_key(event_names='update_user_news_info_read',
+                                                     **{'uid': result['req']['uid'], 'uni_id': uni_id})
+            import pdb;pdb.set_trace()
+            if news_list:
+                return result
         return self.event_default

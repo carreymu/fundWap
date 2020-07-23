@@ -8,4 +8,11 @@ config = dict(
       "dependence_source": [{"user_news_info_by_uid": "uid", "news_info_by_nids": "", "news_category_broadcast": ""}],
       "dependence": events.UserNewsInfoList,
     },
+    user_news_info_read={
+      "name": "user news",
+      "author": "root",
+      "event_default": {},
+      "dependence_source": [{"user_news_info_by_uid": "uid", "news_info_by_nids": "", "news_category_broadcast": ""}],
+      "dependence": events.UserNewsInfoRead,
+    },
 )
