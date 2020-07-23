@@ -27,7 +27,7 @@
     </group>
     <div style="height:40px"/>
 
-    <div class="mfooterFix">安全退出</div>
+    <div class="mfooterFix" v-on:click="loginOut()">安全退出</div>
 
   </div>
 </template>

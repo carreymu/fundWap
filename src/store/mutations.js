@@ -2,14 +2,16 @@ import {
 	UPDATE_HEAD,
 	UPDATE_LOADING,
 	UPDATE_FOOTER,
-	UPDATE_PAGE_TITLE
+	UPDATE_PAGE_TITLE,
+	TOKEN
 } from './data'
 
 const state={
 	headShow:true,
 	loading:false,
 	footerShow:true,
-	pageTitle:'首页'
+	pageTitle:'首页',
+	token:'',
 };
 
 
@@ -29,6 +31,9 @@ const mutations={
 	/*title*/
 	[UPDATE_PAGE_TITLE](state,type){
 		state.pageTitle=type;
+	},
+	[TOKEN](state,token){
+		state.token=token;
 	}
 };
 
@@ -44,6 +49,9 @@ const getters={
 	},
 	pageTitle(state){
 		return state.pageTitle;
+	},
+	token(state){
+		return state.token;
 	}
 };
 

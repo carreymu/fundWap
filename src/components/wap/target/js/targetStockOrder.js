@@ -109,8 +109,7 @@ export default {
           }
           if(r.fund_manangers_list!=undefined && r.fund_manangers_list.length>0){
             this.funcInfo['managers']=r.fund_manangers_list.map(x=>x.name).join()
-          }
-          else {
+          } else {
             AlertModule.show({
               title: '亲~~',
               content: '木有找到你要的信息.',
@@ -123,18 +122,17 @@ export default {
             for(var i=0;i<r.fund_worth_history_by_fid.length;i++){
               let dt = this.$utdate.dateFmt(r.fund_worth_history_by_fid[i].inserttime,"yyyy-MM-dd")
               let v = (r.fund_worth_history_by_fid[i].worth *100).toFixed(4)
-              let cg = r.fund_worth_history_by_fid[0].daily_change
+              let cg = r.fund_worth_history_by_fid[0].daily_ratio
               if(i == 0){
                 this.funcInfo['date'] = dt
                 this.funcInfo['value']= v
-                this.funcInfo['daily_change']= cg
+                this.funcInfo['daily_ratio']= cg
               }
-              this.fundDailyData.push({date:dt, value: v,daily_change:cg})
+              this.fundDailyData.push({date:dt, value: v,daily_ratio:cg})
             }
             // this.loadDailyData()
             this.loadingDailyData(1,0)
-          }
-          else {
+          } else {
             AlertModule.show({
               title: '亲~~',
               content: '木有找到你要的信息.',
@@ -152,8 +150,7 @@ export default {
               this.fundWorthStage[i]['worth']=(this.fundWorthStage[i].worth *100).toFixed(2)
             }
             // console.log(this.fundWorthStage)
-          }
-          else {
+          } else {
             AlertModule.show({
               title: '亲~~',
               content: '木有找到你要的信息.',
@@ -203,13 +200,13 @@ export default {
             if(this.stockList[i]!="大目标达标"){
               rnd = parseFloat(this.$utrandom.randomFullOpen(0,rndEnd).toFixed(2))
             }
-            let d = {date: dt,stock_name: this.stockList[i],value: rnd, daily_change: rnd}//-rndDaily
+            let d = {date: dt,stock_name: this.stockList[i],value: rnd, daily_ratio: rnd}//-rndDaily
             if(this.chartData.data.length == 0){
               this.chartData.data.push(d)
             } else {
               if(numberRandom(0,300)>threshold){
                 this.chartData.tag.push({position:[dt, rnd],html:ht})
-                this.chartData.alldata.push({date:dt,stock_name:"大目标达标",value:rnd, daily_change: rnd})
+                this.chartData.alldata.push({date:dt,stock_name:"大目标达标",value:rnd, daily_ratio: rnd})
                 i++
               }
               this.chartData.data.push(d)
@@ -240,13 +237,13 @@ export default {
       //       if(this.stockList[i]!="大目标达标"){
       //         rnd = parseFloat(this.$utrandom.randomFullOpen(0,rndEnd).toFixed(2))
       //       }
-      //       let d = {date: dt,stock_name: this.stockList[i],value: rnd, daily_change: rnd}//-rndDaily
+      //       let d = {date: dt,stock_name: this.stockList[i],value: rnd, daily_ratio: rnd}//-rndDaily
       //       if(this.chartData.alldata.length == 0){
       //         this.chartData.alldata.push(d)
       //       }else{
       //         if(numberRandom(0,300)>threshold){
       //           this.chartData.tag.push({position:[dt, rnd],html:ht})
-      //           this.chartData.alldata.push({date:dt,stock_name:"大目标达标",value:rnd, daily_change: rnd})
+      //           this.chartData.alldata.push({date:dt,stock_name:"大目标达标",value:rnd, daily_ratio: rnd})
       //           i++
       //         }
       //         this.chartData.alldata.push(d)

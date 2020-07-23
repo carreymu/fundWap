@@ -11,10 +11,12 @@ import targetFOrder from '@/components/wap/target/targetFOrder'
 import targetSOrder from '@/components/wap/target/targetSOrder'
 import targetFundOrder from '@/components/wap/target/targetFundOrder'
 import targetStockOrder from '@/components/wap/target/targetStockOrder'
+import targetTemplate from '@/components/wap/target/targetTemplate'
 import drumstick from '@/components/wap/drumstick/drumstick'
 import bestChoice from '@/components/wap/bestChoice/bestChoice'
 import bestChoiceDetail from '@/components/wap/bestChoice/bestChoiceDetail'
 import bestChoiceSingle from '@/components/wap/bestChoice/bestChoiceSingle'
+import bestChoicePlan from '@/components/wap/bestChoice/bestChoicePlan'
 import systemInfoDetail from '@/components/wap/systemInfo/systemInfoDetail'
 import systemInfo from '@/components/wap/systemInfo/systemInfo'
 import mine from '@/components/wap/mine/mine'
@@ -23,6 +25,7 @@ import myNews from '@/components/wap/mine/myNews'
 import myPositions from '@/components/wap/mine/myPositions'
 import myTargets from '@/components/wap/mine/myTargets'
 import myAccount from '@/components/wap/mine//myAccount'
+import myLogin from '@/components/wap/mine//myLogin'
 
 Vue.use(VueRouter)
 const router = new VueRouter({
@@ -88,6 +91,11 @@ const router = new VueRouter({
 				component: targetStockOrder
 			},
 			{
+				path: '/fundWap/targetTemplate',
+				name: 'targetTemplate',
+				component: targetTemplate
+			},
+			{
 				path: '/fundWap/drumstick',
 				name: 'drumstick',
 				component: drumstick
@@ -118,14 +126,24 @@ const router = new VueRouter({
 				component: myAccount
 			},
 			{
+				path: '/fundWap/myLogin',
+				name: 'myLogin',
+				component: myLogin
+			},
+			{
 				path: '/fundWap/mine',
 				name: 'mine',
 				component: mine
-				},
+			},
 			{
 				path: '/fundWap/bestChoice',
 				name: 'bestChoice',
 				component: bestChoice
+			},
+			{
+				path: '/fundWap/bestChoicePlan',
+				name: 'bestChoicePlan',
+				component: bestChoicePlan
 			},
 			{
 				path: '/fundWap/bestChoiceDetail/:cid',

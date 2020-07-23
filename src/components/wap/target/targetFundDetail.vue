@@ -40,7 +40,7 @@
               apply_ratio:item.purchase_rate_new,fund_tot: item.fund_tot,topn: item.topn}}">申购基金&nbsp; ></router-link> -->
             </div>
             <div style="float: right;" v-else>
-              <router-link :to="'/fundWap/targetStockOrder/'+item.fid">{{item.percentage}}%&nbsp; ></router-link>
+              <router-link :to="'/fundWap/targetStockOrder/'+item.fid">{{item.hold_percentage}}%&nbsp; ></router-link>
             </div>
         </div>
       </div>

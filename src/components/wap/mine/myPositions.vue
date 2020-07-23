@@ -45,24 +45,45 @@
       <div style="padding:15px 0 5px 0;">
         <flexbox>
           <flexbox-item><div class ="waitInvokeTxtPre">|||| <span class="waitInvokeTxtTail">{{it.name}}</span></div></flexbox-item>
-          <flexbox-item><div style="text-align:right;" v-if="it.hold_cnt>0"><router-link :to="'/fundWap/myTargets'">持有{{it.hold_cnt}}期&nbsp;> </router-link></div></flexbox-item>
+          <flexbox-item style="text-align:right;">
+            <div v-if="it.url=='#'">持有{{it.hold_cnt}}期</div>
+            <div v-else-if="it.hold_cnt>0">
+              <router-link :to="{path:'/fundWap/'+it.url,query:{type:it.type}}">持有{{it.hold_cnt}}期&nbsp;></router-link>
+            </div>
+          </flexbox-item>
         </flexbox>
       </div>
-      
       <div class="rectAgl">
-        <div class="invIntro">
-          <div style="padding-top:12px;">
-            <div>{{it.dt}}  {{it.daily_ratio}}%</div>
-            <div v-if="it.daily_profit>=0" style="color:#d95353;">+{{it.daily_profit}}</div>
-            <div v-else style="color:green;">{{it.daily_profit}}</div>
-          </div>
-          <div class="linkRight"></div>
-          <div style="padding-top:12px;">
-            <div>持仓盈亏 {{it.hold_ratio}}%</div>
-            <div v-if="it.hold_profit>=0" style="color:#d95353;">+{{it.hold_profit}}</div>
-            <div v-else style="color:green;">{{it.hold_profit}}</div>
+        <div v-if="it.url=='#'">
+          <div class="invIntro">
+            <div style="padding-top:12px;">
+              <div>{{it.dt}} {{it.daily_ratio}}%</div>
+              <div v-if="it.daily_profit>=0" style="color:#d95353;">+{{it.daily_profit}}</div>
+              <div v-else style="color:green;">{{it.daily_profit}}</div>
+            </div>
+            <div class="linkRight"></div>
+            <div style="padding-top:12px;">
+              <div>持仓盈亏 {{it.hold_ratio}}%</div>
+              <div v-if="it.hold_profit>=0" style="color:#d95353;">+{{it.hold_profit}}</div>
+              <div v-else style="color:green;">{{it.hold_profit}}</div>
+            </div>
           </div>
         </div>
+        <router-link v-else :to="{path:'/fundWap/'+it.url,query:{type:it.type}}">
+          <div class="invIntro">
+            <div style="padding-top:12px;">
+              <div>{{it.dt}} {{it.daily_ratio}}%</div>
+              <div v-if="it.daily_profit>=0" style="color:#d95353;">+{{it.daily_profit}}</div>
+              <div v-else style="color:green;">{{it.daily_profit}}</div>
+            </div>
+            <div class="linkRight"></div>
+            <div style="padding-top:12px;">
+              <div>持仓盈亏 {{it.hold_ratio}}%</div>
+              <div v-if="it.hold_profit>=0" style="color:#d95353;">+{{it.hold_profit}}</div>
+              <div v-else style="color:green;">{{it.hold_profit}}</div>
+            </div>
+          </div>
+        </router-link>
       </div>
     </div>
     <div class="line"/>

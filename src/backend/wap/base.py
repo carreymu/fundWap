@@ -72,19 +72,44 @@ class Database:
             error = traceback.format_exc()
             raise DBExecuteError(key=self.key, db_info=self.db_info, sql=sql, reason=error)
 
+    @dependence_statsd("db")
+    async def exec_sql(self, sql: str):
+        # import pdb;
+        # pdb.set_trace()
+        try:
+            # if self.db_type == "mysql":
+            async with self.engine.acquire() as conn:
+                async with conn.cursor() as cursor:
+                    return await asyncio.wait_for(cursor.execute(sql), DEPENDENCE_TIMEOUT)
 
-    # # exec sql
-    # async def exec_sql(self, sql: str, fmt: str = "json", **sql_params):
-    #     columns = await self.get_columns(sql)
-    #     # import pdb;pdb.set_trace()
-    #     df = await self.read_sql(sql.format(**sql_params), columns=columns)
-    #     return df_to_fmt(df, fmt)
+            # elif self.db_type == "mssql":
+            #     loop = asyncio.get_running_loop()
+            #     await asyncio.wait_for(
+            #       loop.run_in_executor(executor, pd.read_sql, sql, self.engine), DEPENDENCE_TIMEOUT
+            #     )
+
+        except asyncio.CancelledError:
+            raise
+        except asyncio.TimeoutError:
+            raise DBExecuteError(key=self.key, db_info=self.db_info, sql=sql, reason="[wap]数据库执行SQL超时!!!")
+        except Exception:
+            error = traceback.format_exc()
+            raise DBExecuteError(key=self.key, db_info=self.db_info, sql=sql, reason=error)
     #
     # async def get_columns(self, sql_in):
     #     sql = sql_in.lower()
     #     sql_trim = sql[7: sql.find(' from ')].strip()
     #     # print(sql_trim)
     #     return [x.strip().split(' ')[-1] for x in sql_trim.split(',') if len(x) > 0 and 'top ' not in x]
+
+
+async def exec_sql_op(event_names: str, **sql_params):
+    event_info = app.var[event_names]
+    if 'sql_info' not in event_info.keys():
+        print(f'{event_names} does not have key [sql_info].')
+        return
+    db = Database(event_info['sql_info'])
+    return await db.exec_sql(db.sql.format(**sql_params))
 
 
 # exec sql

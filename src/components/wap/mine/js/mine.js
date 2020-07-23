@@ -8,8 +8,8 @@ export default {
     return {
       menus:[],
       myInfo:{},
-      showContent004: false,
-      menus1: {
+      showContent: false,
+      menus: {
         menu1: '分享给朋友',
         menu2: '分享到朋友圈'
       },
@@ -17,8 +17,15 @@ export default {
   },
   methods:{
     menuLists(){
+      // just demo
+      // MUST: call backend API and check
+      if(this.$utcookie.getCookie("uid")==undefined){
+				window.location = "#/fundWap/mylogin"
+				return
+      }
+      let uid = parseInt(this.$utcookie.getCookie("uid"))
       let dt = {
-        "req": {"uid":1,"scids":13},
+        "req": {"uid":uid,"scids":13},
         "event_names": ["system_info","user_news_info_not_read_by_uid","user_card_cnt_uid",
         "user_detail_by_uid","user_invest_account_by_uid"]
       }
@@ -29,6 +36,7 @@ export default {
         if(r.user_news_info_not_read_by_uid!=undefined && r.user_news_info_not_read_by_uid.length>0){
           for(var x of this.menus){
             if(x.title.indexOf("消息中心")>0){
+              // todo after click reset number
               x['cnt']=r.user_news_info_not_read_by_uid[0].cnt
               break;
             }
@@ -44,7 +52,7 @@ export default {
               break;
             }
           }
-          console.log(this.menus)
+          // console.log(this.menus)
         }
         if(r.user_detail_by_uid!=undefined && r.user_detail_by_uid.length>0){
           this.myInfo=r.user_detail_by_uid[0]

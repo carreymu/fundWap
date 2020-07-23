@@ -9,11 +9,13 @@ import api from './service/index.js'
 import stringFormat from './utils/utstring'
 import utdate from './utils/utdate.js'
 import utrandom from './utils/utrandom.js'
+import utcookie from './utils/utcookie.js'
 
 import router from'./router/wapRouter.js'      //---------自定义的路由文件
 import Base from './assets/js/baseFun.js'         //---------自定义的公共函数和公共请求方法
 import stores from './store/store'                //---------自定义的全局变量
 import './assets/css/base.css'                    //---------引入的全局公共css
+
 
 /*charts*/
 import { VChart, VLine, VArea, VBar, VPie, VPoint, VScale, VAxis, VGuide, VTooltip, VLegend } from 'vux' 
@@ -40,7 +42,7 @@ Vue.prototype.$api = api
 Vue.prototype.$stringFormat = stringFormat
 Vue.prototype.$utdate = utdate
 Vue.prototype.$utrandom = utrandom
-
+Vue.prototype.$utcookie = utcookie
 
 Vue.use(VueRouter)
 

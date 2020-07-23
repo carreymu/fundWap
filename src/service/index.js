@@ -1,6 +1,7 @@
 import axios from 'axios'
-// import { Message } from 'element-ui'
 // import qs from 'qs'
+import stores from '../store/store.js'
+import utcookie from '../utils/utcookie.js'
 import config from './config'
 
 if (process.server) {
@@ -9,10 +10,15 @@ if (process.server) {
 
 const service = axios.create(config)
 const trace_info = {"hashid": "hashkey","appid": "10050001"}
+const header_info = {'Cookie': utcookie.getCookie("token")}
 
 // POST 传参序列化
 service.interceptors.request.use(
   config => {
+    // todo  Authorization????
+    if (utcookie.getCookie("token")) {
+      config.headers.Authorization = `token ${utcookie.getCookie("token")}`;
+    }
     // if (config.method === 'post') config.data = qs.stringify(config.data)
     return config
   },
@@ -32,8 +38,9 @@ service.interceptors.response.use(
 
 export function fetchPost(url, params) {
   let param = hashkey(params, 'wap_info')
+  let header = {headers: header_info}
   return new Promise((resolve, reject) => {
-    service.post(url, param)
+    service.post(url, param, header)
       .then(response => {
         resolve(response.data);
       }, err => {
@@ -48,9 +55,10 @@ export function fetchPost(url, params) {
 export function fetchGet(url, params) {
   let param = hashkey(params, 'wap_info')
   return new Promise((resolve, reject) => {
-    service.get(url, {
-      params: param
-    })
+      service.get(url, {
+        headers: header_info,
+        params: param
+      })
       .then(response => {
         resolve(response.data)
       }, err => {

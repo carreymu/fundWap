@@ -19,8 +19,13 @@ export default {
     //   this.showMsg=true;
     // },
     myPositions(){
+      if(this.$utcookie.getCookie("uid")==undefined){
+        window.location = "#/fundWap/mylogin"
+        return
+      }
+      let uid = parseInt(this.$utcookie.getCookie("uid"))
       let dt = {
-        "req": {"uid":1},
+        "req": {"uid":uid},
         "event_names": ["user_invest_account_joined_by_uid"]
       }
       this.$api.fetchPost('/sanic-api', dt).then(r=>{

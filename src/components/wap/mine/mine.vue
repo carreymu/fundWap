@@ -27,9 +27,9 @@
           <badge v-if="it.cnt!=undefined & it.cnt>0" :text="it.cnt"></badge>
         </cell>
         <span v-else >
-        <cell class="msg" is-link :title="it.title" :border-intent="false" :arrow-direction="showContent004 ? 'down' : ''"
-        @click.native="showContent004 = !showContent004"></cell>
-        <actionsheet class="msg" v-model="showContent004" :menus="menus1" :close-on-clicking-mask="false" show-cancel
+        <cell class="msg" is-link :title="it.title" :border-intent="false" :arrow-direction="showContent ? 'down' : ''"
+        @click.native="showContent = !showContent"></cell>
+        <actionsheet class="msg" v-model="showContent" :menus="menus" :close-on-clicking-mask="false" show-cancel
         @on-click-mask="maskClick('on click mask')"></actionsheet>
         </span>
       </div>

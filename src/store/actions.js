@@ -2,7 +2,6 @@
 import * as data from './data'
 
 export default{
-
 	UPDATE_HEAD:({commit})=>{
 		commit(data.UPDATE_HEAD);
 	},
@@ -14,5 +13,8 @@ export default{
 	},
 	UPDATE_PAGE_TITLE:({commit})=>{
 		commit(data.UPDATE_PAGE_TITLE)
+	},
+	TOKEN:({commit})=>{
+		commit(data.TOKEN)
 	}
 }

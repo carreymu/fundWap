@@ -7,6 +7,7 @@ from wap.events.user_bank_event.config import config as user_bank_event
 from wap.events.fund_plan_event.config import config as fund_plan_event
 from wap.events.user_news_info_event.config import config as user_news_info_event
 from wap.events.user_invest_account_event.config import config as user_invest_account_event
+from wap.events.user_detail_event.config import config as user_detail_event
 
 # information from joined DB
 events_config = dict(
@@ -18,4 +19,5 @@ events_config = dict(
     fund_plan_event=fund_plan_event,
     user_news_info_event=user_news_info_event,
     user_invest_account_event=user_invest_account_event,
+    user_detail_event=user_detail_event,
 )

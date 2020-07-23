@@ -13,8 +13,13 @@ export default {
   },
   methods:{
     myAccount(){
+      if(this.$utcookie.getCookie("uid")==undefined){
+				window.location = "#/fundWap/mylogin"
+				return
+      }
+      let uid = parseInt(this.$utcookie.getCookie("uid"))
       let dt = {
-        "req": {"uid":1},
+        "req": {"uid":uid},
         "event_names": ["user_detail_by_uid"]
       }
       this.$api.fetchPost('/sanic-api', dt).then(r=>{
@@ -24,9 +29,22 @@ export default {
         }
       })
     },
-    // console (msg) {
-    //   console.log(msg)
-    // },
+    loginOut() {
+      // MUST: remove cookie from SERVER!!
+      try {
+        this.$utcookie.delCookie("token")
+        this.$utcookie.delCookie("uid")
+        AlertModule.show({
+          title: '恭喜~~',
+          content: '成功退出!',
+          onHide () {
+            window.location = "#/fundWap/targetIndex"
+          }
+        })
+      } catch (error) {
+        window.location = "#/fundWap/targetIndex"
+      }
+    },
   },
   components: {
     Tabbar,

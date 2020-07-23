@@ -9,8 +9,8 @@
     <div class="topTxt">
       <div class="top">大目标</div>
       <div class="topRmk">自动止盈的基金投资服务</div>
-      <swiper auto height="230px" dots-position="center">
-        <swiper-item v-for="(item, index) in bannerList" :key="index">
+      <swiper auto  style="height:100px; border-radius:8px; overflow:hidden;" dots-position="center">
+        <swiper-item v-for="(item, index) in bannerList" :key="index" style="height:120px;">
           <a :href="item.url"><img :alt="item.title" :src="item.img_url"/></a>
         </swiper-item>
       </swiper>
@@ -136,12 +136,11 @@ a:hover {
   font-size: 20px;
   font-weight:800;
   color: brown;
-  padding-top: 20px;
-  padding-bottom: 10px;
+  padding: 10px 0px;
 }
 .targetIndex .topTxt .topRmk{
   color:dimgray;
-  height: 15px;
+  line-height: 35px;
 }
 .targetIndex .topTxt .top3fd{
   padding: 10px;
@@ -167,7 +166,7 @@ a:hover {
 .targetIndex .topTxt .rect{
   width: 100%;
   height: auto;
-  /* padding: 30px 20px 40px 20px; */
+  padding: 10px 0px;
   border-radius: 10px;
   box-shadow: 5px 5px 5px #e2e1e1; 
   background-color: white;
