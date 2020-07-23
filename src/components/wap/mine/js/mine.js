@@ -36,6 +36,7 @@ export default {
         if(r.user_news_info_not_read_by_uid!=undefined && r.user_news_info_not_read_by_uid.length>0){
           for(var x of this.menus){
             if(x.title.indexOf("消息中心")>0){
+              // todo after click reset number
               x['cnt']=r.user_news_info_not_read_by_uid[0].cnt
               break;
             }

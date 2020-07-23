@@ -26,10 +26,11 @@ import { Tabbar, TabbarItem ,XHeader,XButton,XDialog,Flexbox,FlexboxItem } from 
             "req": {"uid":uid, "uni_id":id},
             "event_names": ["update_user_news_info_read"]
           }
+          console.log(dt)
           this.$api.fetchPost('/sanic-api', dt).then(r=>{
-            if(r.user_news_info_list!=undefined && r.user_news_info_list.length>0){
-              this.newsList=r.user_news_info_list
-              this.newsList.map(x=>x.inserttime=this.$utdate.dateFmt(x.inserttime,"yy/MM/dd"))
+            if(r.update_user_news_info_read!=undefined && r.update_user_news_info_read.length>0){
+              this.newsList=r.update_user_news_info_read
+              // this.newsList.map(x=>x.inserttime=this.$utdate.dateFmt(x.inserttime,"yy/MM/dd"))
               console.log(this.newsList)
             }
           })
