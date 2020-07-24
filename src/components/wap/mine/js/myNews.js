@@ -19,22 +19,18 @@ import { Tabbar, TabbarItem ,XHeader,XButton,XDialog,Flexbox,FlexboxItem } from 
         }
         let uid = parseInt(this.$utcookie.getCookie("uid"))
         let flt = this.newsList.filter(x=>x.uni_id==id)
-        if(flt.length>0){          
+        if(flt.length > 0){          
           this.dialogContent = flt[0].content
-          // to do
           let dt = {
             "req": {"uid":uid, "uni_id":id},
-            "event_names": ["update_user_news_info_read"]
+            "event_names": ["user_news_info_read"]
           }
-          console.log(dt)
           this.$api.fetchPost('/sanic-api', dt).then(r=>{
             if(r.update_user_news_info_read!=undefined && r.update_user_news_info_read.length>0){
               this.newsList=r.update_user_news_info_read
-              // this.newsList.map(x=>x.inserttime=this.$utdate.dateFmt(x.inserttime,"yy/MM/dd"))
-              console.log(this.newsList)
             }
           })
-        } else{
+        } else {
           this.dialogContent = '暂无信息'
           console.log('alter....')
         }
@@ -54,7 +50,6 @@ import { Tabbar, TabbarItem ,XHeader,XButton,XDialog,Flexbox,FlexboxItem } from 
           if(r.user_news_info_list!=undefined && r.user_news_info_list.length>0){
             this.newsList=r.user_news_info_list
             this.newsList.map(x=>x.inserttime=this.$utdate.dateFmt(x.inserttime,"yy/MM/dd"))
-            // console.log(this.newsList)
           }
         })
       },

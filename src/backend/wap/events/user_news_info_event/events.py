@@ -14,8 +14,6 @@ class UserNewsInfoList(DataSource):
         if result:
             nid_lst = [x['nid'] for x in result["user_news_info_by_uid"]]
             if nid_lst:
-                # import pdb;pdb.set_trace()
-                # nids = ','.join('%s' % f for f in nid_lst)
                 nids = sql_in(nid_lst)
                 news_list = await exec_base.exec_sql_key(event_names='news_info_by_nids', **{'nids': nids})
                 news_category = await exec_base.exec_sql_key(event_names='news_category_broadcast', **{})
@@ -33,14 +31,12 @@ class UserNewsInfoList(DataSource):
 
 
 class UserNewsInfoRead(DataSource):
-    # req: dict
     event_default: Any
     dependence_source: dict
 
     async def compute(self):
         result = self.dependence_source["user_news_info_not_read_by_unid"]
         if result:
-            # import pdb; pdb.set_trace()
             uni_id = result[0]['uni_id']
             uid = result[0]['uid']
             eff_rec = await exec_base.exec_sql_op(event_names='update_user_news_info_read',

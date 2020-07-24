@@ -80,8 +80,9 @@ class Database:
             # if self.db_type == "mysql":
             async with self.engine.acquire() as conn:
                 async with conn.cursor() as cursor:
-                    return await asyncio.wait_for(cursor.execute(sql), DEPENDENCE_TIMEOUT)
-
+                    res = await asyncio.wait_for(cursor.execute(sql), DEPENDENCE_TIMEOUT)
+                    await conn.commit()
+                    return res
             # elif self.db_type == "mssql":
             #     loop = asyncio.get_running_loop()
             #     await asyncio.wait_for(
@@ -109,6 +110,8 @@ async def exec_sql_op(event_names: str, **sql_params):
         print(f'{event_names} does not have key [sql_info].')
         return
     db = Database(event_info['sql_info'])
+    print('*'*5)
+    print(db.sql.format(**sql_params))
     return await db.exec_sql(db.sql.format(**sql_params))
 
 

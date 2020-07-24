@@ -52,7 +52,7 @@ config = dict(
       "sql_info": {
         "engine_name": "db_fund_wap_mysql",
         "sql": {
-          "mysql": "update user_news_info set is_read=1 where uni_id={uni_id} and is_read=0",
+          "mysql": "update user_news_info set is_read=1 where uni_id={uni_id} and uid={uid} and is_read=0",
           "sqlite3": "",
           "mssql": ""
         }
