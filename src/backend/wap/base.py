@@ -74,8 +74,6 @@ class Database:
 
     @dependence_statsd("db")
     async def exec_sql(self, sql: str):
-        # import pdb;
-        # pdb.set_trace()
         try:
             # if self.db_type == "mysql":
             async with self.engine.acquire() as conn:
@@ -96,12 +94,6 @@ class Database:
         except Exception:
             error = traceback.format_exc()
             raise DBExecuteError(key=self.key, db_info=self.db_info, sql=sql, reason=error)
-    #
-    # async def get_columns(self, sql_in):
-    #     sql = sql_in.lower()
-    #     sql_trim = sql[7: sql.find(' from ')].strip()
-    #     # print(sql_trim)
-    #     return [x.strip().split(' ')[-1] for x in sql_trim.split(',') if len(x) > 0 and 'top ' not in x]
 
 
 async def exec_sql_op(event_names: str, **sql_params):
