@@ -4,7 +4,7 @@
 
 # Notice
 ```
-# if you care about fontend only, please checkout static_data
+# if you care about fontend only, please checkout branch static_data
 git checkout static_data
 
 ```
