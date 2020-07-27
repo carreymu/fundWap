@@ -65,46 +65,35 @@ python main.py
 - [x] 我的 - 新人指南
 - [x] 我的 - 推荐给好友
 - [x] 我的 - 我的持仓
-- [ ] 我的 - 我的大目标
-
-- [ ] 监控
+- [x] 我的 - 我的大目标
 
 ## Document Structure ##
 ```
 
-|-- build                            // webpack
-|-- config                           // 项目打包路径
-|-- src                              // 源码目录
-|   |-- assets                       // 资源文件
-|   |-- components                   // 组件
-|       |-- wap                      // 主要代码
-|           |-- bestChoice           // 优选
-|           |-- systemInfo           // 系统信息
-|           |-- drumstick            // 鸡腿计划
-|           |-- mine                 // 我的
-|           |-- target               // 大目标
-|   |-- router                       // 路由
-|       |-- wapRouter.js
-|   |-- utils                       // 工具类
-|       |-- utdate.js
-|       |-- utmap.js
-|       |-- utrandom.js
-|       |-- utstring.js
-|   |-- store                       // Vue 路由
-|       |-- actions.js
-|       |-- data.js
-|       |-- mutations.js
-|       |-- store.js
-|   |-- App.vue                      // App入口文件
-|   |-- main.js                      // 程序入口文件，加载Vuex,Vue-router等插件
-|   |-- static                       // 临时静态文件
-|-- .babelrc                         // ES6语法编译配置
-|-- .editorconfig                    // 代码编写规格
-|-- .postcssrc.js                    // post css 配置文件
+|-- build                            // Webpack configurations
+|-- config                           // Dev and prod environment
+|-- src                              // Source code
+|   |-- assets                       // Static files css/img/js for web. [BaseFun.js does not use any more.]
+|   |-- components                   // Wap pages and framework page
+|       |-- wap                      // Wap
+|           |-- bestChoice           // Menu bestChoice
+|           |-- systemInfo           // Menu systemInfo
+|           |-- drumstick            // Menu drumstick
+|           |-- mine                 // Menu mine
+|           |-- target               // Menu target
+|   |-- router                       // Router
+|   |-- service                      // Fetch data services and axios config
+|   |-- utils                        // Utils
+|   |-- store                        // Global parameters
+|   |-- App.vue                      // App
+|   |-- main.js                      // Main，load Vuex,Vue-router,utils,components and so on.
+|   |-- static                       // Static files for business
+|-- .babelrc                         // ES6 compilation configurations
+|-- .editorconfig                    // Code style
 |-- README.md                        // README
-|-- index.html                       // 入口html文件
-|-- __package_____.json              // 备份配置文件
-|-- package.json                     // 项目及工具的依赖配置文件
+|-- index.html                       // Main html
+|-- __package_____.json              // Backup cofiguration files
+|-- package.json                     // Dependencies and project configurations
 
 ```
 

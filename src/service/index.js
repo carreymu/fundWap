@@ -1,6 +1,6 @@
 import axios from 'axios'
 // import qs from 'qs'
-import stores from '../store/store.js'
+// import stores from '../store/store.js'
 import utcookie from '../utils/utcookie.js'
 import config from './config'
 

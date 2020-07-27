@@ -7,7 +7,7 @@
      <div v-transfer-dom class="loading-box">
         <loading :show="loading" position="absolute"></loading>
     </div>
-        <router-view></router-view>
+    <router-view></router-view>
      <tabbar v-show="footerShow"  slot="bottom">
       <tabbar-item selected link="/fundWap/newsIndex">
         <img slot="icon" src="../assets/images/btn.png">
