@@ -39,6 +39,14 @@ python main.py
 
 ```
 
+## MySQL Build Setup
+```
+cd /static
+# run createtable_mysql.sql in MySQL
+# or run createtable_sqlite.sql in SQLite
+
+```
+
 ## Pages
 - [ ] 大目标 
 - [x] 大目标 - 申购
