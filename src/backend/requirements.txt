@@ -3,7 +3,7 @@ yaml==0.1.7
 pandas==0.25.0
 aredis==1.1.8
 cryptography==2.8
-certifi==2019.11.28
+certifi==2022.12.7
 aiohttp==3.5.4
 aiomysql==0.0.20
 pymysql==0.9.2
